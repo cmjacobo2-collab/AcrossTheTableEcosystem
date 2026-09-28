@@ -1,0 +1,544 @@
+{
+  "credithoy": {
+    "name": "CreditHoy",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Business credit development made easier — build and monitor credit step by step.",
+    "feats": [
+      "Six-step credit roadmap",
+      "EIN and compliance guidance",
+      "Trade line tracking",
+      "Score monitoring"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $29.99/month",
+        "price": "$0",
+        "per": "then $29.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$29.99",
+        "per": "per month",
+        "amount": 29.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$290",
+        "per": "per year",
+        "amount": 290
+      }
+    ]
+  },
+  "lohare": {
+    "name": "LOHARE",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Quote, photograph, invoice, and get paid — from the job site.",
+    "feats": [
+      "Quotes and estimates",
+      "Before and after photos",
+      "Branded invoices",
+      "Card, Zelle, Cash App, Venmo"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $19.99/month",
+        "price": "$0",
+        "per": "then $19.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$19.99",
+        "per": "per month",
+        "amount": 19.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$190",
+        "per": "per year",
+        "amount": 190
+      }
+    ]
+  },
+  "juntoshr": {
+    "name": "JuntosHR",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Hiring, onboarding, scheduling, and payroll prep for teams without an HR department.",
+    "feats": [
+      "Hiring and applicant tracking",
+      "Onboarding checklists",
+      "Scheduling and time tracking",
+      "Payroll preparation"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $24.99/month",
+        "price": "$0",
+        "per": "then $24.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$24.99",
+        "per": "per month",
+        "amount": 24.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$390",
+        "per": "per year",
+        "amount": 390
+      }
+    ]
+  },
+  "ceo-mindset": {
+    "name": "CEO Mindset",
+    "kind": "Program",
+    "status": "Available for purchase",
+    "blurb": "The shift from doing every job to running the business.",
+    "feats": [
+      "Five-pillar framework",
+      "Scorecards and prompts",
+      "Owner development track",
+      "Lifetime access on one-time plan"
+    ],
+    "trial": 0,
+    "plans": [
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$99.99",
+        "per": "per month",
+        "amount": 99.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 20%",
+        "price": "$1068",
+        "per": "per year",
+        "amount": 1068
+      },
+      {
+        "key": "onetime",
+        "label": "One-time purchase",
+        "sub": "Pay once, keep lifetime access",
+        "price": "$4999.99",
+        "per": "one time",
+        "amount": 4999.99
+      }
+    ]
+  },
+  "entrepreneur-blueprint": {
+    "name": "Entrepreneur Blueprint",
+    "kind": "Digital resource",
+    "status": "Available for purchase",
+    "blurb": "Your whole business plan on one living page.",
+    "feats": [
+      "One-page blueprint builder",
+      "Guided prompts",
+      "Export to PDF",
+      "Lifetime access"
+    ],
+    "trial": 0,
+    "plans": [
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$99.99",
+        "per": "per month",
+        "amount": 99.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$1068",
+        "per": "per year",
+        "amount": 1068
+      }
+    ]
+  },
+  "hearaboutit": {
+    "name": "HearAboutIt",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Describe one topic. Get posts written for every platform.",
+    "feats": [
+      "AI content for five platforms",
+      "Review and approve before posting",
+      "Scheduling",
+      "Prompt library"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $149.99/month",
+        "price": "$0",
+        "per": "then $149.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$149.99",
+        "per": "per month",
+        "amount": 149.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$1656.98",
+        "per": "per year",
+        "amount": 1656.98
+      }
+    ]
+  },
+  "grow-and-thrive": {
+    "name": "Grow & Thrive",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Strategy, ratios, and scenario planning for owners without an analyst.",
+    "feats": [
+      "Planning frameworks",
+      "Financial ratio calculators",
+      "What-if modeling",
+      "Dashboards and reports"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $49.99/month",
+        "price": "$0",
+        "per": "then $49.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$49.99",
+        "per": "per month",
+        "amount": 49.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$576.99",
+        "per": "per year",
+        "amount": 576.99
+      }
+    ]
+  },
+  "startwise": {
+    "name": "StartWise",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Everything a new owner needs, from idea to launch.",
+    "feats": [
+      "Startup roadmap",
+      "Business plan builder",
+      "Financial and compliance tools",
+      "AI business assistant"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $189.99/month",
+        "price": "$0",
+        "per": "then $189.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$189.99",
+        "per": "per month",
+        "amount": 189.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$2268.99",
+        "per": "per year",
+        "amount": 2268.99
+      },
+      {
+        "key": "onetime",
+        "label": "One-time purchase",
+        "sub": "Pay once, keep lifetime access",
+        "price": "$2267.99",
+        "per": "one time",
+        "amount": 2267.99
+      }
+    ]
+  },
+  "leadmatch": {
+    "name": "LeadMatch",
+    "kind": "App subscription",
+    "status": "Coming soon",
+    "blurb": "Find prospects, score them, and know why each one fits.",
+    "feats": [
+      "Smart lead gathering",
+      "AI scoring with reasons",
+      "LinkedIn connect",
+      "Email outreach"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $149.99/month",
+        "price": "$0",
+        "per": "then $149.99/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$149.99",
+        "per": "per month",
+        "amount": 149.99
+      }
+    ]
+  },
+  "brightlights-360": {
+    "name": "BrightLights 360",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Sign projects from first meeting to final install.",
+    "feats": [
+      "Specs and renders",
+      "Vendor bids",
+      "Permit tracking",
+      "Installer scheduling"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $1279/month",
+        "price": "$0",
+        "per": "then $1279/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$1279",
+        "per": "per month",
+        "amount": 1279
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$13348",
+        "per": "per year",
+        "amount": 13348
+      }
+    ]
+  },
+  "business-connect": {
+    "name": "Business Connect",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "A two-way digital business card that keeps the lead.",
+    "feats": [
+      "Digital card and QR",
+      "Two-way exchange",
+      "Notes, tags, reminders",
+      "Pipeline tracking"
+    ],
+    "trial": 0,
+    "plans": [
+      {
+        "key": "onetime",
+        "label": "One-time purchase",
+        "sub": "Pay once, keep lifetime access",
+        "price": "$30",
+        "per": "one time",
+        "amount": 30
+      }
+    ]
+  },
+  "refer-and-earn": {
+    "name": "Refer & Earn",
+    "kind": "App subscription",
+    "status": "Available for purchase",
+    "blurb": "Turn your network into income.",
+    "feats": [
+      "Personal link and QR",
+      "Referral tracking",
+      "Earnings wallet",
+      "Leaderboards and bonuses"
+    ],
+    "trial": 14,
+    "plans": [
+      {
+        "key": "trial",
+        "label": "Free trial",
+        "sub": "14 days free, then $24.98/month",
+        "price": "$0",
+        "per": "then $24.98/mo",
+        "amount": 0
+      },
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$24.98",
+        "per": "per month",
+        "amount": 24.98
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$249.99",
+        "per": "per year",
+        "amount": 249.99
+      }
+    ]
+  },
+  "cash-flow-vs-ebitda": {
+    "name": "Cash Flow vs EBITDA",
+    "kind": "Digital resource",
+    "status": "Available for purchase",
+    "blurb": "Two views of your business, side by side.",
+    "feats": [
+      "Cash flow vs EBITDA comparison",
+      "Simple dashboards",
+      "Export and share",
+      "Lifetime access"
+    ],
+    "trial": 0,
+    "plans": [
+      {
+        "key": "monthly",
+        "label": "Monthly",
+        "sub": "Billed every month, cancel anytime",
+        "price": "$79.99",
+        "per": "per month",
+        "amount": 79.99
+      },
+      {
+        "key": "annual",
+        "label": "Annual",
+        "sub": "Billed yearly — save 17%",
+        "price": "$899.99",
+        "per": "per year",
+        "amount": 899.99
+      },
+      {
+        "key": "onetime",
+        "label": "One-time purchase",
+        "sub": "Pay once, keep lifetime access",
+        "price": "$79",
+        "per": "one time",
+        "amount": 79
+      }
+    ]
+  },
+  "tabletap": {
+    "name": "TableTap",
+    "kind": "Per table, one-time",
+    "status": "Available for purchase",
+    "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, an order, and a repeat customer.",
+    "feats": [
+      "Smart tap tags per table",
+      "Instant digital menu",
+      "Rewards and offers",
+      "Restaurant dashboard"
+    ],
+    "trial": 0,
+    "plans": [
+      {
+        "key": "basic",
+        "label": "Basic",
+        "price": "$14",
+        "per": "per table, one-time",
+        "amount": 14,
+        "sub": "Smart tap tag and simple menu access",
+        "note": "$14 per table, one-time. Tags and setup included, nothing monthly.",
+        "foot": "One-time purchase per table — nothing to cancel.",
+        "cta": "Get started"
+      },
+      {
+        "key": "marketing",
+        "label": "Marketing",
+        "price": "$24",
+        "per": "per table, one-time",
+        "amount": 24,
+        "sub": "Branded page with menu, specials and reviews",
+        "note": "$24 per table, one-time. Tags, branded page and setup included.",
+        "foot": "One-time purchase per table — nothing to cancel.",
+        "cta": "Get started"
+      },
+      {
+        "key": "smart",
+        "label": "Smart Table",
+        "price": "$35",
+        "per": "per table + $299/mo",
+        "amount": 35,
+        "sub": "Full digital experience with rewards and analytics",
+        "note": "$35 per table one-time, plus $299 a month for the dashboard, rewards and analytics.",
+        "foot": "The monthly service starts once your system is live. Cancel anytime.",
+        "cta": "Get started"
+      },
+      {
+        "key": "managed",
+        "label": "Managed",
+        "price": "$35",
+        "per": "per table + $499/mo",
+        "amount": 35,
+        "sub": "Everything, run for you — campaigns, support and strategy",
+        "note": "$35 per table one-time, plus $499 a month for campaigns, support and strategy.",
+        "foot": "The monthly management starts once your system is live. Cancel anytime.",
+        "cta": "Get started"
+      }
+    ]
+  }
+}
