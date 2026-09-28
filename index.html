@@ -80,6 +80,62 @@
 
 *,*::before,*::after{box-sizing:border-box;}
 
+/* ===== Owner access (Hub lock) ===================================== */
+.hubgate{min-height:64vh;display:grid;place-items:center;padding:40px 20px 90px;}
+.hubgate-card{width:100%;max-width:440px;background:var(--bg-panel);
+  border:1px solid var(--border-default);border-radius:16px;
+  box-shadow:var(--shadow-card);padding:34px 30px 30px;position:relative;overflow:hidden;}
+.hubgate-card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(43,168,255,.55),transparent);}
+.hubgate-ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(43,168,255,.10);border:1px solid var(--border-default);margin-bottom:18px;}
+.hubgate-ico svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;}
+.hubgate h2{font-family:var(--display);font-size:22px;line-height:1.25;margin:0 0 6px;
+  color:var(--text-heading);letter-spacing:-.01em;}
+.hubgate .sub{font-size:14px;line-height:1.55;color:var(--text-muted);margin:0 0 22px;}
+.hubgate label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-muted);margin:0 0 8px;}
+.hubgate input[type=password],.hubgate input[type=text]{width:100%;background:var(--bg-entry);
+  border:1px solid var(--border-default);border-radius:10px;padding:13px 14px;
+  color:var(--text-primary);font-family:var(--body);font-size:15px;
+  transition:border-color var(--fast) var(--ease),box-shadow var(--fast) var(--ease);}
+.hubgate input:focus{outline:none;border-color:var(--border-strong);box-shadow:var(--shadow-focus);}
+.hubgate .row{display:flex;gap:10px;margin-top:14px;}
+.hubgate .row .btn{flex:1;justify-content:center;}
+.hubgate .keep{display:flex;align-items:center;gap:9px;margin-top:16px;
+  font-size:13px;color:var(--text-body);cursor:pointer;user-select:none;}
+.hubgate .keep input{width:16px;height:16px;accent-color:var(--accent);flex:none;cursor:pointer;}
+.hubgate .msg{margin-top:15px;font-size:13.5px;line-height:1.5;min-height:1px;}
+.hubgate .msg.err{color:var(--danger-text);}
+.hubgate .msg.warn{color:var(--warning);}
+.hubgate .msg.ok{color:var(--success);}
+.hubgate .hint{margin-top:13px;font-size:12.5px;color:var(--text-muted);
+  padding-top:13px;border-top:1px solid var(--border-subtle);}
+.hubgate .note{margin-top:20px;font-size:12px;line-height:1.55;color:var(--text-muted);
+  background:rgba(242,184,75,.07);border:1px solid rgba(242,184,75,.22);
+  border-radius:10px;padding:12px 14px;}
+.hubgate .note b{color:var(--warning);font-weight:600;}
+.hub-signout{margin:14px 12px 0;width:calc(100% - 24px);display:flex;align-items:center;gap:9px;
+  background:transparent;border:1px solid var(--border-subtle);border-radius:9px;
+  padding:9px 12px;color:var(--text-muted);font-family:var(--body);font-size:13px;
+  cursor:pointer;transition:color var(--fast) var(--ease),border-color var(--fast) var(--ease);}
+.hub-signout:hover{color:var(--danger-text);border-color:rgba(227,93,106,.4);}
+.hub-signout svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:none;}
+.pwgen{position:fixed;inset:0;z-index:9999;background:var(--bg-app);overflow:auto;
+  display:grid;place-items:start center;padding:48px 20px;}
+.pwgen-card{width:100%;max-width:560px;background:var(--bg-panel);
+  border:1px solid var(--border-default);border-radius:16px;padding:32px 30px;}
+.pwgen-card h2{font-family:var(--display);font-size:22px;margin:0 0 8px;color:var(--text-heading);}
+.pwgen-card p{font-size:14px;line-height:1.6;color:var(--text-body);margin:0 0 20px;}
+.pwgen-out{margin-top:20px;background:var(--bg-entry);border:1px solid var(--border-default);
+  border-radius:10px;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.9;
+  color:var(--accent-bright);word-break:break-all;white-space:pre-wrap;}
+.pwgen .strength{margin-top:12px;font-size:12.5px;color:var(--text-muted);}
+@media (max-width:520px){.hubgate-card{padding:28px 22px 24px;}}
+
+
 html{scroll-behavior:smooth;scroll-padding-top:86px;}
 
 body{
@@ -2189,6 +2245,60 @@ a[data-goto]{cursor:pointer;}
    Example:
      "startwise": "https://play.google.com/store/apps/details?id=biz.acrossthetable.startwise",
    ============================================================================ */
+/* ============================================================================
+   OWNER ACCESS  —  the lock on My Business Hub
+
+   The Hub is your private workspace. This is the password that opens it.
+
+   TO SET OR CHANGE YOUR PASSWORD
+   ------------------------------
+   1. Open your live site and add  #set-hub-password  to the address, i.e.
+        https://acrossthetable.biz/#set-hub-password
+   2. Type the password you want. The page shows you two lines of code.
+   3. Paste those two lines below, replacing the two that are here now.
+   4. Re-upload index.html to GitHub. Done.
+
+   Your password is never written into this file and never travels anywhere.
+   Only a scrambled fingerprint of it is stored, and a fingerprint cannot be
+   turned back into the password.
+
+   Leave "hash" empty and the Hub stays unlocked for everyone — which is how
+   it behaves today, so you can never accidentally shut yourself out.
+
+   WHAT THIS LOCK DOES AND DOES NOT DO
+   -----------------------------------
+   DOES:      keeps visitors, customers and search engines out of your
+              workspace. Nobody wanders in. This is a real, useful thing.
+
+   DOES NOT:  hide the Hub from someone determined and technical. Your site
+              is a single file that every visitor downloads, so the Hub's
+              layout and any text inside it travels with it. The lock covers
+              the door; it does not make the room soundproof.
+
+   THE LINE NOT TO CROSS
+   ---------------------
+   Never type a real secret into this file. Not a Stripe key, not a customer
+   list, not a bank detail, not a password to anything else. The "Security &
+   secrets" and "Payments & Stripe" panes are labels for a future version
+   that runs on a real server — they are not a safe place to keep anything.
+   Demo numbers and your own notes are fine.
+
+   Ask me when you're ready for the real thing and I'll walk you through it.
+   ============================================================================ */
+window.HUB_ACCESS = {
+  hash: "",
+  salt: "",
+
+  /* Optional. A private nudge shown under the password box if you forget.
+     Everyone who reaches the lock screen can read it, so make it a reminder,
+     not a clue: "the usual one" — not "my dog + birth year". */
+  hint: "",
+
+  /* How long a successful sign-in lasts on this computer, in hours.
+     Set to 0 to require the password every time the browser is closed. */
+  hours: 12
+};
+
 window.APP_LINKS = {
   "entrepreneur-blueprint": "",
   "startwise":              "",
@@ -4253,6 +4363,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 </article>
 <article class="lp hub" id="hub" hidden aria-hidden="true">
 <div class="wrap backbar"><button class="back" type="button" data-home><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>Back to the public site</button></div>
+<div class="hubgate" id="hub-gate" hidden>
+  <div class="hubgate-card">
+    <div class="hubgate-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"></rect><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"></path></svg></div>
+    <h2>Owner access</h2>
+    <p class="sub">My Business Hub is your private workspace. Enter your password to open it.</p>
+    <label for="hub-pw">Password</label>
+    <input type="password" id="hub-pw" autocomplete="current-password" spellcheck="false" enterkeyhint="go">
+    <label class="keep"><input type="checkbox" id="hub-keep" checked><span>Keep me signed in on this computer</span></label>
+    <div class="row"><button class="btn btn-primary" type="button" id="hub-go">Open the Hub</button></div>
+    <div class="msg" id="hub-msg" role="status" aria-live="polite"></div>
+    <div class="hint" id="hub-hint" hidden></div>
+  </div>
+</div>
 <div class="hub-shell">
   <aside class="hub-side" aria-label="Business Hub navigation"><div class="hub-brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="13" y="21.5" width="22" height="5" rx="2.5" fill="#E0A03A"></rect><circle cx="10.5" cy="24" r="4.2" fill="#2BA8FF"></circle><circle cx="37.5" cy="24" r="4.2" fill="#2BA8FF"></circle></svg><span><b>My Business Hub</b><span>Owner workspace</span></span></div><div class="hub-nav"><button type="button" data-pane-btn="overview" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.6"></rect><rect x="14" y="3" width="7" height="7" rx="1.6"></rect><rect x="3" y="14" width="7" height="7" rx="1.6"></rect><rect x="14" y="14" width="7" height="7" rx="1.6"></rect></svg><span class="lbl">Overview</span></button><button type="button" data-pane-btn="apps" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.6"></rect><rect x="14" y="3" width="7" height="7" rx="1.6"></rect><rect x="3" y="14" width="7" height="7" rx="1.6"></rect><rect x="14" y="14" width="7" height="7" rx="1.6"></rect></svg><span class="lbl">My apps</span></button><button type="button" data-pane-btn="billing" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"></rect><path d="M2.5 10h19M6 15h4"></path></svg><span class="lbl">Billing &amp; subscriptions</span><span class="dot-alert" aria-label="Needs attention"></span></button><button type="button" data-pane-btn="activity" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M3 12h4l2.5-7 4 14 2.5-7H21"></path></svg><span class="lbl">My activity</span></button></div><div class="hub-group">My learning</div><div class="hub-nav"><button type="button" data-pane-btn="learning" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M12 4 2.5 9 12 14l9.5-5Z"></path><path d="M6.5 11.2V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.8"></path></svg><span class="lbl">AI App Development</span></button></div><div class="hub-group">My tools</div><div class="hub-nav"><button type="button" data-pane-btn="tools" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 20h4L20 8a2.4 2.4 0 0 0-3.4-3.4L4 16.6Z"></path></svg><span class="lbl">All tools</span><span class="pill-sm">5</span></button><button type="button" data-pane-btn="refer" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"></circle><circle cx="6" cy="12" r="2.6"></circle><circle cx="18" cy="18.5" r="2.6"></circle><path d="M8.3 13.2l7.4 4.1M15.7 6.7 8.3 10.8"></path></svg><span class="lbl">Refer &amp; Earn</span></button><button type="button" data-pane-btn="leadmatch" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M16 20.5v-1.7a3.6 3.6 0 0 0-3.6-3.6H6.6A3.6 3.6 0 0 0 3 18.8v1.7"></path><circle cx="9.5" cy="7.5" r="3.4"></circle><path d="M21 20.5v-1.7a3.6 3.6 0 0 0-2.7-3.5"></path></svg><span class="lbl">LeadMatch</span></button><button type="button" data-pane-btn="hearaboutit" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg><span class="lbl">HearAboutIt</span></button></div><div class="hub-group">Website admin</div><div class="hub-nav"><button type="button" data-pane-btn="ecosystem" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M12 2.8 20.5 7v10L12 21.2 3.5 17V7Z"></path><path d="M3.5 7 12 11.5 20.5 7M12 11.5V21"></path></svg><span class="lbl">Ecosystem manager</span><span class="pill-sm pill-owner">Owner</span></button><button type="button" data-pane-btn="products" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="3.4"></circle><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6 16.8 7.2M7.2 16.8 5.6 18.4"></path></svg><span class="lbl">Products &amp; pricing</span></button><button type="button" data-pane-btn="legal" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M5 3.5h9l5 5v12H5Z"></path><path d="M14 3.5v5h5M8.5 13h7M8.5 16.5h4.5"></path></svg><span class="lbl">Legal &amp; governance</span><span class="pill-sm pill-owner">Owner</span></button><button type="button" data-pane-btn="security" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M12 3l7.5 3v5.6c0 4.4-3.1 7.6-7.5 9.4-4.4-1.8-7.5-5-7.5-9.4V6Z"></path><path d="M9 12l2.2 2.2L15.4 10"></path></svg><span class="lbl">Security &amp; secrets</span></button><button type="button" data-pane-btn="stripe" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"></rect><path d="M2.5 10h19M6 15h4"></path></svg><span class="lbl">Payments &amp; Stripe</span><span class="pill-sm">TEST</span></button><button type="button" data-pane-btn="recovery" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8.6"></circle><path d="M12 7.2V12l3.2 2"></path></svg><span class="lbl">Payment recovery</span></button><button type="button" data-pane-btn="analytics" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 20V4M4 20h16"></path><path d="M8 16.5V12M12.5 16.5V8M17 16.5v-6"></path></svg><span class="lbl">Customer analytics</span></button><button type="button" data-pane-btn="devtest" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M9 7.5 4 12l5 4.5M15 7.5 20 12l-5 4.5"></path></svg><span class="lbl">Development &amp; testing</span></button></div></aside>
   <div class="hub-main">
@@ -6079,5 +6202,283 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 })();
 </script>
+
+<script>
+/* ============================================================================
+   OWNER ACCESS — the lock on My Business Hub
+
+   Deliberately standalone. The site has two routers (a main one and a
+   fallback that takes over if the main script throws), and a lock that hooks
+   into only one of them is a lock on one of two doors. So this does not hook
+   routing at all: the Hub's contents start hidden and are revealed only by a
+   correct password. Whichever router opens the #hub view, it opens onto the
+   password screen.
+
+   Honest about what it is: this page is a single file that every visitor
+   downloads, so this is a door with a key, not a vault. It keeps people out
+   of your workspace. It does not make the workspace secret. Never put a real
+   credential behind it — see the notes on HUB_ACCESS near the top of the file.
+   ============================================================================ */
+(function(){
+  "use strict";
+
+  var HA    = window.HUB_ACCESS || {};
+  var ITER  = 250000;
+  var SKEY  = 'att.hub.session';
+  var TKEY  = 'att.hub.tries';
+
+  /* ---------- crypto ---------- */
+  function secure(){ return !!(window.crypto && window.crypto.subtle && window.isSecureContext); }
+  function hexBytes(s){ var a=new Uint8Array(s.length/2);
+    for(var i=0;i<a.length;i++) a[i]=parseInt(s.substr(i*2,2),16); return a; }
+  function bytesHex(b){ var o='';
+    for(var i=0;i<b.length;i++) o+=('0'+b[i].toString(16)).slice(-2); return o; }
+  function derive(pw, saltHex){
+    var enc=new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits'])
+      .then(function(k){
+        return crypto.subtle.deriveBits(
+          {name:'PBKDF2', salt:hexBytes(saltHex), iterations:ITER, hash:'SHA-256'}, k, 256);
+      })
+      .then(function(bits){ return bytesHex(new Uint8Array(bits)); });
+  }
+  function same(a,b){
+    if(typeof a!=='string'||typeof b!=='string'||a.length!==b.length) return false;
+    var d=0; for(var i=0;i<a.length;i++) d|=(a.charCodeAt(i)^b.charCodeAt(i)); return d===0;
+  }
+
+  /* ======================================================================
+     #set-hub-password — turns a password into the two lines you paste into
+     HUB_ACCESS. Runs entirely in this browser; nothing is sent anywhere.
+     Safe to leave live: it only generates a fingerprint, it cannot change
+     the password. Only editing index.html does that.
+     ====================================================================== */
+  function pwGen(){
+    if(document.getElementById('pwgen')) return;
+    var wrap=document.createElement('div'); wrap.className='pwgen'; wrap.id='pwgen';
+    var card=document.createElement('div'); card.className='pwgen-card';
+
+    var h2=document.createElement('h2'); h2.textContent='Set your Hub password';
+    var p=document.createElement('p');
+    p.textContent='Type the password you want. Nothing leaves this browser. Copy the two lines it gives you into the HUB_ACCESS block near the top of index.html, then re-upload the file to GitHub.';
+
+    var lab=document.createElement('label');
+    lab.style.cssText='display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px;';
+    lab.textContent='New password';
+    var inp=document.createElement('input'); inp.type='text'; inp.id='pg-pw';
+    inp.setAttribute('spellcheck','false'); inp.setAttribute('autocomplete','off');
+    inp.style.cssText='width:100%;background:var(--bg-entry);border:1px solid var(--border-default);border-radius:10px;padding:13px 14px;color:var(--text-primary);font-family:var(--mono);font-size:15px;';
+    lab.setAttribute('for','pg-pw');
+
+    var st=document.createElement('div'); st.className='strength';
+    var out=document.createElement('div'); out.className='pwgen-out'; out.hidden=true;
+
+    var btn=document.createElement('button'); btn.type='button'; btn.className='btn btn-primary';
+    btn.style.cssText='margin-top:16px;'; btn.textContent='Generate my two lines';
+    var back=document.createElement('button'); back.type='button'; back.className='btn btn-secondary';
+    back.style.cssText='margin-top:16px;margin-left:10px;'; back.textContent='Back to site';
+
+    inp.addEventListener('input', function(){
+      var v=inp.value;
+      if(!v){ st.textContent=''; return; }
+      if(v.length<8){ st.textContent='Too short — use at least 12 characters.'; return; }
+      var s=0;
+      if(v.length>=12) s++; if(v.length>=16) s++;
+      if(/[a-z]/.test(v) && /[A-Z]/.test(v)) s++;
+      if(/[0-9]/.test(v)) s++;
+      if(/[^A-Za-z0-9]/.test(v)) s++;
+      var words=['Very weak','Weak','Fair','Good','Strong','Very strong'];
+      st.textContent='Strength: '+words[s]+'. Four unrelated words make a strong password that is easy to remember.';
+    });
+
+    btn.addEventListener('click', function(){
+      var v=inp.value;
+      if(!v || v.length<8){ st.textContent='Use at least 8 characters — 12 or more is much better.'; return; }
+      if(!secure()){ st.textContent='This needs the secure https:// address of your site.'; return; }
+      btn.disabled=true; btn.textContent='Working…';
+      var salt=bytesHex(crypto.getRandomValues(new Uint8Array(16)));
+      derive(v, salt).then(function(hash){
+        btn.disabled=false; btn.textContent='Generate my two lines';
+        out.hidden=false;
+        out.textContent='hash: "'+hash+'",\nsalt: "'+salt+'",';
+        st.textContent='Copy both lines above into HUB_ACCESS, replacing the empty hash and salt lines.';
+        inp.value='';
+      }).catch(function(){
+        btn.disabled=false; btn.textContent='Generate my two lines';
+        st.textContent='Could not generate in this browser. Try the https:// address.';
+      });
+    });
+    back.addEventListener('click', function(){
+      wrap.parentNode && wrap.parentNode.removeChild(wrap);
+      try{ history.replaceState(null,'',location.pathname); }catch(e){ location.hash=''; }
+    });
+
+    card.appendChild(h2); card.appendChild(p); card.appendChild(lab); card.appendChild(inp);
+    card.appendChild(st); card.appendChild(btn); card.appendChild(back); card.appendChild(out);
+    wrap.appendChild(card);
+    document.body.appendChild(wrap);
+    setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 60);
+  }
+
+  function checkGenHash(){
+    var x=(location.hash||'').replace('#','');
+    if(x==='set-hub-password') pwGen();
+  }
+  window.addEventListener('hashchange', checkGenHash);
+  checkGenHash();
+
+
+  var art   = document.getElementById('hub');
+  var gate  = document.getElementById('hub-gate');
+  var shell = art && art.querySelector('.hub-shell');
+  if(!art || !gate || !shell) return;
+
+  /* ---------- no password set: behave exactly as before ---------- */
+  if(!HA.hash || !HA.salt){
+    gate.hidden = true; shell.hidden = false;
+    return;
+  }
+
+  /* ---------- locked is the default state ---------- */
+  var open = false;
+  shell.hidden = true;
+  gate.hidden  = false;
+
+  /* ---------- remembered sign-in ---------- */
+  function boxes(){ var o=[];
+    try{ o.push(sessionStorage); }catch(e){}
+    try{ o.push(localStorage); }catch(e){}
+    return o; }
+  function remembered(){
+    var bs=boxes();
+    for(var i=0;i<bs.length;i++){
+      try{
+        var raw=bs[i].getItem(SKEY); if(!raw) continue;
+        var o=JSON.parse(raw);
+        if(o.h !== HA.hash){ bs[i].removeItem(SKEY); continue; }  /* password changed */
+        if(o.exp && Date.now() > o.exp){ bs[i].removeItem(SKEY); continue; }
+        return true;
+      }catch(e){}
+    }
+    return false;
+  }
+  function remember(persist){
+    var s=null;
+    try{ s = persist ? localStorage : sessionStorage; }catch(e){ return; }
+    if(!s) return;
+    var hrs = (typeof HA.hours==='number') ? HA.hours : 12;
+    try{ s.setItem(SKEY, JSON.stringify({ h:HA.hash, exp:(persist && hrs>0)?Date.now()+hrs*3600000:0 })); }catch(e){}
+  }
+  function forget(){
+    try{ sessionStorage.removeItem(SKEY); }catch(e){}
+    try{ localStorage.removeItem(SKEY); }catch(e){}
+  }
+
+  /* ---------- attempt throttling ---------- */
+  function tries(){ try{ return JSON.parse(sessionStorage.getItem(TKEY))||{n:0,until:0}; }
+                    catch(e){ return {n:0,until:0}; } }
+  function setTries(t){ try{ sessionStorage.setItem(TKEY, JSON.stringify(t)); }catch(e){} }
+
+  /* ---------- ui ---------- */
+  function msg(t,cls){
+    var m=document.getElementById('hub-msg'); if(!m) return;
+    m.textContent = t||''; m.className = 'msg' + (cls?(' '+cls):'');
+  }
+  function signOutBtn(){
+    var side=art.querySelector('.hub-side');
+    if(!side || side.querySelector('.hub-signout')) return;
+    var NS='http://www.w3.org/2000/svg';
+    var b=document.createElement('button'); b.type='button'; b.className='hub-signout';
+    var svg=document.createElementNS(NS,'svg'); svg.setAttribute('viewBox','0 0 24 24');
+    svg.setAttribute('aria-hidden','true');
+    var p1=document.createElementNS(NS,'path'); p1.setAttribute('d','M10 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5');
+    var p2=document.createElementNS(NS,'path'); p2.setAttribute('d','M16 17l5-5-5-5M21 12H9');
+    svg.appendChild(p1); svg.appendChild(p2);
+    var sp=document.createElement('span'); sp.textContent='Sign out';
+    b.appendChild(svg); b.appendChild(sp);
+    b.addEventListener('click', function(){
+      forget(); open=false;
+      shell.hidden=true; gate.hidden=false;
+      msg('Signed out.','ok');
+      try{ window.scrollTo(0,0); }catch(e){}
+    });
+    side.appendChild(b);
+  }
+  function reveal(){
+    open=true; gate.hidden=true; shell.hidden=false; signOutBtn();
+  }
+
+  /* ---------- runs whenever the Hub view becomes visible ---------- */
+  function sync(){
+    if(art.hidden) return;
+    if(open || remembered()){ reveal(); return; }
+    gate.hidden=false; shell.hidden=true;
+
+    var hint=document.getElementById('hub-hint');
+    if(hint){
+      if(HA.hint){ hint.hidden=false; hint.textContent='Reminder: '+HA.hint; }
+      else       { hint.hidden=true;  hint.textContent=''; }
+    }
+    var f=document.getElementById('hub-pw'), g=document.getElementById('hub-go');
+    if(!secure()){
+      msg('Owner access needs the secure address. Open this page at https:// and try again.','warn');
+      if(f) f.disabled=true; if(g) g.disabled=true;
+      return;
+    }
+    if(f) f.disabled=false; if(g) g.disabled=false;
+    setTimeout(function(){ try{ f && f.focus(); }catch(e){} }, 60);
+  }
+
+  function attempt(){
+    var f=document.getElementById('hub-pw'), g=document.getElementById('hub-go');
+    if(!f) return;
+    var t=tries();
+    if(t.until && Date.now()<t.until){
+      msg('Too many attempts. Try again in '+Math.ceil((t.until-Date.now())/1000)+' seconds.','err');
+      return;
+    }
+    if(!f.value){ msg('Enter your password.','err'); f.focus(); return; }
+    if(!secure()){ msg('Owner access needs the secure https:// address.','warn'); return; }
+    if(g) g.disabled=true;
+    msg('Checking…');
+    derive(f.value, HA.salt).then(function(got){
+      if(g) g.disabled=false;
+      if(same(got, HA.hash)){
+        setTries({n:0,until:0});
+        var k=document.getElementById('hub-keep');
+        remember(!!(k && k.checked));
+        f.value=''; msg(''); reveal();
+        try{ window.scrollTo(0,0); }catch(e){}
+      }else{
+        var t2=tries(); t2.n=(t2.n||0)+1;
+        if(t2.n>=5){ t2.until=Date.now()+Math.min(300, 30*Math.pow(2, t2.n-5))*1000; t2.n=0; }
+        setTries(t2);
+        msg(t2.until
+          ? 'Too many attempts. Locked for '+Math.ceil((t2.until-Date.now())/1000)+' seconds.'
+          : 'That password did not match.', 'err');
+        f.value=''; f.focus();
+      }
+    }).catch(function(){
+      if(g) g.disabled=false;
+      msg('Could not check the password in this browser. Try the https:// address.','err');
+    });
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.closest && e.target.closest('#hub-go')){ e.preventDefault(); attempt(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Enter' && e.target && e.target.id==='hub-pw'){ e.preventDefault(); attempt(); }
+  });
+
+  try{
+    new MutationObserver(sync).observe(art, { attributes:true, attributeFilter:['hidden'] });
+  }catch(e){}
+  sync();
+
+
+})();
+</script>
+
 </body>
 </html>
