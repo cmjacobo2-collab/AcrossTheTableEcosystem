@@ -1,0 +1,115 @@
+# ============================================================
+#  Restore the previous version of the website
+#
+#  Across the Table's whole site is one file, index.html. Every
+#  time a new one is uploaded, GitHub keeps the old one - but
+#  getting it back by hand, from a phone, is fiddly enough that
+#  nobody does it in the moment they actually need to.
+#
+#  This is a button instead.
+#
+#  To use it:  GitHub -> Actions -> "Restore previous website
+#              version" -> Run workflow -> Run workflow
+#
+#  It puts back index.html as it was before the most recent
+#  upload, as a NEW commit. Nothing is erased: the version being
+#  replaced stays in the history, so a restore can itself be
+#  undone by running this again.
+# ============================================================
+
+name: Restore previous website version
+
+on:
+  workflow_dispatch:
+    inputs:
+      steps_back:
+        description: "How many versions to go back (1 = the one before the current one)"
+        required: false
+        default: "1"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Work out which version to put back
+        id: pick
+        run: |
+          set -euo pipefail
+          BACK="${{ github.event.inputs.steps_back }}"
+          BACK="${BACK:-1}"
+          case "$BACK" in
+            ''|*[!0-9]*) echo "::error::\"$BACK\" is not a whole number."; exit 1 ;;
+          esac
+          if [ "$BACK" -lt 1 ]; then
+            echo "::error::Going back 0 versions would change nothing."
+            exit 1
+          fi
+
+          mapfile -t HISTORY < <(git log --format=%H -- index.html)
+          echo "index.html has ${#HISTORY[@]} versions in history."
+
+          if [ "${#HISTORY[@]}" -le "$BACK" ]; then
+            echo "::error::Cannot go back $BACK - only ${#HISTORY[@]} versions exist."
+            exit 1
+          fi
+
+          TARGET="${HISTORY[$BACK]}"
+          WHEN=$(git log -1 --format=%ad --date=format:"%d %b %Y at %H:%M" "$TARGET")
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "when=$WHEN" >> "$GITHUB_OUTPUT"
+          echo "Restoring the version from $WHEN ($TARGET)."
+
+      - name: Put that version back
+        id: restore
+        run: |
+          set -euo pipefail
+          TARGET="${{ steps.pick.outputs.target }}"
+          WHEN="${{ steps.pick.outputs.when }}"
+
+          git show "$TARGET:index.html" > index.html.restored
+          if cmp -s index.html.restored index.html; then
+            echo "That version is byte-for-byte identical to the current one. Nothing to do."
+            rm index.html.restored
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mv index.html.restored index.html
+
+          SIZE=$(wc -c < index.html)
+          if [ "$SIZE" -lt 100000 ]; then
+            echo "::error::The restored file is only $SIZE bytes. That is far too small to be the site. Stopping."
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Restore website to the version from $WHEN" -m "Put back index.html as it was in ${TARGET:0:7}. The version it replaced is still in the history and can be restored by running this workflow again."
+          git push
+          echo "changed=yes" >> "$GITHUB_OUTPUT"
+
+      - name: Say what happened
+        run: |
+          {
+            if [ "${{ steps.restore.outputs.changed }}" = "yes" ]; then
+              echo "### Website restored"
+              echo ""
+              echo "index.html is now the version from **${{ steps.pick.outputs.when }}**."
+              echo ""
+              echo "Wait about a minute, then open acrossthetable.biz in a private window to check."
+              echo ""
+              echo "Gone too far back? Run this workflow again to undo it."
+            else
+              echo "### Nothing changed"
+              echo ""
+              echo "That version was identical to the one already published."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
