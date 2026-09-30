@@ -38,8 +38,18 @@ Give it a minute after it finishes, then check the site in a private window.
 
 ---
 
-## Safe points
+## Marking a version you know works
 
-Versions known to be working are tagged. `git tag` lists them, or look under
-**Releases → Tags** on GitHub. A tag is just a name pinned to a version, so you
-can recognise a good one later instead of guessing from a list of dates.
+Every upload is recorded as "Add files via upload", which tells you nothing
+when you are looking for a good one to go back to. So when a version is
+working well, give it a name:
+
+**Releases → Tags → Create a new tag** → pick the version, name it something
+like `known-good-30-sep`, and save.
+
+Then you are choosing from names you recognise instead of guessing from a list
+of identical messages and timestamps.
+
+Known good as of 30 September 2026: the version uploaded at **00:30**, with the
+assessment cards, all five admin panes, the support page, the ticketing
+dashboard and the fix log. Hub encrypted, no card fields, all site checks pass.
