@@ -6001,20 +6001,80 @@ document.addEventListener('DOMContentLoaded', async function() {
       s.className = 'pp-note' + (ok ? ' ok' : '');
     }
 
-    Array.prototype.forEach.call(hub.querySelectorAll('[data-price]'), function(inp){
+    /* Every price box is a real, editable box: Monthly, Annual, One-time and
+       Trial days for every app. A box left empty means that app doesn't offer
+       that option; type a price to add it, clear it to remove it. (Empty boxes
+       used to be drawn as a locked dash, so a new option could not be added.) */
+    var PRICE_COLS = null;
+    function priceColumns(){
+      if(PRICE_COLS) return PRICE_COLS;
+      PRICE_COLS = {};
+      var ths = hub.querySelectorAll('[data-pane="products"] thead th');
+      Array.prototype.forEach.call(ths, function(th, i){
+        var t = (th.textContent || '').toLowerCase();
+        if(/trial/.test(t))                 PRICE_COLS.trial   = i;
+        else if(/one.?time|lifetime/.test(t)) PRICE_COLS.onetime = i;
+        else if(/annual|year/.test(t))      PRICE_COLS.annual  = i;
+        else if(/month/.test(t))            PRICE_COLS.monthly = i;
+      });
+      return PRICE_COLS;
+    }
+    function rowSlug(tr){
+      var k = tr.querySelector('[data-price],[data-status],[data-storelink],[data-playlink]');
+      if(!k) return tr.getAttribute('data-slug') || '';
+      return k.getAttribute('data-price') || k.getAttribute('data-status') ||
+             k.getAttribute('data-storelink') || k.getAttribute('data-playlink') || '';
+    }
+    function priceBox(slug, field){
+      var inp = document.createElement('input');
+      inp.className = 'pcell';
+      inp.type = 'number'; inp.min = '0'; inp.step = field === 'trial' ? '1' : '0.01';
+      inp.setAttribute('data-price', slug);
+      inp.setAttribute('data-pfield', field);
+      return inp;
+    }
+    function wirePrice(inp){
+      if(inp.__wired) return; inp.__wired = true;
+      var field = inp.getAttribute('data-pfield');
+      inp.placeholder = field === 'trial' ? '0' : 'None';
+      if(inp.type !== 'number'){ inp.type = 'number'; inp.min = '0'; }
       inp.addEventListener('change', function(){
-        var slug = inp.getAttribute('data-price'), field = inp.getAttribute('data-pfield');
+        var slug = inp.getAttribute('data-price');
         if(setPrice(slug, field, inp.value)){
           renderSubcard(slug);
           priceDirty = true;
           draftWrite();
           draftBanner(true, Date.now());
-          priceMsg('Saved in this browser. Not live until you copy it into index.html.');
+          priceMsg('Saved in this browser. Press Save (or download prices.json) to put it on your site.', true);
         } else {
           priceMsg('That is not a number I can use.');
         }
       });
+    }
+    function upgradePriceRow(tr, slug){
+      slug = slug || rowSlug(tr);
+      if(!slug || !window.PRICES[slug]) return;
+      var cols = priceColumns();
+      Object.keys(cols).forEach(function(field){
+        var cell = tr.cells[cols[field]];
+        if(!cell) return;
+        var inp = cell.querySelector('input');
+        if(inp && inp.getAttribute('data-price')) return;      /* already a real box */
+        var box = priceBox(slug, field);
+        if(inp && !inp.disabled && inp.value && inp.value !== '\u2014') box.value = inp.value;
+        while(cell.firstChild) cell.removeChild(cell.firstChild);
+        cell.appendChild(box);
+      });
+    }
+    window.__upgradePriceRow = function(tr, slug){
+      upgradePriceRow(tr, slug);
+      Array.prototype.forEach.call(tr.querySelectorAll('[data-price]'), wirePrice);
+    };
+    Array.prototype.forEach.call(hub.querySelectorAll('[data-pane="products"] tbody tr'), function(tr){
+      upgradePriceRow(tr);
     });
+    Array.prototype.forEach.call(hub.querySelectorAll('[data-price]'), wirePrice);
+    tableFromPrices();
 
     /* The status pills on Overview used to be written into the page, so they
        drifted the moment a product changed. They now follow the price list. */
@@ -6808,6 +6868,28 @@ document.addEventListener('DOMContentLoaded', async function() {
           })));
           pr.appendChild(wCell(null));
           prodTable.appendChild(pr);
+
+          /* give the new app a real entry in the price list, so the prices
+             typed in the wizard are saved and can be changed later */
+          if(!window.PRICES[slug]){
+            window.PRICES[slug] = { name:name, kind:val('#wa-kind') || 'App Subscription',
+              status:pmatch, blurb:'', feats:[], trial:0, plans:[] };
+            ['monthly','annual','onetime'].forEach(function(f){
+              var v = val('#wa-' + f);
+              if(v) setPrice(slug, f, v);
+            });
+            if(val('#wa-trial')) setPrice(slug, 'trial', val('#wa-trial'));
+            draftWrite();
+            draftBanner(true, Date.now());
+          }
+          pr.setAttribute('data-slug', slug);
+          if(typeof window.__upgradePriceRow === 'function') window.__upgradePriceRow(pr, slug);
+          Array.prototype.forEach.call(pr.querySelectorAll('[data-price]'), function(inp){
+            var d = window.PRICES[slug], f = inp.getAttribute('data-pfield');
+            if(f === 'trial'){ inp.value = d.trial ? String(d.trial) : ''; return; }
+            var pl = null; d.plans.forEach(function(x){ if(x.key === f) pl = x; });
+            inp.value = pl ? String(pl.amount) : '';
+          });
         }
         var playUrl = wSafeUrl(val('#wa-play'));
         if(playUrl){ window.APP_LINKS[slug] = playUrl; window.applyPlayLink(slug); }
