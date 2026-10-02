@@ -6541,6 +6541,62 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.__syncHubStatuses = function(){
       Object.keys(window.PRICES || {}).forEach(syncStatusEverywhere);
     };
+    /* ---- every app gets a row, and every row gets its real logo ----
+       The table was written by hand and missed apps added later (TableTap).
+       Any app with a card on the public site but no row here is added, copied
+       from an existing row so it looks the same, and slotted in by Order. */
+    (function(){
+      var rows = ecoRows();
+      if(!rows.length) return;
+      var tbody = rows[0].parentNode;
+      function swapText(cell, to){
+        if(!cell) return;
+        var w = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, null, false), n;
+        while((n = w.nextNode())){
+          if(n.nodeValue.trim()){ n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), to); return; }
+        }
+        cell.appendChild(document.createTextNode(to));
+      }
+      function orderOf(tr){
+        var i = tr.querySelector('input[type="number"]');
+        return i ? Number(i.value) || 0 : 0;
+      }
+      var have = {};
+      Array.prototype.forEach.call(rows, function(tr){ var s = ecoSlugOf(tr); if(s) have[s] = 1; });
+      Array.prototype.forEach.call(document.querySelectorAll('article.app[data-slug]'), function(card){
+        var slug = card.getAttribute('data-slug');
+        if(have[slug] || !window.PRICES[slug]) return;
+        var model = rows[rows.length - 1];
+        var tr = model.cloneNode(true);
+        tr.removeAttribute('data-slug');
+        tr.classList.remove('justadded');
+        var name = (card.querySelector('h3') || {}).textContent || window.PRICES[slug].name || slug;
+        var cat  = (card.querySelector('.app-cat') || {}).textContent || '';
+        swapText(tr.cells[0], name.trim());
+        swapText(tr.cells[1], cat.trim());
+        /* Order: the first free slot in tens (TableTap lands in the gap at 90),
+           otherwise after the last app */
+        var used = {}, top = 0;
+        Array.prototype.forEach.call(ecoRows(), function(r){ var o = orderOf(r); used[o] = 1; if(o > top) top = o; });
+        var ord = 0;
+        for(var t = 10; t < top; t += 10){ if(!used[t]){ ord = t; break; } }
+        if(!ord) ord = (Math.floor(top / 10) + 1) * 10;
+        var oi = tr.querySelector('input[type="number"]'); if(oi) oi.value = ord;
+        tr.setAttribute('data-slug', slug);
+        var after = null;
+        Array.prototype.forEach.call(ecoRows(), function(r){ if(orderOf(r) <= ord) after = r; });
+        tbody.insertBefore(tr, after ? after.nextSibling : tbody.firstChild);
+        have[slug] = 1;
+      });
+      /* logos: the table's own pictures don't load, so use the ones on the site */
+      Array.prototype.forEach.call(ecoRows(), function(tr){
+        var slug = ecoSlugOf(tr);
+        var src = document.querySelector('article.app[data-slug="' + slug + '"] .app-icon img');
+        var img = tr.cells[0] && tr.cells[0].querySelector('img');
+        if(slug && src && img){ img.src = src.src; img.alt = ''; }
+      });
+    })();
+
     Array.prototype.forEach.call(ecoRows(), function(tr){
       var slug = ecoSlugOf(tr);
       var sel = tr.querySelector('select');
