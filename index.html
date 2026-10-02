@@ -493,6 +493,33 @@ img{max-width:100%;display:block;}
 
 /* the whole card opens its page: the "Learn more" link stretches over it */
 .app{cursor:pointer;}
+/* ============================================================
+   LIVING BACKGROUNDS — The System (glowing network, like the
+   flyer's laptop screen) and AI Learning (circuit traces with
+   light running along them). Drawn in code, so they stay sharp
+   at any size; they pause when off-screen and sit still for
+   anyone who has asked their device to reduce motion.
+   ============================================================ */
+.has-fx{isolation:isolate;overflow:hidden;}
+.has-fx > .wrap{position:relative;z-index:1;}
+.fx-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 140px,#000 calc(100% - 140px),transparent 100%);
+          mask-image:linear-gradient(180deg,transparent 0,#000 140px,#000 calc(100% - 140px),transparent 100%);}
+.fx-bg canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+#system.has-fx .fx-bg{
+  background:
+    radial-gradient(ellipse 55% 38% at 50% 30%, rgba(46,204,140,.22), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 34%, rgba(39,216,194,.10), transparent 75%),
+    radial-gradient(ellipse 40% 30% at 82% 70%, rgba(224,160,58,.07), transparent 70%),
+    linear-gradient(180deg, #06121F 0%, #071A2C 45%, #06121F 100%);
+}
+#learn.has-fx .fx-bg{
+  background:
+    radial-gradient(ellipse 50% 40% at 18% 22%, rgba(39,216,194,.13), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 85% 60%, rgba(43,168,255,.12), transparent 70%),
+    radial-gradient(ellipse 35% 25% at 60% 92%, rgba(224,160,58,.07), transparent 70%),
+    linear-gradient(180deg, #06111D 0%, #081829 50%, #06111D 100%);
+}
 .eco-savebar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px;}
 .app-open::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:1;}
 .app-open:focus-visible{outline:none;}
@@ -8873,9 +8900,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         if(!job && !section) return;
         card.setAttribute('data-att-wired','1');
         card.style.cursor = 'pointer';
+        /* The panel opens on the main page, not inside the frame. The frame is
+           as tall as the whole card grid, so a panel placed inside it always
+           opened at the very top of the grid: click a card lower down and the
+           summary appeared off-screen above you, as if nothing had happened. */
         function open(){
-          var panel = section ? buildSection(doc, win, section) : build(doc, win, job);
-          if(panel) doc.body.appendChild(panel);
+          var panel = section ? buildSection(document, win, section) : build(document, win, job);
+          if(!panel) return;
+          document.body.appendChild(panel);
+          var btn = panel.querySelector('button');
+          if(btn){ try{ btn.focus({ preventScroll:true }); }catch(e){} }
         }
         card.addEventListener('click', open);
         card.addEventListener('keydown', function(e){
@@ -9474,5 +9508,201 @@ document.addEventListener('DOMContentLoaded', async function() {
 })();
 </script>
 
+<script>
+/* ---------- living backgrounds for The System and AI Learning ---------- */
+(function(){
+  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+  var TEAL = [39,216,194], BLUE = [43,168,255], GOLD = [224,160,58], GREEN = [70,214,140];
+
+  function rgba(c, a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+  /* a soft glowing dot, drawn once and stamped, which is far cheaper than live blur */
+  function sprite(c){
+    var k = document.createElement('canvas'); k.width = k.height = 64;
+    var g = k.getContext('2d'), r = g.createRadialGradient(32,32,0,32,32,32);
+    r.addColorStop(0, rgba(c,1)); r.addColorStop(.18, rgba(c,.85));
+    r.addColorStop(.42, rgba(c,.22)); r.addColorStop(1, rgba(c,0));
+    g.fillStyle = r; g.fillRect(0,0,64,64); return k;
+  }
+  var SPR = { teal:sprite(TEAL), blue:sprite(BLUE), gold:sprite(GOLD), green:sprite(GREEN) };
+
+  function mount(section, painter){
+    if(!section) return;
+    section.classList.add('has-fx');
+    var box = document.createElement('div'); box.className = 'fx-bg'; box.setAttribute('aria-hidden','true');
+    var cv = document.createElement('canvas'); box.appendChild(cv);
+    section.insertBefore(box, section.firstChild);
+    var ctx = cv.getContext('2d'), W = 0, H = 0, state = null, on = false, raf = 0, last = 0;
+
+    function size(){
+      var w = section.offsetWidth, h = section.offsetHeight;
+      if(!w || !h || (w === W && Math.abs(h - H) < 40)) return;
+      W = w; H = h;
+      cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      state = painter.init(W, H);
+      if(!on || REDUCE) painter.draw(ctx, W, H, state, 0);
+    }
+    function frame(t){
+      raf = 0; if(!on) return;
+      var dt = last ? Math.min(t - last, 50) : 16; last = t;
+      painter.step(state, W, H, dt);
+      painter.draw(ctx, W, H, state, t);
+      raf = requestAnimationFrame(frame);
+    }
+    function play(){ if(REDUCE || raf || !on) return; last = 0; raf = requestAnimationFrame(frame); }
+
+    size();
+    if(window.ResizeObserver) new ResizeObserver(size).observe(section);
+    else window.addEventListener('resize', size);
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(es){
+        on = es[0].isIntersecting && !document.hidden;
+        if(on) play();
+      }, { rootMargin:'120px 0px' }).observe(section);
+    } else { on = true; play(); }
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) on = false; else { on = true; play(); }
+    });
+  }
+
+  /* The System: a glowing network, a few ringed hub nodes, light in the middle */
+  var network = {
+    init: function(W, H){
+      var n = Math.max(60, Math.min(260, Math.round(W * H / 11000)));
+      var pts = [];
+      for(var i = 0; i < n; i++){
+        var r = Math.random();
+        pts.push({ x:Math.random()*W, y:Math.random()*H,
+          vx:(Math.random()-.5)*.018, vy:(Math.random()-.5)*.018,
+          s: 3 + Math.random()*7, ph: Math.random()*6.28,
+          c: r < .1 ? 'gold' : r < .55 ? 'teal' : r < .9 ? 'blue' : 'green' });
+      }
+      var hubs = [];
+      var hn = Math.max(5, Math.min(12, Math.round(W * H / 220000)));
+      for(var j = 0; j < hn; j++){
+        hubs.push({ x: W*(.08 + .84*Math.random()), y: H*(.06 + .88*Math.random()),
+          r: 16 + Math.random()*14, ph: Math.random()*6.28, c: j % 3 === 0 ? GOLD : TEAL });
+      }
+      return { pts:pts, hubs:hubs };
+    },
+    step: function(st, W, H, dt){
+      st.pts.forEach(function(p){
+        p.x += p.vx*dt; p.y += p.vy*dt;
+        if(p.x < -20) p.x = W+20; if(p.x > W+20) p.x = -20;
+        if(p.y < -20) p.y = H+20; if(p.y > H+20) p.y = -20;
+      });
+    },
+    draw: function(g, W, H, st, t){
+      g.clearRect(0,0,W,H);
+      var pts = st.pts, D = 150, D2 = D*D;
+      g.lineWidth = .7;
+      for(var i = 0; i < pts.length; i++){
+        for(var k = i+1; k < pts.length; k++){
+          var dx = pts[i].x - pts[k].x, dy = pts[i].y - pts[k].y, d2 = dx*dx + dy*dy;
+          if(d2 < D2){
+            g.strokeStyle = rgba(pts[i].c === 'gold' ? GOLD : TEAL, (1 - d2/D2) * .32);
+            g.beginPath(); g.moveTo(pts[i].x, pts[i].y); g.lineTo(pts[k].x, pts[k].y); g.stroke();
+          }
+        }
+      }
+      /* hubs: thin glowing rings, tied to their nearest points */
+      st.hubs.forEach(function(h){
+        var pulse = .5 + .5*Math.sin(t/1400 + h.ph);
+        g.strokeStyle = rgba(h.c, .10); g.lineWidth = .8;
+        pts.forEach(function(p){
+          var dx = p.x - h.x, dy = p.y - h.y;
+          if(dx*dx + dy*dy < 210*210){ g.beginPath(); g.moveTo(h.x, h.y); g.lineTo(p.x, p.y); g.stroke(); }
+        });
+        g.strokeStyle = rgba(h.c, .35 + .25*pulse); g.lineWidth = 1.2;
+        g.beginPath(); g.arc(h.x, h.y, h.r, 0, 6.283); g.stroke();
+        g.strokeStyle = rgba(h.c, .12 + .10*pulse); g.lineWidth = 6;
+        g.beginPath(); g.arc(h.x, h.y, h.r + 3, 0, 6.283); g.stroke();
+        g.drawImage(SPR[h.c === GOLD ? 'gold' : 'teal'], h.x-10, h.y-10, 20, 20);
+      });
+      pts.forEach(function(p){
+        var tw = .65 + .35*Math.sin(t/900 + p.ph), s = p.s * tw;
+        g.globalAlpha = .55 + .45*tw;
+        g.drawImage(SPR[p.c], p.x - s, p.y - s, s*2, s*2);
+      });
+      g.globalAlpha = 1;
+    }
+  };
+
+  /* AI Learning: circuit traces on a grid, with light pulses running along them */
+  var circuit = {
+    init: function(W, H){
+      var G = 36, cols = Math.ceil(W/G), rows = Math.ceil(H/G);
+      var n = Math.max(14, Math.min(60, Math.round(W * H / 32000)));
+      var paths = [];
+      for(var i = 0; i < n; i++){
+        var x = Math.floor(Math.random()*cols), y = Math.floor(Math.random()*rows);
+        var pts = [[x*G, y*G]], dir = Math.floor(Math.random()*4), len = 0;
+        var segs = 2 + Math.floor(Math.random()*4);
+        for(var k = 0; k < segs; k++){
+          var steps = 2 + Math.floor(Math.random()*6);
+          var dx = [1,0,-1,0][dir], dy = [0,1,0,-1][dir];
+          x += dx*steps; y += dy*steps;
+          pts.push([x*G, y*G]); len += steps*G;
+          dir = (dir + (Math.random() < .5 ? 1 : 3)) % 4;           /* turn left or right */
+        }
+        var r = Math.random();
+        paths.push({ p:pts, len:len, c: r < .18 ? GOLD : r < .6 ? TEAL : BLUE,
+          spr: r < .18 ? 'gold' : r < .6 ? 'teal' : 'blue',
+          pos: Math.random()*len, speed: .05 + Math.random()*.07 });
+      }
+      return { paths:paths, G:G };
+    },
+    step: function(st, W, H, dt){
+      st.paths.forEach(function(a){ a.pos += a.speed*dt; if(a.pos > a.len + 160) a.pos = -40; });
+    },
+    pointAt: function(a, d){
+      var p = a.p;
+      for(var i = 1; i < p.length; i++){
+        var sl = Math.abs(p[i][0]-p[i-1][0]) + Math.abs(p[i][1]-p[i-1][1]);
+        if(d <= sl){ var f = sl ? d/sl : 0;
+          return [p[i-1][0] + (p[i][0]-p[i-1][0])*f, p[i-1][1] + (p[i][1]-p[i-1][1])*f]; }
+        d -= sl;
+      }
+      return null;
+    },
+    draw: function(g, W, H, st, t){
+      g.clearRect(0,0,W,H);
+      /* faint dot grid */
+      g.fillStyle = 'rgba(120,170,220,.07)';
+      for(var gx = 0; gx < W; gx += st.G) for(var gy = 0; gy < H; gy += st.G) g.fillRect(gx-.75, gy-.75, 1.5, 1.5);
+      var self = this;
+      st.paths.forEach(function(a){
+        g.strokeStyle = rgba(a.c, .16); g.lineWidth = 1.1; g.lineJoin = 'round';
+        g.beginPath(); g.moveTo(a.p[0][0], a.p[0][1]);
+        for(var i = 1; i < a.p.length; i++) g.lineTo(a.p[i][0], a.p[i][1]);
+        g.stroke();
+        /* pads at both ends */
+        [a.p[0], a.p[a.p.length-1]].forEach(function(q){
+          g.strokeStyle = rgba(a.c, .38); g.lineWidth = 1.2;
+          g.beginPath(); g.arc(q[0], q[1], 3.2, 0, 6.283); g.stroke();
+        });
+        /* the pulse and its fading tail */
+        for(var k = 0; k < 9; k++){
+          var q = self.pointAt(a, a.pos - k*9);
+          if(!q) continue;
+          var sz = (k ? 9 : 14) * (1 - k/11);
+          g.globalAlpha = (1 - k/9) * .85;
+          g.drawImage(SPR[a.spr], q[0]-sz, q[1]-sz, sz*2, sz*2);
+        }
+        g.globalAlpha = 1;
+      });
+    }
+  };
+  if(REDUCE){ network.step = circuit.step = function(){}; }
+
+  function start(){
+    mount(document.getElementById('system'), network);
+    mount(document.getElementById('learn'), circuit);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
 </body>
 </html>
