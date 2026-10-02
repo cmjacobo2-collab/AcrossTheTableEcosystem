@@ -2582,19 +2582,44 @@ window.APP_LINKS = {
    Every app page has one store button under the headline. This decides what
    it says and where it goes. For each app, type one of these between the quotes:
 
-     "stan"  ->  "Buy from my Stan Store"   (goes to that app's Stan Store page
-                                            in STORE_LINKS above, or your main
-                                            store if it has none yet)
-     "play"  ->  "Get it on Google Play"    (needs its link in APP_LINKS above;
-                                            until then it reads "Coming soon to
-                                            Google Play")
-     ""      ->  Let the site decide: Google Play if the app has a Play link,
-                 otherwise your Stan Store.
+     "stan"   ->  "Buy from my Stan Store"     (goes to that app's Stan Store
+                                               page in STORE_LINKS above, or
+                                               your main store if it has none)
+     "play"   ->  "Get it on Google Play"      (needs its link in APP_LINKS
+                                               above; until then it reads
+                                               "Coming soon to Google Play")
+     "apple"  ->  "Download on the App Store"  (for iPhones and iPads; needs its
+                                               link in APPLE_LINKS below; until
+                                               then it reads "Coming soon to the
+                                               App Store")
+     ""       ->  Let the site decide. iPhone visitors see the App Store and
+                  Android visitors see Google Play, when that link exists.
+                  Everyone else sees Google Play, then the App Store, then
+                  your Stan Store, whichever is ready first.
 
    If an app isn't open for purchase yet (In development, Coming soon, and so
    on in your price list), the Stan Store button reads "Coming soon to my Stan
    Store" and doesn't send anyone to a page they can't buy from.
    ============================================================================ */
+/* App Store links for iPhones. When an app goes live on Apple's App Store,
+   paste its full link here (it starts with https://apps.apple.com/). */
+window.APPLE_LINKS = {
+  "entrepreneur-blueprint": "",
+  "startwise":              "",
+  "ceo-mindset":            "",
+  "lohare":                 "",
+  "brightlights-360":       "",
+  "juntoshr":               "",
+  "cash-flow-vs-ebitda":    "",
+  "grow-and-thrive":        "",
+  "credithoy":              "",
+  "business-connect":       "",
+  "leadmatch":              "",
+  "hearaboutit":            "",
+  "refer-and-earn":         "",
+  "tabletap":               ""
+};
+
 window.APP_BUTTON = {
   "entrepreneur-blueprint": "",
   "startwise":              "",
@@ -4969,6 +4994,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     if(d) e.preventDefault();
   });
   window.APP_BUTTON = window.APP_BUTTON || {};
+  window.APPLE_LINKS = window.APPLE_LINKS || {};
+  var ICON_APPLE = '<path d="M16.5 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8a4.5 4.5 0 0 0-3.8 2.3c-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.3c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.8Z"></path><path d="M14.3 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.7-1 2.8 1 .1 2.1-.5 2.7-1.3Z"></path>';
+  var VISITOR = (function(){
+    var ua = navigator.userAgent || '';
+    if(/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'apple';
+    if(/Android/i.test(ua)) return 'play';
+    return '';
+  })();
   var ICON_PLAY = '<path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path>';
   var ICON_BAG  = '<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path>';
   function storeSells(slug){
@@ -4978,26 +5011,31 @@ document.addEventListener('DOMContentLoaded', async function() {
   /* which button an app shows: 'play' or 'stan' */
   window.storeChoice = function(slug){
     var pick = String(window.APP_BUTTON[slug] || '').trim().toLowerCase();
-    var play = (window.APP_LINKS[slug] || '').trim();
-    if(pick === 'stan' || pick === 'play') return pick;
-    if(play) return 'play';
+    if(pick === 'app store' || pick === 'appstore' || pick === 'ios' || pick === 'iphone') pick = 'apple';
+    var play  = (window.APP_LINKS[slug]   || '').trim();
+    var apple = (window.APPLE_LINKS[slug] || '').trim();
+    if(pick === 'stan' || pick === 'play' || pick === 'apple') return pick;
+    if(VISITOR === 'apple' && apple) return 'apple';
+    if(VISITOR === 'play'  && play)  return 'play';
+    if(play)  return 'play';
+    if(apple) return 'apple';
     return storeSells(slug) ? 'stan' : 'play';     /* nothing to buy yet: keep the old "coming soon" wording */
   };
   window.applyPlayLink = function(slug){
     var mode = window.storeChoice(slug);
-    var url = mode === 'play'
-      ? (window.APP_LINKS[slug] || '').trim()
-      : (storeSells(slug) ? ((window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '').trim() : '');
+    var url = mode === 'play'  ? (window.APP_LINKS[slug] || '').trim()
+            : mode === 'apple' ? (window.APPLE_LINKS[slug] || '').trim()
+            : (storeSells(slug) ? ((window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '').trim() : '');
     if(!/^https:\/\//.test(url)) url = '';
-    var word = mode === 'play'
-      ? (url ? 'Get it on Google Play' : 'Coming soon to Google Play')
-      : (url ? 'Buy from my Stan Store' : 'Coming soon to my Stan Store');
+    var word = mode === 'play'  ? (url ? 'Get it on Google Play'     : 'Coming soon to Google Play')
+             : mode === 'apple' ? (url ? 'Download on the App Store' : 'Coming soon to the App Store')
+             : (url ? 'Buy from my Stan Store' : 'Coming soon to my Stan Store');
     Array.prototype.forEach.call(document.querySelectorAll('[data-play="'+slug+'"]'), function(el){
       var label = el.querySelector('[data-play-label]');
       var icon = el.querySelector('svg');
-      if(icon) icon.innerHTML = mode === 'play' ? ICON_PLAY : ICON_BAG;
+      if(icon) icon.innerHTML = mode === 'play' ? ICON_PLAY : mode === 'apple' ? ICON_APPLE : ICON_BAG;
       var datum = el.querySelector('.datum');
-      if(datum) datum.textContent = mode === 'play' ? 'Android app' : 'Stan Store';
+      if(datum) datum.textContent = mode === 'play' ? 'Android app' : mode === 'apple' ? 'iPhone app' : 'Stan Store';
       el.setAttribute('data-store', mode);
       if(url){
         el.setAttribute('href', url);
@@ -5723,6 +5761,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     if(obj.prices && typeof obj.prices === 'object'){
       if(obj.storeLinks && typeof obj.storeLinks === 'object') window.STORE_LINKS = obj.storeLinks;
       if(obj.appButton  && typeof obj.appButton  === 'object') window.APP_BUTTON  = obj.appButton;
+      if(obj.appleLinks && typeof obj.appleLinks === 'object') window.APPLE_LINKS = obj.appleLinks;
       if(obj.delivery   && typeof obj.delivery   === 'object') window.DELIVERY   = obj.delivery;
       if(obj.salesLog   && obj.salesLog.length   !== undefined) window.SALES_LOG = obj.salesLog;
       if(obj.tickets    && obj.tickets.length    !== undefined) window.TICKETS   = obj.tickets;
@@ -6073,6 +6112,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           'window.STORE_FRONT = '  + JSON.stringify(window.STORE_FRONT  || '') + ';',
           'window.STORE_LINKS = '  + JSON.stringify(window.STORE_LINKS  || {}) + ';',
           'window.APP_LINKS = '    + JSON.stringify(window.APP_LINKS    || {}) + ';',
+          'window.APPLE_LINKS = '  + JSON.stringify(window.APPLE_LINKS  || {}) + ';',
           'window.APP_BUTTON = '   + JSON.stringify(window.APP_BUTTON   || {}) + ';',
           'window.MINDSET = '      + JSON.stringify(window.MINDSET      || {}) + ';',
           'window.PRICES = '       + JSON.stringify(window.PRICES       || {}) + ';'
