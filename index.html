@@ -2577,6 +2577,42 @@ window.APP_LINKS = {
 };
 
 /* ============================================================================
+   WHICH STORE BUTTON EACH APP SHOWS
+
+   Every app page has one store button under the headline. This decides what
+   it says and where it goes. For each app, type one of these between the quotes:
+
+     "stan"  ->  "Buy from my Stan Store"   (goes to that app's Stan Store page
+                                            in STORE_LINKS above, or your main
+                                            store if it has none yet)
+     "play"  ->  "Get it on Google Play"    (needs its link in APP_LINKS above;
+                                            until then it reads "Coming soon to
+                                            Google Play")
+     ""      ->  Let the site decide: Google Play if the app has a Play link,
+                 otherwise your Stan Store.
+
+   If an app isn't open for purchase yet (In development, Coming soon, and so
+   on in your price list), the Stan Store button reads "Coming soon to my Stan
+   Store" and doesn't send anyone to a page they can't buy from.
+   ============================================================================ */
+window.APP_BUTTON = {
+  "entrepreneur-blueprint": "",
+  "startwise":              "",
+  "ceo-mindset":            "",
+  "lohare":                 "",
+  "brightlights-360":       "",
+  "juntoshr":               "",
+  "cash-flow-vs-ebitda":    "",
+  "grow-and-thrive":        "",
+  "credithoy":              "",
+  "business-connect":       "",
+  "leadmatch":              "",
+  "hearaboutit":            "",
+  "refer-and-earn":         "",
+  "tabletap":               ""
+};
+
+/* ============================================================================
    ENTREPRENEUR MINDSET SERIES  —  STAN STORE + YOUTUBE LINKS
 
    Every tool in the Mindset Journey has two links:
@@ -4932,27 +4968,60 @@ document.addEventListener('DOMContentLoaded', async function() {
     var d = e.target.closest('[data-play][aria-disabled="true"]');
     if(d) e.preventDefault();
   });
+  window.APP_BUTTON = window.APP_BUTTON || {};
+  var ICON_PLAY = '<path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path>';
+  var ICON_BAG  = '<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path>';
+  function storeSells(slug){
+    var d = window.PRICES && window.PRICES[slug];
+    return !d || ['Available','Available for purchase','Beta'].indexOf(d.status) >= 0;
+  }
+  /* which button an app shows: 'play' or 'stan' */
+  window.storeChoice = function(slug){
+    var pick = String(window.APP_BUTTON[slug] || '').trim().toLowerCase();
+    var play = (window.APP_LINKS[slug] || '').trim();
+    if(pick === 'stan' || pick === 'play') return pick;
+    if(play) return 'play';
+    return storeSells(slug) ? 'stan' : 'play';     /* nothing to buy yet: keep the old "coming soon" wording */
+  };
   window.applyPlayLink = function(slug){
-    var url = (window.APP_LINKS[slug] || '').trim();
+    var mode = window.storeChoice(slug);
+    var url = mode === 'play'
+      ? (window.APP_LINKS[slug] || '').trim()
+      : (storeSells(slug) ? ((window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '').trim() : '');
+    if(!/^https:\/\//.test(url)) url = '';
+    var word = mode === 'play'
+      ? (url ? 'Get it on Google Play' : 'Coming soon to Google Play')
+      : (url ? 'Buy from my Stan Store' : 'Coming soon to my Stan Store');
     Array.prototype.forEach.call(document.querySelectorAll('[data-play="'+slug+'"]'), function(el){
       var label = el.querySelector('[data-play-label]');
+      var icon = el.querySelector('svg');
+      if(icon) icon.innerHTML = mode === 'play' ? ICON_PLAY : ICON_BAG;
+      var datum = el.querySelector('.datum');
+      if(datum) datum.textContent = mode === 'play' ? 'Android app' : 'Stan Store';
+      el.setAttribute('data-store', mode);
       if(url){
         el.setAttribute('href', url);
         el.setAttribute('target','_blank');
         el.setAttribute('rel','noopener');
         el.removeAttribute('aria-disabled');
         el.removeAttribute('data-goto');
-        if(label) label.textContent = 'Get it on Google Play';
       }else{
         el.removeAttribute('href');
         el.setAttribute('data-goto', '#' + slug + '-who');
         el.removeAttribute('target'); el.removeAttribute('rel');
         el.setAttribute('aria-disabled','true');
-        if(label) label.textContent = 'Coming soon to Google Play';
       }
+      if(label) label.textContent = word;
     });
   };
-  Object.keys(window.APP_LINKS).forEach(function(s){ window.applyPlayLink(s); });
+  window.applyAllStoreButtons = function(){
+    var seen = {};
+    Array.prototype.forEach.call(document.querySelectorAll('[data-play]'), function(el){
+      var s = el.getAttribute('data-play');
+      if(s && !seen[s]){ seen[s] = 1; window.applyPlayLink(s); }
+    });
+  };
+  window.applyAllStoreButtons();
 
 
   /* ---------- Mindset Series links (edit window.MINDSET at the top) ---------- */
@@ -5429,7 +5498,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     e.preventDefault();
     if(buy.getAttribute('aria-disabled') === 'true') return;
     var d0 = window.PRICES && window.PRICES[slug];
-    if(d0 && ['Available','Beta'].indexOf(d0.status) < 0) return;   /* link kept, just not used yet */
+    if(d0 && ['Available','Available for purchase','Beta'].indexOf(d0.status) < 0) return;   /* link kept, just not used yet */
     var url = (window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '';
     if(!/^https:\/\//.test(url)) return;
     var w = window.open(url, '_blank', 'noopener,noreferrer');
@@ -5478,7 +5547,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     /* Which statuses actually sell. Anything else keeps its Stan Store link
        stored, but the button announces the status instead of sending someone
        to a page that is not ready. */
-    var SELLING = ['Available','Beta'];
+    var SELLING = ['Available','Available for purchase','Beta'];
     function sells(status){ return SELLING.indexOf(status) >= 0; }
     function buttonWord(status){
       if(status === 'Coming soon')    return 'Coming Soon';
@@ -5653,6 +5722,7 @@ document.addEventListener('DOMContentLoaded', async function() {
        and a plain price list, which is what the first saved files held. */
     if(obj.prices && typeof obj.prices === 'object'){
       if(obj.storeLinks && typeof obj.storeLinks === 'object') window.STORE_LINKS = obj.storeLinks;
+      if(obj.appButton  && typeof obj.appButton  === 'object') window.APP_BUTTON  = obj.appButton;
       if(obj.delivery   && typeof obj.delivery   === 'object') window.DELIVERY   = obj.delivery;
       if(obj.salesLog   && obj.salesLog.length   !== undefined) window.SALES_LOG = obj.salesLog;
       if(obj.tickets    && obj.tickets.length    !== undefined) window.TICKETS   = obj.tickets;
@@ -5667,6 +5737,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
     if(typeof window.__refreshHubPrices === 'function'){
       try{ window.__refreshHubPrices(); }catch(e){}
+    }
+    if(typeof window.applyAllStoreButtons === 'function'){
+      try{ window.applyAllStoreButtons(); }catch(e){}
     }
     return true;
   };
@@ -5956,6 +6029,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if(typeof window.__tkUpdateDot === 'function'){ try{ window.__tkUpdateDot(); }catch(e){} }
       tableFromPrices();
       Object.keys(window.PRICES).forEach(function(s){ renderSubcard(s); });
+      if(typeof window.applyAllStoreButtons === 'function'){ try{ window.applyAllStoreButtons(); }catch(e){} }
       draftBanner(true, dr.saved);
     })();
 
@@ -5999,6 +6073,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           'window.STORE_FRONT = '  + JSON.stringify(window.STORE_FRONT  || '') + ';',
           'window.STORE_LINKS = '  + JSON.stringify(window.STORE_LINKS  || {}) + ';',
           'window.APP_LINKS = '    + JSON.stringify(window.APP_LINKS    || {}) + ';',
+          'window.APP_BUTTON = '   + JSON.stringify(window.APP_BUTTON   || {}) + ';',
           'window.MINDSET = '      + JSON.stringify(window.MINDSET      || {}) + ';',
           'window.PRICES = '       + JSON.stringify(window.PRICES       || {}) + ';'
         ];
