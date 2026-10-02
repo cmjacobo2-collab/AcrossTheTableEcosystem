@@ -491,6 +491,25 @@ img{max-width:100%;display:block;}
 .app-open svg{width:16px;height:16px;transition:transform var(--fast) var(--ease);}
 .app:hover .app-open svg{transform:translateX(3px);}
 
+/* the whole card opens its page: the "Learn more" link stretches over it */
+.app{cursor:pointer;}
+.app-open::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:1;}
+.app-open:focus-visible{outline:none;}
+.app:has(.app-open:focus-visible){outline:2px solid var(--accent-bright);outline-offset:3px;}
+
+/* phase of development, read from the price list */
+.app-phase{
+  flex:none;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+  white-space:nowrap;border-radius:999px;padding:4px 9px;
+  color:#F2C46B;border:1px solid rgba(242,196,107,.40);background:rgba(242,196,107,.08);
+}
+.app-phase::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+.app-phase.is-live{color:#31D17B;border-color:rgba(49,209,123,.45);background:rgba(49,209,123,.10);
+  box-shadow:0 0 12px rgba(49,209,123,.18);}
+.app-phase.is-beta{color:var(--accent-bright);border-color:rgba(43,168,255,.45);background:rgba(43,168,255,.10);}
+.app-phase.is-idea{color:var(--text-muted);border-color:var(--border-default);background:transparent;}
+
 .empty{
   display:none;text-align:center;padding:44px 20px;
   border:1px dashed var(--border-default);border-radius:14px;color:var(--text-muted);
@@ -5052,7 +5071,32 @@ document.addEventListener('DOMContentLoaded', async function() {
       if(label) label.textContent = word;
     });
   };
+  var PHASE = {
+    'Available':              ['Available now', 'is-live'],
+    'Available for purchase': ['Available now', 'is-live'],
+    'Beta':                   ['Beta \u00b7 open now', 'is-beta'],
+    'In development':         ['In development', ''],
+    'Coming soon':            ['Coming soon', ''],
+    'Concept':                ['Concept', 'is-idea']
+  };
+  window.applyCardPhases = function(){
+    Array.prototype.forEach.call(document.querySelectorAll('article.app[data-slug]'), function(card){
+      var d = window.PRICES && window.PRICES[card.getAttribute('data-slug')];
+      var ph = d && PHASE[d.status];
+      var badge = card.querySelector('.app-phase');
+      if(!ph){ if(badge) badge.remove(); return; }
+      if(!badge){
+        var top = card.querySelector('.app-top');
+        if(!top) return;
+        badge = document.createElement('span');
+        top.appendChild(badge);
+      }
+      badge.className = 'app-phase' + (ph[1] ? ' ' + ph[1] : '');
+      badge.textContent = ph[0];
+    });
+  };
   window.applyAllStoreButtons = function(){
+    try{ window.applyCardPhases(); }catch(e){}
     var seen = {};
     Array.prototype.forEach.call(document.querySelectorAll('[data-play]'), function(el){
       var s = el.getAttribute('data-play');
