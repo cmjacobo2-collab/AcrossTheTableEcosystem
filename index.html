@@ -552,6 +552,16 @@ img{max-width:100%;display:block;}
 @media (prefers-reduced-motion: reduce){
   .sys-orbit,.sys-app img{animation:none;}
 }
+/* AI Assessment: a radar scan behind the heading */
+#assessment .lp-hero.has-fx .fx-bg{
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 70px,#000 calc(100% - 90px),transparent 100%);
+          mask-image:linear-gradient(180deg,transparent 0,#000 70px,#000 calc(100% - 90px),transparent 100%);
+  background:
+    radial-gradient(ellipse 45% 70% at 30% 50%, rgba(39,216,194,.12), transparent 70%),
+    linear-gradient(180deg, #06111D 0%, #071725 100%);
+}
+#assessment .lp-hero.has-fx .glow{opacity:.35;}
+#assessment .aframe-wrap{box-shadow:0 -30px 60px -30px rgba(39,216,194,.22);}
 .eco-savebar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px;}
 .app-open::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:1;}
 .app-open:focus-visible{outline:none;}
@@ -9743,7 +9753,78 @@ document.addEventListener('DOMContentLoaded', async function() {
       });
     }
   };
-  if(REDUCE){ network.step = circuit.step = function(){}; }
+  /* AI Assessment: a radar. Rings spread out from behind the heading, a teal
+     beam sweeps round about once every 8 seconds, and the dots it passes
+     light up and fade. A few glow gold: the places AI fits. */
+  var radar = {
+    PERIOD: 8000,
+    init: function(W, H){
+      var wide = W >= 900;
+      var cx = wide ? Math.min(W * .3, 430) : W * .5, cy = H * .5;
+      var far = Math.max(Math.hypot(cx, cy), Math.hypot(W - cx, cy), Math.hypot(cx, H - cy), Math.hypot(W - cx, H - cy));
+      var n = Math.max(26, Math.min(90, Math.round(W * H / 9000)));
+      var dots = [];
+      for(var i = 0; i < n; i++){
+        var r = 40 + Math.pow(Math.random(), .8) * (Math.min(far, 640) - 40);
+        var a = Math.random() * 6.2832;
+        var x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+        if(x < -10 || x > W + 10 || y < -10 || y > H + 10){ i--; continue; }
+        dots.push({ x:x, y:y, a:a, gold: Math.random() < .14, s: 5 + Math.random() * 5 });
+      }
+      return { cx:cx, cy:cy, far:far, dots:dots, ang: REDUCE ? 5.2 : 0 };
+    },
+    step: function(st, W, H, dt){ st.ang = (st.ang + dt / this.PERIOD * 6.2832) % 6.2832; },
+    draw: function(g, W, H, st){
+      g.clearRect(0,0,W,H);
+      var cx = st.cx, cy = st.cy, far = st.far, ang = st.ang;
+      /* rings */
+      var reach = Math.min(far, 640);
+      for(var r = 64, k = 0; r < reach; r += 64, k++){
+        var fade = 1 - r / reach;
+        g.strokeStyle = rgba(TEAL, (k % 3 === 2 ? .22 : .13) * fade);
+        g.lineWidth = k % 3 === 2 ? 1.1 : .8;
+        g.beginPath(); g.arc(cx, cy, r, 0, 6.2832); g.stroke();
+      }
+      /* cross hairs */
+      g.strokeStyle = rgba(TEAL, .08); g.lineWidth = .8;
+      g.beginPath(); g.moveTo(cx - reach, cy); g.lineTo(cx + reach, cy);
+      g.moveTo(cx, cy - reach); g.lineTo(cx, cy + reach); g.stroke();
+      /* the beam: a soft wedge trailing behind a bright leading edge */
+      if(g.createConicGradient){
+        var cg = g.createConicGradient(ang - 1.25, cx, cy);
+        cg.addColorStop(0, rgba(TEAL, 0));
+        cg.addColorStop(.15, rgba(TEAL, .07));
+        cg.addColorStop(.199, rgba(TEAL, .26));
+        cg.addColorStop(.2, rgba(TEAL, 0));
+        cg.addColorStop(1, rgba(TEAL, 0));
+        g.fillStyle = cg;
+        g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, reach, ang - 1.26, ang + .01); g.closePath(); g.fill();
+      }
+      var lg = g.createLinearGradient(cx, cy, cx + Math.cos(ang) * reach, cy + Math.sin(ang) * reach);
+      lg.addColorStop(0, rgba(TEAL, .7)); lg.addColorStop(1, rgba(TEAL, 0));
+      g.strokeStyle = lg; g.lineWidth = 1.6;
+      g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(ang) * reach, cy + Math.sin(ang) * reach); g.stroke();
+      /* dots: brightest just after the beam passes, then fading */
+      st.dots.forEach(function(d){
+        var since = (ang - d.a + 12.5664) % 6.2832;          /* radians since the beam passed */
+        var lit = Math.exp(-since / (d.gold ? 2.2 : 1.4));
+        var base = d.gold ? .18 : .10;
+        var a = base + (1 - base) * lit;
+        var s = d.s * (d.gold ? 1.25 : 1) * (.7 + .5 * lit);
+        g.globalAlpha = a;
+        g.drawImage(SPR[d.gold ? 'gold' : 'teal'], d.x - s, d.y - s, s * 2, s * 2);
+        if(d.gold && lit > .25){
+          g.globalAlpha = lit * .5;
+          g.strokeStyle = rgba(GOLD, 1); g.lineWidth = 1;
+          g.beginPath(); g.arc(d.x, d.y, 9 + (1 - lit) * 14, 0, 6.2832); g.stroke();
+        }
+      });
+      g.globalAlpha = 1;
+      /* the centre */
+      g.drawImage(SPR.teal, cx - 9, cy - 9, 18, 18);
+    }
+  };
+  if(REDUCE){ network.step = circuit.step = radar.step = function(){}; }
 
   function start(){
     /* put the real app logos on the centerpiece's two rings */
@@ -9767,6 +9848,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     mount(document.getElementById('system'), network);
     mount(document.getElementById('learn'), circuit);
+    var ah = document.querySelector('#assessment .lp-hero');
+    if(ah){
+      if(getComputedStyle(ah).position === 'static') ah.style.position = 'relative';
+      mount(ah, radar);
+    }
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
