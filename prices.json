@@ -486,7 +486,7 @@
     "tabletap": {
       "name": "TableTap",
       "kind": "Per table, one-time",
-      "status": "Beta",
+      "status": "Available",
       "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, an order, and a repeat customer.",
       "feats": [
         "Smart tap tags per table",
