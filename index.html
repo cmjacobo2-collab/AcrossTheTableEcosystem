@@ -562,6 +562,16 @@ img{max-width:100%;display:block;}
 }
 #assessment .lp-hero.has-fx .glow{opacity:.35;}
 #assessment .aframe-wrap{box-shadow:0 -30px 60px -30px rgba(39,216,194,.22);}
+.planlinks{margin-top:26px;padding:20px 20px 14px;border:1px solid var(--border-default);border-radius:14px;background:var(--bg-card);}
+.planlinks-h{font-size:16px;font-weight:700;margin:0;}
+.planlinks-p{font-size:13px;color:var(--text-muted);margin:6px 0 14px;max-width:760px;line-height:1.55;}
+.planlinks-scroll{overflow-x:auto;}
+.planlinks-t{width:100%;border-collapse:collapse;min-width:720px;}
+.planlinks-t th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-muted);padding:8px 8px;border-bottom:1px solid var(--border-subtle);}
+.planlinks-t td{padding:7px 8px;border-bottom:1px solid var(--border-subtle);vertical-align:middle;}
+.planlinks-t .playin{width:100%;min-width:180px;}
+.planlinks-app{font-weight:600;white-space:nowrap;font-size:13.5px;}
 .eco-savebar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px;}
 .app-open::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:1;}
 .app-open:focus-visible{outline:none;}
@@ -5120,7 +5130,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     var mode = window.storeChoice(slug);
     var url = mode === 'play'  ? (window.APP_LINKS[slug] || '').trim()
             : mode === 'apple' ? (window.APPLE_LINKS[slug] || '').trim()
-            : (storeSells(slug) ? ((window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '').trim() : '');
+            : (storeSells(slug) ? (function(){
+          var d = window.PRICES && window.PRICES[slug], L = (d && d.links) || {};
+          return ((window.STORE_LINKS && window.STORE_LINKS[slug]) || L.monthly || L.annual || L.onetime || window.STORE_FRONT || '');
+        })().trim() : '');
     if(!/^https:\/\//.test(url)) url = '';
     var word = mode === 'play'  ? (url ? 'Get it on Google Play'     : 'Coming soon to Google Play')
              : mode === 'apple' ? (url ? 'Download on the App Store' : 'Coming soon to the App Store')
@@ -5657,7 +5670,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     if(buy.getAttribute('aria-disabled') === 'true') return;
     var d0 = window.PRICES && window.PRICES[slug];
     if(d0 && ['Available','Available for purchase','Beta'].indexOf(d0.status) < 0) return;   /* link kept, just not used yet */
-    var url = (window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '';
+    var key = buy.getAttribute('data-plan-key') || '';
+    if(!key){
+      var picked = buy.closest('[data-subcard]');
+      picked = picked && picked.querySelector('[data-plans] [aria-checked="true"]');
+      key = picked ? picked.getAttribute('data-plan') : '';
+    }
+    var url = (typeof window.planLinkFor === 'function') ? window.planLinkFor(slug, key)
+            : ((window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '');
     if(!/^https:\/\//.test(url)) return;
     var w = window.open(url, '_blank', 'noopener,noreferrer');
     if(w) w.opener = null;
@@ -5667,29 +5687,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   document.addEventListener('click', function(e){
     var pb = e.target.closest('[data-plans] [data-plan]');
     if(!pb) return;
-    var grp = pb.closest('[data-plans]');
-    Array.prototype.forEach.call(grp.querySelectorAll('[data-plan]'), function(x){
-      x.setAttribute('aria-checked', String(x === pb));
-    });
-    var card = grp.closest('[data-subcard]');
+    var card = pb.closest('[data-subcard]');
     if(!card) return;
-    var slug = card.getAttribute('data-subcard'), key = pb.getAttribute('data-plan');
-    var d = window.PRICES[slug]; if(!d) return;
-    var plan = null, monthly = null;
-    d.plans.forEach(function(x){ if(x.key === key) plan = x; if(x.key === 'monthly') monthly = x; });
-    if(!plan) return;
-    card.querySelector('[data-sub-total]').textContent = usd(plan.amount);
-    var sbtn = card.querySelector('[data-sub-btn]');
-    if(sbtn && sbtn.getAttribute('aria-disabled') !== 'true'){
-      sbtn.textContent = plan.cta || 'Get it on Stan Store';
-    }
-    card.querySelector('[data-sub-renew]').textContent = plan.note ||
-      (key === 'onetime' ? 'One-time payment. No recurring charge.'
-      : key === 'trial' ? ('Free for ' + d.trial + ' days, then ' + usd(monthly ? monthly.amount : 0) + ' per month until you cancel.')
-      : ('Renews automatically at ' + usd(plan.amount) + ' per ' + (key === 'annual' ? 'year' : 'month') + ' until you cancel.'));
-    card.querySelector('[data-sub-foot]').textContent = plan.foot ||
-      (key === 'onetime' ? 'Bought through my Stan Store. One-time purchase — nothing to cancel.'
-      : 'Bought through my Stan Store. Cancel anytime — access continues to the end of the paid period.');
+    if(typeof window.__fillBuyBox === 'function')
+      window.__fillBuyBox(card, card.getAttribute('data-subcard'), pb.getAttribute('data-plan'));
   });
 
     /* Money on screen reads as money: thousands separated, cents always shown.
@@ -5806,53 +5807,58 @@ document.addEventListener('DOMContentLoaded', async function() {
       if(text != null) e.textContent = text;
       return e;
     }
-    function renderSubcard(slug){
-      var card = document.querySelector('[data-subcard="'+slug+'"]');
-      var d = window.PRICES[slug];
-      if(!card || !d) return;
-      /* the trial sentence quotes the monthly price, so rebuild it from the
-         number rather than trusting whatever text was stored earlier */
-      refreshTrial(d);
-      refreshAnnual(d);
-      var group = card.querySelector('[data-plans]');
-      if(!group) return;
-      while(group.firstChild) group.removeChild(group.firstChild);
+    /* ---- the plan box on each app page ----
+       The free trial is not a plan to pick. It comes with the monthly and
+       annual plans automatically, and the box says so plainly: nothing is
+       charged today, then the plan's price after the trial. One-time
+       purchases have no trial and are paid today.
+       Each purchase type can have its own Stan Store page (d.links), so the
+       button goes to the page for the plan that is picked. */
+    function isRecurring(key){ return key === 'monthly' || key === 'annual'; }
+    function shownPlans(d){ return d.plans.filter(function(p){ return p.key !== 'trial'; }); }
+    function trialDays(d){ return (d.trial > 0 && shownPlans(d).some(function(p){ return isRecurring(p.key); })) ? d.trial : 0; }
+    window.planLinkFor = function(slug, key){
+      var d = window.PRICES && window.PRICES[slug];
+      var own = d && d.links && d.links[key];
+      return (own && /^https:\/\//.test(own) ? own : '') ||
+             (window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '';
+    };
+    function planSub(d, p){
+      var t = trialDays(d);
+      if(!t || !isRecurring(p.key)) return p.sub || '';
+      if(p.key === 'monthly') return 'First ' + t + ' days free, then billed monthly';
+      var save = String(p.sub || '').match(/save\s*\d+\s*%/i);
+      return 'First ' + t + ' days free, then billed yearly' + (save ? ' — ' + save[0] : '');
+    }
+    function fillBuyBox(card, slug, key){
+      var d = window.PRICES[slug]; if(!card || !d) return;
+      var plans = shownPlans(d), plan = null;
+      plans.forEach(function(x){ if(x.key === key) plan = x; });
+      if(!plan) plan = plans[0];
+      if(!plan) return;
+      key = plan.key;
+      var t = trialDays(d), withTrial = t > 0 && isRecurring(key);
+      var per = key === 'annual' ? 'year' : 'month';
 
-      d.plans.forEach(function(p, n){
-        var b = el('button','plan compact');
-        b.type='button'; b.setAttribute('role','radio');
-        b.setAttribute('data-plan', p.key);
-        b.setAttribute('data-amount', String(p.amount));
-        b.setAttribute('data-per', p.per || '');
-        b.setAttribute('data-label', p.label || '');
-        b.setAttribute('aria-checked', n === 0 ? 'true' : 'false');
-        var dot = el('span','radio'); dot.setAttribute('aria-hidden','true');
-        var pn = el('span','pn'); pn.appendChild(el('b',null,p.label||'')); pn.appendChild(el('span',null,p.sub||''));
-        var pr = el('span','pr');
-        pr.appendChild(el('b',null, usd(p.amount)));
-        pr.appendChild(el('span',null,p.per||''));
-        b.appendChild(dot); b.appendChild(pn); b.appendChild(pr);
-        group.appendChild(b);
+      Array.prototype.forEach.call(card.querySelectorAll('[data-plans] [data-plan]'), function(x){
+        x.setAttribute('aria-checked', String(x.getAttribute('data-plan') === key));
       });
-
-      var first = d.plans[0];
-      if(!first) return;
-      var kindEl = card.querySelector('.datum');
-      if(kindEl && d.kind) kindEl.textContent = d.kind;
       var tot = card.querySelector('[data-sub-total]');
-      if(tot) tot.textContent = usd(first.amount);
-      var m = planOf(d,'monthly');
+      if(tot) tot.textContent = usd(withTrial ? 0 : plan.amount);
       var renew = card.querySelector('[data-sub-renew]');
       if(renew){
-        renew.textContent = first.note ||
-          (first.key === 'onetime' ? 'One-time payment. No recurring charge.'
-          : first.key === 'trial' ? ('Free for ' + d.trial + ' days, then ' + usd(m ? m.amount : 0) + ' per month until you cancel.')
-          : ('Renews automatically at ' + usd(first.amount) + ' per ' + (first.key === 'annual' ? 'year' : 'month') + ' until you cancel.'));
+        renew.textContent = plan.note ||
+          (key === 'onetime' ? 'One-time payment of ' + usd(plan.amount) + '. No recurring charge.'
+          : withTrial ? ('Nothing is charged today. Your ' + t + '-day free trial starts now, then ' +
+                         usd(plan.amount) + ' per ' + per + ' until you cancel. Cancel before day ' + t + ' and you pay nothing.')
+          : ('Renews automatically at ' + usd(plan.amount) + ' per ' + per + ' until you cancel.'));
       }
       var btn = card.querySelector('[data-sub-btn]');
       if(btn){
+        btn.setAttribute('data-plan-key', key);
         if(sells(d.status)){
-          btn.textContent = first.cta || 'Get it on Stan Store';
+          btn.textContent = plan.cta || (withTrial ? 'Start my ' + t + '-day free trial'
+                                       : key === 'onetime' ? 'Buy now on Stan Store' : 'Get it on Stan Store');
           btn.removeAttribute('aria-disabled');
           btn.classList.remove('is-soon');
           btn.disabled = false;
@@ -5867,10 +5873,63 @@ document.addEventListener('DOMContentLoaded', async function() {
       if(foot){
         foot.textContent = !sells(d.status)
           ? 'Not open for purchase yet. Tell me you want it and I’ll let you know the day it opens.'
-          : (first.foot ||
-             (first.key === 'onetime' ? 'Bought through my Stan Store. One-time purchase — nothing to cancel.'
+          : (plan.foot ||
+             (key === 'onetime' ? 'Bought through my Stan Store. One-time purchase — nothing to cancel.'
              : 'Bought through my Stan Store. Cancel anytime — access continues to the end of the paid period.'));
       }
+    }
+    window.__fillBuyBox = fillBuyBox;
+
+    function renderSubcard(slug){
+      var card = document.querySelector('[data-subcard="'+slug+'"]');
+      var d = window.PRICES[slug];
+      if(!card || !d) return;
+      refreshTrial(d);
+      refreshAnnual(d);
+      var group = card.querySelector('[data-plans]');
+      if(!group) return;
+      while(group.firstChild) group.removeChild(group.firstChild);
+
+      var plans = shownPlans(d);
+      plans.forEach(function(p){
+        var b = el('button','plan compact');
+        b.type='button'; b.setAttribute('role','radio');
+        b.setAttribute('data-plan', p.key);
+        b.setAttribute('data-amount', String(p.amount));
+        b.setAttribute('data-per', p.per || '');
+        b.setAttribute('data-label', p.label || '');
+        b.setAttribute('aria-checked','false');
+        var dot = el('span','radio'); dot.setAttribute('aria-hidden','true');
+        var pn = el('span','pn'); pn.appendChild(el('b',null,p.label||'')); pn.appendChild(el('span',null,planSub(d, p)));
+        var pr = el('span','pr');
+        pr.appendChild(el('b',null, usd(p.amount)));
+        pr.appendChild(el('span',null,p.per||''));
+        b.appendChild(dot); b.appendChild(pn); b.appendChild(pr);
+        group.appendChild(b);
+      });
+
+      var kindEl = card.querySelector('.datum');
+      if(kindEl && d.kind) kindEl.textContent = d.kind;
+
+      /* the green pill says what the trial covers, or goes away if there is none */
+      var t = trialDays(d);
+      var pill = card.querySelector('.trial-pill');
+      if(t && !pill){
+        pill = el('div','trial-pill');
+        var h3 = card.querySelector('h3');
+        if(h3 && h3.parentNode) h3.parentNode.insertBefore(pill, h3.nextSibling);
+      }
+      /* a pill that says something else (TableTap: "Tags and setup included") is left alone */
+      if(pill && !t && !/trial/i.test(pill.textContent)) pill = null;
+      if(pill){
+        var both = plans.some(function(p){ return p.key === 'monthly'; }) && plans.some(function(p){ return p.key === 'annual'; });
+        pill.textContent = t ? (t + '-day free trial included' + (both ? ' with monthly & annual' : '')) : '';
+        pill.hidden = !t;
+      }
+
+      /* monthly is picked to start with, when there is one */
+      var start = plans.some(function(p){ return p.key === 'monthly'; }) ? 'monthly' : (plans[0] && plans[0].key);
+      fillBuyBox(card, slug, start);
     }
 
 
@@ -6278,6 +6337,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.__refreshHubPrices = function(){
       try{ tableFromPrices(); }catch(e){}
       try{ if(window.__syncHubStatuses) window.__syncHubStatuses(); }catch(e){}
+      try{ if(window.__drawPlanLinks) window.__drawPlanLinks(); }catch(e){}
       try{ countProducts(); }catch(e){}
       try{
         Array.prototype.forEach.call(hub.querySelectorAll('[data-storelink]'), function(inp){
@@ -6800,6 +6860,79 @@ document.addEventListener('DOMContentLoaded', async function() {
         new MutationObserver(function(){ btn.disabled = realSave.disabled; })
           .observe(realSave, { attributes:true, attributeFilter:['disabled'] });
       }
+    })();
+
+    /* ---- a Stan Store link for each purchase type ----
+       Under the price table: one row per app, with a box for the monthly,
+       annual and one-time Stan Store pages. The landing page's button goes to
+       the page for whichever plan the visitor picked. A box left empty falls
+       back to the app's main Stan Store link, then the store front. */
+    (function(){
+      var pane = hub.querySelector('[data-pane="products"]');
+      if(!pane || pane.querySelector('[data-planlinks]')) return;
+      var TYPES = [['monthly','Monthly subscription'],['annual','Annual'],['onetime','One-time payment']];
+      var box = el('div','planlinks');
+      box.setAttribute('data-planlinks','');
+      box.appendChild(el('h3','planlinks-h','Stan Store link for each purchase type'));
+      box.appendChild(el('p','planlinks-p',
+        'Paste the Stan Store page for each way an app can be bought. When a visitor picks a plan, ' +
+        'the button takes them to that plan’s page. Leave a box empty and it uses the app’s main Stan Store link. ' +
+        'Changes save in this browser right away; press Save to put them on your site.'));
+      var scroll = el('div','planlinks-scroll');
+      var t = el('table','planlinks-t');
+      var hr = el('tr');
+      hr.appendChild(el('th',null,'App'));
+      TYPES.forEach(function(x){ hr.appendChild(el('th',null,x[1])); });
+      var thead = el('thead'); thead.appendChild(hr); t.appendChild(thead);
+      var tb = el('tbody'); t.appendChild(tb);
+      scroll.appendChild(t); box.appendChild(scroll);
+      var msg = el('p','pp-note'); box.appendChild(msg);
+
+      function draw(){
+        while(tb.firstChild) tb.removeChild(tb.firstChild);
+        Object.keys(window.PRICES || {}).forEach(function(slug){
+          var d = window.PRICES[slug];
+          if(!d || d.status === 'Hidden') return;
+          var tr = el('tr');
+          tr.appendChild(el('td','planlinks-app', d.name || slug));
+          TYPES.forEach(function(x){
+            var key = x[0], td = el('td');
+            var has = (d.plans || []).some(function(pl){ return pl.key === key; });
+            var inp = el('input','playin');
+            inp.type = 'url';
+            inp.placeholder = has ? 'Paste Stan Store link' : 'No ' + (key === 'onetime' ? 'one-time' : key) + ' price yet';
+            inp.value = (d.links && d.links[key]) || '';
+            inp.classList.toggle('live', /^https:\/\//.test(inp.value));
+            inp.setAttribute('aria-label', (d.name || slug) + ' — ' + x[1] + ' Stan Store link');
+            inp.addEventListener('change', function(){
+              var v = inp.value.trim();
+              if(v && !/^https:\/\//.test(v)){
+                msg.className = 'pp-note';
+                msg.textContent = 'That link needs to start with https:// — copy it straight from Stan Store.';
+                return;
+              }
+              d.links = d.links || {};
+              if(v) d.links[key] = v; else delete d.links[key];
+              inp.classList.toggle('live', !!v);
+              renderSubcard(slug);
+              if(typeof window.applyPlayLink === 'function'){ try{ window.applyPlayLink(slug); }catch(e){} }
+              draftWrite();
+              draftBanner(true, Date.now());
+              msg.className = 'pp-note ok';
+              msg.textContent = (d.name || slug) + ' — ' + x[1] + ' link ' + (v ? 'saved' : 'removed') +
+                ' in this browser. Press Save to put it on your site.';
+            });
+            td.appendChild(inp); tr.appendChild(td);
+          });
+          tb.appendChild(tr);
+        });
+      }
+      draw();
+      window.__drawPlanLinks = draw;
+      var anchor = pane.querySelector('table');
+      var wrapper = anchor && (anchor.closest('.tbl-wrap, .table-wrap, .ptable') || anchor);
+      if(wrapper && wrapper.parentNode) wrapper.parentNode.insertBefore(box, wrapper.nextSibling);
+      else pane.appendChild(box);
     })();
 
     /* Google Play links, editable from Products & pricing */
