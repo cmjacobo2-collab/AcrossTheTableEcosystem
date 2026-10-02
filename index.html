@@ -5676,6 +5676,20 @@ document.addEventListener('DOMContentLoaded', async function() {
       t.price = usd(0); t.amount = 0; t.label = t.label || 'Free trial';
     }
 
+    /* The "save X%" on the annual plan is worked out from the two prices,
+       so it is right whenever either one changes. Rounded down, so the page
+       never promises more than the real saving. A wording you typed yourself
+       (anything without a percentage in it) is left alone. */
+    function refreshAnnual(d){
+      var a = planOf(d,'annual'); if(!a) return;
+      var m = planOf(d,'monthly');
+      var sub = String(a.sub || '');
+      if(sub && !/save\s*\d+\s*%/i.test(sub) && sub !== 'Billed once a year') return;
+      var full = m ? m.amount * 12 : 0;
+      var pct = (full > 0 && a.amount > 0) ? Math.floor((1 - a.amount / full) * 100) : 0;
+      a.sub = pct >= 1 ? ('Billed yearly \u2014 save ' + pct + '%') : 'Billed once a year';
+    }
+
     function setPrice(slug, field, raw){
       var d = window.PRICES[slug]; if(!d) return false;
       var v = String(raw).trim();
@@ -5703,6 +5717,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           dropPlan(d, field);
         }
         if(field === 'monthly') refreshTrial(d);
+        if(field === 'monthly' || field === 'annual') refreshAnnual(d);
       }
       sortPlans(d);
       return true;
@@ -5722,6 +5737,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       /* the trial sentence quotes the monthly price, so rebuild it from the
          number rather than trusting whatever text was stored earlier */
       refreshTrial(d);
+      refreshAnnual(d);
       var group = card.querySelector('[data-plans]');
       if(!group) return;
       while(group.firstChild) group.removeChild(group.firstChild);
@@ -5782,6 +5798,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
 
+
+  /* draw every plan card from the built-in price list straight away, so the
+     worked-out numbers are right even before prices.json arrives */
+  Object.keys(window.PRICES || {}).forEach(function(slug){
+    try{ renderSubcard(slug); }catch(e){}
+  });
 
   /* ======================================================================
      PRICES.JSON  —  the price list as its own small file
