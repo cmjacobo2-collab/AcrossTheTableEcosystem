@@ -3,7 +3,7 @@
     "credithoy": {
       "name": "CreditHoy",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Available for purchase",
       "blurb": "Business credit development made easier — build and monitor credit step by step.",
       "feats": [
         "Six-step credit roadmap",
@@ -32,7 +32,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 24%",
           "price": "$269.99",
           "per": "per year",
           "amount": 269.99
@@ -71,7 +71,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 20%",
           "price": "$190",
           "per": "per year",
           "amount": 190
@@ -110,7 +110,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed once a year",
           "price": "$390",
           "per": "per year",
           "amount": 390
@@ -141,7 +141,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 20%",
+          "sub": "Billed yearly — save 10%",
           "price": "$1068",
           "per": "per year",
           "amount": 1068
@@ -180,7 +180,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 10%",
           "price": "$1068",
           "per": "per year",
           "amount": 1068
@@ -219,7 +219,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 7%",
           "price": "$1656.98",
           "per": "per year",
           "amount": 1656.98
@@ -258,7 +258,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 3%",
           "price": "$576.99",
           "per": "per year",
           "amount": 576.99
@@ -297,7 +297,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed once a year",
           "price": "$2268.99",
           "per": "per year",
           "amount": 2268.99
@@ -375,7 +375,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 13%",
           "price": "$13343",
           "per": "per year",
           "amount": 13343
@@ -437,7 +437,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 16%",
           "price": "$249.99",
           "per": "per year",
           "amount": 249.99
@@ -468,7 +468,7 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 17%",
+          "sub": "Billed yearly — save 6%",
           "price": "$899.99",
           "per": "per year",
           "amount": 899.99
