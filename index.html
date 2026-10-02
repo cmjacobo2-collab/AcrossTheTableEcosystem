@@ -493,6 +493,7 @@ img{max-width:100%;display:block;}
 
 /* the whole card opens its page: the "Learn more" link stretches over it */
 .app{cursor:pointer;}
+.eco-savebar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px;}
 .app-open::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:1;}
 .app-open:focus-visible{outline:none;}
 .app:has(.app-open:focus-visible){outline:2px solid var(--accent-bright);outline-offset:3px;}
@@ -6295,8 +6296,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     function ghForget(){ try{ localStorage.removeItem(GHKEY); }catch(e){} }
 
     function ghState(text, cls){
-      var el = hub.querySelector('[data-gh-state]');
-      if(el){ el.textContent = text || ''; el.className = 'pp-state' + (cls ? (' '+cls) : ''); }
+      Array.prototype.forEach.call(hub.querySelectorAll('[data-gh-state]'), function(el){
+        el.textContent = text || ''; el.className = 'pp-state' + (cls ? (' '+cls) : '');
+      });
     }
     function ghSetupMsg(text, cls){
       var el = hub.querySelector('[data-gh-msg]');
@@ -6562,7 +6564,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           if(tbl && tbl.parentNode) tbl.parentNode.insertBefore(note, tbl);
         }
         note.textContent = (d.name || slug) + ' is now "' + sel.value + '" in this browser. ' +
-          'Press Save on Products & pricing to put it on your site.';
+          'Press "Save changes to my website" to put it on your site.';
       });
     });
 
@@ -6634,6 +6636,40 @@ document.addEventListener('DOMContentLoaded', async function() {
         priceDirty = false;
       });
     }
+
+    /* ---- the same "Save to my website" button on Ecosystem manager ----
+       It presses the real save button on Products & pricing, so there is only
+       one way saving works, whichever page you are on. */
+    (function(){
+      var ecoPane = hub.querySelector('[data-pane="ecosystem"]');
+      var realSave = hub.querySelector('[data-gh-save]');
+      if(!ecoPane || ecoPane.querySelector('[data-eco-save]')) return;
+      var bar = el('div', 'eco-savebar');
+      var btn = el('button', (realSave && realSave.className) || 'btn btn-primary', 'Save changes to my website');
+      btn.type = 'button';
+      btn.setAttribute('data-eco-save', '');
+      var state = el('span', 'pp-state');
+      state.setAttribute('data-gh-state', '');
+      state.setAttribute('aria-live', 'polite');
+      bar.appendChild(btn); bar.appendChild(state);
+      var anchor = ecoPane.querySelector('.eco-bar') || ecoPane.querySelector('table');
+      if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(bar, anchor);
+      else ecoPane.appendChild(bar);
+
+      btn.addEventListener('click', function(){
+        if(realSave && ghRead()){ realSave.click(); return; }
+        /* not connected yet: the one-time setup lives on Products & pricing */
+        showPane('products');
+        var setup = hub.querySelector('[data-gh-setup]');
+        if(setup){ setup.scrollIntoView({ behavior:'smooth', block:'center' }); try{ setup.focus(); }catch(e){} }
+        ghState('Set up one-click saving once here, then the Save button works from both pages.');
+      });
+      /* greyed out while a save is running, like the original */
+      if(realSave && window.MutationObserver){
+        new MutationObserver(function(){ btn.disabled = realSave.disabled; })
+          .observe(realSave, { attributes:true, attributeFilter:['disabled'] });
+      }
+    })();
 
     /* Google Play links, editable from Products & pricing */
     Array.prototype.forEach.call(hub.querySelectorAll('[data-playlink]'), function(inp){
