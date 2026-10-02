@@ -6201,6 +6201,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     /* the file loader calls this after it swaps the prices in */
     window.__refreshHubPrices = function(){
       try{ tableFromPrices(); }catch(e){}
+      try{ if(window.__syncHubStatuses) window.__syncHubStatuses(); }catch(e){}
       try{ countProducts(); }catch(e){}
       try{
         Array.prototype.forEach.call(hub.querySelectorAll('[data-storelink]'), function(inp){
@@ -6491,6 +6492,77 @@ document.addEventListener('DOMContentLoaded', async function() {
         priceMsg(sells(d.status)
           ? 'Now selling through your Stan Store. Not live until you save it.'
           : 'The button will say "' + buttonWord(d.status) + '". Your Stan Store link is kept.');
+        syncStatusEverywhere(slug);
+      });
+    });
+
+    /* ---- Ecosystem manager status = the same status as Products & pricing ----
+       The Public status dropdown on Ecosystem manager used to change only that
+       table. It now writes to the price list, which is what every landing page,
+       app card and store button reads, and the two pages always agree. */
+    function ecoToPrice(v){ return v === 'Available' ? 'Available for purchase' : v; }
+    function priceToEco(v){ return (v === 'Available for purchase' || v === 'Available') ? 'Available' : v; }
+    function selectValue(sel, v){
+      if(!v) return;
+      var has = Array.prototype.some.call(sel.options, function(o){ return (o.value || o.text) === v; });
+      if(!has){ var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); }
+      sel.value = v;
+    }
+    var NAME_TO_SLUG = {};
+    Object.keys(window.PRICES || {}).forEach(function(k){
+      var n = window.PRICES[k] && window.PRICES[k].name;
+      if(n) NAME_TO_SLUG[n.trim().toLowerCase()] = k;
+    });
+    function ecoRows(){
+      var t = hub.querySelector('[data-ecotable]') || hub.querySelector('[data-pane="ecosystem"]');
+      return t ? t.querySelectorAll('tbody tr') : [];
+    }
+    function ecoSlugOf(tr){
+      if(tr.getAttribute('data-slug')) return tr.getAttribute('data-slug');
+      var img = tr.querySelector('[data-logo]');
+      if(img && window.PRICES[img.getAttribute('data-logo')]) return img.getAttribute('data-logo');
+      var first = tr.cells[0];
+      var name = first ? (first.textContent || '').trim().toLowerCase() : '';
+      return NAME_TO_SLUG[name] || '';
+    }
+    function syncStatusEverywhere(slug){
+      var d = window.PRICES[slug]; if(!d) return;
+      Array.prototype.forEach.call(ecoRows(), function(tr){
+        if(ecoSlugOf(tr) !== slug) return;
+        var sel = tr.querySelector('select'); if(sel) selectValue(sel, priceToEco(d.status));
+      });
+      Array.prototype.forEach.call(hub.querySelectorAll('[data-status="' + slug + '"]'), function(sel){
+        selectValue(sel, d.status);
+      });
+      if(typeof window.applyAllStoreButtons === 'function'){ try{ window.applyAllStoreButtons(); }catch(e){} }
+    }
+    window.__syncHubStatuses = function(){
+      Object.keys(window.PRICES || {}).forEach(syncStatusEverywhere);
+    };
+    Array.prototype.forEach.call(ecoRows(), function(tr){
+      var slug = ecoSlugOf(tr);
+      var sel = tr.querySelector('select');
+      if(!slug || !sel || !window.PRICES[slug]) return;
+      tr.setAttribute('data-slug', slug);
+      selectValue(sel, priceToEco(window.PRICES[slug].status));   /* show the real, current status */
+      sel.addEventListener('change', function(){
+        var d = window.PRICES[slug]; if(!d) return;
+        d.status = ecoToPrice(sel.value);
+        renderSubcard(slug);
+        try{ countProducts(); }catch(e){}
+        draftWrite();
+        draftBanner(true, Date.now());
+        syncStatusEverywhere(slug);
+        var note = hub.querySelector('[data-eco-msg]');
+        if(!note){
+          note = document.createElement('p');
+          note.setAttribute('data-eco-msg', '');
+          note.className = 'pp-note ok';
+          var tbl = tr.closest('table');
+          if(tbl && tbl.parentNode) tbl.parentNode.insertBefore(note, tbl);
+        }
+        note.textContent = (d.name || slug) + ' is now "' + sel.value + '" in this browser. ' +
+          'Press Save on Products & pricing to put it on your site.';
       });
     });
 
