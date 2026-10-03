@@ -131,7 +131,7 @@
     "ceo-mindset": {
       "name": "CEO Mindset",
       "kind": "Program",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "The shift from doing every job to running the business.",
       "feats": [
         "Five-pillar framework",
@@ -207,7 +207,7 @@
     "hearaboutit": {
       "name": "HearAboutIt",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Describe one topic. Get posts written for every platform.",
       "feats": [
         "AI content for five platforms",
@@ -249,7 +249,7 @@
     "grow-and-thrive": {
       "name": "Grow & Thrive",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Strategy, ratios, and scenario planning for owners without an analyst.",
       "feats": [
         "Planning frameworks",
@@ -343,7 +343,7 @@
     "leadmatch": {
       "name": "LeadMatch",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Find prospects, score them, and know why each one fits.",
       "feats": [
         "Smart lead gathering",
@@ -487,7 +487,7 @@
     "cash-flow-vs-ebitda": {
       "name": "Cash Flow vs EBITDA",
       "kind": "Digital resource",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Two views of your business, side by side.",
       "feats": [
         "Cash flow vs EBITDA comparison",
@@ -530,7 +530,7 @@
       "name": "TableTap",
       "kind": "Per table, one-time",
       "status": "Available",
-      "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, a review, and a repeat customer.",
+      "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, an order, and a repeat customer.",
       "feats": [
         "Smart tap tags per table",
         "Instant digital menu",
