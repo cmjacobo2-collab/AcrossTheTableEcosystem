@@ -37,7 +37,12 @@
           "per": "per year",
           "amount": 269.99
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint",
+        "annual": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint-annual-plan",
+        "onetime": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint-m1h8k7u3"
+      }
     },
     "lohare": {
       "name": "LOHARE",
@@ -76,7 +81,10 @@
           "per": "per year",
           "amount": 190
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/lohare-app"
+      }
     },
     "juntoshr": {
       "name": "JuntosHR",
@@ -115,7 +123,10 @@
           "per": "per year",
           "amount": 390
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription"
+      }
     },
     "ceo-mindset": {
       "name": "CEO Mindset",
@@ -154,7 +165,10 @@
           "per": "one time",
           "amount": 4999.99
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/ceo-mindset-app-placehoder"
+      }
     },
     "entrepreneur-blueprint": {
       "name": "Entrepreneur Blueprint",
@@ -185,7 +199,10 @@
           "per": "per year",
           "amount": 1068
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/entrepreneur-blueprint-placeholder"
+      }
     },
     "hearaboutit": {
       "name": "HearAboutIt",
@@ -224,7 +241,10 @@
           "per": "per year",
           "amount": 1656.98
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/hearaboutit-placeholder"
+      }
     },
     "grow-and-thrive": {
       "name": "Grow & Thrive",
@@ -263,7 +283,10 @@
           "per": "per year",
           "amount": 576.99
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder"
+      }
     },
     "startwise": {
       "name": "StartWise",
@@ -310,7 +333,12 @@
           "per": "one time",
           "amount": 4999.98
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/sartwise-startup-budgettask-manager-subscription",
+        "onetime": "https://stan.store/AcrossTheTable/p/launchledger--startup-budget--task-manager",
+        "annual": "https://stan.store/AcrossTheTable/p/sartwise-startup-budgettask-annual-subscription"
+      }
     },
     "leadmatch": {
       "name": "LeadMatch",
@@ -341,7 +369,10 @@
           "per": "per month",
           "amount": 149.99
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/leadmatch-subscription-placehoder"
+      }
     },
     "brightlights-360": {
       "name": "BrightLights 360",
@@ -380,7 +411,10 @@
           "per": "per year",
           "amount": 13343
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/brightlights360-placeholder"
+      }
     },
     "business-connect": {
       "name": "Business Connect",
@@ -403,7 +437,10 @@
           "per": "one time",
           "amount": 30
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/get-your-own-digital-business-card"
+      }
     },
     "refer-and-earn": {
       "name": "Refer & Earn",
@@ -442,7 +479,10 @@
           "per": "per year",
           "amount": 249.99
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/referralconnect-your-doneforyou-subscription"
+      }
     },
     "cash-flow-vs-ebitda": {
       "name": "Cash Flow vs EBITDA",
@@ -481,7 +521,10 @@
           "per": "one time",
           "amount": 79
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/cash-flow-vs-ebitda-placeholder"
+      }
     },
     "tabletap": {
       "name": "TableTap",
@@ -540,7 +583,10 @@
           "foot": "The monthly management starts once your system is live. Cancel anytime.",
           "cta": "Get started"
         }
-      ]
+      ],
+      "links": {
+        "monthly": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
+      }
     }
   },
   "storeLinks": {
