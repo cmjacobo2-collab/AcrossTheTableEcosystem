@@ -139,7 +139,7 @@ APPS = [
        disclaimer=[
          ('Educational use only', 'CreditHoy is an educational and organizational tool. It is not financial, legal, tax, or accounting advice.'),
          ('Not a lender or credit-repair service', 'Across the Table LLC is not a bank, lender, broker, financial institution, or credit-repair organization. We do not issue credit, guarantee approval, or repair credit on your behalf.'),
-         ('No guarantee of results', 'Funding, credit limits, and approvals are decided solely by third-party vendors, banks, and bureaus. Results depend on your business profile, effort, and many factors outside our control. We make no promise of any specific outcome, including the "$50K" figure, which is illustrative.'),
+         ('No guarantee of results', 'Funding, credit limits, and approvals are decided solely by third-party vendors, banks, and bureaus. Results depend on your business profile, effort, and many factors outside our control. We make no promise of any specific outcome. The "$0 to $50K+" goal and the dollar ranges shown in the $50K stack are illustrative examples, not amounts you will receive.'),
          ('Do your own due diligence', 'Vendor names, links, and bureau reporting can change. Verify current terms directly with each vendor before applying. We may have no affiliation with the vendors listed.'),
          ('Your responsibility', 'You are responsible for your business and financial decisions. Consider consulting a qualified professional before taking on credit or debt.')]),
   dict(slug='business-connect', name='Business Connect', what='a digital business card with a QR code, two-way contact exchange, notes, follow-up reminders, and pipeline tracking',
