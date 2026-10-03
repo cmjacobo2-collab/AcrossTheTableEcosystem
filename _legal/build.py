@@ -16,7 +16,12 @@ import html, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'legal')
 
-CO = 'Across the Table LLC'
+# The business: its registered (EIN) name, and the name it does business as.
+# If the registered name gains an ending such as "LLC", change LEGAL only.
+LEGAL = 'Bold and Beautiful Beauties'
+CO = 'Across the Table'                                   # the d/b/a, used in running text
+FULL = LEGAL + ', doing business as Across the Table'     # first mention in each document
+SHORT = LEGAL + ' d/b/a Across the Table'                 # headers, footers, contact lines
 EMAIL = 'info@acrossthetable.biz'
 ADDRESS = '101 N First Ave, Suite 2325-1495, Phoenix, AZ 85003'
 EFFECTIVE = 'October 3, 2026'
@@ -138,7 +143,7 @@ APPS = [
        paths=dict(download='More → Your data & privacy → Download my data', delete='More → Your account → Delete my account'),
        disclaimer=[
          ('Educational use only', 'CreditHoy is an educational and organizational tool. It is not financial, legal, tax, or accounting advice.'),
-         ('Not a lender or credit-repair service', 'Across the Table LLC is not a bank, lender, broker, financial institution, or credit-repair organization. We do not issue credit, guarantee approval, or repair credit on your behalf.'),
+         ('Not a lender or credit-repair service', 'Across the Table is not a bank, lender, broker, financial institution, or credit-repair organization. We do not issue credit, guarantee approval, or repair credit on your behalf.'),
          ('No guarantee of results', 'Funding, credit limits, and approvals are decided solely by third-party vendors, banks, and bureaus. Results depend on your business profile, effort, and many factors outside our control. We make no promise of any specific outcome. The "$0 to $50K+" goal and the dollar ranges shown in the $50K stack are illustrative examples, not amounts you will receive.'),
          ('Do your own due diligence', 'Vendor names, links, and bureau reporting can change. Verify current terms directly with each vendor before applying. We may have no affiliation with the vendors listed.'),
          ('Your responsibility', 'You are responsible for your business and financial decisions. Consider consulting a qualified professional before taking on credit or debt.')]),
@@ -207,7 +212,7 @@ TRIAL = [
 
 def terms_blocks(a):
     n = a['name']
-    b = [P('Welcome to %s by %s ("we," "us," "Company"). By accessing or using this application (the "App"), you ("you," "User") agree to these Terms of Service. If you do not agree, do not use the App.' % (n, CO)),
+    b = [P('Welcome to %s, offered by %s ("Across the Table," "we," "us," "Company"). By accessing or using this application (the "App"), you ("you," "User") agree to these Terms of Service. If you do not agree, do not use the App.' % (n, FULL)),
          LEAD('Eligibility', 'You must be at least 18 years old and able to enter into a binding agreement to use the App. By creating an account, you confirm that you meet these requirements.'),
          H('Purchases, free trial & membership')]
     b += [P(t) for t in TRIAL]
@@ -221,7 +226,7 @@ def terms_blocks(a):
               'You may not remove or alter any copyright, trademark, watermark, or proprietary notice.',
               'You may not use the App to build, train, or inform a competing product or service.']),
           H('3. Our intellectual property'),
-          P('The App, its content, design, methodology, %s, and all related materials are the exclusive property of %s and are protected by copyright, trademark, and trade-secret law.' % (items(a.get('ip_terms') or a['ip']), CO)),
+          P('The App, its content, design, methodology, %s, and all related materials are the exclusive property of %s and are protected by copyright, trademark, and trade-secret law.' % (items(a.get('ip_terms') or a['ip']), LEGAL)),
           H('4. Educational purpose & no guarantee'),
           P(a['advice'] + ' See the Disclaimer for details.'),
           H('5. Accounts & conduct')]
@@ -242,7 +247,7 @@ def terms_blocks(a):
 def privacy_blocks(a):
     n = a['name']
     only_you = 'only you can see it' if not a.get('team') else 'only you and the people you give access to can see it'
-    b = [P('This Privacy Policy explains what %s ("we," "us") collects when you use the %s app, how we use it, and the choices you have. The short version: your data is yours, %s, and we never sell it.' % (CO, n, only_you)),
+    b = [P('This Privacy Policy explains what %s ("Across the Table," "we," "us") collects when you use the %s app, how we use it, and the choices you have. The short version: your data is yours, %s, and we never sell it.' % (FULL, n, only_you)),
          H('Information we collect')]
     items = [('Account information', 'your email address and password. Passwords are encrypted; we cannot see them.'),
              ('Agreement record', 'the date and version of the Terms and Privacy Policy you agreed to, and your confirmation that you are 18 or older.'),
@@ -293,13 +298,13 @@ def privacy_blocks(a):
     age = a.get('age') or ('%s is only for adults 18 and older. We do not knowingly collect information from anyone under 18. If we learn we have, we will delete it.' % n)
     b += [LEAD('Age requirement', age),
           LEAD('Changes to this policy', 'If we make important changes, we will let you know in the App and ask you to review and agree again before continuing.'),
-          LEAD('Contact', '%s · %s · %s' % (CO, ADDRESS, EMAIL))]
+          LEAD('Contact', '%s · %s · %s' % (SHORT, ADDRESS, EMAIL))]
     return b
 
 def license_blocks(a):
     n = a['name']
     return [P('This Software License Agreement governs your use of the %s software and content. It protects the original system created by %s.' % (n, CO)),
-            LEAD('Ownership', 'All rights, title, and interest in the App — including its source code, design, %s, copy, and visual identity — are and remain the exclusive property of %s.' % (items(a['ip']), CO)),
+            LEAD('Ownership', 'All rights, title, and interest in the App — including its source code, design, %s, copy, and visual identity — are and remain the exclusive property of %s.' % (items(a['ip']), LEGAL)),
             LEAD('Limited license', 'You are granted a revocable, non-exclusive, non-transferable license to use the App for your own business use only. No other rights are granted by implication.'),
             H('Prohibited conduct'),
             UL(['Reverse engineering, decompiling, or disassembling the App.',
@@ -309,7 +314,7 @@ def license_blocks(a):
                 'Removing watermarks, attribution, or proprietary notices.']),
             LEAD('Proprietary protection', 'Our methodology and content are protected as trade secrets and original works of authorship.'),
             LEAD('Enforcement & DMCA', 'Unauthorized use is a material breach and may result in termination, injunctive relief, and damages. To report infringement, contact %s.' % EMAIL),
-            LEAD('Trademark', '"Across the Table" and the %s name and logo are trademarks of %s.' % (n, CO))]
+            LEAD('Trademark', '"Across the Table" and the %s name and logo are trademarks of %s.' % (n, LEGAL))]
 
 def sms_blocks(a):
     return [P('These terms govern the Across the Table reminder text-message program for %s. They are written to align with TCPA and carrier (A2P 10DLC) requirements.' % a['name']),
@@ -325,9 +330,9 @@ def disclaimer_blocks(a):
 
 # ---- the website itself ----
 def site_terms_blocks():
-    return [P('These Terms of Use apply to the Across the Table website at acrossthetable.biz (the "Site"), run by %s ("we," "us"). By using the Site, you agree to them. Each app has its own Terms of Service, Privacy Policy, and other policies, listed on our Legal page; those apply when you buy or use that app.' % CO),
+    return [P('These Terms of Use apply to the Across the Table website at acrossthetable.biz (the "Site"), run by %s ("Across the Table," "we," "us"). By using the Site, you agree to them. Each app has its own Terms of Service, Privacy Policy, and other policies, listed on our Legal page; those apply when you buy or use that app.' % FULL),
             LEAD('Who may use the Site', 'You may browse the Site at any age. Purchases are for adults 18 and older.'),
-            LEAD('Our content', 'The Site\'s text, designs, frameworks, workbooks, videos, app descriptions, and logos belong to %s and are protected by copyright and trademark law. You may view and share links to the Site, but you may not copy, resell, or republish our content without written permission.' % CO),
+            LEAD('Our content', 'The Site\'s text, designs, frameworks, workbooks, videos, app descriptions, and logos belong to %s and are protected by copyright and trademark law. You may view and share links to the Site, but you may not copy, resell, or republish our content without written permission.' % LEGAL),
             LEAD('Educational information, not advice', 'Information on the Site, including the AI Assessment and its recommendations, is general business education. It is not legal, tax, accounting, or financial advice, and it is not a guarantee of any result.'),
             LEAD('Purchases', 'Apps, workbooks, programs, and other products are sold through our checkout partner, Stan. Prices, billing, free trials, renewals, and refunds are shown at checkout and in the Terms for that product. Prices and availability on the Site can change, and we may correct mistakes.'),
             LEAD('Free trials', 'When a free trial is offered, you enter a payment method at checkout and are not charged during the trial. Unless you cancel before the trial ends, your membership begins and you are charged automatically. The full details are in each app\'s Terms of Service.'),
@@ -335,10 +340,10 @@ def site_terms_blocks():
             LEAD('Using the Site fairly', 'Do not try to break into, overload, or interfere with the Site, or scrape or copy it in bulk.'),
             LEAD('No warranties; limitation of liability', 'The Site is provided "as is." To the maximum extent permitted by law, %s is not liable for any indirect, incidental, or consequential damages arising from your use of the Site.' % CO),
             LEAD('Governing law & changes', 'These Terms are governed by the laws of the State of Arizona. We may update them; the date above shows when they last changed.'),
-            LEAD('Contact', '%s · %s · %s' % (CO, ADDRESS, EMAIL))]
+            LEAD('Contact', '%s · %s · %s' % (SHORT, ADDRESS, EMAIL))]
 
 def site_privacy_blocks():
-    return [P('This Privacy Policy explains what %s ("we," "us") collects through the Across the Table website at acrossthetable.biz (the "Site"). Each app has its own Privacy Policy, listed on our Legal page. The short version: we collect very little, we do not track you for advertising, and we never sell your information.' % CO),
+    return [P('This Privacy Policy explains what %s ("Across the Table," "we," "us") collects through the Across the Table website at acrossthetable.biz (the "Site"). Each app has its own Privacy Policy, listed on our Legal page. The short version: we collect very little, we do not track you for advertising, and we never sell your information.' % FULL),
             H('Information we collect'),
             ULB([('When you contact us or join a waiting list', 'your name, email address, and your message. These are sent by your own email app, or through a form service we use to receive them.'),
                  ('When you report an issue', 'the app, the type and urgency of the problem, your description, your name, and your email address, so we can reply.'),
@@ -352,7 +357,7 @@ def site_privacy_blocks():
             LEAD('Your choices', 'Ask for a copy of your information, or for it to be corrected or deleted, by emailing %s. We respond within 30 days. Depending on where you live (for example, California), you may have additional rights, and we will not treat you differently for using them.' % EMAIL),
             LEAD('Children', 'The Site is not directed to children under 13, and we do not knowingly collect their information.'),
             LEAD('Changes', 'We may update this policy; the date above shows when it last changed.'),
-            LEAD('Contact', '%s · %s · %s' % (CO, ADDRESS, EMAIL))]
+            LEAD('Contact', '%s · %s · %s' % (SHORT, ADDRESS, EMAIL))]
 
 # --------------------------------------------------------------------------
 # HTML
@@ -432,7 +437,7 @@ def page(title, desc, crumb, h1, body, depth, tabs=''):
 </body>
 </html>
 ''' % dict(title=e(title), desc=e(desc), fonts=FONTS, css=CSS, up=up, crumb=crumb, h1=e(h1), eff=EFFECTIVE,
-           co=e(CO), addr=e(ADDRESS), email=EMAIL, tabs=tabs, body=body)
+           co=e(SHORT), addr=e(ADDRESS), email=EMAIL, tabs=tabs, body=body)
 
 DOCS = [('terms', 'Terms of Service', terms_blocks), ('privacy', 'Privacy Policy', privacy_blocks),
         ('license', 'Software License', license_blocks), ('sms', 'SMS Terms', sms_blocks),
