@@ -27,7 +27,8 @@
           "sub": "Billed every month, cancel anytime",
           "price": "$29.99",
           "per": "per month",
-          "amount": 29.99
+          "amount": 29.99,
+          "was": 49.99
         },
         {
           "key": "annual",

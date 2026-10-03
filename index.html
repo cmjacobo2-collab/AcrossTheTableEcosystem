@@ -1597,6 +1597,10 @@ table.hub-tbl{width:100%;border-collapse:collapse;min-width:720px;}
 .subcard .plan.compact .pn b{font-size:14.5px;}
 .subcard .plan.compact .pn span{font-size:12.5px;}
 .subcard .plan.compact .pr b{font-size:18px;}
+.plan .pr .pr-now{white-space:nowrap;}
+.plan .pr .pr-was{display:inline;font-family:var(--body, inherit);font-size:13px;font-weight:600;color:var(--text-muted);
+  text-decoration:line-through;text-decoration-thickness:1.5px;margin-right:4px;vertical-align:2px;}
+.plan .pr .pr-amt{display:inline;font:inherit;color:inherit;margin:0;}
 .subcard .sum-total{border-top:1px solid var(--border-subtle);margin-top:18px;padding-top:16px;}
 .subcard.notyet p{font-size:14.5px;color:var(--text-muted);margin-top:12px;line-height:1.55;}
 .subcard.notyet h3{margin-top:4px;}
@@ -5964,7 +5968,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         var dot = el('span','radio'); dot.setAttribute('aria-hidden','true');
         var pn = el('span','pn'); pn.appendChild(el('b',null,p.label||'')); pn.appendChild(el('span',null,planSub(d, p)));
         var pr = el('span','pr');
-        pr.appendChild(el('b',null, usd(p.amount)));
+        /* a sale: the original price, crossed out, next to today's price */
+        var was = Number(p.was);
+        if(was > Number(p.amount)){
+          var line = el('b','pr-now');
+          line.appendChild(el('s','pr-was', usd(was)));
+          line.appendChild(document.createTextNode(' '));
+          line.appendChild(el('span','pr-amt', usd(p.amount)));
+          line.setAttribute('aria-label', usd(p.amount) + ', was ' + usd(was));
+          pr.appendChild(line);
+          b.classList.add('on-sale');
+        }else{
+          pr.appendChild(el('b',null, usd(p.amount)));
+        }
         pr.appendChild(el('span',null,p.per||''));
         b.appendChild(dot); b.appendChild(pn); b.appendChild(pr);
         group.appendChild(b);
@@ -6400,6 +6416,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       try{ tableFromPrices(); }catch(e){}
       try{ if(window.__syncHubStatuses) window.__syncHubStatuses(); }catch(e){}
       try{ if(window.__drawPlanLinks) window.__drawPlanLinks(); }catch(e){}
+      try{ if(window.__drawWasList) window.__drawWasList(); }catch(e){}
       try{ countProducts(); }catch(e){}
       try{
         Array.prototype.forEach.call(hub.querySelectorAll('[data-storelink]'), function(inp){
@@ -7008,10 +7025,76 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
       draw();
       window.__drawPlanLinks = draw;
+
+      /* ---- original ("was") prices, for showing a sale ---- */
+      (function(){
+        var WTYPES = [['monthly','Monthly'],['annual','Annual'],['onetime','One-time']];
+        var wbox = el('div','planlinks');
+        wbox.setAttribute('data-waslist','');
+        wbox.appendChild(el('h3','planlinks-h','Show a sale: original prices'));
+        wbox.appendChild(el('p','planlinks-p',
+          'Type the regular price for any plan that is on sale. The app page shows it crossed out next to the sale price, ' +
+          'like Stan Store does. Leave a box empty for no sale. It only shows when it is higher than the current price. ' +
+          'Changes save in this browser right away; press Save to put them on your site.'));
+        var wscroll = el('div','planlinks-scroll');
+        var wt = el('table','planlinks-t');
+        var whr = el('tr'); whr.appendChild(el('th',null,'App'));
+        WTYPES.forEach(function(x){ whr.appendChild(el('th',null,x[1] + ' — original price')); });
+        var wth = el('thead'); wth.appendChild(whr); wt.appendChild(wth);
+        var wtb = el('tbody'); wt.appendChild(wtb);
+        wscroll.appendChild(wt); wbox.appendChild(wscroll);
+        var wmsg = el('p','pp-note'); wbox.appendChild(wmsg);
+
+        function wdraw(){
+          while(wtb.firstChild) wtb.removeChild(wtb.firstChild);
+          Object.keys(window.PRICES || {}).forEach(function(slug){
+            var d = window.PRICES[slug];
+            if(!d || d.status === 'Hidden') return;
+            var tr = el('tr');
+            tr.appendChild(el('td','planlinks-app', d.name || slug));
+            WTYPES.forEach(function(x){
+              var key = x[0], td = el('td');
+              var plan = null; (d.plans || []).forEach(function(pl){ if(pl.key === key) plan = pl; });
+              var inp = el('input','playin');
+              inp.type = 'number'; inp.min = '0'; inp.step = '0.01';
+              inp.setAttribute('aria-label', (d.name || slug) + ' — ' + x[1] + ' original price');
+              if(!plan){
+                inp.disabled = true;
+                inp.placeholder = 'No ' + x[1].toLowerCase() + ' price';
+              }else{
+                inp.placeholder = 'Now ' + usd(plan.amount);
+                inp.value = plan.was ? String(plan.was) : '';
+                inp.classList.toggle('live', Number(plan.was) > Number(plan.amount));
+              }
+              inp.addEventListener('change', function(){
+                if(!plan) return;
+                var v = inp.value.trim(), n = Number(v);
+                if(v && (!isFinite(n) || n < 0)){ wmsg.className = 'pp-note'; wmsg.textContent = 'That is not a price I can use.'; return; }
+                if(v && n > 0) plan.was = Math.round(n * 100) / 100; else delete plan.was;
+                var onSale = Number(plan.was) > Number(plan.amount);
+                inp.classList.toggle('live', onSale);
+                renderSubcard(slug);
+                draftWrite();
+                draftBanner(true, Date.now());
+                wmsg.className = 'pp-note' + (v && !onSale ? '' : ' ok');
+                wmsg.textContent = !v ? (d.name || slug) + ' ' + x[1].toLowerCase() + ': sale removed. Press Save to put it on your site.'
+                  : onSale ? (d.name || slug) + ' ' + x[1].toLowerCase() + ' now shows ' + usd(plan.was) + ' crossed out, then ' + usd(plan.amount) + '. Press Save to put it on your site.'
+                  : 'The original price needs to be higher than today\u2019s price (' + usd(plan.amount) + ') to show.';
+              });
+              td.appendChild(inp); tr.appendChild(td);
+            });
+            wtb.appendChild(tr);
+          });
+        }
+        wdraw();
+        window.__drawWasList = wdraw;
+        box.__after = wbox;                 /* placed right after the links box, below */
+      })();
       var anchor = pane.querySelector('table');
       var wrapper = anchor && (anchor.closest('.tbl-wrap, .table-wrap, .ptable') || anchor);
       if(wrapper && wrapper.parentNode) wrapper.parentNode.insertBefore(box, wrapper.nextSibling);
       else pane.appendChild(box);
+      if(box.__after) box.parentNode.insertBefore(box.__after, box.nextSibling);
     })();
 
     /* Google Play links, editable from Products & pricing */
