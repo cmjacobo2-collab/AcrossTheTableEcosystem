@@ -1598,6 +1598,8 @@ table.hub-tbl{width:100%;border-collapse:collapse;min-width:720px;}
 .subcard .plan.compact .pn span{font-size:12.5px;}
 .subcard .plan.compact .pr b{font-size:18px;}
 .plan .pr .pr-now{white-space:nowrap;}
+.pcell.pcell-was{display:block;margin-top:6px;font-size:12px;padding-top:5px;padding-bottom:5px;opacity:.9;}
+.pcell.pcell-was.live{border-color:rgba(224,160,58,.6);color:#F2C46B;opacity:1;}
 .plan .pr .pr-was{display:inline;font-family:var(--body, inherit);font-size:13px;font-weight:600;color:var(--text-muted);
   text-decoration:line-through;text-decoration-thickness:1.5px;margin-right:4px;vertical-align:2px;}
 .plan .pr .pr-amt{display:inline;font:inherit;color:inherit;margin:0;}
@@ -6255,6 +6257,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         var slug = inp.getAttribute('data-price');
         if(setPrice(slug, field, inp.value)){
           renderSubcard(slug);
+          var wb = inp.parentNode && inp.parentNode.querySelector('[data-was]');
+          if(wb) syncWas(wb);
           priceDirty = true;
           draftWrite();
           draftBanner(true, Date.now());
@@ -6279,14 +6283,63 @@ document.addEventListener('DOMContentLoaded', async function() {
         cell.appendChild(box);
       });
     }
+    /* ---- sale prices, right under each price ----
+       Each Monthly, Annual and One-time cell gets a second, smaller box for
+       the original price. Filled in and higher than the price above it, the
+       app page shows it crossed out next to the price. Empty means no sale. */
+    function planFor(slug, key){
+      var d = window.PRICES[slug], pl = null;
+      if(d) (d.plans || []).forEach(function(x){ if(x.key === key) pl = x; });
+      return pl;
+    }
+    function syncWas(inp){
+      var pl = planFor(inp.getAttribute('data-was'), inp.getAttribute('data-wfield'));
+      inp.disabled = !pl;
+      inp.value = (pl && pl.was) ? String(pl.was) : '';
+      inp.placeholder = pl ? 'Was $' : '—';
+      inp.classList.toggle('live', !!(pl && Number(pl.was) > Number(pl.amount)));
+      inp.title = pl ? 'Original price, shown crossed out when it is higher than ' + usd(pl.amount) : 'Add a price above first';
+    }
+    function addWasBox(priceInp){
+      var field = priceInp.getAttribute('data-pfield');
+      if(['monthly','annual','onetime'].indexOf(field) < 0) return;
+      var cell = priceInp.parentNode;
+      if(!cell || cell.querySelector('[data-was]')) return;
+      var slug = priceInp.getAttribute('data-price');
+      var w = document.createElement('input');
+      w.className = 'pcell pcell-was';
+      w.type = 'number'; w.min = '0'; w.step = '0.01';
+      w.setAttribute('data-was', slug);
+      w.setAttribute('data-wfield', field);
+      w.setAttribute('aria-label', ((window.PRICES[slug] || {}).name || slug) + ' ' + field + ' original price');
+      cell.appendChild(w);
+      syncWas(w);
+      w.addEventListener('change', function(){
+        var pl = planFor(slug, field); if(!pl) return;
+        var v = w.value.trim(), n = Number(v);
+        if(v && (!isFinite(n) || n < 0)){ priceMsg('That is not a price I can use.'); return; }
+        if(v && n > 0) pl.was = Math.round(n * 100) / 100; else delete pl.was;
+        syncWas(w);
+        renderSubcard(slug);
+        priceDirty = true;
+        draftWrite();
+        draftBanner(true, Date.now());
+        var name = (window.PRICES[slug] || {}).name || slug;
+        priceMsg(!v ? name + ': sale removed. Press Save to put it on your site.'
+          : Number(pl.was) > Number(pl.amount) ? name + ' now shows ' + usd(pl.was) + ' crossed out, then ' + usd(pl.amount) + '. Press Save to put it on your site.'
+          : 'The original price needs to be higher than ' + usd(pl.amount) + ' to show.', Number(pl.was) > Number(pl.amount) || !v);
+      });
+    }
     window.__upgradePriceRow = function(tr, slug){
       upgradePriceRow(tr, slug);
       Array.prototype.forEach.call(tr.querySelectorAll('[data-price]'), wirePrice);
+      Array.prototype.forEach.call(tr.querySelectorAll('[data-price]'), addWasBox);
     };
     Array.prototype.forEach.call(hub.querySelectorAll('[data-pane="products"] tbody tr'), function(tr){
       upgradePriceRow(tr);
     });
     Array.prototype.forEach.call(hub.querySelectorAll('[data-price]'), wirePrice);
+    Array.prototype.forEach.call(hub.querySelectorAll('[data-price]'), addWasBox);
     tableFromPrices();
 
     /* The status pills on Overview used to be written into the page, so they
@@ -6329,8 +6382,8 @@ document.addEventListener('DOMContentLoaded', async function() {
       var rows = hub.querySelectorAll('[data-pane="products"] tbody tr');
       var total = rows.length, live = 0;
       Array.prototype.forEach.call(rows, function(tr){
-        var sel = tr.querySelector('select');
-        if(sel && sel.value === 'Available for purchase') live++;
+        var sel = tr.querySelector('[data-status]');
+        if(sel && sells(sel.value)) live++;
       });
       var a = hub.querySelector('[data-pp-count]'), b2 = hub.querySelector('[data-pp-live]');
       if(a)  a.textContent  = String(total);
@@ -6392,6 +6445,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         d.plans.forEach(function(x){ if(x.key === f) p = x; });
         inp.value = p ? String(p.amount) : '';
       });
+      Array.prototype.forEach.call(hub.querySelectorAll('[data-was]'), function(w){ try{ syncWas(w); }catch(e){} });
     }
 
     /* restore a draft from a previous visit */
@@ -6416,7 +6470,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       try{ tableFromPrices(); }catch(e){}
       try{ if(window.__syncHubStatuses) window.__syncHubStatuses(); }catch(e){}
       try{ if(window.__drawPlanLinks) window.__drawPlanLinks(); }catch(e){}
-      try{ if(window.__drawWasList) window.__drawWasList(); }catch(e){}
       try{ countProducts(); }catch(e){}
       try{
         Array.prototype.forEach.call(hub.querySelectorAll('[data-storelink]'), function(inp){
@@ -7026,75 +7079,10 @@ document.addEventListener('DOMContentLoaded', async function() {
       draw();
       window.__drawPlanLinks = draw;
 
-      /* ---- original ("was") prices, for showing a sale ---- */
-      (function(){
-        var WTYPES = [['monthly','Monthly'],['annual','Annual'],['onetime','One-time']];
-        var wbox = el('div','planlinks');
-        wbox.setAttribute('data-waslist','');
-        wbox.appendChild(el('h3','planlinks-h','Show a sale: original prices'));
-        wbox.appendChild(el('p','planlinks-p',
-          'Type the regular price for any plan that is on sale. The app page shows it crossed out next to the sale price, ' +
-          'like Stan Store does. Leave a box empty for no sale. It only shows when it is higher than the current price. ' +
-          'Changes save in this browser right away; press Save to put them on your site.'));
-        var wscroll = el('div','planlinks-scroll');
-        var wt = el('table','planlinks-t');
-        var whr = el('tr'); whr.appendChild(el('th',null,'App'));
-        WTYPES.forEach(function(x){ whr.appendChild(el('th',null,x[1] + ' — original price')); });
-        var wth = el('thead'); wth.appendChild(whr); wt.appendChild(wth);
-        var wtb = el('tbody'); wt.appendChild(wtb);
-        wscroll.appendChild(wt); wbox.appendChild(wscroll);
-        var wmsg = el('p','pp-note'); wbox.appendChild(wmsg);
-
-        function wdraw(){
-          while(wtb.firstChild) wtb.removeChild(wtb.firstChild);
-          Object.keys(window.PRICES || {}).forEach(function(slug){
-            var d = window.PRICES[slug];
-            if(!d || d.status === 'Hidden') return;
-            var tr = el('tr');
-            tr.appendChild(el('td','planlinks-app', d.name || slug));
-            WTYPES.forEach(function(x){
-              var key = x[0], td = el('td');
-              var plan = null; (d.plans || []).forEach(function(pl){ if(pl.key === key) plan = pl; });
-              var inp = el('input','playin');
-              inp.type = 'number'; inp.min = '0'; inp.step = '0.01';
-              inp.setAttribute('aria-label', (d.name || slug) + ' — ' + x[1] + ' original price');
-              if(!plan){
-                inp.disabled = true;
-                inp.placeholder = 'No ' + x[1].toLowerCase() + ' price';
-              }else{
-                inp.placeholder = 'Now ' + usd(plan.amount);
-                inp.value = plan.was ? String(plan.was) : '';
-                inp.classList.toggle('live', Number(plan.was) > Number(plan.amount));
-              }
-              inp.addEventListener('change', function(){
-                if(!plan) return;
-                var v = inp.value.trim(), n = Number(v);
-                if(v && (!isFinite(n) || n < 0)){ wmsg.className = 'pp-note'; wmsg.textContent = 'That is not a price I can use.'; return; }
-                if(v && n > 0) plan.was = Math.round(n * 100) / 100; else delete plan.was;
-                var onSale = Number(plan.was) > Number(plan.amount);
-                inp.classList.toggle('live', onSale);
-                renderSubcard(slug);
-                draftWrite();
-                draftBanner(true, Date.now());
-                wmsg.className = 'pp-note' + (v && !onSale ? '' : ' ok');
-                wmsg.textContent = !v ? (d.name || slug) + ' ' + x[1].toLowerCase() + ': sale removed. Press Save to put it on your site.'
-                  : onSale ? (d.name || slug) + ' ' + x[1].toLowerCase() + ' now shows ' + usd(plan.was) + ' crossed out, then ' + usd(plan.amount) + '. Press Save to put it on your site.'
-                  : 'The original price needs to be higher than today\u2019s price (' + usd(plan.amount) + ') to show.';
-              });
-              td.appendChild(inp); tr.appendChild(td);
-            });
-            wtb.appendChild(tr);
-          });
-        }
-        wdraw();
-        window.__drawWasList = wdraw;
-        box.__after = wbox;                 /* placed right after the links box, below */
-      })();
       var anchor = pane.querySelector('table');
       var wrapper = anchor && (anchor.closest('.tbl-wrap, .table-wrap, .ptable') || anchor);
       if(wrapper && wrapper.parentNode) wrapper.parentNode.insertBefore(box, wrapper.nextSibling);
       else pane.appendChild(box);
-      if(box.__after) box.parentNode.insertBefore(box.__after, box.nextSibling);
     })();
 
     /* Google Play links, editable from Products & pricing */
