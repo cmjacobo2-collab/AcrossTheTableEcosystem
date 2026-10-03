@@ -47,7 +47,7 @@
     "lohare": {
       "name": "LOHARE",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Quote, photograph, invoice, and get paid — from the job site.",
       "feats": [
         "Quotes and estimates",
@@ -89,7 +89,7 @@
     "juntoshr": {
       "name": "JuntosHR",
       "kind": "App subscription",
-      "status": "In development",
+      "status": "Coming soon",
       "blurb": "Hiring, onboarding, scheduling, and payroll prep for teams without an HR department.",
       "feats": [
         "Hiring and applicant tracking",
