@@ -562,6 +562,8 @@ img{max-width:100%;display:block;}
 }
 #assessment .lp-hero.has-fx .glow{opacity:.35;}
 #assessment .aframe-wrap{box-shadow:0 -30px 60px -30px rgba(39,216,194,.22);}
+.subcard.flash{animation:plan-flash 1.4s ease;}
+@keyframes plan-flash{0%,100%{box-shadow:var(--shadow-card, none);}30%{box-shadow:0 0 0 2px var(--app, #27D8C2), 0 0 34px rgba(39,216,194,.35);}}
 .planlinks{margin-top:26px;padding:20px 20px 14px;border:1px solid var(--border-default);border-radius:14px;background:var(--bg-card);}
 .planlinks-h{font-size:16px;font-weight:700;margin:0;}
 .planlinks-p{font-size:13px;color:var(--text-muted);margin:6px 0 14px;max-width:760px;line-height:1.55;}
@@ -5130,11 +5132,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     var mode = window.storeChoice(slug);
     var url = mode === 'play'  ? (window.APP_LINKS[slug] || '').trim()
             : mode === 'apple' ? (window.APPLE_LINKS[slug] || '').trim()
-            : (storeSells(slug) ? (function(){
-          var d = window.PRICES && window.PRICES[slug], L = (d && d.links) || {};
-          return ((window.STORE_LINKS && window.STORE_LINKS[slug]) || L.monthly || L.annual || L.onetime || window.STORE_FRONT || '');
-        })().trim() : '');
-    if(!/^https:\/\//.test(url)) url = '';
+            : (storeSells(slug) && document.querySelector('[data-subcard="' + slug + '"]') ? '#plans' : '');
+    if(url !== '#plans' && !/^https:\/\//.test(url)) url = '';
     var word = mode === 'play'  ? (url ? 'Get it on Google Play'     : 'Coming soon to Google Play')
              : mode === 'apple' ? (url ? 'Download on the App Store' : 'Coming soon to the App Store')
              : (url ? 'Buy from my Stan Store' : 'Coming soon to my Stan Store');
@@ -5145,13 +5144,22 @@ document.addEventListener('DOMContentLoaded', async function() {
       var datum = el.querySelector('.datum');
       if(datum) datum.textContent = mode === 'play' ? 'Android app' : mode === 'apple' ? 'iPhone app' : 'Stan Store';
       el.setAttribute('data-store', mode);
-      if(url){
+      if(url === '#plans'){
+        /* Buy from my Stan Store: takes the visitor to the plan box to pick a plan */
+        el.setAttribute('href', '#');
+        el.removeAttribute('target'); el.removeAttribute('rel');
+        el.removeAttribute('aria-disabled');
+        el.removeAttribute('data-goto');
+        el.setAttribute('data-to-plans', slug);
+      }else if(url){
+        el.removeAttribute('data-to-plans');
         el.setAttribute('href', url);
         el.setAttribute('target','_blank');
         el.setAttribute('rel','noopener');
         el.removeAttribute('aria-disabled');
         el.removeAttribute('data-goto');
       }else{
+        el.removeAttribute('data-to-plans');
         el.removeAttribute('href');
         el.setAttribute('data-goto', '#' + slug + '-who');
         el.removeAttribute('target'); el.removeAttribute('rel');
@@ -5184,6 +5192,18 @@ document.addEventListener('DOMContentLoaded', async function() {
       badge.textContent = ph[0];
     });
   };
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-to-plans]');
+    if(!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var card = document.querySelector('[data-subcard="' + b.getAttribute('data-to-plans') + '"]');
+    if(!card) return;
+    card.scrollIntoView({ behavior:'smooth', block:'center' });
+    var pick = card.querySelector('[data-plans] [aria-checked="true"]') || card.querySelector('[data-plan]');
+    if(pick){ try{ pick.focus({ preventScroll:true }); }catch(err){} }
+    card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash');
+  }, true);
   window.applyAllStoreButtons = function(){
     try{ window.applyCardPhases(); }catch(e){}
     var seen = {};
@@ -5820,8 +5840,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.planLinkFor = function(slug, key){
       var d = window.PRICES && window.PRICES[slug];
       var own = d && d.links && d.links[key];
-      return (own && /^https:\/\//.test(own) ? own : '') ||
-             (window.STORE_LINKS && window.STORE_LINKS[slug]) || window.STORE_FRONT || '';
+      return (own && /^https:\/\//.test(own) ? own : '') || window.STORE_FRONT || '';
     };
     function planSub(d, p){
       var t = trialDays(d);
@@ -6862,6 +6881,23 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
     })();
 
+    /* ---- the old one-link-per-app column is gone ----
+       Each purchase type has its own link now (the section below), so the
+       "Stan Store link" column in the price table is removed. */
+    (function(){
+      var table = hub.querySelector('[data-pane="products"] table');
+      if(!table || !table.tHead) return;
+      var col = -1;
+      Array.prototype.forEach.call(table.tHead.rows[0].cells, function(th, i){
+        if(/stan\s*store/i.test(th.textContent || '')) col = i;
+      });
+      if(col < 0) return;
+      Array.prototype.forEach.call(table.rows, function(tr){
+        var c = tr.cells[col];
+        if(c && !c.hasAttribute('colspan')) c.remove();
+      });
+    })();
+
     /* ---- a Stan Store link for each purchase type ----
        Under the price table: one row per app, with a box for the monthly,
        annual and one-time Stan Store pages. The landing page's button goes to
@@ -6876,7 +6912,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       box.appendChild(el('h3','planlinks-h','Stan Store link for each purchase type'));
       box.appendChild(el('p','planlinks-p',
         'Paste the Stan Store page for each way an app can be bought. When a visitor picks a plan, ' +
-        'the button takes them to that plan’s page. Leave a box empty and it uses the app’s main Stan Store link. ' +
+        'the button takes them to that plan’s page. Leave a box empty and that plan goes to your main Stan Store page. ' +
         'Changes save in this browser right away; press Save to put them on your site.'));
       var scroll = el('div','planlinks-scroll');
       var t = el('table','planlinks-t');
