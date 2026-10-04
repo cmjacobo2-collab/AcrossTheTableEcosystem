@@ -36,7 +36,17 @@
           "sub": "Billed yearly — save 24%",
           "price": "$269.99",
           "per": "per year",
-          "amount": 269.99
+          "amount": 269.99,
+          "was": 359.99
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Pay once, keep lifetime access",
+          "price": "$724.99",
+          "per": "one time",
+          "amount": 724.99,
+          "was": 1199.99
         }
       ],
       "links": {
