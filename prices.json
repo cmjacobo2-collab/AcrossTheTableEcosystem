@@ -114,19 +114,32 @@
           "sub": "Billed every month, cancel anytime",
           "price": "$24.99",
           "per": "per month",
-          "amount": 24.99
+          "amount": 24.99,
+          "was": 49.99
         },
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed once a year",
-          "price": "$390",
+          "sub": "Billed yearly — save 19%",
+          "price": "$239.99",
           "per": "per year",
-          "amount": 390
+          "amount": 239.99,
+          "was": 599.99
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Pay once, keep lifetime access",
+          "price": "$1,249.95",
+          "per": "one time",
+          "amount": 1249.95,
+          "was": 1599.99
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription"
+        "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription",
+        "annual": "https://stan.store/AcrossTheTable/p/juntoshr-annual-subscription",
+        "onetime": "https://stan.store/AcrossTheTable/p/juntoshr-onetime-fee"
       }
     },
     "ceo-mindset": {
