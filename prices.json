@@ -90,7 +90,7 @@
     "juntoshr": {
       "name": "JuntosHR",
       "kind": "App subscription",
-      "status": "Coming soon",
+      "status": "Available",
       "blurb": "Hiring, onboarding, scheduling, and payroll prep for teams without an HR department.",
       "feats": [
         "Hiring and applicant tracking",
@@ -137,9 +137,7 @@
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription",
-        "annual": "https://stan.store/AcrossTheTable/p/juntoshr-annual-subscription",
-        "onetime": "https://stan.store/AcrossTheTable/p/juntoshr-onetime-fee"
+        "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription"
       }
     },
     "ceo-mindset": {
