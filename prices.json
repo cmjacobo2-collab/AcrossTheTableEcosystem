@@ -497,24 +497,26 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 11%",
-          "price": "$264.99",
+          "sub": "Billed yearly — save 6%",
+          "price": "$279.99",
           "per": "per year",
-          "amount": 264.99,
+          "amount": 279.99,
           "was": 419.99
         },
         {
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Pay once, keep lifetime access",
-          "price": "$791.65",
+          "price": "$899.99",
           "per": "one time",
-          "amount": 791.65,
+          "amount": 899.99,
           "was": 1259.97
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/refer--earn-monthly-subscription"
+        "monthly": "https://stan.store/AcrossTheTable/p/refer--earn-monthly-subscription",
+        "onetime": "https://stan.store/AcrossTheTable/p/refer--earn-onetime-fee",
+        "annual": "https://stan.store/AcrossTheTable/p/refer--earn-annual-subscription"
       }
     },
     "cash-flow-vs-ebitda": {
