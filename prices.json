@@ -337,7 +337,8 @@
           "sub": "Billed every month, cancel anytime",
           "price": "$189.99",
           "per": "per month",
-          "amount": 189.99
+          "amount": 189.99,
+          "was": 219.99
         },
         {
           "key": "annual",
@@ -345,15 +346,17 @@
           "sub": "Billed once a year",
           "price": "$2268.99",
           "per": "per year",
-          "amount": 2268.99
+          "amount": 2268.99,
+          "was": 2639.99
         },
         {
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Pay once, keep lifetime access",
-          "price": "$4999.98",
+          "price": "$6,839.99",
           "per": "one time",
-          "amount": 4999.98
+          "amount": 6839.99,
+          "was": 7919.99
         }
       ],
       "links": {
@@ -412,26 +415,37 @@
         {
           "key": "trial",
           "label": "Free trial",
-          "sub": "14 days free, then $1,279.00/month",
+          "sub": "14 days free, then $1,279.99/month",
           "price": "$0.00",
-          "per": "then $1,279.00/mo",
+          "per": "then $1,279.99/mo",
           "amount": 0
         },
         {
           "key": "monthly",
           "label": "Monthly",
           "sub": "Billed every month, cancel anytime",
-          "price": "$1279",
+          "price": "$1,279.99",
           "per": "per month",
-          "amount": 1279
+          "amount": 1279.99,
+          "was": 1579.99
         },
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 13%",
-          "price": "$13343",
+          "sub": "Billed once a year",
+          "price": "$15,249.99",
           "per": "per year",
-          "amount": 13343
+          "amount": 15249.99,
+          "was": 18959.99
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Pay once, keep lifetime access",
+          "price": "$46,079.99",
+          "per": "one time",
+          "amount": 46079.99,
+          "was": 56879.99
         }
       ],
       "links": {
@@ -530,31 +544,42 @@
         "Export and share",
         "Lifetime access"
       ],
-      "trial": 0,
+      "trial": 14,
       "plans": [
+        {
+          "key": "trial",
+          "label": "Free trial",
+          "sub": "14 days free, then $39.99/month",
+          "price": "$0.00",
+          "per": "then $39.99/mo",
+          "amount": 0
+        },
         {
           "key": "monthly",
           "label": "Monthly",
           "sub": "Billed every month, cancel anytime",
-          "price": "$79.99",
+          "price": "$39.99",
           "per": "per month",
-          "amount": 79.99
+          "amount": 39.99,
+          "was": 59.99
         },
         {
           "key": "annual",
           "label": "Annual",
           "sub": "Billed yearly — save 6%",
-          "price": "$899.99",
+          "price": "$449.99",
           "per": "per year",
-          "amount": 899.99
+          "amount": 449.99,
+          "was": 719.99
         },
         {
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Pay once, keep lifetime access",
-          "price": "$79",
+          "price": "$1,439.64",
           "per": "one time",
-          "amount": 79
+          "amount": 1439.64,
+          "was": 2159.99
         }
       ],
       "links": {
