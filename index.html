@@ -10227,6 +10227,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   var LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js';
   /* Where each app lives on the web (the "Open" button in a customer's My apps). */
   var WEB_APPS = { credithoy: 'https://acrossthetable-credithoy.netlify.app', juntoshr: 'https://acrossthetable-juntoshr.netlify.app/' };
+  window.ATT_WEB_APPS = WEB_APPS;
 
   var sb = null, libP = null, me = null, owner = false, tab = null, cache = {};
 
@@ -10700,5 +10701,78 @@ document.addEventListener('DOMContentLoaded', async function() {
 })();
 </script>
 
+
+<script>
+/* ===== Owner workspace: make the app cards, rows and tool buttons do something =====
+   The Overview, My apps and All tools panes came with buttons that had nothing
+   wired to them. Each card knows its app from its logo (img[data-logo]).
+   "Open …" opens the live app when it has a web address, otherwise its page on
+   this site; "Explore", "Settings" and a click on the card itself open the
+   app's page on this site. */
+(function(){
+  var hub = document.getElementById('hub');
+  if(!hub) return;
+  var EXTRA = { 'ai app development training':'#learn', 'advisory sessions':'#work', 'foundations bundle':'#system' };
+  function goTo(dest){
+    var a = document.createElement('a'); a.setAttribute('data-goto', dest); a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    if(dest.indexOf('#app-') === 0){ try{ location.hash = dest.slice(1); }catch(e){} }
+  }
+  function slugOf(card){
+    var img = card && card.querySelector('img[data-logo]');
+    if(img) return img.getAttribute('data-logo');
+    var t = card && card.getAttribute('data-tool');
+    return t || null;
+  }
+  function titleOf(card){
+    var h = card && card.querySelector('h4, .nm b, .nm');
+    return h ? h.textContent.trim().toLowerCase() : '';
+  }
+  function landing(card){
+    var slug = slugOf(card);
+    if(slug && document.getElementById('app-' + slug)) return '#app-' + slug;
+    return EXTRA[titleOf(card)] || null;
+  }
+  function openApp(card){
+    var slug = slugOf(card), web = (window.ATT_WEB_APPS || {})[slug];
+    var P = (window.PRICES || {})[slug] || {};
+    var live = /available|beta/i.test(P.status || '');
+    if(web && live){ window.open(web, '_blank', 'noopener'); return; }
+    var dest = landing(card); if(dest) goTo(dest);
+  }
+  var CARD = '.tool, .tool-card, .rows .row';
+  function decorate(){
+    Array.prototype.forEach.call(hub.querySelectorAll(CARD), function(c){
+      if(c.__attWired || !landing(c)) return;
+      c.__attWired = true; c.style.cursor = 'pointer';
+      if(!c.hasAttribute('tabindex') && c.classList.contains('row')){ c.setAttribute('tabindex','0'); c.setAttribute('role','link'); }
+    });
+  }
+  hub.addEventListener('click', function(e){
+    if(e.defaultPrevented) return;
+    var card = e.target.closest(CARD);
+    if(!card || !hub.contains(card)) return;
+    var btn = e.target.closest('button, a, input, select, textarea, label');
+    if(btn){
+      /* buttons that already do something keep their own job */
+      if(btn.matches('[data-pane-btn],[data-star],[data-move],[data-tcat],[data-treset],[data-wopen-from-tools],a[href],input,select,textarea,label') ) return;
+      var txt = btn.textContent.trim().toLowerCase();
+      e.preventDefault();
+      if(txt.indexOf('open') === 0) openApp(card);
+      else { var d = landing(card); if(d) goTo(d); }
+      return;
+    }
+    var dest = landing(card); if(!dest) return;
+    openApp(card);
+  });
+  hub.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter') return;
+    var row = e.target.closest && e.target.closest('.rows .row');
+    if(row && hub.contains(row)){ e.preventDefault(); openApp(row); }
+  });
+  new MutationObserver(decorate).observe(hub, { childList:true, subtree:true });
+  decorate();
+})();
+</script>
 </body>
 </html>
