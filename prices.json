@@ -426,8 +426,7 @@
           "sub": "Billed every month, cancel anytime",
           "price": "$1,279.99",
           "per": "per month",
-          "amount": 1279.99,
-          "was": 1579.99
+          "amount": 1279.99
         },
         {
           "key": "annual",
@@ -435,8 +434,7 @@
           "sub": "Billed once a year",
           "price": "$15,249.99",
           "per": "per year",
-          "amount": 15249.99,
-          "was": 18959.99
+          "amount": 15249.99
         },
         {
           "key": "onetime",
@@ -444,8 +442,7 @@
           "sub": "Pay once, keep lifetime access",
           "price": "$46,079.99",
           "per": "one time",
-          "amount": 46079.99,
-          "was": 56879.99
+          "amount": 46079.99
         }
       ],
       "links": {
