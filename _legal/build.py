@@ -129,7 +129,7 @@ APPS = [
          ('Your menu and your service', 'Each restaurant is responsible for its menus, prices, allergen and dietary information, specials, and promotions, and for the food and service it provides. Guests should confirm allergen and dietary details with restaurant staff.'),
          ('Guest messages', 'Restaurants that send promotions by email or text are responsible for having their guests\' consent and for following the laws that apply, including those for marketing email and text messages.'),
          ('No guarantee of results', 'More reviews, sign-ups, or repeat visits depend on many factors outside our control. We make no promise of any specific outcome.')]),
-  dict(slug='credithoy', name='CreditHoy', what='a step-by-step guide to building, monitoring, and growing business credit',
+  dict(slug='credithoy', name='CreditHoy', hub=True, what='a step-by-step guide to building, monitoring, and growing business credit',
        data='your tasks, scorecard results, opened vendors, saved affirmations, and anything you enter into the trackers',
        ip=['the Blueprint methodology', 'six-phase system', 'approval scripts', 'curated vendor directory', 'affirmation library'],
        ip_terms=['the "Blueprint" framework', 'phase system', 'approval scripts', 'curated vendor directory', 'affirmations selection'],
@@ -258,6 +258,9 @@ def privacy_blocks(a):
         items.append(('Mobile number', 'only if you opt in to SMS reminders, along with the date you consented.'))
     items += [('Membership status', 'your email, plan name, and whether your membership or trial is active, received from our checkout partner when you subscribe.'),
               ('Basic technical logs', 'our hosting and database providers keep standard security logs (such as IP address and time of request) to keep the service running and safe.')]
+    if a.get('hub'):
+        items.insert(-1, ('Help requests', 'what you write when you use Get help in the App, so we can answer you.'))
+        items.insert(-1, ('App activity', 'a few named moments, such as opening the App or finishing a task, with no content attached. We use these to improve the App.'))
     b.append(ULB(items))
     never = a.get('never')
     if never:
@@ -272,6 +275,8 @@ def privacy_blocks(a):
     b.append(LEAD('How we use it', uses))
     who = 'Only you. Each account can access only its own data.' if not a.get('team') else 'Only you and the people you give access to in the App. Each business account can access only its own data.'
     b.append(LEAD('Who can see your data', who + ' %s views account data only to help you when you ask, to protect the service, or when required by law.' % CO))
+    if a.get('hub'):
+        b.append(LEAD('Across the Table Hub', 'Your email, which of our apps you use, your plan and purchase history, the help requests you send, and a few named moments in the App (such as "finished a task") are shared with the Across the Table Hub, our central account system, so you can see all your apps, purchases and help requests in My Business Hub on acrossthetable.biz. What you type into the App is not shared.'))
     prov = a.get('providers') or 'Supabase (database and sign-in), Stan (checkout and billing), Zapier (connecting your purchase to your account), and our app hosting and email providers.'
     b.append(LEAD('Service providers', 'We use trusted providers, under contract, to operate %s: %s These providers may process data in the United States.' % (n, prov)))
     if a.get('sms'):
@@ -348,11 +353,12 @@ def site_privacy_blocks():
             ULB([('When you contact us or join a waiting list', 'your name, email address, and your message. These are sent by your own email app, or through a form service we use to receive them.'),
                  ('When you report an issue', 'the app, the type and urgency of the problem, your description, your name, and your email address, so we can reply.'),
                  ('When you buy something', 'purchases happen on Stan, our checkout partner. Stan collects your payment details under its own privacy policy; we receive your name, email, and what you bought so we can give you access.'),
-                 ('Basic technical information', 'the Site is hosted on GitHub Pages, and its fonts are provided by Google Fonts. Like any website, these providers receive your IP address and browser details when you load a page, and may keep them in their logs.')]),
+                 ('When you sign in to My Business Hub', 'your email address, so we can send you a sign-in link. Once you are signed in, the Hub shows you the records our apps keep about you: which apps you use, your plans and purchases, delivery of your access, and the help requests you have sent. Each customer sees only their own records. This information is stored with Supabase, our database provider.'),
+                 ('Basic technical information', 'the Site is hosted on GitHub Pages, its fonts are provided by Google Fonts, and the My Business Hub sign-in code is delivered by jsDelivr. Like any website, these providers receive your IP address and browser details when you load a page, and may keep them in their logs.')]),
             LEAD('The AI Assessment', 'The AI Assessment runs in your browser. Your answers are not sent to us.'),
-            LEAD('Cookies and browser storage', 'We do not use advertising or analytics cookies. The Site may save a few settings in your own browser\'s local storage so it works smoothly; that information stays on your device.'),
+            LEAD('Cookies and browser storage', 'We do not use advertising or analytics cookies. The Site may save a few settings in your own browser\'s local storage so it works smoothly, and keeps you signed in to My Business Hub until you sign out; that information stays on your device.'),
             LEAD('How we use information', 'To answer you, provide what you bought, fix problems you report, keep the Site secure, and meet legal obligations. We do not sell or rent your personal information, and we do not use it for advertising.'),
-            LEAD('Who we share it with', 'Only the providers that help run the Site and our sales — GitHub (hosting), Google Fonts (fonts), Stan (checkout), and our email and form providers — and authorities when the law requires it.'),
+            LEAD('Who we share it with', 'Only the providers that help run the Site and our sales — GitHub (hosting), Google Fonts (fonts), jsDelivr (sign-in code), Supabase (My Business Hub database and sign-in), Stan (checkout), Zapier (connecting purchases to your account), and our email and form providers — and authorities when the law requires it.'),
             LEAD('Retention', 'We keep messages and support requests as long as needed to help you and for our records, and purchase records as required for billing, tax, and legal purposes.'),
             LEAD('Your choices', 'Ask for a copy of your information, or for it to be corrected or deleted, by emailing %s. We respond within 30 days. Depending on where you live (for example, California), you may have additional rights, and we will not treat you differently for using them.' % EMAIL),
             LEAD('Children', 'The Site is not directed to children under 13, and we do not knowingly collect their information.'),

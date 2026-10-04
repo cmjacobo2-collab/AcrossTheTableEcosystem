@@ -10152,5 +10152,553 @@ document.addEventListener('DOMContentLoaded', async function() {
   else start();
 })();
 </script>
+<!-- ===================== My Business Hub — live (Across the Table Hub) =====================
+     Customers sign in with an emailed link (no password). Everyone sees only their own
+     records; owners (public.owners in the Hub) see every app's tickets, purchases,
+     deliveries and analytics. Only the Hub's PUBLIC anon key is here — Supabase's
+     row-level security decides who can read what. -->
+<style>
+.lh{max-width:1080px;margin:0 auto;padding:6px 20px 28px;color:var(--text-body,#C9D9E8);}
+.lh *{box-sizing:border-box;}
+.lh h2,.lh h3,.lh h4{color:var(--text-heading,#EAF4FF);}
+.lh a{color:var(--accent-bright,#8FD0FF);}
+.lh a.btn{color:inherit;}
+.lh-card{background:var(--bg-card,#12243B);border:1px solid var(--border-default,rgba(43,168,255,.18));border-radius:var(--radius-lg,14px);padding:22px 20px;}
+.lh-signin{max-width:460px;margin:24px auto 8px;}
+.lh-signin h2{margin:0 0 6px;font-size:24px;}
+.lh .sub{font-size:14.5px;line-height:1.55;color:var(--text-muted,#93A7BD);margin:0 0 18px;}
+.lh label{display:block;font-size:13px;font-weight:600;margin:0 0 6px;color:var(--text-heading,#EAF4FF);}
+.lh input[type=email],.lh select,.lh textarea{width:100%;font:inherit;font-size:15px;padding:11px 12px;border:1px solid var(--border-strong,rgba(43,168,255,.38));border-radius:var(--radius-md,10px);background:var(--bg-entry,#0B1A2B);color:var(--text-heading,#EAF4FF);}
+.lh textarea{min-height:84px;resize:vertical;}
+.lh ::placeholder{color:var(--text-muted,#93A7BD);opacity:.8;}
+.lh input:focus,.lh select:focus,.lh textarea:focus{outline:none;border-color:var(--accent,#2BA8FF);box-shadow:0 0 0 3px rgba(43,168,255,.25);}
+.lh .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center;}
+.lh .msg{margin-top:12px;font-size:13.5px;line-height:1.5;min-height:1px;}
+.lh .msg.err{color:var(--danger-text,#F08A94);} .lh .msg.ok{color:var(--success,#31D17B);}
+.lh .fine{font-size:12.5px;color:var(--text-muted,#93A7BD);margin-top:14px;line-height:1.5;}
+.lh .linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--accent-bright,#8FD0FF);text-decoration:underline;cursor:pointer;}
+.lh-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:18px 0 14px;}
+.lh-top h2{margin:0;font-size:26px;}
+.lh-top .who{font-size:13.5px;color:var(--text-muted,#93A7BD);}
+.lh-tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--border-default,rgba(43,168,255,.18));margin-bottom:16px;}
+.lh-tabs button{font:inherit;font-size:14px;font-weight:600;padding:10px 14px;border:0;background:none;color:var(--text-muted,#93A7BD);border-bottom:2.5px solid transparent;cursor:pointer;margin-bottom:-1px;}
+.lh-tabs button:hover{color:var(--text-heading,#EAF4FF);}
+.lh-tabs button[aria-selected=true]{color:var(--text-heading,#EAF4FF);border-bottom-color:#E0A03A;}
+.lh-tabs .count{display:inline-block;min-width:20px;padding:1px 6px;margin-left:6px;border-radius:999px;background:#E0A03A;color:#1b1407;font-size:11.5px;text-align:center;}
+.lh-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px;}
+.lh-stat{padding:14px 16px;}
+.lh-stat b{display:block;font-size:22px;margin-top:2px;color:var(--text-heading,#EAF4FF);}
+.lh-stat span{font-size:12.5px;color:var(--text-muted,#93A7BD);}
+.lh-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.lh-filters select{width:auto;min-width:150px;padding:8px 10px;font-size:14px;}
+.lh-list{display:grid;gap:10px;}
+.lh-tk .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--text-muted,#93A7BD);margin-bottom:6px;}
+.lh-tk h3{margin:0 0 6px;font-size:16px;}
+.lh-tk p.body{margin:0 0 12px;white-space:pre-wrap;line-height:1.55;font-size:14.5px;color:var(--text-body,#C9D9E8);}
+.lh-tk .reply{background:var(--bg-entry,#0B1A2B);border-left:3px solid #E0A03A;border-radius:var(--radius-md,10px);padding:10px 12px;margin:0 0 4px;white-space:pre-wrap;font-size:14px;}
+.lh-pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.02em;border:1px solid var(--border-strong,rgba(43,168,255,.38));color:var(--text-heading,#EAF4FF);}
+.lh-pill.open,.lh-pill.high{background:rgba(242,184,75,.14);border-color:rgba(242,184,75,.5);color:#F6C96E;}
+.lh-pill.answered,.lh-pill.active{background:rgba(49,209,123,.12);border-color:rgba(49,209,123,.45);color:#5FE19B;}
+.lh-pill.closed,.lh-pill.ended{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:var(--text-muted,#93A7BD);}
+.lh-pill.lifetime{background:rgba(143,208,255,.12);border-color:rgba(143,208,255,.45);color:#8FD0FF;}
+.lh-tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border-default,rgba(43,168,255,.18));border-radius:var(--radius-lg,14px);background:var(--bg-card,#12243B);}
+.lh table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px;}
+.lh th,.lh td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-subtle,rgba(43,168,255,.10));vertical-align:top;}
+.lh th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted,#93A7BD);font-weight:700;background:var(--bg-panel,#0E1C2D);}
+.lh tr:last-child td{border-bottom:0;}
+.lh td.num,.lh th.num{text-align:right;white-space:nowrap;}
+.lh .est{color:var(--text-muted,#93A7BD);}
+.lh .empty{padding:22px;text-align:center;color:var(--text-muted,#93A7BD);font-size:14.5px;}
+.lh h4{margin:20px 0 8px;font-size:15px;}
+.lh .bar{height:8px;border-radius:4px;background:#E0A03A;min-width:2px;}
+.lh-owner-tools{max-width:1080px;margin:26px auto 0;padding:0 20px;}
+.lh-owner-tools h3{margin:0 0 4px;font-size:18px;color:var(--text-heading,#EAF4FF);}
+.lh-owner-tools .sub{font-size:14px;color:var(--text-muted,#93A7BD);margin:0;}
+#hub:not(.lh-owner):not(.lh-showgate) #hub-gate,
+#hub:not(.lh-owner):not(.lh-showgate) .hub-shell{display:none !important;}
+#hub:not(.lh-owner) .lh-owner-tools{display:none;}
+@media (max-width:560px){.lh{padding:4px 16px 24px;}.lh-card{padding:18px 15px;}.lh-top h2{font-size:22px;}.lh-tabs button{padding:9px 10px;font-size:13.5px;}.lh-filters select{flex:1;min-width:0;}}
+</style>
+<script>
+(function(){
+  'use strict';
+  var HUB_URL = 'https://myisncufxcpeqyuohroq.supabase.co';
+  var HUB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15aXNuY3VmeGNwZXF5dW9ocm9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwNzA4NTksImV4cCI6MjEwNjY0Njg1OX0.XrQ4SX3K4Cyxc80s9PECENqJ5R-x7jTxP-2HYPD4bjY';
+  var LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js';
+  /* Where each app lives on the web (the "Open" button in a customer's My apps). */
+  var WEB_APPS = { credithoy: 'https://acrossthetable-credithoy.netlify.app' };
+
+  var sb = null, libP = null, me = null, owner = false, tab = null, cache = {};
+
+  /* ---------- tiny DOM helper: text only, never innerHTML with data ---------- */
+  function h(tag, attrs){
+    var el = document.createElement(tag);
+    if (attrs) for (var k in attrs){
+      var v = attrs[k]; if (v == null || v === false) continue;
+      if (k === 'text') el.textContent = v;
+      else if (k === 'class') el.className = v;
+      else if (k.slice(0,2) === 'on') el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? '' : v);
+    }
+    for (var i = 2; i < arguments.length; i++){
+      var c = arguments[i]; if (c == null || c === false) continue;
+      if (Array.isArray(c)) c.forEach(function(x){ if (x != null && x !== false) el.appendChild(typeof x === 'string' ? document.createTextNode(x) : x); });
+      else el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+    return el;
+  }
+  function clear(el){ while (el && el.firstChild) el.removeChild(el.firstChild); }
+  function appName(slug){
+    var P = window.PRICES || {};
+    return (P[slug] && P[slug].name) || slug;
+  }
+  function fmtDate(s){ try { return new Date(s).toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}); } catch(e){ return s; } }
+  function fmtWhen(s){ try { return new Date(s).toLocaleString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}); } catch(e){ return s; } }
+  function money(n){ return '$' + Number(n).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}); }
+  function cap(s){ s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g,' '); }
+
+  /* Stan doesn't send the price, so estimate it from Products & pricing by plan. */
+  function estimate(o){
+    if (o.amount != null) return { n: Number(o.amount), est: false };
+    var d = (window.PRICES || {})[o.app]; if (!d || !d.plans) return null;
+    var t = String(o.plan || '').toLowerCase(), key = 'monthly';
+    if (/annual|year/.test(t)) key = 'annual';
+    else if (/one[\s-]?time|lifetime/.test(t)) key = 'onetime';
+    var p = d.plans.filter(function(x){ return x.key === key && Number(x.amount) > 0; })[0]
+         || d.plans.filter(function(x){ return x.key !== 'trial' && Number(x.amount) > 0; })[0];
+    return p ? { n: Number(p.amount), est: true } : null;
+  }
+
+  /* ---------- load supabase-js only when needed ---------- */
+  function lib(){
+    if (window.supabase && window.supabase.createClient) return Promise.resolve();
+    if (libP) return libP;
+    libP = new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = LIB; s.async = true;
+      s.onload = function(){ res(); }; s.onerror = function(){ libP = null; rej(new Error('lib')); };
+      document.head.appendChild(s);
+    });
+    return libP;
+  }
+  function client(){
+    return lib().then(function(){
+      if (!sb) sb = window.supabase.createClient(HUB_URL, HUB_KEY, {
+        auth: { flowType: 'pkce', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'att-hub-auth' }
+      });
+      return sb;
+    });
+  }
+
+  /* ---------- mount ---------- */
+  var art = document.getElementById('hub');
+  if (!art) return;
+  var root = h('section', {class:'lh', id:'livehub', 'aria-live':'polite'});
+  var back = art.querySelector('.backbar');
+  if (back && back.nextSibling) art.insertBefore(root, back.nextSibling); else art.insertBefore(root, art.firstChild);
+  var ownerTools = h('div', {class:'lh-owner-tools'},
+    h('h3', {text:'Workspace tools'}),
+    h('p', {class:'sub', text:'Products & pricing, Ecosystem manager and the rest of your owner workspace. Unlock with your workspace password.'}));
+  var gate = document.getElementById('hub-gate');
+  if (gate) art.insertBefore(ownerTools, gate);
+
+  function setMsg(el, text, cls){ if (!el) return; el.textContent = text || ''; el.className = 'msg' + (cls ? ' ' + cls : ''); }
+
+  /* ---------- signed out ---------- */
+  function renderSignIn(note, noteCls){
+    art.classList.remove('lh-owner');
+    clear(root);
+    var email = h('input', {type:'email', id:'lh-email', autocomplete:'email', required:true, placeholder:'you@business.com', inputmode:'email'});
+    var msg = h('div', {class:'msg', role:'status'});
+    var btn = h('button', {class:'btn btn-primary', type:'submit', text:'Email me a sign-in link'});
+    var form = h('form', {class:'lh-card lh-signin', novalidate:true, onsubmit:function(e){
+      e.preventDefault();
+      var v = (email.value || '').trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ setMsg(msg, 'Enter the email you use in your apps.', 'err'); email.focus(); return; }
+      btn.disabled = true; setMsg(msg, 'Sending…');
+      client().then(function(c){
+        return c.auth.signInWithOtp({ email: v, options: { emailRedirectTo: location.origin + location.pathname + '?hub=1' } });
+      }).then(function(r){
+        btn.disabled = false;
+        if (r && r.error){
+          var m = /rate|seconds|too many/i.test(r.error.message||'') ? 'Please wait a minute before asking for another link.' : 'That didn’t send: ' + r.error.message;
+          setMsg(msg, m, 'err'); return;
+        }
+        setMsg(msg, 'Check your email for a link from My Business Hub. Open it on this device and you’ll land right back here, signed in.', 'ok');
+      }).catch(function(){ btn.disabled = false; setMsg(msg, 'We couldn’t reach My Business Hub. Check your connection and try again.', 'err'); });
+    }},
+      h('h2', {text:'My Business Hub'}),
+      h('p', {class:'sub', text:'Your Across the Table apps, purchases and help requests in one place. Sign in with the same email you use in your apps — we’ll email you a secure link, no password needed.'}),
+      h('label', {for:'lh-email', text:'Email'}), email,
+      h('div', {class:'row'}, btn),
+      msg,
+      h('p', {class:'fine'}, 'By signing in you agree to our ',
+        h('a', {href:'legal/terms.html', text:'Terms'}), ' and ', h('a', {href:'legal/privacy.html', text:'Privacy Policy'}), '. ',
+        h('button', {type:'button', class:'linkbtn', text:'Owner workspace password', onclick:function(){
+          art.classList.add('lh-showgate');
+          try { (document.getElementById('hub-pw')||{}).focus && document.getElementById('hub-pw').focus(); } catch(e){}
+        }}))
+    );
+    root.appendChild(form);
+    if (note) setMsg(msg, note, noteCls);
+  }
+
+  /* ---------- signed in ---------- */
+  function renderShell(){
+    clear(root);
+    var tabs = owner
+      ? [['tickets','Ticketing'],['payments','Payments & Stan Store'],['delivery','Orders & delivery'],['analytics','Customer analytics']]
+      : [['apps','My apps'],['billing','Billing & purchases'],['help','My help requests']];
+    if (!tab || !tabs.some(function(t){ return t[0] === tab; })) tab = tabs[0][0];
+    var top = h('div', {class:'lh-top'},
+      h('div', null, h('h2', {text: owner ? 'My Business Hub — owner view' : 'My Business Hub'}),
+        h('div', {class:'who', text:'Signed in as ' + me.email})),
+      h('div', {class:'row', style:'margin:0'},
+        h('button', {class:'btn btn-secondary', type:'button', text:'Refresh', onclick:function(){ cache = {}; renderShell(); }}),
+        h('button', {class:'btn btn-secondary', type:'button', text:'Sign out', onclick:function(){
+          sb.auth.signOut().finally(function(){ me = null; owner = false; cache = {}; renderSignIn('Signed out.', 'ok'); });
+        }})));
+    var bar = h('div', {class:'lh-tabs', role:'tablist'});
+    var body = h('div', {id:'lh-body', role:'tabpanel'});
+    tabs.forEach(function(t){
+      bar.appendChild(h('button', {type:'button', role:'tab', 'aria-selected': String(t[0] === tab), 'data-tab':t[0], text:t[1], onclick:function(){
+        tab = t[0];
+        Array.prototype.forEach.call(bar.children, function(b){ b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === tab)); });
+        drawTab(body);
+      }}));
+    });
+    root.appendChild(top); root.appendChild(bar); root.appendChild(body);
+    drawTab(body);
+    if (owner) load('tickets_open', function(){ return sb.from('tickets').select('id', {count:'exact', head:true}).eq('status','open'); })
+      .then(function(r){ var b = bar.querySelector('[data-tab=tickets]'); if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); });
+  }
+
+  function load(key, fn){
+    if (cache[key]) return Promise.resolve(cache[key]);
+    return Promise.resolve(fn()).then(function(r){
+      if (r.error) throw r.error;
+      cache[key] = r; return r;
+    });
+  }
+  function fail(body, e){
+    clear(body);
+    body.appendChild(h('div', {class:'lh-card empty', text:'We couldn’t load this right now (' + ((e && e.message) || 'connection problem') + '). Try Refresh.'}));
+  }
+  function loading(body){ clear(body); body.appendChild(h('div', {class:'empty', text:'Loading…'})); }
+  function table(cols, rows){
+    var thead = h('tr', null, cols.map(function(c){ return h('th', {class:c.num ? 'num' : null, text:c.t}); }));
+    var tb = h('tbody', null, rows.map(function(r){ return h('tr', null, cols.map(function(c){
+      var v = c.f(r); return h('td', {class:c.num ? 'num' : null}, typeof v === 'string' || typeof v === 'number' ? String(v) : v);
+    })); }));
+    return h('div', {class:'lh-tablewrap'}, h('table', null, h('thead', null, thead), tb));
+  }
+  function empty(text){ return h('div', {class:'lh-card empty', text:text}); }
+  function stat(label, value){ return h('div', {class:'lh-card lh-stat'}, h('span', {text:label}), h('b', {text:value})); }
+  function pill(s){ return h('span', {class:'lh-pill ' + String(s||'').toLowerCase(), text:cap(s)}); }
+
+  function drawTab(body){
+    loading(body);
+    var f = { tickets:ownerTickets, payments:ownerPayments, delivery:ownerDelivery, analytics:ownerAnalytics,
+              apps:myApps, billing:myBilling, help:myHelp }[tab];
+    try { f(body); } catch(e){ fail(body, e); }
+  }
+
+  /* ===== OWNER: Ticketing ===== */
+  var tf = { status:'open', app:'' };
+  function ownerTickets(body){
+    load('tickets', function(){ return sb.from('tickets').select('*').order('created_at', {ascending:false}).limit(300); })
+    .then(function(r){
+      clear(body);
+      var all = r.data || [];
+      var apps = Array.from(new Set(all.map(function(t){ return t.app; }))).sort();
+      var st = h('select', {'aria-label':'Status', onchange:function(){ tf.status = st.value; draw(); }},
+        [['open','Open'],['answered','Answered'],['closed','Closed'],['','All']].map(function(o){ return h('option', {value:o[0], selected: tf.status === o[0], text:o[1]}); }));
+      var ap = h('select', {'aria-label':'App', onchange:function(){ tf.app = ap.value; draw(); }},
+        [h('option', {value:'', text:'All apps'})].concat(apps.map(function(a){ return h('option', {value:a, selected: tf.app === a, text:appName(a)}); })));
+      var list = h('div', {class:'lh-list'});
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('Open', String(all.filter(function(t){ return t.status === 'open'; }).length)),
+        stat('Urgent & open', String(all.filter(function(t){ return t.status === 'open' && t.urgency === 'high'; }).length)),
+        stat('Answered', String(all.filter(function(t){ return t.status === 'answered'; }).length)),
+        stat('All requests', String(all.length))));
+      body.appendChild(h('div', {class:'lh-filters'}, st, ap));
+      body.appendChild(list);
+      function draw(){
+        clear(list);
+        var rows = all.filter(function(t){ return (!tf.status || t.status === tf.status) && (!tf.app || t.app === tf.app); });
+        if (!rows.length){ list.appendChild(empty(all.length ? 'Nothing here with these filters.' : 'No help requests yet. When a customer taps Get help in an app, it shows up here.')); return; }
+        rows.forEach(function(t){ list.appendChild(ticketCard(t)); });
+      }
+      draw();
+    }).catch(function(e){ fail(body, e); });
+  }
+  function ticketCard(t){
+    var reply = h('textarea', {'aria-label':'Your reply', placeholder:'Write your reply. The customer sees it in My Business Hub.'});
+    reply.value = t.reply || '';
+    var msg = h('div', {class:'msg'});
+    function save(status){
+      var patch = { status: status, updated_at: new Date().toISOString() };
+      if (status !== 'open') patch.reply = reply.value.trim() || null;
+      msg.textContent = 'Saving…'; msg.className = 'msg';
+      sb.from('tickets').update(patch).eq('id', t.id).select().single().then(function(r){
+        if (r.error){ setMsg(msg, 'Didn’t save: ' + r.error.message, 'err'); return; }
+        Object.assign(t, r.data); delete cache.tickets_open;
+        var card = ticketCard(t); el.parentNode.replaceChild(card, el);
+        var m = card.querySelector('.msg'); setMsg(m, status === 'answered' ? 'Saved. The customer will see your reply in My Business Hub. Use “Email this reply” to also send it by email.' : 'Saved.', 'ok');
+      });
+    }
+    var subj = 'Re: ' + (t.subject || 'your ' + appName(t.app) + ' help request') + ' (' + (t.ref || '#' + t.id) + ')';
+    var mail = h('a', {class:'btn btn-secondary', href:'mailto:' + encodeURIComponent(t.email) + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent((reply.value || t.reply || '') + '\n\n— Across the Table'), text:'Email this reply'});
+    reply.addEventListener('input', function(){ mail.href = 'mailto:' + encodeURIComponent(t.email) + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(reply.value + '\n\n— Across the Table'); });
+    var el = h('div', {class:'lh-card lh-tk'},
+      h('div', {class:'meta'}, pill(t.status), t.urgency === 'high' ? pill('high') : null,
+        h('span', {text: appName(t.app)}), h('span', {text:'· ' + cap(t.kind || 'request')}),
+        h('span', {text:'· ' + (t.ref || '#' + t.id)}), h('span', {text:'· ' + fmtWhen(t.created_at)})),
+      h('h3', {text: t.subject || cap(t.kind || 'Help request')}),
+      h('p', {class:'body', text: t.message}),
+      h('div', {class:'meta'}, h('span', {text:'From ' + (t.name ? t.name + ' · ' : '') + t.email})),
+      reply,
+      h('div', {class:'row'},
+        h('button', {class:'btn btn-primary', type:'button', text: t.status === 'answered' ? 'Update reply' : 'Save reply & mark answered', onclick:function(){
+          if (!reply.value.trim()){ setMsg(msg, 'Write a reply first.', 'err'); reply.focus(); return; } save('answered'); }}),
+        t.status !== 'closed' ? h('button', {class:'btn btn-secondary', type:'button', text:'Close', onclick:function(){ save('closed'); }})
+                              : h('button', {class:'btn btn-secondary', type:'button', text:'Reopen', onclick:function(){ save('open'); }}),
+        mail),
+      msg);
+    return el;
+  }
+
+  /* ===== OWNER: Payments & Stan Store ===== */
+  function ownerPayments(body){
+    load('orders', function(){ return sb.from('orders').select('*').order('created_at', {ascending:false}).limit(1000); })
+    .then(function(r){
+      clear(body);
+      var rows = r.data || [];
+      if (!rows.length){ body.appendChild(empty('No purchases yet. Each Stan purchase shows up here once its Zap reports to the Hub.')); return; }
+      var now = new Date(), m0 = new Date(now.getFullYear(), now.getMonth(), 1);
+      var tot = 0, month = 0, anyEst = false, perApp = {};
+      rows.forEach(function(o){
+        var e = estimate(o); var n = e ? e.n : 0; if (e && e.est) anyEst = true;
+        if (o.kind === 'cancelled') return;
+        tot += n; if (new Date(o.created_at) >= m0) month += n;
+        var a = perApp[o.app] || (perApp[o.app] = { n:0, sum:0 }); a.n++; a.sum += n;
+      });
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('This month', (anyEst ? '≈ ' : '') + money(month)),
+        stat('All time', (anyEst ? '≈ ' : '') + money(tot)),
+        stat('Purchases', String(rows.filter(function(o){ return o.kind !== 'cancelled'; }).length))));
+      body.appendChild(h('h4', {text:'By app'}));
+      body.appendChild(table([
+        {t:'App', f:function(x){ return appName(x[0]); }},
+        {t:'Purchases', num:true, f:function(x){ return String(x[1].n); }},
+        {t:'Total', num:true, f:function(x){ return (anyEst ? '≈ ' : '') + money(x[1].sum); }}
+      ], Object.keys(perApp).map(function(k){ return [k, perApp[k]]; }).sort(function(a,b){ return b[1].sum - a[1].sum; })));
+      body.appendChild(h('h4', {text:'Every purchase'}));
+      body.appendChild(table([
+        {t:'Date', f:function(o){ return fmtDate(o.created_at); }},
+        {t:'App', f:function(o){ return appName(o.app); }},
+        {t:'Customer', f:function(o){ return o.email; }},
+        {t:'Plan', f:function(o){ return o.plan || '—'; }},
+        {t:'Amount', num:true, f:function(o){ var e = estimate(o); if (!e) return '—'; return e.est ? h('span', {class:'est', title:'Estimated from Products & pricing', text:'≈ ' + money(e.n)}) : money(e.n); }},
+        {t:'Stan ref', f:function(o){ return o.source_ref || '—'; }}
+      ], rows));
+      if (anyEst) body.appendChild(h('p', {class:'fine', text:'≈ Stan doesn’t send the price with a purchase, so these amounts are estimated from the plan prices in Products & pricing. Check Stan for exact totals, discounts and refunds.'}));
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== OWNER: Orders & delivery ===== */
+  function ownerDelivery(body){
+    Promise.all([
+      load('memberships', function(){ return sb.from('memberships').select('*').order('updated_at', {ascending:false}).limit(1000); }),
+      load('deliveries', function(){ return sb.from('deliveries').select('*').order('created_at', {ascending:false}).limit(1000); })
+    ]).then(function(rs){
+      clear(body);
+      var mem = rs[0].data || [], del = rs[1].data || [];
+      var signedIn = {}; del.forEach(function(d){ if (d.step === 'first_sign_in') signedIn[d.email + '|' + d.app] = true; });
+      var waiting = mem.filter(function(m){ return (m.status === 'active' || m.status === 'lifetime') && !signedIn[m.email + '|' + m.app]; });
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('With access now', String(mem.filter(function(m){ return m.status === 'active' || m.status === 'lifetime'; }).length)),
+        stat('Paid, never signed in', String(waiting.length)),
+        stat('Accounts created (30 days)', String(del.filter(function(d){ return d.step === 'account_created' && (Date.now() - new Date(d.created_at)) < 30*864e5; }).length))));
+      if (waiting.length){
+        body.appendChild(h('h4', {text:'Paid but never signed in — reach out to these customers'}));
+        body.appendChild(table([
+          {t:'Customer', f:function(m){ return h('a', {href:'mailto:' + m.email, text:m.email}); }},
+          {t:'App', f:function(m){ return appName(m.app); }},
+          {t:'Plan', f:function(m){ return m.plan || '—'; }},
+          {t:'Since', f:function(m){ return fmtDate(m.started_at); }}
+        ], waiting));
+      }
+      body.appendChild(h('h4', {text:'Memberships'}));
+      body.appendChild(mem.length ? table([
+        {t:'Customer', f:function(m){ return m.email; }},
+        {t:'App', f:function(m){ return appName(m.app); }},
+        {t:'Plan', f:function(m){ return m.plan || '—'; }},
+        {t:'Status', f:function(m){ return pill(m.status); }},
+        {t:'Since', f:function(m){ return fmtDate(m.started_at); }}
+      ], mem) : empty('No memberships yet. They appear when Stan turns on someone’s access in an app.'));
+      body.appendChild(h('h4', {text:'Recent activity'}));
+      var LABEL = { account_created:'Created an account', first_sign_in:'Signed in for the first time', access_granted:'Access turned on', access_ended:'Access ended' };
+      body.appendChild(del.length ? table([
+        {t:'When', f:function(d){ return fmtWhen(d.created_at); }},
+        {t:'Customer', f:function(d){ return d.email; }},
+        {t:'App', f:function(d){ return appName(d.app); }},
+        {t:'What happened', f:function(d){ return LABEL[d.step] || cap(d.step); }}
+      ], del.slice(0, 100)) : empty('No activity yet.'));
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== OWNER: Customer analytics ===== */
+  function ownerAnalytics(body){
+    var since = new Date(Date.now() - 30*864e5).toISOString().slice(0,10);
+    load('analytics', function(){ return sb.from('analytics_daily').select('*').gte('day', since).order('day', {ascending:true}).limit(5000); })
+    .then(function(r){
+      clear(body);
+      var rows = r.data || [];
+      if (!rows.length){ body.appendChild(empty('No app activity in the last 30 days yet. Apps report moments like “opened the app” and “finished a task” — never what customers type.')); return; }
+      var byDay = {}, byApp = {}, max = 0;
+      rows.forEach(function(x){
+        byDay[x.day] = (byDay[x.day] || 0) + Number(x.events);
+        var a = byApp[x.app] || (byApp[x.app] = { events:0, opened:0, ev:{} });
+        a.events += Number(x.events);
+        if (x.event === 'opened_app') a.opened += Number(x.people);
+        a.ev[x.event] = (a.ev[x.event] || 0) + Number(x.events);
+      });
+      Object.keys(byDay).forEach(function(d){ max = Math.max(max, byDay[d]); });
+      var total = rows.reduce(function(s,x){ return s + Number(x.events); }, 0);
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('Moments logged (30 days)', String(total)),
+        stat('Apps with activity', String(Object.keys(byApp).length)),
+        stat('Busiest day', (function(){ var b = Object.keys(byDay).sort(function(a,c){ return byDay[c]-byDay[a]; })[0]; return b ? fmtDate(b + 'T12:00:00') : '—'; })())));
+      body.appendChild(h('h4', {text:'By app (last 30 days)'}));
+      body.appendChild(table([
+        {t:'App', f:function(x){ return appName(x[0]); }},
+        {t:'App opens (people × days)', num:true, f:function(x){ return String(x[1].opened); }},
+        {t:'Moments', num:true, f:function(x){ return String(x[1].events); }},
+        {t:'Top moments', f:function(x){ return Object.keys(x[1].ev).sort(function(a,b){ return x[1].ev[b]-x[1].ev[a]; }).slice(0,3).map(function(k){ return cap(k) + ' (' + x[1].ev[k] + ')'; }).join(', '); }}
+      ], Object.keys(byApp).map(function(k){ return [k, byApp[k]]; })));
+      body.appendChild(h('h4', {text:'Daily activity'}));
+      body.appendChild(table([
+        {t:'Day', f:function(d){ return fmtDate(d + 'T12:00:00'); }},
+        {t:'Moments', num:true, f:function(d){ return String(byDay[d]); }},
+        {t:'', f:function(d){ return h('div', {class:'bar', style:'width:' + Math.max(2, Math.round(byDay[d] / max * 100)) + '%'}); }}
+      ], Object.keys(byDay).sort().reverse()));
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== CUSTOMER: My apps ===== */
+  function myApps(body){
+    Promise.all([
+      load('memberships', function(){ return sb.from('memberships').select('*'); }),
+      load('deliveries', function(){ return sb.from('deliveries').select('app,step,created_at').order('created_at', {ascending:true}); })
+    ]).then(function(rs){
+      clear(body);
+      var map = {};
+      (rs[1].data || []).forEach(function(d){ if (!map[d.app]) map[d.app] = { app:d.app, status:'account', since:d.created_at }; });
+      (rs[0].data || []).forEach(function(m){ map[m.app] = { app:m.app, status:m.status, plan:m.plan, since:m.started_at }; });
+      var list = Object.keys(map).map(function(k){ return map[k]; });
+      if (!list.length){
+        body.appendChild(empty('No apps yet for ' + me.email + '. If you bought an app with a different email, sign out and sign in with that one.'));
+        body.appendChild(h('div', {class:'row', style:'justify-content:center'}, h('a', {class:'btn btn-primary', href:'#system', text:'Browse the apps'})));
+        return;
+      }
+      var grid = h('div', {class:'lh-list'});
+      list.forEach(function(a){
+        var web = WEB_APPS[a.app];
+        grid.appendChild(h('div', {class:'lh-card lh-tk'},
+          h('div', {class:'meta'}, pill(a.status === 'account' ? 'Account' : a.status), h('span', {text: a.plan ? a.plan : ''}), h('span', {text:'Since ' + fmtDate(a.since)})),
+          h('h3', {text: appName(a.app)}),
+          h('div', {class:'row'},
+            web ? h('a', {class:'btn btn-primary', href:web, target:'_blank', rel:'noopener', text:'Open ' + appName(a.app)}) : null,
+            h('a', {class:'btn btn-secondary', href:'#app-' + a.app, text:'About this app'}))));
+      });
+      body.appendChild(grid);
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== CUSTOMER: Billing & purchases ===== */
+  function myBilling(body){
+    load('orders', function(){ return sb.from('orders').select('*').order('created_at', {ascending:false}); })
+    .then(function(r){
+      clear(body);
+      var rows = r.data || [];
+      body.appendChild(rows.length ? table([
+        {t:'Date', f:function(o){ return fmtDate(o.created_at); }},
+        {t:'App', f:function(o){ return appName(o.app); }},
+        {t:'Plan', f:function(o){ return o.plan || '—'; }},
+        {t:'Type', f:function(o){ return cap(o.kind); }}
+      ], rows) : empty('No purchases on file for ' + me.email + ' yet.'));
+      body.appendChild(h('p', {class:'fine'}, 'Payments are handled by Stan. To see receipts, change your card, or cancel a subscription, use the link in your Stan purchase email, or write to ',
+        h('a', {href:'mailto:info@acrossthetable.biz', text:'info@acrossthetable.biz'}), '.'));
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== CUSTOMER: My help requests ===== */
+  function myHelp(body){
+    load('tickets', function(){ return sb.from('tickets').select('*').order('created_at', {ascending:false}); })
+    .then(function(r){
+      clear(body);
+      var rows = r.data || [];
+      if (!rows.length){ body.appendChild(empty('No help requests yet. In any of our apps, open More → Get help to send one.')); return; }
+      var list = h('div', {class:'lh-list'});
+      rows.forEach(function(t){
+        list.appendChild(h('div', {class:'lh-card lh-tk'},
+          h('div', {class:'meta'}, pill(t.status), h('span', {text:appName(t.app)}), h('span', {text:'· ' + (t.ref || '#' + t.id)}), h('span', {text:'· ' + fmtDate(t.created_at)})),
+          h('h3', {text: t.subject || cap(t.kind || 'Help request')}),
+          h('p', {class:'body', text: t.message}),
+          t.reply ? h('div', null, h('div', {class:'meta'}, h('span', {text:'Our reply'})), h('div', {class:'reply', text:t.reply}))
+                  : h('div', {class:'meta'}, h('span', {text:'We’ll reply here, usually within one business day.'}))));
+      });
+      body.appendChild(list);
+    }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ---------- session ---------- */
+  function onSession(session){
+    if (!session){ me = null; owner = false; renderSignIn(); return; }
+    me = { email: session.user.email };
+    sb.rpc('is_owner').then(function(r){
+      owner = !r.error && r.data === true;
+      art.classList.toggle('lh-owner', owner);
+      renderShell();
+    });
+  }
+  var started = false;
+  function start(){
+    if (started) return; started = true;
+    clear(root); root.appendChild(h('div', {class:'empty', text:'Loading My Business Hub…'}));
+    client().then(function(c){
+      c.auth.onAuthStateChange(function(ev, session){
+        if (ev === 'SIGNED_IN' || ev === 'SIGNED_OUT') { cache = {}; onSession(session); }
+      });
+      return c.auth.getSession();
+    }).then(function(r){ onSession(r && r.data && r.data.session); })
+    .catch(function(){ started = false; renderSignIn('My Business Hub couldn’t load. Check your connection and refresh the page.', 'err'); });
+  }
+
+  /* Returning from the emailed link: ?hub=1&code=… (or an error) */
+  var q = new URLSearchParams(location.search);
+  if (q.has('hub') || q.has('code')){
+    var err = q.get('error_description');
+    var clean = location.pathname + '#hub';
+    client().then(function(c){
+      /* detectSessionInUrl exchanges the code; wait for it before cleaning the address */
+      return c.auth.getSession();
+    }).catch(function(){}).then(function(){
+      try { history.replaceState(null, '', clean); } catch(e){}
+      if (location.hash !== '#hub') location.hash = 'hub';
+      try { window.dispatchEvent(new HashChangeEvent('hashchange')); } catch(e){}
+      start();
+      if (err) setTimeout(function(){ if (!me) renderSignIn('That sign-in link didn’t work (' + err + '). Links expire after an hour and work once — ask for a new one.', 'err'); }, 300);
+    });
+  }
+
+  /* Start when the Hub page is shown */
+  function check(){ if (!art.hidden) start(); }
+  new MutationObserver(check).observe(art, { attributes:true, attributeFilter:['hidden'] });
+  check();
+  window.__liveHub = { start: start, client: client };
+})();
+</script>
+
 </body>
 </html>
