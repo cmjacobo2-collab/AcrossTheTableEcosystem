@@ -441,7 +441,7 @@
     "business-connect": {
       "name": "Business Connect",
       "kind": "App subscription",
-      "status": "Beta",
+      "status": "Available",
       "blurb": "A two-way digital business card that keeps the lead.",
       "feats": [
         "Digital card and QR",
@@ -467,7 +467,7 @@
     "refer-and-earn": {
       "name": "Refer & Earn",
       "kind": "App subscription",
-      "status": "Beta",
+      "status": "Available",
       "blurb": "Turn your network into income.",
       "feats": [
         "Personal link and QR",
@@ -497,14 +497,24 @@
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 16%",
-          "price": "$249.99",
+          "sub": "Billed yearly — save 11%",
+          "price": "$264.99",
           "per": "per year",
-          "amount": 249.99
+          "amount": 264.99,
+          "was": 419.99
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Pay once, keep lifetime access",
+          "price": "$791.65",
+          "per": "one time",
+          "amount": 791.65,
+          "was": 1259.97
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/referralconnect-your-doneforyou-subscription"
+        "monthly": "https://stan.store/AcrossTheTable/p/refer--earn-monthly-subscription"
       }
     },
     "cash-flow-vs-ebitda": {
