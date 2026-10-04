@@ -10741,7 +10741,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     var dest = landing(card); if(dest) goTo(dest);
   }
   var CARD = '.tool, .tool-card, .rows .row';
+  /* Logos in the owner workspace arrive after it is unlocked, so they miss the
+     page-load pass that fills every other logo. Fill them from the app cards. */
+  function fillLogos(){
+    Array.prototype.forEach.call(hub.querySelectorAll('img[data-logo]'), function(img){
+      if(img.getAttribute('src')) return;
+      var src = document.querySelector('.app[data-slug="'+img.getAttribute('data-logo')+'"] .app-icon img');
+      if(src && src.getAttribute('src')){ img.src = src.src; if(!img.alt) img.alt = ''; }
+    });
+  }
   function decorate(){
+    fillLogos();
     Array.prototype.forEach.call(hub.querySelectorAll(CARD), function(c){
       if(c.__attWired || !landing(c)) return;
       c.__attWired = true; c.style.cursor = 'pointer';
