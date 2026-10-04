@@ -89,7 +89,7 @@ APPS = [
          ('Permits and codes vary', 'Sign permits, zoning rules, and codes differ by city and county and change over time. Confirm current requirements with the responsible authority before you build or install.'),
          ('Vendors and installers', 'Vendors and installers you work with are independent businesses. We do not employ them, endorse their work, or guarantee their pricing or availability.'),
          ('Your responsibility', 'You are responsible for your projects, your contracts, and safe, lawful installation.')]),
-  dict(slug='juntoshr', name='JuntosHR', what='a people tool for hiring, onboarding, scheduling, time tracking, PTO, and payroll preparation',
+  dict(slug='juntoshr', hub=True, name='JuntosHR', what='a people tool for hiring, onboarding, scheduling, time tracking, PTO, and payroll preparation',
        data='your business profile, job posts, applicants, employee records, schedules, time entries, PTO requests, and payroll-preparation details',
        others=True, team=True,
        ip=['the JuntosHR workflows', 'onboarding and scheduling templates'],
