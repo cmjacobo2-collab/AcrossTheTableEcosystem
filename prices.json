@@ -480,18 +480,19 @@
         {
           "key": "trial",
           "label": "Free trial",
-          "sub": "14 days free, then $24.98/month",
+          "sub": "14 days free, then $24.99/month",
           "price": "$0.00",
-          "per": "then $24.98/mo",
+          "per": "then $24.99/mo",
           "amount": 0
         },
         {
           "key": "monthly",
           "label": "Monthly",
           "sub": "Billed every month, cancel anytime",
-          "price": "$24.98",
+          "price": "$24.99",
           "per": "per month",
-          "amount": 24.98
+          "amount": 24.99,
+          "was": 34.99
         },
         {
           "key": "annual",
