@@ -668,9 +668,9 @@
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Limited-time offer — one company",
-          "price": "$22,500",
+          "price": "$30,000.00",
           "per": "one time",
-          "amount": 22500,
+          "amount": 30000,
           "note": "One-time payment of $22,500 for one company. Limited-time offer. No recurring charge."
         }
       ],
