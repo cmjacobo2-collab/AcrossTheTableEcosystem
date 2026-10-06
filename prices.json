@@ -644,6 +644,102 @@
       "links": {
         "monthly": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
       }
+    },
+    "sos-sign-os": {
+      "name": "SOS Sign Operating System",
+      "kind": "Bundle",
+      "status": "Coming soon",
+      "blurb": "SOS Design Assistant, SOS Permit Assistant and SOS Build Assistant in one login, sharing one job record from start to finish.",
+      "feats": [
+        "Design, Permit and Build in one login",
+        "One job record, nothing re-entered",
+        "One branded customer page",
+        "One board for the whole team"
+      ],
+      "trial": 0,
+      "plans": [],
+      "links": {}
+    },
+    "sos-design-assistant": {
+      "name": "SOS Design Assistant",
+      "kind": "App Subscription",
+      "status": "Coming soon",
+      "blurb": "Create sign designs and the vector files your fabricator needs, without bouncing between programs.",
+      "feats": [
+        "Sign designs and customer proofs",
+        "Production-ready vector files",
+        "Every revision in one place",
+        "Hands the approved drawing to permitting"
+      ],
+      "trial": 0,
+      "plans": [],
+      "links": {}
+    },
+    "sos-permit-assistant": {
+      "name": "SOS Permit Assistant",
+      "kind": "App Subscription",
+      "status": "Available for purchase",
+      "blurb": "Keep sign permits moving from application to final inspection — fewer corrections, fewer status calls, no missed expirations.",
+      "feats": [
+        "Ready-to-submit check",
+        "One-click permit packet",
+        "Landlord e-signature",
+        "Live customer status page"
+      ],
+      "trial": 14,
+      "plans": [
+        {
+          "key": "trial",
+          "label": "Free trial",
+          "sub": "14 days free, then $449.99/month",
+          "price": "$0.00",
+          "per": "then $449.99/mo",
+          "amount": 0
+        },
+        {
+          "key": "monthly",
+          "label": "Monthly",
+          "sub": "Sale price, 10% off — one company",
+          "price": "$449.99",
+          "per": "per month",
+          "amount": 449.99,
+          "was": 500
+        },
+        {
+          "key": "annual",
+          "label": "Annual",
+          "sub": "25% off the regular monthly price — one company",
+          "price": "$4,500",
+          "per": "per year",
+          "amount": 4500,
+          "was": 6000
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Limited-time offer — one company",
+          "price": "$22,500",
+          "per": "one time",
+          "amount": 22500,
+          "note": "One-time payment of $22,500 for one company. Limited-time offer. No recurring charge."
+        }
+      ],
+      "links": {}
+    },
+    "sos-build-assistant": {
+      "name": "SOS Build Assistant",
+      "kind": "App Subscription",
+      "status": "Coming soon",
+      "blurb": "Send the approved sign to manufacturers for bids, then run the job on one board through install and close-out.",
+      "feats": [
+        "Manufacturer bids from the approved drawing",
+        "Side-by-side bid comparison",
+        "One board from production to install",
+        "Close-out in the same job record"
+      ],
+      "trial": 0,
+      "plans": [],
+      "links": {}
     }
   },
   "storeLinks": {
@@ -660,7 +756,11 @@
     "grow-and-thrive": "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder",
     "credithoy": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint",
     "hearaboutit": "https://stan.store/AcrossTheTable/p/hearaboutit-placeholder",
-    "leadmatch": "https://stan.store/AcrossTheTable/p/leadmatch-subscription-placehoder"
+    "leadmatch": "https://stan.store/AcrossTheTable/p/leadmatch-subscription-placehoder",
+    "sos-sign-os": "",
+    "sos-design-assistant": "",
+    "sos-permit-assistant": "",
+    "sos-build-assistant": ""
   },
   "delivery": {},
   "salesLog": [],

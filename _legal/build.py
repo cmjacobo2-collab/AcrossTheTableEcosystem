@@ -185,6 +185,20 @@ APPS = [
          ('Tracking, not a payment guarantee', 'Refer & Earn tracks referrals and commissions. The business running a referral program sets its own rules and commission amounts and is responsible for paying them. We do not guarantee any payout.'),
          ('Taxes', 'Commissions may be taxable. Businesses and participants are responsible for their own tax reporting.'),
          ('Program rules', 'Businesses are responsible for running their programs fairly and lawfully, including any disclosures referrers must make when they recommend a business.')]),
+  dict(slug='sos-permit-assistant', name='SOS Permit Assistant', what='a sign-permit tool for sign companies that organizes applications, permit packets, landlord signatures, customer updates, inspections, and expiration dates',
+       data='your company profile and branding, jobs, permit applications, permit packets, drawings, site survey photos and measurements, location data you capture, inspection records, saved city sign codes, and notes',
+       others=True, team=True,
+       sms=True, sms_desc='optional permit status updates to your customers, and alerts to your team',
+       ip=['the SOS Permit Assistant permit workflows', 'packet templates', 'checklists', 'status pages'],
+       advice='SOS Permit Assistant helps you organize and track sign permits. It is not legal, engineering, or permitting advice, and it does not decide whether a permit is approved.',
+       special=[
+         ('Customers and landlords', 'When you add a customer or a landlord to a job, we store their name and contact details so the App can send them status updates, drawing approvals, and signature requests on your behalf. Approvals and signatures are saved with the person\'s name and the time. You are responsible for having permission to contact them. They can ask you, or email us at ' + EMAIL + ', to have their information removed.'),
+         ('Site surveys', 'Photos, measurements, and GPS locations captured during a site survey are stored with the job they belong to.')],
+       disclaimer=[
+         ('A permit tool, not professional advice', 'SOS Permit Assistant helps you organize sign permits. It is not legal, engineering, structural, electrical, or permitting advice.'),
+         ('The city decides', 'City and county review times, corrections, and approval decisions remain with the city or county. Size-limit and document checks are aids that help you catch problems early; they do not guarantee approval.'),
+         ('Codes change', 'Answers from saved city sign codes are only as current as the code you saved. Confirm current requirements with the responsible authority before you submit, build, or install.'),
+         ('Your responsibility', 'You are responsible for your applications, your drawings and calculations, your contracts, and safe, lawful installation.')]),
 ]
 
 # --------------------------------------------------------------------------
