@@ -399,56 +399,6 @@
         "monthly": "https://stan.store/AcrossTheTable/p/leadmatch-subscription-placehoder"
       }
     },
-    "brightlights-360": {
-      "name": "BrightLights 360",
-      "kind": "App subscription",
-      "status": "In development",
-      "blurb": "Sign projects from first meeting to final install.",
-      "feats": [
-        "Specs and renders",
-        "Vendor bids",
-        "Permit tracking",
-        "Installer scheduling"
-      ],
-      "trial": 14,
-      "plans": [
-        {
-          "key": "trial",
-          "label": "Free trial",
-          "sub": "14 days free, then $1,279.99/month",
-          "price": "$0.00",
-          "per": "then $1,279.99/mo",
-          "amount": 0
-        },
-        {
-          "key": "monthly",
-          "label": "Monthly",
-          "sub": "Billed every month, cancel anytime",
-          "price": "$1,279.99",
-          "per": "per month",
-          "amount": 1279.99
-        },
-        {
-          "key": "annual",
-          "label": "Annual",
-          "sub": "Billed once a year",
-          "price": "$15,249.99",
-          "per": "per year",
-          "amount": 15249.99
-        },
-        {
-          "key": "onetime",
-          "label": "One-time purchase",
-          "sub": "Pay once, keep lifetime access",
-          "price": "$76,799.99",
-          "per": "one time",
-          "amount": 76799.99
-        }
-      ],
-      "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/brightlights360-placeholder"
-      }
-    },
     "business-connect": {
       "name": "Business Connect",
       "kind": "App subscription",
@@ -751,7 +701,6 @@
     "juntoshr": "https://stan.store/AcrossTheTable/p/juntoshr-subscription",
     "entrepreneur-blueprint": "https://stan.store/AcrossTheTable/p/entrepreneur-blueprint-placeholder",
     "ceo-mindset": "https://stan.store/AcrossTheTable/p/ceo-mindset-app-placehoder",
-    "brightlights-360": "https://stan.store/AcrossTheTable/p/brightlights360-placeholder",
     "cash-flow-vs-ebitda": "https://stan.store/AcrossTheTable/p/cash-flow-vs-ebitda-placeholder",
     "grow-and-thrive": "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder",
     "credithoy": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint",
