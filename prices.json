@@ -440,9 +440,9 @@
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Pay once, keep lifetime access",
-          "price": "$46,079.99",
+          "price": "$76,799.99",
           "per": "one time",
-          "amount": 46079.99
+          "amount": 76799.99
         }
       ],
       "links": {
