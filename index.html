@@ -11212,6 +11212,121 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
   try{ group(); }catch(e){}
 })();
+/* Products & pricing (inside My Business Hub): the table was typed in by hand,
+   so apps added later (the SOS apps) had no row. Any partnership app in the
+   price list without a row gets one, copied from an existing row and wired to
+   the same price boxes; partnership rows sit together at the bottom. */
+(function(){
+  var PARTNER = ['sos-sign-os','sos-design-assistant','sos-permit-assistant','sos-build-assistant','tabletap'];
+  function rowSlug(tr){
+    var k = tr.querySelector('[data-price],[data-status],[data-storelink],[data-playlink]');
+    return (k && (k.getAttribute('data-price') || k.getAttribute('data-status') || k.getAttribute('data-storelink') || k.getAttribute('data-playlink'))) || tr.getAttribute('data-slug') || '';
+  }
+  function setName(cell, name, slug){
+    var pid = cell.querySelector('.pid');
+    if(pid) pid.textContent = 'price_' + slug.replace(/-/g,'') + '_v1';
+    var w = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, null, false), n;
+    while((n = w.nextNode())){
+      if(pid && pid.contains(n)) continue;
+      if(n.nodeValue.trim()){ n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), name); return; }
+    }
+  }
+  function tag(tr){
+    var c = tr.cells[0]; if(!c || c.querySelector('.eco-pb')) return;
+    var t = document.createElement('span'); t.className = 'eco-pb';
+    t.textContent = 'Partnership build'; c.appendChild(t);
+  }
+  function sells(v){ return ['Available','Available for purchase','Beta'].indexOf(v) >= 0; }
+  function build(){
+    var hub = document.getElementById('hub'); if(!hub) return;
+    var tbody = hub.querySelector('[data-pane="products"] tbody'); if(!tbody) return;
+    var P = window.PRICES || {};
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+    var have = {}; rows.forEach(function(tr){ var s = rowSlug(tr); if(s) have[s] = tr; });
+    rows.forEach(function(tr){ var s = rowSlug(tr); if(s === 'brightlights-360' && !P[s]) tr.style.display = 'none'; });
+    var model = null;
+    rows.forEach(function(tr){ if(tr.querySelector('[data-price]') && tr.querySelector('select[data-status]') && tr.style.display !== 'none') model = tr; });
+    PARTNER.forEach(function(slug){
+      var d = P[slug]; if(!d) return;
+      var tr = have[slug];
+      if(!tr && model){
+        var old = rowSlug(model);
+        tr = model.cloneNode(true);
+        tr.classList.remove('justadded'); tr.style.display = '';
+        tr.setAttribute('data-slug', slug);
+        Array.prototype.forEach.call(tr.querySelectorAll('*'), function(e){
+          Array.prototype.forEach.call(e.attributes, function(a){
+            if(/^data-/.test(a.name) && a.value === old) e.setAttribute(a.name, slug);
+          });
+        });
+        setName(tr.cells[0], d.name, slug);
+        Array.prototype.forEach.call(tr.cells, function(cell, i){
+          if(i === 0) return;
+          if(cell.querySelector('[data-price],[data-was]')){
+            while(cell.firstChild) cell.removeChild(cell.firstChild);
+            var ph = document.createElement('input'); ph.type = 'text'; cell.appendChild(ph);
+            return;
+          }
+          var st = cell.querySelector('select[data-status]');
+          if(st){
+            if(!Array.prototype.some.call(st.options, function(o){ return (o.value || o.text) === d.status; })){
+              var o = document.createElement('option'); o.value = o.textContent = d.status; st.appendChild(o);
+            }
+            st.value = d.status;
+            st.addEventListener('change', function(){ d.status = st.value; });
+            return;
+          }
+          var sel = cell.querySelector('select');
+          if(sel && i === 1){
+            if(!Array.prototype.some.call(sel.options, function(o){ return (o.value || o.text) === d.kind; })){
+              var o2 = document.createElement('option'); o2.value = o2.textContent = d.kind; sel.appendChild(o2);
+            }
+            sel.value = d.kind; sel.addEventListener('change', function(){ d.kind = sel.value; });
+            return;
+          }
+          var sl = cell.querySelector('[data-storelink]');
+          if(sl){
+            sl.value = (window.STORE_LINKS || {})[slug] || '';
+            sl.addEventListener('change', function(){ window.STORE_LINKS = window.STORE_LINKS || {}; window.STORE_LINKS[slug] = sl.value.trim(); });
+            return;
+          }
+          if(cell.querySelector('button, input')){
+            while(cell.firstChild) cell.removeChild(cell.firstChild);
+            var t = document.createElement('span'); t.className = 'pid';
+            var tbl = tbody.closest('table'), th = tbl && tbl.tHead && tbl.tHead.rows[0] && tbl.tHead.rows[0].cells[i];
+            t.textContent = /play/i.test(th ? th.textContent : '') ? 'Web app' : '\u2014';
+            cell.appendChild(t);
+          }
+        });
+        tbody.appendChild(tr);
+        if(typeof window.__upgradePriceRow === 'function') window.__upgradePriceRow(tr, slug);
+        Array.prototype.forEach.call(tr.querySelectorAll('[data-price]'), function(inp){
+          var f = inp.getAttribute('data-pfield');
+          if(f === 'trial'){ inp.value = d.trial ? String(d.trial) : ''; return; }
+          var pl = null; (d.plans || []).forEach(function(x){ if(x.key === f) pl = x; });
+          inp.value = pl ? String(pl.amount) : '';
+        });
+        Array.prototype.forEach.call(tr.querySelectorAll('[data-was]'), function(w){
+          var pl = null; (d.plans || []).forEach(function(x){ if(x.key === w.getAttribute('data-wfield')) pl = x; });
+          w.disabled = !pl; w.value = (pl && pl.was) ? String(pl.was) : '';
+        });
+      }
+      if(tr){ tbody.appendChild(tr); tag(tr); }
+    });
+    var shown = Array.prototype.filter.call(tbody.querySelectorAll('tr'), function(tr){ return tr.style.display !== 'none'; });
+    var live = shown.filter(function(tr){ var x = tr.querySelector('select[data-status]'); return x && sells(x.value); }).length;
+    var a = hub.querySelector('[data-pp-count]'), b = hub.querySelector('[data-pp-live]');
+    if(a) a.textContent = String(shown.length);
+    if(b) b.textContent = String(live);
+  }
+  window.__sosPriceRows = build;
+  var orig = window.__initHubUI;
+  if(typeof orig === 'function' && !orig.__sosp){
+    window.__initHubUI = function(){ var r = orig.apply(this, arguments); try{ build(); }catch(e){} return r; };
+    window.__initHubUI.__sosp = true;
+  }
+  try{ build(); }catch(e){}
+})();
 </script>
 </body>
 </html>
