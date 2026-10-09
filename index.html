@@ -2780,6 +2780,13 @@ window.STORE_LINKS = {
   "sos-sign-os":            ""
 };
 
+/* My Business Hub — products a customer can buy on their own.
+   They show under "Add to your business" in the customer's My apps, unless
+   that customer already has them. Add a slug from your price list to show
+   another product. The Buy button opens on Stan only while the product's
+   status is Available (or Beta); otherwise it reads "Coming soon". */
+window.HUB_ADDONS = ["refer-and-earn"];
+
 window.APP_LINKS = {
   "entrepreneur-blueprint": "",
   "startwise":              "",
@@ -10500,6 +10507,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 .lh-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
 .lh-filters select{width:auto;min-width:150px;padding:8px 10px;font-size:14px;}
 .lh-list{display:grid;gap:10px;}
+.lh .lh-feats{margin:6px 0 4px;padding-left:18px;font-size:14px;color:var(--text-muted,#93A7BD);line-height:1.55;}
 .lh-tk .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--text-muted,#93A7BD);margin-bottom:6px;}
 .lh-tk h3{margin:0 0 6px;font-size:16px;}
 .lh-tk p.body{margin:0 0 12px;white-space:pre-wrap;line-height:1.55;font-size:14.5px;color:var(--text-body,#C9D9E8);}
@@ -10534,7 +10542,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   var HUB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15aXNuY3VmeGNwZXF5dW9ocm9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwNzA4NTksImV4cCI6MjEwNjY0Njg1OX0.XrQ4SX3K4Cyxc80s9PECENqJ5R-x7jTxP-2HYPD4bjY';
   var LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js';
   /* Where each app lives on the web (the "Open" button in a customer's My apps). */
-  var WEB_APPS = { credithoy: 'https://acrossthetable-credithoy.netlify.app', juntoshr: 'https://acrossthetable-juntoshr.netlify.app/' };
+  var WEB_APPS = { credithoy: 'https://acrossthetable-credithoy.netlify.app', juntoshr: 'https://acrossthetable-juntoshr.netlify.app/', 'os-sign': 'https://sosign.netlify.app', 'refer-and-earn': 'https://referandearn-acrossthetable.netlify.app' };
+  /* Hub names that differ from this site's app pages. */
+  var SITE_SLUG = { 'os-sign': 'sos-permit-assistant' };
+  function siteSlug(slug){ return SITE_SLUG[slug] || slug; }
   window.ATT_WEB_APPS = WEB_APPS;
 
   var sb = null, libP = null, me = null, owner = false, tab = null, cache = {};
@@ -10559,7 +10570,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   function clear(el){ while (el && el.firstChild) el.removeChild(el.firstChild); }
   function appName(slug){
     var P = window.PRICES || {};
-    return (P[slug] && P[slug].name) || slug;
+    var d = P[slug] || P[siteSlug(slug)];
+    return (d && d.name) || slug;
   }
   function fmtDate(s){ try { return new Date(s).toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}); } catch(e){ return s; } }
   function fmtWhen(s){ try { return new Date(s).toLocaleString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}); } catch(e){ return s; } }
@@ -10908,6 +10920,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (!list.length){
         body.appendChild(empty('No apps yet for ' + me.email + '. If you bought an app with a different email, sign out and sign in with that one.'));
         body.appendChild(h('div', {class:'row', style:'justify-content:center'}, h('a', {class:'btn btn-primary', href:'#system', text:'Browse the apps'})));
+        addOns(body, map);
         return;
       }
       var grid = h('div', {class:'lh-list'});
@@ -10918,10 +10931,40 @@ document.addEventListener('DOMContentLoaded', async function() {
           h('h3', {text: appName(a.app)}),
           h('div', {class:'row'},
             web ? h('a', {class:'btn btn-primary', href:web, target:'_blank', rel:'noopener', text:'Open ' + appName(a.app)}) : null,
-            h('a', {class:'btn btn-secondary', href:'#app-' + a.app, text:'About this app'}))));
+            h('a', {class:'btn btn-secondary', href:'#app-' + siteSlug(a.app), text:'About this app'}))));
       });
       body.appendChild(grid);
+      addOns(body, map);
     }).catch(function(e){ fail(body, e); });
+  }
+
+  /* ===== CUSTOMER: products sold on their own (window.HUB_ADDONS) ===== */
+  var FOR_SALE = { 'Available':1, 'Available for purchase':1, 'Beta':1 };
+  function addOns(body, owned){
+    var P = window.PRICES || {};
+    var have = {}; Object.keys(owned || {}).forEach(function(k){ have[k] = 1; have[siteSlug(k)] = 1; });
+    var list = (window.HUB_ADDONS || []).filter(function(s){ return P[s] && !have[s]; });
+    if (!list.length) return;
+    var grid = h('div', {class:'lh-list'});
+    list.forEach(function(s){
+      var d = P[s], open = !!FOR_SALE[d.status];
+      var link = (window.STORE_LINKS && window.STORE_LINKS[s]) || (d.links && (d.links.monthly || d.links.annual || d.links.onetime)) || '';
+      var paid = (d.plans || []).filter(function(x){ return x.key !== 'trial' && Number(x.amount) > 0; });
+      var low = paid.sort(function(a, b){ return Number(a.amount) - Number(b.amount); })[0];
+      grid.appendChild(h('div', {class:'lh-card lh-tk lh-addon', 'data-addon': s},
+        h('div', {class:'meta'}, h('span', {class:'lh-pill ' + (open ? 'active' : 'soon'), text: open ? 'Available' : (d.status || 'Coming soon')}),
+          low ? h('span', {text:'From ' + low.price + ' ' + (low.per || '')}) : null),
+        h('h3', {text: d.name || s}),
+        d.blurb ? h('p', {class:'body', text: d.blurb}) : null,
+        (d.feats && d.feats.length) ? h('ul', {class:'lh-feats'}, d.feats.slice(0, 4).map(function(f){ return h('li', {text: f}); })) : null,
+        h('div', {class:'row'},
+          open && link ? h('a', {class:'btn btn-primary', href:link, target:'_blank', rel:'noopener', text:'Buy on Stan'})
+                       : h('span', {class:'btn btn-secondary', 'aria-disabled':'true', style:'opacity:.6;cursor:default', text:'Coming soon'}),
+          h('a', {class:'btn btn-secondary', href:'#app-' + s, text:'About this app'}))));
+    });
+    body.appendChild(h('h4', {text:'Add to your business'}));
+    body.appendChild(h('p', {class:'fine', style:'margin:0 0 10px', text:'Sold on their own. Buy with the same email you use here and it shows up in My apps.'}));
+    body.appendChild(grid);
   }
 
   /* ===== CUSTOMER: Billing & purchases ===== */
