@@ -2766,7 +2766,7 @@ window.STORE_LINKS = {
   "ceo-mindset":            "https://stan.store/AcrossTheTable/p/ceo-mindset-app-placehoder",
   "cash-flow-vs-ebitda":    "https://stan.store/AcrossTheTable/p/cash-flow-vs-ebitda-placeholder",
   "grow-and-thrive":        "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder",
-  "credithoy":              "https://stan.store/AcrossTheTable/p/credithoy-placeholder",
+  "credithoy":              "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint",
 
   "hearaboutit":            "https://stan.store/AcrossTheTable/p/hearaboutit-placeholder",
 
@@ -2908,7 +2908,7 @@ window.MINDSET = {
        Both currently point at the same free document. Give the Module
        Workbook its own product URL when it's listed. */
     "executive-phases":          { buy:"https://stan.store/AcrossTheTable/p/get-your-free-special-ceo-mindset-document-now", yt:"" },
-    "ceo-mindset-workbook":      { buy:"https://stan.store/AcrossTheTable/p/get-your-free-special-ceo-mindset-document-now", yt:"" },
+    "ceo-mindset-workbook":      { buy:"https://stan.store/AcrossTheTable/p/get-my-ceo-mindset-workbook-now", yt:"" },
 
     /* Stage 04 — Build */
     "strategy-mindset-workbook": { buy:"https://stan.store/AcrossTheTable/p/4-build-stage--1-strategy-mindset", yt:"" },
@@ -6169,10 +6169,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     function isRecurring(key){ return key === 'monthly' || key === 'annual'; }
     function shownPlans(d){ return d.plans.filter(function(p){ return p.key !== 'trial'; }); }
     function trialDays(d){ return (d.trial > 0 && shownPlans(d).some(function(p){ return isRecurring(p.key); })) ? d.trial : 0; }
+    /* Which Stan Store page a Buy button opens, best match first:
+         1. the page saved for the exact plan picked (monthly, annual, ...)
+         2. the product's own page from STORE_LINKS
+         3. any page saved for that product
+         4. only then the main store front.
+       Plans with their own names (TableTap's Basic, Smart, ...) have no
+       page of their own, so they land on the product page, not the store. */
     window.planLinkFor = function(slug, key){
+      var ok = function(u){ return typeof u === 'string' && /^https:\/\//.test(u) ? u : ''; };
       var d = window.PRICES && window.PRICES[slug];
-      var own = d && d.links && d.links[key];
-      return (own && /^https:\/\//.test(own) ? own : '') || window.STORE_FRONT || '';
+      var L = (d && d.links) || {};
+      return ok(L[key])
+          || ok(window.STORE_LINKS && window.STORE_LINKS[slug])
+          || ok(L.monthly) || ok(L.annual) || ok(L.onetime)
+          || window.STORE_FRONT || '';
     };
     function planSub(d, p){
       var t = trialDays(d);
