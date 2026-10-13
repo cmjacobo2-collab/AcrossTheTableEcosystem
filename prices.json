@@ -423,7 +423,18 @@
       ],
       "links": {
         "monthly": "https://stan.store/AcrossTheTable/p/get-your-own-digital-business-card"
-      }
+      },
+      "flyer": "flyers/business-connect-flyer-1791928546560.jpg",
+      "photos": [
+        "flyers/business-connect-photo0-1791928567406.jpg",
+        "flyers/business-connect-photo1-1791928568941.jpg",
+        "flyers/business-connect-photo2-1791928570406.jpg",
+        "flyers/business-connect-photo3-1791928572037.jpg",
+        "flyers/business-connect-photo4-1791928573304.jpg",
+        "flyers/business-connect-photo5-1791928574783.jpg",
+        "flyers/business-connect-photo6-1791928576177.jpg",
+        "flyers/business-connect-photo7-1791928577454.jpg"
+      ]
     },
     "refer-and-earn": {
       "name": "Refer & Earn",
