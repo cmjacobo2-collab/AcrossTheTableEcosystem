@@ -544,7 +544,7 @@
         "Rewards and offers",
         "Restaurant dashboard"
       ],
-      "trial": 0,
+      "trial": 14,
       "plans": [
         {
           "key": "basic",
@@ -589,10 +589,36 @@
           "note": "$35 per table one-time, plus $499 a month for campaigns, support and strategy.",
           "foot": "The monthly management starts once your system is live. Cancel anytime.",
           "cta": "Get started"
+        },
+        {
+          "key": "trial",
+          "label": "Free trial",
+          "sub": "14 days free, then $0.00/month",
+          "price": "$0.00",
+          "per": "then $0.00/mo",
+          "amount": 0
+        },
+        {
+          "key": "annual",
+          "label": "Annual",
+          "sub": "Billed once a year",
+          "price": "$249.99",
+          "per": "per year",
+          "amount": 249.99
+        },
+        {
+          "key": "onetime",
+          "label": "One-time purchase",
+          "sub": "Pay once, keep lifetime access",
+          "price": "$449.99",
+          "per": "one time",
+          "amount": 449.99
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
+        "monthly": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
+        "annual": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
+        "onetime": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
       }
     },
     "sos-sign-os": {
