@@ -539,12 +539,12 @@
       "status": "Available",
       "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, a review, and a repeat customer. Start with Essential; after we meet, you choose the plan that fits.",
       "feats": [
-        "Essential: digital menu in English, your branding, QR and tap tags",
-        "Engage: English and Spanish, reviews, specials, VIP list",
-        "Pro: 8 languages, audio, rewards, campaigns and analytics",
+        "Essential: digital menu, your branding, QR and tap tags",
+        "Engage: English and Spanish, menu audio, specials, reviews, VIP list",
+        "Pro: rewards and VIP, campaigns, reservations and analytics",
         "We meet first, then you choose your plan"
       ],
-      "trial": 14,
+      "trial": 0,
       "plans": [
         {
           "key": "essential",
