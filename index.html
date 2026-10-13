@@ -2532,6 +2532,44 @@ a[data-goto]{cursor:pointer;}
 .co-btn.is-soon{background:var(--bg-panel);color:var(--text-muted);
   border:1px solid var(--border-default);cursor:default;box-shadow:none;}
 .co-btn.is-soon:hover{background:var(--bg-panel);color:var(--text-muted);transform:none;}
+
+/* ---- App page hero, simplified: title + short description, the flyer,
+   then the price card. The tagline pill and the button row are hidden in the
+   hero only (TableTap's demo row is a second button row and stays). ---- */
+.lp-hero .lp-tag, .lp-hero .lp-tag + .lp-cta{display:none !important;}
+.trial-pill:empty{display:none !important;}
+@media (min-width:981px){ .lp-hero .subcard{position:sticky;top:96px;} }
+.lp-flyer{margin:28px 0 0;max-width:460px;}
+.lp-flyer[hidden]{display:none !important;}
+.lp-flyer a{display:block;border-radius:14px;overflow:hidden;background:var(--bg-card);
+  border:1px solid color-mix(in srgb,var(--app,var(--accent)) 38%, var(--border-default));
+  box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 50px rgba(0,0,0,.55),
+    0 0 42px color-mix(in srgb,var(--app,var(--accent)) 16%, transparent);
+  transition:transform .25s ease, box-shadow .25s ease;}
+.lp-flyer a:hover{transform:translateY(-2px);}
+.lp-flyer img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain;}
+@media (max-width:980px){ .lp-flyer{max-width:520px;} }
+
+/* ---- Hub: App flyers uploader (Products & pricing) ---- */
+.flyer-mgr{margin-top:24px;}
+.flyer-mgr .fm-lead{font-size:13.5px;line-height:1.6;color:var(--text-body);margin:14px 0 4px;}
+.flyer-mgr .fm-lead b{color:var(--text-heading);}
+.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px;margin-top:16px;}
+.fm-tile{border:1.5px dashed var(--border-strong);border-radius:13px;background:var(--bg-panel);
+  padding:12px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s ease, background .15s ease;}
+.fm-tile.has{border-style:solid;border-color:var(--border-default);}
+.fm-tile.over{border-color:var(--accent);background:rgba(43,168,255,.08);}
+.fm-name{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--text-heading);min-height:24px;}
+.fm-name img{width:22px;height:22px;border-radius:6px;flex:none;object-fit:cover;}
+.fm-prev{aspect-ratio:1/1.3;border-radius:9px;background:var(--bg-card);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.08);}
+.fm-prev img{width:100%;height:100%;object-fit:contain;display:block;}
+.fm-prev span{font-size:12px;color:var(--text-muted);text-align:center;padding:12px;line-height:1.45;}
+.fm-acts{display:flex;gap:8px;flex-wrap:wrap;}
+.fm-acts .btn-sm{flex:1;justify-content:center;text-align:center;}
+.fm-msg{font-size:12px;line-height:1.45;color:var(--text-muted);min-height:1.45em;}
+.fm-msg.ok{color:var(--success);} .fm-msg.err{color:var(--danger-text);} .fm-msg.busy{color:var(--accent-bright);}
+.fm-tile input[type=file]{display:none;}
 </style>
 
 <style id="sosign-css">
@@ -3644,6 +3682,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Turn your vision into a thriving business.</h1>
   <p class="lp-lede">Entrepreneur Blueprint gives you the tools, strategies, and confidence to move from idea to impact — one stage at a time, in language that assumes nothing.</p>
+  <figure class="lp-flyer" data-flyer="entrepreneur-blueprint" hidden><a target="_blank" rel="noopener" aria-label="Open the Entrepreneur Blueprint flyer full size"><img alt="Entrepreneur Blueprint flyer" decoding="async"></a></figure>
   <div class="lp-tag">Plan. Build. Grow. Thrive.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="entrepreneur-blueprint" href="#entrepreneur-blueprint-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="entrepreneur-blueprint"><p class="datum">Digital resource</p><h3>Choose your plan</h3><div class="plans" role="radiogroup" aria-label="Plans for Entrepreneur Blueprint" data-plans="entrepreneur-blueprint"><button class="plan compact" type="button" role="radio" data-plan="onetime" data-amount="149" data-per="one time" data-label="One-time purchase" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>One-time purchase</b><span>Pay once, keep lifetime access</span></span><span class="pr"><b>$149</b><span>one time</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$149</b></div><p class="sum-note" data-sub-renew>One-time payment. No recurring charge.</p><button class="btn btn-primary co-btn" type="button" data-buy="entrepreneur-blueprint" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>One-time purchase — nothing to cancel.</p></aside></div></div></div>
@@ -3680,6 +3719,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Everything a new business owner needs, in one place.</h1>
   <p class="lp-lede">The all-in-one app that guides new business owners from idea to launch and beyond. Plan smarter, stay organized, and build with confidence.</p>
+  <figure class="lp-flyer" data-flyer="startwise" hidden><a target="_blank" rel="noopener" aria-label="Open the StartWise flyer full size"><img alt="StartWise flyer" decoding="async"></a></figure>
   <div class="lp-tag">Your smart start. Your strong future.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="startwise" href="#startwise-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="startwise"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for StartWise" data-plans="startwise"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $16/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $16/month</span></span><span class="pr"><b>$0</b><span>then $16/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="16" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$16</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="160" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$160</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$16</b></div><p class="sum-note" data-sub-renew>Renews automatically at $16 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="startwise" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -3719,6 +3759,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>The framework that transforms business owners into visionary leaders.</h1>
   <p class="lp-lede">A proven framework that helps business owners shift their thinking, make grand-scale decisions, and build a business that creates lasting impact and legacy.</p>
+  <figure class="lp-flyer" data-flyer="ceo-mindset" hidden><a target="_blank" rel="noopener" aria-label="Open the CEO Mindset flyer full size"><img alt="CEO Mindset flyer" decoding="async"></a></figure>
   <div class="lp-tag">Think like a CEO. Lead with vision. Build to last.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="ceo-mindset" href="#ceo-mindset-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="ceo-mindset"><p class="datum">Program</p><h3>Choose your plan</h3><div class="plans" role="radiogroup" aria-label="Plans for CEO Mindset" data-plans="ceo-mindset"><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="49" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$49</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="470" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 20%</span></span><span class="pr"><b>$470</b><span>per year</span></span></button><button class="plan compact" type="button" role="radio" data-plan="onetime" data-amount="899" data-per="one time" data-label="One-time purchase" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>One-time purchase</b><span>Pay once, keep lifetime access</span></span><span class="pr"><b>$899</b><span>one time</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$49</b></div><p class="sum-note" data-sub-renew>Renews automatically at $49 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="ceo-mindset" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -3755,6 +3796,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>One app. Many trades. All in one place.</h1>
   <p class="lp-lede">A mobile-first app for home and property service professionals. It runs the whole job — quote, photos, invoice, payment — from your phone, on site.</p>
+  <figure class="lp-flyer" data-flyer="lohare" hidden><a target="_blank" rel="noopener" aria-label="Open the LOHARE flyer full size"><img alt="LOHARE flyer" decoding="async"></a></figure>
   <div class="lp-tag">Clean. Care. Fix. Get paid.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="lohare" href="#lohare-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="lohare"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for LOHARE" data-plans="lohare"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $19/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $19/month</span></span><span class="pr"><b>$0</b><span>then $19/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="19" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$19</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="190" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$190</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$19</b></div><p class="sum-note" data-sub-renew>Renews automatically at $19 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="lohare" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -3791,6 +3833,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>The all-in-one HR platform built for small businesses.</h1>
   <p class="lp-lede">Simplify your HR. Empower your team. JuntosHR helps you attract top talent, onboard new hires smoothly, manage employees, and stay compliant — all in one easy-to-use app.</p>
+  <figure class="lp-flyer" data-flyer="juntoshr" hidden><a target="_blank" rel="noopener" aria-label="Open the JuntosHR flyer full size"><img alt="JuntosHR flyer" decoding="async"></a></figure>
   <div class="lp-tag">Hire. Onboard. Manage. Grow.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="juntoshr" href="#juntoshr-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="juntoshr"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for JuntosHR" data-plans="juntoshr"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $39/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $39/month</span></span><span class="pr"><b>$0</b><span>then $39/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="39" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$39</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="390" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$390</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$39</b></div><p class="sum-note" data-sub-renew>Renews automatically at $39 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="juntoshr" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -3827,6 +3870,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Two powerful views of your business. One smarter way to grow.</h1>
   <p class="lp-lede">Make smarter decisions with clarity and confidence. Cash flow and EBITDA answer different questions — this shows you which one to ask, and when.</p>
+  <figure class="lp-flyer" data-flyer="cash-flow-vs-ebitda" hidden><a target="_blank" rel="noopener" aria-label="Open the Cash Flow vs EBITDA flyer full size"><img alt="Cash Flow vs EBITDA flyer" decoding="async"></a></figure>
   <div class="lp-tag">Understand. Compare. Grow.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="cash-flow-vs-ebitda" href="#cash-flow-vs-ebitda-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="cash-flow-vs-ebitda"><p class="datum">Digital resource</p><h3>Choose your plan</h3><div class="plans" role="radiogroup" aria-label="Plans for Cash Flow vs EBITDA" data-plans="cash-flow-vs-ebitda"><button class="plan compact" type="button" role="radio" data-plan="onetime" data-amount="79" data-per="one time" data-label="One-time purchase" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>One-time purchase</b><span>Pay once, keep lifetime access</span></span><span class="pr"><b>$79</b><span>one time</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$79</b></div><p class="sum-note" data-sub-renew>One-time payment. No recurring charge.</p><button class="btn btn-primary co-btn" type="button" data-buy="cash-flow-vs-ebitda" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Bought through my Stan Store. One-time purchase — nothing to cancel.</p></aside></div></div></div>
@@ -3867,6 +3911,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Think strategically. Build a business that thrives.</h1>
   <p class="lp-lede">The all-in-one strategic growth app that helps you think bigger, make smarter decisions, and build a business that thrives — today and for years to come.</p>
+  <figure class="lp-flyer" data-flyer="grow-and-thrive" hidden><a target="_blank" rel="noopener" aria-label="Open the Grow &amp; Thrive flyer full size"><img alt="Grow &amp; Thrive flyer" decoding="async"></a></figure>
   <div class="lp-tag">Strategy. Numbers. Results.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="grow-and-thrive" href="#grow-and-thrive-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="grow-and-thrive"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for Grow &amp; Thrive" data-plans="grow-and-thrive"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $45/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $45/month</span></span><span class="pr"><b>$0</b><span>then $45/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="45" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$45</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="450" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$450</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$45</b></div><p class="sum-note" data-sub-renew>Renews automatically at $45 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="grow-and-thrive" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -3904,6 +3949,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Simple for diners. Powerful for restaurants.</h1>
   <p class="lp-lede">A smart tag sits on every table. A diner taps their phone or scans the code and your menu opens instantly — no app to download, no waiting. Everything that happens next, from the review to the VIP sign-up to the return visit, comes back to you.</p>
+  <figure class="lp-flyer" data-flyer="tabletap" hidden><a target="_blank" rel="noopener" aria-label="Open the TableTap flyer full size"><img alt="TableTap flyer" decoding="async"></a></figure>
   <div class="lp-tag">Tap. Join. Return.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="tabletap" href="#tabletap-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div>
@@ -3970,6 +4016,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>One system for the whole sign job, from first sketch to final close-out.</h1>
   <p class="lp-lede">SOS Design Assistant, SOS Permit Assistant and SOS Build Assistant, together in one login, sharing one job record from start to finish.</p>
+  <figure class="lp-flyer" data-flyer="sos-sign-os" hidden><a target="_blank" rel="noopener" aria-label="Open the SOS Sign Operating System flyer full size"><img alt="SOS Sign Operating System flyer" decoding="async"></a></figure>
   <div class="lp-tag">One system. A higher standard.</div>
   <div class="lp-cta"><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Sign%20Operating%20System%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Sign%20Operating%20System%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><a class="btn btn-secondary" href="#app-sos-permit-assistant">SOS Permit Assistant is available now</a>
   </div><nav class="sos-jump" aria-label="Other SOS apps"><p class="sos-jump-h">Explore the other SOS apps</p><div class="sos-jump-row"><a class="sos-jump-btn" href="#app-sos-design-assistant"><img data-sos-icon="sos-design-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Design Assistant</b><small>Design the sign<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn is-live" href="#app-sos-permit-assistant"><img data-sos-icon="sos-permit-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Permit Assistant</b><small>Get it permitted<em>Available now</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-build-assistant"><img data-sos-icon="sos-build-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Build Assistant</b><small>Bid, build and install<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a></div></nav></div><aside class="sos-waitcard"><p class="datum">Coming soon</p><h3>Join the waitlist</h3><p>Be first to try SOS Sign Operating System. One email the day it opens. No newsletter.</p><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Sign%20Operating%20System%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Sign%20Operating%20System%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><p class="sos-wait-fine">Opens your email with the details filled in. Just press send.</p><div class="sos-wait-now"><p>Available now</p><a href="#app-sos-permit-assistant">Start with SOS Permit Assistant<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></aside></div></div></div>
@@ -4002,6 +4049,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Design the sign. Get production-ready files.</h1>
   <p class="lp-lede">Create sign designs and the vector files your fabricator needs, without bouncing between programs.</p>
+  <figure class="lp-flyer" data-flyer="sos-design-assistant" hidden><a target="_blank" rel="noopener" aria-label="Open the SOS Design Assistant flyer full size"><img alt="SOS Design Assistant flyer" decoding="async"></a></figure>
   <div class="lp-tag">Design it.</div>
   <div class="lp-cta"><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Design%20Assistant%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Design%20Assistant%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><a class="btn btn-secondary" href="#app-sos-permit-assistant">SOS Permit Assistant is available now</a>
   </div><nav class="sos-jump" aria-label="Other SOS apps"><p class="sos-jump-h">Explore the other SOS apps</p><div class="sos-jump-row"><a class="sos-jump-btn is-live" href="#app-sos-permit-assistant"><img data-sos-icon="sos-permit-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Permit Assistant</b><small>Get it permitted<em>Available now</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-build-assistant"><img data-sos-icon="sos-build-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Build Assistant</b><small>Bid, build and install<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-sign-os"><img data-sos-icon="sos-sign-os" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Sign Operating System</b><small>All three in one system<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a></div></nav></div><aside class="sos-waitcard"><p class="datum">Coming soon</p><h3>Join the waitlist</h3><p>Be first to try SOS Design Assistant. One email the day it opens. No newsletter.</p><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Design%20Assistant%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Design%20Assistant%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><p class="sos-wait-fine">Opens your email with the details filled in. Just press send.</p><div class="sos-wait-now"><p>Available now</p><a href="#app-sos-permit-assistant">Start with SOS Permit Assistant<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></aside></div></div></div>
@@ -4033,6 +4081,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Every sign permit, handled — from application to final inspection.</h1>
   <p class="lp-lede">Submit. Track. Get approved. SOS Permit Assistant keeps applications, signatures, customer updates, inspections and expiration dates in one place, so you get fewer corrections, fewer status calls, and no missed expirations.</p>
+  <figure class="lp-flyer" data-flyer="sos-permit-assistant" hidden><a target="_blank" rel="noopener" aria-label="Open the SOS Permit Assistant flyer full size"><img alt="SOS Permit Assistant flyer" decoding="async"></a></figure>
   <div class="lp-tag">Less chasing. More control.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="sos-permit-assistant" href="#sos-permit-assistant-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to my Stan Store</span></a><a class="btn btn-secondary" href="#sos-permit-assistant-savings">See what it would save you</a>
   </div><nav class="sos-jump" aria-label="Other SOS apps"><p class="sos-jump-h">Explore the other SOS apps</p><div class="sos-jump-row"><a class="sos-jump-btn" href="#app-sos-design-assistant"><img data-sos-icon="sos-design-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Design Assistant</b><small>Design the sign<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-build-assistant"><img data-sos-icon="sos-build-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Build Assistant</b><small>Bid, build and install<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-sign-os"><img data-sos-icon="sos-sign-os" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Sign Operating System</b><small>All three in one system<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a></div></nav></div><aside class="subcard" data-subcard="sos-permit-assistant"><p class="datum">One company</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for SOS Permit Assistant" data-plans="sos-permit-assistant"><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="449.99" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>First 14 days free, then billed monthly</span></span><span class="pr"><b>$449.99</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="4500" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>First 14 days free, then billed yearly</span></span><span class="pr"><b>$4,500</b><span>per year</span></span></button><button class="plan compact" type="button" role="radio" data-plan="onetime" data-amount="22500" data-per="one time" data-label="One-time purchase" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>One-time purchase</b><span>Limited-time offer — one company</span></span><span class="pr"><b>$22,500</b><span>one time</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$0</b></div><p class="sum-note" data-sub-renew>Nothing is charged today. Your 14-day free trial starts now, then $449.99 per month until you cancel. Cancel before day 14 and you pay nothing.</p><button class="btn btn-primary co-btn" type="button" data-buy="sos-permit-assistant" data-sub-btn>Start my 14-day free trial</button><p class="co-foot" data-sub-foot>Bought through my Stan Store. Cancel anytime — access continues to the end of the paid period.</p><p class="sos-sub-more">Running 2–10 companies? <a href="#sos-permit-assistant-companies">See multi-company pricing</a></p></aside></div></div></div>
@@ -4081,6 +4130,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Get it bid, built and installed — and close it out.</h1>
   <p class="lp-lede">Send the approved sign to manufacturers for bids, then run the job on one board through install and close-out.</p>
+  <figure class="lp-flyer" data-flyer="sos-build-assistant" hidden><a target="_blank" rel="noopener" aria-label="Open the SOS Build Assistant flyer full size"><img alt="SOS Build Assistant flyer" decoding="async"></a></figure>
   <div class="lp-tag">Build it.</div>
   <div class="lp-cta"><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Build%20Assistant%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Build%20Assistant%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><a class="btn btn-secondary" href="#app-sos-permit-assistant">SOS Permit Assistant is available now</a>
   </div><nav class="sos-jump" aria-label="Other SOS apps"><p class="sos-jump-h">Explore the other SOS apps</p><div class="sos-jump-row"><a class="sos-jump-btn" href="#app-sos-design-assistant"><img data-sos-icon="sos-design-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Design Assistant</b><small>Design the sign<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn is-live" href="#app-sos-permit-assistant"><img data-sos-icon="sos-permit-assistant" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Permit Assistant</b><small>Get it permitted<em>Available now</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a><a class="sos-jump-btn" href="#app-sos-sign-os"><img data-sos-icon="sos-sign-os" alt="" width="36" height="36"><span class="sos-jump-t"><b>SOS Sign Operating System</b><small>All three in one system<em>Coming soon</em></small></span><span class="sos-jump-go" aria-hidden="true">→</span></a></div></nav></div><aside class="sos-waitcard"><p class="datum">Coming soon</p><h3>Join the waitlist</h3><p>Be first to try SOS Build Assistant. One email the day it opens. No newsletter.</p><a class="btn btn-primary" href="mailto:info@acrossthetable.biz?subject=SOS%20Build%20Assistant%20waitlist&body=Please%20add%20me%20to%20the%20SOS%20Build%20Assistant%20waitlist.%0A%0AName%3A%20%0ACompany%3A%20">Join the waitlist</a><p class="sos-wait-fine">Opens your email with the details filled in. Just press send.</p><div class="sos-wait-now"><p>Available now</p><a href="#app-sos-permit-assistant">Start with SOS Permit Assistant<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></aside></div></div></div>
@@ -4111,6 +4161,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Strong business. Stronger future.</h1>
   <p class="lp-lede">CreditHoy guides new business owners step by step to build, monitor, and grow their business credit with confidence — the smart and simple way.</p>
+  <figure class="lp-flyer" data-flyer="credithoy" hidden><a target="_blank" rel="noopener" aria-label="Open the CreditHoy flyer full size"><img alt="CreditHoy flyer" decoding="async"></a></figure>
   <div class="lp-tag">Build today. Fund tomorrow.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="credithoy" href="#credithoy-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="credithoy"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for CreditHoy" data-plans="credithoy"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $29/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $29/month</span></span><span class="pr"><b>$0</b><span>then $29/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="29" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$29</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="290" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$290</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$29</b></div><p class="sum-note" data-sub-renew>Renews automatically at $29 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="credithoy" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -4149,6 +4200,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>One tap. Endless connections. Your network, elevated.</h1>
   <p class="lp-lede">A digital business card you exchange both ways — so you keep their details and they keep yours. Then notes, reminders, and pipeline tracking on everyone you met.</p>
+  <figure class="lp-flyer" data-flyer="business-connect" hidden><a target="_blank" rel="noopener" aria-label="Open the Business Connect flyer full size"><img alt="Business Connect flyer" decoding="async"></a></figure>
   <div class="lp-tag">Connect. Share. Grow.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="business-connect" href="#business-connect-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="business-connect"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="plans" role="radiogroup" aria-label="Plans for Business Connect" data-plans="business-connect"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $12/mo" data-label="Free trial" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $12/month</span></span><span class="pr"><b>$0</b><span>then $12/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="12" data-per="per month" data-label="Monthly" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$12</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="120" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$120</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$0</b></div><p class="sum-note" data-sub-renew>Free for 14 days, then $12 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="business-connect" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Bought through my Stan Store. Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -4185,6 +4237,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Stop chasing bad leads. AI finds your best prospects.</h1>
   <p class="lp-lede">LeadMatch gathers leads, scores them, tells you why each one fits, and then helps you reach out — so you spend less time searching and more time closing.</p>
+  <figure class="lp-flyer" data-flyer="leadmatch" hidden><a target="_blank" rel="noopener" aria-label="Open the LeadMatch flyer full size"><img alt="LeadMatch flyer" decoding="async"></a></figure>
   <div class="lp-tag">Find. Rate. Match. Connect.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="leadmatch" href="#leadmatch-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="leadmatch"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for LeadMatch" data-plans="leadmatch"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $29/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $29/month</span></span><span class="pr"><b>$0</b><span>then $29/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="29" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$29</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="290" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$290</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$29</b></div><p class="sum-note" data-sub-renew>Renews automatically at $29 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="leadmatch" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -4221,6 +4274,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>One topic. Multiple channels. Endless impact.</h1>
   <p class="lp-lede">Describe your topic and the AI creates content for every platform. You review, approve, and it posts or schedules. AI-powered content creation made simple for busy business owners.</p>
+  <figure class="lp-flyer" data-flyer="hearaboutit" hidden><a target="_blank" rel="noopener" aria-label="Open the HearAboutIt flyer full size"><img alt="HearAboutIt flyer" decoding="async"></a></figure>
   <div class="lp-tag">Describe it. We create it. You share it.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="hearaboutit" href="#hearaboutit-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="hearaboutit"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="trial-pill">Start with a 14-day free trial</div><div class="plans" role="radiogroup" aria-label="Plans for HearAboutIt" data-plans="hearaboutit"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $25/mo" data-label="Free trial" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $25/month</span></span><span class="pr"><b>$0</b><span>then $25/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="25" data-per="per month" data-label="Monthly" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$25</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="250" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$250</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$25</b></div><p class="sum-note" data-sub-renew>Renews automatically at $25 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="hearaboutit" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -4260,6 +4314,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
   <h1>Turn your network into income.</h1>
   <p class="lp-lede">Refer & Earn makes it easy to share the businesses you love, connect people, and earn rewards automatically. Track your referrals, manage your earnings, and watch your network grow with every connection.</p>
+  <figure class="lp-flyer" data-flyer="refer-and-earn" hidden><a target="_blank" rel="noopener" aria-label="Open the Refer &amp; Earn flyer full size"><img alt="Refer &amp; Earn flyer" decoding="async"></a></figure>
   <div class="lp-tag">Share. Connect. Earn.</div>
   <div class="lp-cta"><a class="btn btn-primary btn-play" data-play="refer-and-earn" href="#refer-and-earn-who" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M4 3.2v17.6a1 1 0 0 0 1.5.87l14-8.8a1 1 0 0 0 0-1.74l-14-8.8A1 1 0 0 0 4 3.2Z"></path><path d="M4.6 3.4 15 12 4.6 20.6"></path></svg><span data-play-label>Coming soon to Google Play</span></a><button class="btn btn-secondary" type="button" data-home>Back to all apps</button>
   </div></div><aside class="subcard" data-subcard="refer-and-earn"><p class="datum">App subscription</p><h3>Choose your plan</h3><div class="plans" role="radiogroup" aria-label="Plans for Refer &amp; Earn" data-plans="refer-and-earn"><button class="plan compact" type="button" role="radio" data-plan="trial" data-amount="0" data-per="then $19/mo" data-label="Free trial" aria-checked="true"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Free trial</b><span>14 days free, then $19/month</span></span><span class="pr"><b>$0</b><span>then $19/mo</span></span></button><button class="plan compact" type="button" role="radio" data-plan="monthly" data-amount="19" data-per="per month" data-label="Monthly" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Monthly</b><span>Billed every month, cancel anytime</span></span><span class="pr"><b>$19</b><span>per month</span></span></button><button class="plan compact" type="button" role="radio" data-plan="annual" data-amount="190" data-per="per year" data-label="Annual" aria-checked="false"><span class="radio" aria-hidden="true"></span><span class="pn"><b>Annual</b><span>Billed yearly — save 17%</span></span><span class="pr"><b>$190</b><span>per year</span></span></button></div><div class="sum-total"><span>Total due today</span><b data-sub-total>$0</b></div><p class="sum-note" data-sub-renew>Free for 14 days, then $19 per month until you cancel.</p><button class="btn btn-primary co-btn" type="button" data-buy="refer-and-earn" data-sub-btn>Get it on Stan Store</button><p class="co-foot" data-sub-foot>Bought through my Stan Store. Cancel anytime — access continues to the end of the paid period.</p></aside></div></div></div>
@@ -6274,9 +6329,34 @@ document.addEventListener('DOMContentLoaded', async function() {
         : '.'));
     }
 
+    /* The flyer under the description on each app page. It shows only when
+       the app has a flyer saved AND the picture actually loads, so an app
+       with no flyer never shows an empty frame. */
+    function renderFlyer(slug){
+      var fig = document.querySelector('[data-flyer="'+slug+'"]');
+      if(!fig) return;
+      var d = window.PRICES && window.PRICES[slug];
+      var prev = window.__flyerPreview && window.__flyerPreview[slug];
+      var src = prev || (d && d.flyer) || '';
+      var img = fig.querySelector('img'), a = fig.querySelector('a');
+      if(!src){
+        fig.hidden = true; img.removeAttribute('src'); a.removeAttribute('href'); return;
+      }
+      if(img.getAttribute('src') === src){
+        fig.hidden = !(img.complete && img.naturalWidth > 0); return;
+      }
+      fig.hidden = true;
+      img.onload  = function(){ if(img.getAttribute('src') === src) fig.hidden = false; };
+      img.onerror = function(){ fig.hidden = true; };
+      img.src = src;
+      if(/^data:/.test(src)) a.removeAttribute('href'); else a.href = src;
+    }
+    window.__renderFlyer = renderFlyer;
+
     function renderSubcard(slug){
       var card = document.querySelector('[data-subcard="'+slug+'"]');
       var d = window.PRICES[slug];
+      try{ renderFlyer(slug); }catch(e){}
       if(!card || !d) return;
       refreshTrial(d);
       refreshAnnual(d);
@@ -7048,6 +7128,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     ghShowConnected();
 
+    try{
+      if(typeof window.__initFlyerMgr === 'function')
+        window.__initFlyerMgr(hub, { ghRead:ghRead, ghHeaders:ghHeaders,
+          draftWrite:draftWrite, draftBanner:draftBanner, priceMsg:priceMsg });
+    }catch(e){}
+
 
     /* ---- Type dropdown: saves like a price does ---- */
     Array.prototype.forEach.call(hub.querySelectorAll('[data-ptype]'), function(sel){
@@ -7815,6 +7901,176 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
   }
   window.__initHubUI = initHubUI;
+
+/* ============================================================================
+   APP FLYERS  —  Hub > Products & pricing > App flyers
+
+   One tile per app page. Pick or drag a flyer onto a tile and it is shrunk to
+   a sensible web size, uploaded to the website's GitHub repository as
+   flyers/<app>.jpg, and noted in the price list. Press Save (as for a price)
+   and it appears on that app's page under the description.
+
+   No flyer = nothing shows on the app page. There is never an empty frame.
+   ============================================================================ */
+window.__initFlyerMgr = function(hub, H){
+  var pane = hub && hub.querySelector('[data-pane="products"]');
+  if(!pane || pane.querySelector('[data-flyer-mgr]')) return;
+  window.__flyerPreview = window.__flyerPreview || {};
+
+  function el(tag, cls, txt){ var e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; }
+  function slugs(){
+    return Array.prototype.map.call(document.querySelectorAll('[data-flyer]'), function(f){ return f.getAttribute('data-flyer'); })
+      .filter(function(k){ return window.PRICES && window.PRICES[k]; });
+  }
+  function appName(k){ return (window.PRICES[k] && window.PRICES[k].name) || k; }
+
+  var box = el('section', 'panel flyer-mgr'); box.setAttribute('data-flyer-mgr', '');
+  box.appendChild(el('div', 'panel-head', 'App flyers'));
+  var lead = el('p', 'fm-lead');
+  lead.innerHTML = 'Each app page shows the <b>name and short description</b>, then the <b>flyer</b>, then the <b>price and Stan Store button</b>. ' +
+    'Click a tile (or drag a picture onto it) to add or replace that app’s flyer, then press <b>Save</b> above. ' +
+    'An app with no flyer simply doesn’t show one — visitors never see an empty space.';
+  box.appendChild(lead);
+  var grid = el('div', 'fm-grid'); box.appendChild(grid);
+  pane.appendChild(box);
+
+  function setMsg(t, k, cls){ var m = t.querySelector('.fm-msg'); m.textContent = k || ''; m.className = 'fm-msg' + (cls ? ' ' + cls : ''); }
+
+  function drawTile(t){
+    var k = t.getAttribute('data-fm'), d = window.PRICES[k] || {};
+    var src = window.__flyerPreview[k] || d.flyer || '';
+    var prev = t.querySelector('.fm-prev');
+    while(prev.firstChild) prev.removeChild(prev.firstChild);
+    if(src){
+      var im = el('img'); im.alt = appName(k) + ' flyer';
+      im.onerror = function(){ while(prev.firstChild) prev.removeChild(prev.firstChild);
+        prev.appendChild(el('span', null, 'Saved, but the picture is not on the site yet. Give it a minute after Save.')); };
+      im.src = src; prev.appendChild(im);
+    } else {
+      prev.appendChild(el('span', null, 'No flyer. Nothing shows on the page. Click or drop a picture here.'));
+    }
+    t.classList.toggle('has', !!src);
+    t.querySelector('[data-fm-up]').textContent = src ? 'Replace' : 'Upload flyer';
+    t.querySelector('[data-fm-rm]').hidden = !src;
+  }
+  function drawAll(){
+    var have = {};
+    Array.prototype.forEach.call(grid.querySelectorAll('[data-fm]'), function(t){ have[t.getAttribute('data-fm')] = t; });
+    slugs().forEach(function(k){
+      var t = have[k];
+      if(!t){
+        t = el('div', 'fm-tile'); t.setAttribute('data-fm', k);
+        var nm = el('div', 'fm-name');
+        var logo = document.querySelector('article.app[data-slug="' + k + '"] .app-icon img') || document.querySelector('[data-logo="' + k + '"]');
+        if(logo && logo.src){ var li = el('img'); li.src = logo.src; li.alt = ''; nm.appendChild(li); }
+        nm.appendChild(el('span', null, appName(k)));
+        var prev = el('div', 'fm-prev'); prev.setAttribute('role', 'button'); prev.tabIndex = 0;
+        prev.setAttribute('aria-label', 'Choose a flyer for ' + appName(k));
+        var file = el('input'); file.type = 'file'; file.accept = 'image/png,image/jpeg,image/webp,image/gif';
+        var acts = el('div', 'fm-acts');
+        var up = el('button', 'btn-sm', 'Upload flyer'); up.type = 'button'; up.setAttribute('data-fm-up', '');
+        var rm = el('button', 'btn-sm ghost', 'Remove'); rm.type = 'button'; rm.setAttribute('data-fm-rm', '');
+        acts.appendChild(up); acts.appendChild(rm);
+        t.appendChild(nm); t.appendChild(prev); t.appendChild(acts); t.appendChild(el('div', 'fm-msg')); t.appendChild(file);
+
+        (function(t, k, file){
+          function pick(){ file.click(); }
+          up.addEventListener('click', pick);
+          prev.addEventListener('click', pick);
+          prev.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
+          file.addEventListener('change', function(){ if(file.files && file.files[0]) upload(t, k, file.files[0]); file.value = ''; });
+          t.addEventListener('dragover', function(e){ e.preventDefault(); t.classList.add('over'); });
+          t.addEventListener('dragleave', function(){ t.classList.remove('over'); });
+          t.addEventListener('drop', function(e){
+            e.preventDefault(); t.classList.remove('over');
+            var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+            if(f) upload(t, k, f);
+          });
+          rm.addEventListener('click', function(){
+            var d = window.PRICES[k]; if(d) delete d.flyer;
+            delete window.__flyerPreview[k];
+            changed(k);
+            drawTile(t);
+            setMsg(t, 'Removed. Press Save and the page goes back to no flyer.', 'ok');
+          });
+        })(t, k, file);
+      }
+      grid.appendChild(t);
+      drawTile(t);
+    });
+  }
+
+  function changed(k){
+    try{ H.draftWrite(); }catch(e){}
+    try{ H.draftBanner(true, Date.now()); }catch(e){}
+    try{ window.__renderFlyer && window.__renderFlyer(k); }catch(e){}
+  }
+
+  /* shrink to at most 1600px on the long side, as a JPEG on white */
+  function shrink(f){
+    return new Promise(function(ok, bad){
+      if(!/^image\//.test(f.type)){ bad(new Error('type')); return; }
+      var url = URL.createObjectURL(f), im = new Image();
+      im.onload = function(){
+        var w = im.naturalWidth, h = im.naturalHeight, max = 1600, r = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement('canvas'); c.width = Math.round(w * r); c.height = Math.round(h * r);
+        var x = c.getContext('2d'); x.fillStyle = '#ffffff'; x.fillRect(0, 0, c.width, c.height);
+        x.imageSmoothingQuality = 'high'; x.drawImage(im, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        ok(c.toDataURL('image/jpeg', 0.86));
+      };
+      im.onerror = function(){ URL.revokeObjectURL(url); bad(new Error('read')); };
+      im.src = url;
+    });
+  }
+
+  function upload(t, k, f){
+    var c = H.ghRead && H.ghRead();
+    if(!c){
+      setMsg(t, 'Set up one-click saving first (the button above) — flyers are stored with your website on GitHub.', 'err');
+      return;
+    }
+    if(f.size > 25 * 1024 * 1024){ setMsg(t, 'That file is over 25 MB. Export a smaller copy and try again.', 'err'); return; }
+    setMsg(t, 'Preparing…', 'busy');
+    var path = 'flyers/' + k + '.jpg', api = 'https://api.github.com/repos/' + c.repo + '/contents/' + path, dataUrl;
+    shrink(f).then(function(du){
+      dataUrl = du;
+      setMsg(t, 'Uploading…', 'busy');
+      return fetch(api + '?ref=HEAD&t=' + Date.now(), { headers:H.ghHeaders(c.token), cache:'no-store' });
+    }).then(function(r){
+      if(r.status === 404) return null;
+      if(!r.ok) throw { gh:r.status };
+      return r.json();
+    }).then(function(cur){
+      var body = { message:'Flyer for ' + appName(k), content:dataUrl.split(',')[1] };
+      if(cur && cur.sha) body.sha = cur.sha;
+      return fetch(api, { method:'PUT', headers:H.ghHeaders(c.token), body:JSON.stringify(body) });
+    }).then(function(r){
+      if(r.status === 401 || r.status === 403) throw { gh:r.status, auth:true };
+      if(!r.ok) throw { gh:r.status };
+      var d = window.PRICES[k]; if(!d) return;
+      d.flyer = path + '?v=' + Date.now();          /* new name each time, so no old copy is shown */
+      window.__flyerPreview[k] = dataUrl;            /* show it right away while the site catches up */
+      changed(k);
+      drawTile(t);
+      setMsg(t, 'Uploaded. Press Save to put it on your site.', 'ok');
+    }).catch(function(e){
+      if(e && e.message === 'type') setMsg(t, 'That isn’t a picture. Use a PNG or JPG of the flyer.', 'err');
+      else if(e && e.message === 'read') setMsg(t, 'Couldn’t open that picture. Try saving it as a PNG or JPG.', 'err');
+      else if(e && e.auth) setMsg(t, 'GitHub refused the token. It may have expired, or it needs Contents write access.', 'err');
+      else if(e && e.gh) setMsg(t, 'GitHub replied with an error (' + e.gh + '). Try again in a moment.', 'err');
+      else setMsg(t, 'Could not reach GitHub. Check your connection and try again.', 'err');
+    });
+  }
+
+  drawAll();
+  var before = window.__refreshHubPrices;
+  window.__refreshHubPrices = function(){
+    if(typeof before === 'function'){ try{ before.apply(this, arguments); }catch(e){} }
+    try{ drawAll(); }catch(e){}
+  };
+};
+
   if(!(window.HUB_ACCESS && window.HUB_ACCESS.encrypted)) initHubUI();
 
 
