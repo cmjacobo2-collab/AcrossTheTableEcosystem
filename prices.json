@@ -441,36 +441,36 @@
         {
           "key": "trial",
           "label": "Free trial",
-          "sub": "14 days free, then $24.99/month",
+          "sub": "14 days free, then $14.99/month",
           "price": "$0.00",
-          "per": "then $24.99/mo",
+          "per": "then $14.99/mo",
           "amount": 0
         },
         {
           "key": "monthly",
           "label": "Monthly",
           "sub": "Billed every month, cancel anytime",
-          "price": "$24.99",
+          "price": "$14.99",
           "per": "per month",
-          "amount": 24.99,
+          "amount": 14.99,
           "was": 34.99
         },
         {
           "key": "annual",
           "label": "Annual",
-          "sub": "Billed yearly — save 6%",
-          "price": "$279.99",
+          "sub": "Billed once a year",
+          "price": "$179.99",
           "per": "per year",
-          "amount": 279.99,
+          "amount": 179.99,
           "was": 419.99
         },
         {
           "key": "onetime",
           "label": "One-time purchase",
           "sub": "Pay once, keep lifetime access",
-          "price": "$899.99",
+          "price": "$699.99",
           "per": "one time",
-          "amount": 899.99,
+          "amount": 699.99,
           "was": 1259.97
         }
       ],
