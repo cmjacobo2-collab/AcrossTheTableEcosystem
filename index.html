@@ -2550,21 +2550,60 @@ a[data-goto]{cursor:pointer;}
 .lp-flyer img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain;}
 @media (max-width:980px){ .lp-flyer{max-width:520px;} }
 
-/* ---- Hub: App flyers uploader (Products & pricing) ---- */
+/* ---- App page photo carousel (one photo = no arrows or dots) ---- */
+.lp-flyer{position:relative;}
+.lp-flyer .fc-frame{position:relative;border-radius:14px;overflow:hidden;background:var(--bg-card);
+  border:1px solid color-mix(in srgb,var(--app,var(--accent)) 38%, var(--border-default));
+  box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 50px rgba(0,0,0,.55),
+    0 0 42px color-mix(in srgb,var(--app,var(--accent)) 16%, transparent);}
+.lp-flyer .fc-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;}
+.lp-flyer .fc-track::-webkit-scrollbar{display:none;}
+.lp-flyer .fc-slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;
+  border:0;border-radius:0;box-shadow:none;background:transparent;}
+.lp-flyer .fc-slide:hover{transform:none;}
+.lp-flyer .fc-slide img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain;}
+.lp-flyer .fc-nav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  background:rgba(5,14,26,.72);color:#fff;border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(6px);transition:background .15s ease, opacity .15s ease;}
+.lp-flyer .fc-nav:hover{background:rgba(5,14,26,.92);}
+.lp-flyer .fc-nav:disabled{opacity:0;pointer-events:none;}
+.lp-flyer .fc-nav svg{width:20px;height:20px;}
+.lp-flyer .fc-prev{left:10px;} .lp-flyer .fc-next{right:10px;}
+.lp-flyer .fc-dots{display:flex;justify-content:center;gap:8px;margin-top:14px;}
+.lp-flyer .fc-dot{width:9px;height:9px;border-radius:50%;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.22);border:0;transition:background .2s ease, transform .2s ease;}
+.lp-flyer .fc-dot[aria-current="true"]{background:var(--app,var(--accent));transform:scale(1.25);}
+.lp-flyer.single .fc-nav, .lp-flyer.single .fc-dots{display:none;}
+
+/* ---- Hub: App photos uploader (Products & pricing) ---- */
 .flyer-mgr{margin-top:24px;}
 .flyer-mgr .fm-lead{font-size:13.5px;line-height:1.6;color:var(--text-body);margin:14px 0 4px;}
 .flyer-mgr .fm-lead b{color:var(--text-heading);}
-.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px;margin-top:16px;}
+.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px;}
 .fm-tile{border:1.5px dashed var(--border-strong);border-radius:13px;background:var(--bg-panel);
   padding:12px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s ease, background .15s ease;}
 .fm-tile.has{border-style:solid;border-color:var(--border-default);}
 .fm-tile.over{border-color:var(--accent);background:rgba(43,168,255,.08);}
 .fm-name{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--text-heading);min-height:24px;}
 .fm-name img{width:22px;height:22px;border-radius:6px;flex:none;object-fit:cover;}
-.fm-prev{aspect-ratio:1/1.3;border-radius:9px;background:var(--bg-card);display:flex;align-items:center;
-  justify-content:center;overflow:hidden;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.08);}
-.fm-prev img{width:100%;height:100%;object-fit:contain;display:block;}
-.fm-prev span{font-size:12px;color:var(--text-muted);text-align:center;padding:12px;line-height:1.45;}
+.fm-name .fm-count{margin-left:auto;font-weight:500;font-size:12px;color:var(--text-muted);}
+.fm-empty{aspect-ratio:16/9;border-radius:9px;background:var(--bg-card);display:flex;align-items:center;
+  justify-content:center;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.08);
+  font-size:12px;color:var(--text-muted);text-align:center;padding:12px;line-height:1.45;}
+.fm-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.fm-th{position:relative;aspect-ratio:1/1.25;border-radius:8px;overflow:hidden;background:var(--bg-card);
+  box-shadow:0 0 0 1px rgba(255,255,255,.10);}
+.fm-th img{width:100%;height:100%;object-fit:cover;display:block;}
+.fm-th .fm-first{position:absolute;top:5px;left:5px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 6px;border-radius:5px;background:rgba(5,14,26,.82);color:var(--accent-bright);}
+.fm-th-acts{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+  padding:4px;background:linear-gradient(to top, rgba(5,14,26,.92), rgba(5,14,26,0));}
+.fm-th-acts button{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,.22);
+  background:rgba(5,14,26,.75);color:#fff;font-size:13px;line-height:1;cursor:pointer;padding:0;}
+.fm-th-acts button:disabled{opacity:.3;cursor:default;}
+.fm-th-acts button.x{border-color:rgba(227,93,106,.6);color:var(--danger-text);}
 .fm-acts{display:flex;gap:8px;flex-wrap:wrap;}
 .fm-acts .btn-sm{flex:1;justify-content:center;text-align:center;}
 .fm-msg{font-size:12px;line-height:1.45;color:var(--text-muted);min-height:1.45em;}
@@ -6329,27 +6368,84 @@ document.addEventListener('DOMContentLoaded', async function() {
         : '.'));
     }
 
-    /* The flyer under the description on each app page. It shows only when
-       the app has a flyer saved AND the picture actually loads, so an app
-       with no flyer never shows an empty frame. */
+    /* The photos under the description on each app page — one photo shows on
+       its own, two or more become a carousel (swipe on a phone, arrows on a
+       computer). It shows only when the app has photos saved AND at least one
+       actually loads, so an app with none never shows an empty frame. */
+    function flyerList(d){
+      if(!d) return [];
+      if(d.flyers && d.flyers.length !== undefined) return d.flyers.filter(Boolean);
+      return d.flyer ? [d.flyer] : [];
+    }
+    window.__flyerList = flyerList;
     function renderFlyer(slug){
       var fig = document.querySelector('[data-flyer="'+slug+'"]');
       if(!fig) return;
       var d = window.PRICES && window.PRICES[slug];
-      var prev = window.__flyerPreview && window.__flyerPreview[slug];
-      var src = prev || (d && d.flyer) || '';
-      var img = fig.querySelector('img'), a = fig.querySelector('a');
-      if(!src){
-        fig.hidden = true; img.removeAttribute('src'); a.removeAttribute('href'); return;
-      }
-      if(img.getAttribute('src') === src){
-        fig.hidden = !(img.complete && img.naturalWidth > 0); return;
-      }
+      var prev = (window.__flyerPreview && window.__flyerPreview[slug]) || {};
+      var name = (d && d.name) || slug;
+      var list = flyerList(d).map(function(p){ return { path:p, src: prev[p] || p }; });
+      var key = list.map(function(x){ return x.src.length > 200 ? x.path + '#local' : x.src; }).join('|');
+      if(fig.__key === key) return;
+      fig.__key = key;
+      while(fig.firstChild) fig.removeChild(fig.firstChild);
       fig.hidden = true;
-      img.onload  = function(){ if(img.getAttribute('src') === src) fig.hidden = false; };
-      img.onerror = function(){ fig.hidden = true; };
-      img.src = src;
-      if(/^data:/.test(src)) a.removeAttribute('href'); else a.href = src;
+      if(!list.length) return;
+
+      function mk(tag, cls){ var e = document.createElement(tag); if(cls) e.className = cls; return e; }
+      function arrow(dir){
+        var b = mk('button', 'fc-nav ' + (dir < 0 ? 'fc-prev' : 'fc-next'));
+        b.type = 'button'; b.setAttribute('aria-label', dir < 0 ? 'Previous photo' : 'Next photo');
+        b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
+          (dir < 0 ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6') + '"></path></svg>';
+        return b;
+      }
+      var frame = mk('div', 'fc-frame'), track = mk('div', 'fc-track');
+      track.setAttribute('aria-label', name + ' photos'); track.tabIndex = 0;
+      var bPrev = arrow(-1), bNext = arrow(1), dots = mk('div', 'fc-dots');
+      frame.appendChild(track); frame.appendChild(bPrev); frame.appendChild(bNext);
+      fig.appendChild(frame); fig.appendChild(dots);
+
+      function slides(){ return Array.prototype.slice.call(track.children); }
+      function current(){
+        var w = track.clientWidth || 1;
+        return Math.max(0, Math.min(slides().length - 1, Math.round(track.scrollLeft / w)));
+      }
+      function go(i){ track.scrollTo({ left: i * track.clientWidth, behavior:'smooth' }); }
+      function sync(){
+        var n = slides().length, i = current();
+        fig.classList.toggle('single', n < 2);
+        bPrev.disabled = i <= 0; bNext.disabled = i >= n - 1;
+        while(dots.firstChild) dots.removeChild(dots.firstChild);
+        if(n < 2) return;
+        for(var k = 0; k < n; k++){
+          var dt = mk('button', 'fc-dot'); dt.type = 'button';
+          dt.setAttribute('aria-label', 'Photo ' + (k + 1) + ' of ' + n);
+          dt.setAttribute('aria-current', String(k === i));
+          (function(k){ dt.addEventListener('click', function(){ go(k); }); })(k);
+          dots.appendChild(dt);
+        }
+      }
+      bPrev.addEventListener('click', function(){ go(current() - 1); });
+      bNext.addEventListener('click', function(){ go(current() + 1); });
+      track.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); go(current() - 1); }
+        if(e.key === 'ArrowRight'){ e.preventDefault(); go(current() + 1); }
+      });
+      var t = null;
+      track.addEventListener('scroll', function(){ clearTimeout(t); t = setTimeout(sync, 60); }, { passive:true });
+
+      list.forEach(function(x, k){
+        var a = mk('a', 'fc-slide');
+        if(!/^data:/.test(x.src)){ a.href = x.src; a.target = '_blank'; a.rel = 'noopener'; }
+        a.setAttribute('aria-label', 'Open ' + name + ' photo ' + (k + 1) + ' full size');
+        var img = mk('img'); img.alt = name + (list.length > 1 ? ' photo ' + (k + 1) : ' flyer'); img.decoding = 'async';
+        img.onload = function(){ fig.hidden = false; sync(); };
+        img.onerror = function(){ if(a.parentNode) a.parentNode.removeChild(a); if(!slides().length) fig.hidden = true; sync(); };
+        img.src = x.src;
+        a.appendChild(img); track.appendChild(a);
+      });
+      sync();
     }
     window.__renderFlyer = renderFlyer;
 
@@ -7903,18 +7999,21 @@ document.addEventListener('DOMContentLoaded', async function() {
   window.__initHubUI = initHubUI;
 
 /* ============================================================================
-   APP FLYERS  —  Hub > Products & pricing > App flyers
+   APP PHOTOS  —  Hub > Products & pricing > App photos & flyers
 
-   One tile per app page. Pick or drag a flyer onto a tile and it is shrunk to
-   a sensible web size, uploaded to the website's GitHub repository as
-   flyers/<app>.jpg, and noted in the price list. Press Save (as for a price)
-   and it appears on that app's page under the description.
+   One tile per app page. Add one picture or several (pick them, or drag them
+   onto the tile). Each is shrunk to a sensible web size and uploaded to the
+   website's GitHub repository under flyers/, and noted in the price list.
+   Press Save (as for a price) and they appear on that app's page under the
+   description: one picture on its own, two or more as a swipeable carousel.
+   Arrows on each thumbnail change the order; the first one shows first.
 
-   No flyer = nothing shows on the app page. There is never an empty frame.
+   No photos = nothing shows on the app page. There is never an empty frame.
    ============================================================================ */
 window.__initFlyerMgr = function(hub, H){
   var pane = hub && hub.querySelector('[data-pane="products"]');
   if(!pane || pane.querySelector('[data-flyer-mgr]')) return;
+  var MAX = 10;
   window.__flyerPreview = window.__flyerPreview || {};
 
   function el(tag, cls, txt){ var e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; }
@@ -7923,13 +8022,23 @@ window.__initFlyerMgr = function(hub, H){
       .filter(function(k){ return window.PRICES && window.PRICES[k]; });
   }
   function appName(k){ return (window.PRICES[k] && window.PRICES[k].name) || k; }
+  function list(k){
+    var d = window.PRICES[k] || {};
+    return (window.__flyerList ? window.__flyerList(d) : (d.flyers || (d.flyer ? [d.flyer] : []))).slice();
+  }
+  function setList(k, arr){
+    var d = window.PRICES[k]; if(!d) return;
+    delete d.flyer;
+    if(arr.length) d.flyers = arr; else delete d.flyers;
+  }
+  function prevMap(k){ return window.__flyerPreview[k] || (window.__flyerPreview[k] = {}); }
 
   var box = el('section', 'panel flyer-mgr'); box.setAttribute('data-flyer-mgr', '');
-  box.appendChild(el('div', 'panel-head', 'App flyers'));
+  box.appendChild(el('div', 'panel-head', 'App photos & flyers'));
   var lead = el('p', 'fm-lead');
-  lead.innerHTML = 'Each app page shows the <b>name and short description</b>, then the <b>flyer</b>, then the <b>price and Stan Store button</b>. ' +
-    'Click a tile (or drag a picture onto it) to add or replace that app’s flyer, then press <b>Save</b> above. ' +
-    'An app with no flyer simply doesn’t show one — visitors never see an empty space.';
+  lead.innerHTML = 'Each app page shows the <b>name and short description</b>, then these <b>photos</b>, then the <b>price and Stan Store button</b>. ' +
+    'One photo shows on its own; two or more become a <b>carousel</b> visitors can swipe through. Click <b>Add photos</b> (or drag pictures onto a tile), ' +
+    'use the arrows to change the order, then press <b>Save</b> above. An app with no photos simply doesn’t show any — visitors never see an empty space.';
   box.appendChild(lead);
   var grid = el('div', 'fm-grid'); box.appendChild(grid);
   pane.appendChild(box);
@@ -7937,21 +8046,43 @@ window.__initFlyerMgr = function(hub, H){
   function setMsg(t, k, cls){ var m = t.querySelector('.fm-msg'); m.textContent = k || ''; m.className = 'fm-msg' + (cls ? ' ' + cls : ''); }
 
   function drawTile(t){
-    var k = t.getAttribute('data-fm'), d = window.PRICES[k] || {};
-    var src = window.__flyerPreview[k] || d.flyer || '';
-    var prev = t.querySelector('.fm-prev');
-    while(prev.firstChild) prev.removeChild(prev.firstChild);
-    if(src){
-      var im = el('img'); im.alt = appName(k) + ' flyer';
-      im.onerror = function(){ while(prev.firstChild) prev.removeChild(prev.firstChild);
-        prev.appendChild(el('span', null, 'Saved, but the picture is not on the site yet. Give it a minute after Save.')); };
-      im.src = src; prev.appendChild(im);
+    var k = t.getAttribute('data-fm'), arr = list(k), pv = prevMap(k);
+    var area = t.querySelector('.fm-area');
+    while(area.firstChild) area.removeChild(area.firstChild);
+    t.querySelector('.fm-count').textContent = arr.length ? (arr.length + (arr.length === 1 ? ' photo' : ' photos')) : '';
+    if(!arr.length){
+      var em = el('div', 'fm-empty', 'No photos. Nothing shows on the page. Click or drop pictures here.');
+      em.setAttribute('role', 'button'); em.tabIndex = 0;
+      em.addEventListener('click', function(){ t.querySelector('input[type=file]').click(); });
+      em.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t.querySelector('input[type=file]').click(); } });
+      area.appendChild(em);
     } else {
-      prev.appendChild(el('span', null, 'No flyer. Nothing shows on the page. Click or drop a picture here.'));
+      var th = el('div', 'fm-thumbs');
+      arr.forEach(function(p, i){
+        var c = el('div', 'fm-th');
+        var im = el('img'); im.alt = appName(k) + ' photo ' + (i + 1); im.src = pv[p] || p;
+        im.onerror = function(){ im.replaceWith(el('div', 'fm-empty', 'Not on the site yet')); };
+        c.appendChild(im);
+        if(i === 0 && arr.length > 1) c.appendChild(el('span', 'fm-first', 'First'));
+        var acts = el('div', 'fm-th-acts');
+        function btn(label, aria, cls, fn, off){
+          var b = el('button', cls || null, label); b.type = 'button'; b.setAttribute('aria-label', aria); b.title = aria;
+          b.disabled = !!off; b.addEventListener('click', fn); acts.appendChild(b);
+        }
+        btn('←', 'Move earlier', null, function(){ var a = list(k); a.splice(i - 1, 0, a.splice(i, 1)[0]); setList(k, a); changed(k); drawTile(t); setMsg(t, 'Order changed. Press Save to put it on your site.', 'ok'); }, i === 0);
+        btn('×', 'Remove this photo', 'x', function(){ var a = list(k); a.splice(i, 1); setList(k, a); changed(k); drawTile(t);
+          setMsg(t, a.length ? 'Removed. Press Save to put it on your site.' : 'All photos removed. Press Save and the page shows none.', 'ok'); });
+        btn('→', 'Move later', null, function(){ var a = list(k); a.splice(i + 1, 0, a.splice(i, 1)[0]); setList(k, a); changed(k); drawTile(t); setMsg(t, 'Order changed. Press Save to put it on your site.', 'ok'); }, i === arr.length - 1);
+        c.appendChild(acts);
+        th.appendChild(c);
+      });
+      area.appendChild(th);
     }
-    t.classList.toggle('has', !!src);
-    t.querySelector('[data-fm-up]').textContent = src ? 'Replace' : 'Upload flyer';
-    t.querySelector('[data-fm-rm]').hidden = !src;
+    t.classList.toggle('has', arr.length > 0);
+    var up = t.querySelector('[data-fm-up]');
+    up.textContent = arr.length ? 'Add more photos' : 'Add photos';
+    up.disabled = arr.length >= MAX;
+    up.title = arr.length >= MAX ? 'Up to ' + MAX + ' photos per app' : '';
   }
   function drawAll(){
     var have = {};
@@ -7964,34 +8095,23 @@ window.__initFlyerMgr = function(hub, H){
         var logo = document.querySelector('article.app[data-slug="' + k + '"] .app-icon img') || document.querySelector('[data-logo="' + k + '"]');
         if(logo && logo.src){ var li = el('img'); li.src = logo.src; li.alt = ''; nm.appendChild(li); }
         nm.appendChild(el('span', null, appName(k)));
-        var prev = el('div', 'fm-prev'); prev.setAttribute('role', 'button'); prev.tabIndex = 0;
-        prev.setAttribute('aria-label', 'Choose a flyer for ' + appName(k));
-        var file = el('input'); file.type = 'file'; file.accept = 'image/png,image/jpeg,image/webp,image/gif';
+        nm.appendChild(el('span', 'fm-count'));
+        var area = el('div', 'fm-area');
+        var file = el('input'); file.type = 'file'; file.multiple = true; file.accept = 'image/png,image/jpeg,image/webp,image/gif';
         var acts = el('div', 'fm-acts');
-        var up = el('button', 'btn-sm', 'Upload flyer'); up.type = 'button'; up.setAttribute('data-fm-up', '');
-        var rm = el('button', 'btn-sm ghost', 'Remove'); rm.type = 'button'; rm.setAttribute('data-fm-rm', '');
-        acts.appendChild(up); acts.appendChild(rm);
-        t.appendChild(nm); t.appendChild(prev); t.appendChild(acts); t.appendChild(el('div', 'fm-msg')); t.appendChild(file);
+        var up = el('button', 'btn-sm', 'Add photos'); up.type = 'button'; up.setAttribute('data-fm-up', '');
+        acts.appendChild(up);
+        t.appendChild(nm); t.appendChild(area); t.appendChild(acts); t.appendChild(el('div', 'fm-msg')); t.appendChild(file);
 
         (function(t, k, file){
-          function pick(){ file.click(); }
-          up.addEventListener('click', pick);
-          prev.addEventListener('click', pick);
-          prev.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
-          file.addEventListener('change', function(){ if(file.files && file.files[0]) upload(t, k, file.files[0]); file.value = ''; });
+          up.addEventListener('click', function(){ file.click(); });
+          file.addEventListener('change', function(){ if(file.files && file.files.length) uploadMany(t, k, file.files); file.value = ''; });
           t.addEventListener('dragover', function(e){ e.preventDefault(); t.classList.add('over'); });
           t.addEventListener('dragleave', function(){ t.classList.remove('over'); });
           t.addEventListener('drop', function(e){
             e.preventDefault(); t.classList.remove('over');
-            var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-            if(f) upload(t, k, f);
-          });
-          rm.addEventListener('click', function(){
-            var d = window.PRICES[k]; if(d) delete d.flyer;
-            delete window.__flyerPreview[k];
-            changed(k);
-            drawTile(t);
-            setMsg(t, 'Removed. Press Save and the page goes back to no flyer.', 'ok');
+            var fs = e.dataTransfer && e.dataTransfer.files;
+            if(fs && fs.length) uploadMany(t, k, fs);
           });
         })(t, k, file);
       }
@@ -8024,43 +8144,61 @@ window.__initFlyerMgr = function(hub, H){
     });
   }
 
-  function upload(t, k, f){
-    var c = H.ghRead && H.ghRead();
-    if(!c){
-      setMsg(t, 'Set up one-click saving first (the button above) — flyers are stored with your website on GitHub.', 'err');
-      return;
-    }
-    if(f.size > 25 * 1024 * 1024){ setMsg(t, 'That file is over 25 MB. Export a smaller copy and try again.', 'err'); return; }
-    setMsg(t, 'Preparing…', 'busy');
-    var path = 'flyers/' + k + '.jpg', api = 'https://api.github.com/repos/' + c.repo + '/contents/' + path, dataUrl;
-    shrink(f).then(function(du){
+  function uploadOne(c, k, f, n){
+    if(f.size > 25 * 1024 * 1024) return Promise.reject(new Error('big'));
+    var path = 'flyers/' + k + '-' + Date.now() + '-' + n + '.jpg';
+    var api = 'https://api.github.com/repos/' + c.repo + '/contents/' + path, dataUrl;
+    return shrink(f).then(function(du){
       dataUrl = du;
-      setMsg(t, 'Uploading…', 'busy');
-      return fetch(api + '?ref=HEAD&t=' + Date.now(), { headers:H.ghHeaders(c.token), cache:'no-store' });
-    }).then(function(r){
-      if(r.status === 404) return null;
-      if(!r.ok) throw { gh:r.status };
-      return r.json();
-    }).then(function(cur){
-      var body = { message:'Flyer for ' + appName(k), content:dataUrl.split(',')[1] };
-      if(cur && cur.sha) body.sha = cur.sha;
-      return fetch(api, { method:'PUT', headers:H.ghHeaders(c.token), body:JSON.stringify(body) });
+      return fetch(api, { method:'PUT', headers:H.ghHeaders(c.token),
+        body:JSON.stringify({ message:'Photo for ' + appName(k), content:dataUrl.split(',')[1] }) });
     }).then(function(r){
       if(r.status === 401 || r.status === 403) throw { gh:r.status, auth:true };
       if(!r.ok) throw { gh:r.status };
-      var d = window.PRICES[k]; if(!d) return;
-      d.flyer = path + '?v=' + Date.now();          /* new name each time, so no old copy is shown */
-      window.__flyerPreview[k] = dataUrl;            /* show it right away while the site catches up */
-      changed(k);
-      drawTile(t);
-      setMsg(t, 'Uploaded. Press Save to put it on your site.', 'ok');
-    }).catch(function(e){
-      if(e && e.message === 'type') setMsg(t, 'That isn’t a picture. Use a PNG or JPG of the flyer.', 'err');
-      else if(e && e.message === 'read') setMsg(t, 'Couldn’t open that picture. Try saving it as a PNG or JPG.', 'err');
-      else if(e && e.auth) setMsg(t, 'GitHub refused the token. It may have expired, or it needs Contents write access.', 'err');
-      else if(e && e.gh) setMsg(t, 'GitHub replied with an error (' + e.gh + '). Try again in a moment.', 'err');
-      else setMsg(t, 'Could not reach GitHub. Check your connection and try again.', 'err');
+      prevMap(k)[path] = dataUrl;           /* show it right away while the site catches up */
+      return path;
     });
+  }
+
+  function uploadMany(t, k, files){
+    var c = H.ghRead && H.ghRead();
+    if(!c){
+      setMsg(t, 'Set up one-click saving first (the button above) — photos are stored with your website on GitHub.', 'err');
+      return;
+    }
+    var room = MAX - list(k).length;
+    var fs = Array.prototype.slice.call(files).filter(function(f){ return /^image\//.test(f.type); });
+    var skipped = files.length - fs.length;
+    if(!fs.length){ setMsg(t, 'Those aren’t pictures. Use PNG or JPG files.', 'err'); return; }
+    if(room <= 0){ setMsg(t, 'This app already has ' + MAX + ' photos. Remove one to add another.', 'err'); return; }
+    var over = Math.max(0, fs.length - room); fs = fs.slice(0, room);
+    var done = 0, failed = 0, lastErr = null, i = 0;
+    t.querySelector('[data-fm-up]').disabled = true;
+    function next(){
+      if(i >= fs.length){
+        drawTile(t);
+        var parts = [];
+        if(done) parts.push((done === 1 ? '1 photo' : done + ' photos') + ' added. Press Save to put ' + (done === 1 ? 'it' : 'them') + ' on your site.');
+        if(failed){
+          var why = lastErr && lastErr.auth ? 'GitHub refused the token (it may have expired, or needs Contents write access).'
+                  : lastErr && lastErr.message === 'big' ? 'One was over 25 MB.'
+                  : lastErr && lastErr.message === 'read' ? 'One couldn’t be opened — try saving it as PNG or JPG.'
+                  : lastErr && lastErr.gh ? 'GitHub replied with an error (' + lastErr.gh + ').'
+                  : 'Could not reach GitHub.';
+          parts.push(failed + ' didn’t upload. ' + why);
+        }
+        if(over) parts.push(over + ' left out — the limit is ' + MAX + ' per app.');
+        if(skipped) parts.push(skipped + ' file' + (skipped === 1 ? ' wasn’t a picture' : 's weren’t pictures') + '.');
+        setMsg(t, parts.join(' '), failed && !done ? 'err' : 'ok');
+        return;
+      }
+      setMsg(t, 'Uploading ' + (i + 1) + ' of ' + fs.length + '…', 'busy');
+      uploadOne(c, k, fs[i], i).then(function(path){
+        var a = list(k); a.push(path); setList(k, a); changed(k); done++;
+      }).catch(function(e){ failed++; lastErr = e; })
+        .then(function(){ i++; next(); });
+    }
+    next();
   }
 
   drawAll();
