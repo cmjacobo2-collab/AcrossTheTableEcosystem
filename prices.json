@@ -428,7 +428,7 @@
     "refer-and-earn": {
       "name": "Refer & Earn",
       "kind": "App subscription",
-      "status": "Available for purchase",
+      "status": "Available",
       "blurb": "Turn your network into income.",
       "feats": [
         "Personal link and QR",
