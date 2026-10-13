@@ -11923,11 +11923,27 @@ window.__initFlyerMgr = function(hub, H){
    opened, no matter what else happens while the Hub sets itself up. Also
    checked whenever Products & pricing is clicked, so it is always there. */
 (function(){
+  /* The GitHub setup box's wording lives in the locked part of the Hub, so it
+     is brought up to date here: saving now also stores flyers and photos,
+     and a token can change anything in the one repository it is given. */
+  function fixGhText(hub){
+    var panel = hub.querySelector('[data-gh-panel]'); if(!panel || panel.__worded) return;
+    var lead = panel.querySelector('.pp-setup-lead');
+    if(lead) lead.innerHTML = 'Once this is set up, pressing <b>Save</b> puts your changes on your site in one click, and the flyers and photos you upload go straight there too. ' +
+      'You are giving this page permission to change files in <b>one repository</b> \u2014 your website \u2014 and nothing else in your GitHub account.';
+    Array.prototype.forEach.call(panel.querySelectorAll('p'), function(p){
+      if(p === lead || !/Fine-grained/i.test(p.textContent)) return;
+      p.innerHTML = 'Make one at <b>github.com \u2192 Settings \u2192 Developer settings \u2192 Personal access tokens \u2192 Fine-grained tokens</b>. ' +
+        'Under Repository access choose <b>Only select repositories</b> and pick this one, set <b>Contents</b> to <b>Read and write</b>, and leave everything else alone. ' +
+        'The token can change anything in this repository, so don\u2019t share it. It is kept in this browser only \u2014 never in your website file, never anywhere I can see it. ' +
+        'If this computer is lost or shared, delete the token on GitHub and it stops working right away.';
+    });
+    panel.__worded = true;
+  }
   function ensure(){
-    try{
-      var hub = document.getElementById('hub');
-      if(hub && typeof window.__initFlyerMgr === 'function') window.__initFlyerMgr(hub);
-    }catch(e){}
+    var hub = document.getElementById('hub'); if(!hub) return;
+    try{ if(typeof window.__initFlyerMgr === 'function') window.__initFlyerMgr(hub); }catch(e){}
+    try{ fixGhText(hub); }catch(e){}
   }
   var orig = window.__initHubUI;
   if(typeof orig === 'function'){
@@ -11937,7 +11953,7 @@ window.__initFlyerMgr = function(hub, H){
     };
   }
   document.addEventListener('click', function(e){
-    if(e.target && e.target.closest && e.target.closest('[data-pane-btn="products"]')) setTimeout(ensure, 0);
+    if(e.target && e.target.closest && e.target.closest('[data-pane-btn="products"],[data-gh-setup]')) setTimeout(ensure, 0);
   }, true);
   if(!(window.HUB_ACCESS && window.HUB_ACCESS.encrypted)) setTimeout(ensure, 0);
 })();
