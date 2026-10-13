@@ -8080,7 +8080,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
    Nothing added = nothing shows on the app page. Never an empty frame.
    ============================================================================ */
+window.__flyerDefaultHelpers = function(){
+  return {
+    ghRead: function(){ try{ var o = JSON.parse(localStorage.getItem('att.gh.connect') || 'null'); return (o && o.repo && o.token) ? o : null; }catch(e){ return null; } },
+    ghHeaders: function(t){ return { 'Authorization':'Bearer ' + t, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' }; },
+    draftWrite: function(){ try{ if(typeof window.__ppTouched === 'function') window.__ppTouched(); }catch(e){} },
+    draftBanner: function(){}
+  };
+};
 window.__initFlyerMgr = function(hub, H){
+  H = H || window.__flyerDefaultHelpers();
   var pane = hub && hub.querySelector('[data-pane="products"]');
   if(!pane || pane.querySelector('[data-flyer-mgr]')) return;
   var MAX = 10;
@@ -11909,5 +11918,29 @@ window.__initFlyerMgr = function(hub, H){
 })();
 </script>
 <script id="sos-jump-icons">(function(){document.querySelectorAll("img[data-sos-icon]").forEach(function(im){var src=document.querySelector('article.app[data-slug="'+im.getAttribute("data-sos-icon")+'"] .app-icon img');if(src&&src.getAttribute("src"))im.setAttribute("src",src.getAttribute("src"));});})();</script>
+<script id="flyer-mgr-hook">
+/* App flyers & photos: add the box to Products & pricing once the Hub has
+   opened, no matter what else happens while the Hub sets itself up. Also
+   checked whenever Products & pricing is clicked, so it is always there. */
+(function(){
+  function ensure(){
+    try{
+      var hub = document.getElementById('hub');
+      if(hub && typeof window.__initFlyerMgr === 'function') window.__initFlyerMgr(hub);
+    }catch(e){}
+  }
+  var orig = window.__initHubUI;
+  if(typeof orig === 'function'){
+    window.__initHubUI = function(){
+      try{ return orig.apply(this, arguments); }
+      finally{ setTimeout(ensure, 0); setTimeout(ensure, 800); }
+    };
+  }
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.closest && e.target.closest('[data-pane-btn="products"]')) setTimeout(ensure, 0);
+  }, true);
+  if(!(window.HUB_ACCESS && window.HUB_ACCESS.encrypted)) setTimeout(ensure, 0);
+})();
+</script>
 </body>
 </html>
