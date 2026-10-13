@@ -2549,6 +2549,21 @@ a[data-goto]{cursor:pointer;}
 .lp-flyer a:hover{transform:translateY(-2px);}
 .lp-flyer img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain;}
 @media (max-width:980px){ .lp-flyer{max-width:520px;} }
+/* ---- App pages that have a flyer: headline and description across the top,
+   then the flyer on the left with the price card beside it on the right.
+   Pages without a flyer keep the original two-column layout. ---- */
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:44px;row-gap:0;grid-auto-flow:row dense;}
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .lp-in{display:contents;}
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .lp-in > *{grid-column:1 / -1;}
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])) .lp-lede{max-width:860px;}
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .lp-in > .lp-flyer{grid-column:1;max-width:none;width:100%;}
+.lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .subcard{grid-column:2;margin-top:28px;align-self:start;}
+@media (max-width:980px){
+  .lp-hero .lp-cols:has(.lp-flyer:not([hidden])){grid-template-columns:minmax(0,1fr);}
+  .lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .lp-in > .lp-flyer{max-width:520px;}
+  .lp-hero .lp-cols:has(.lp-flyer:not([hidden])) > .subcard{grid-column:1;margin-top:30px;}
+}
 
 /* ---- App page photo carousel: its own full-width row under the top of the page ---- */
 .lp-gallery{padding-top:8px;}
