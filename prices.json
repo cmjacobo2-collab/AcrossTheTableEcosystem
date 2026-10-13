@@ -535,84 +535,27 @@
     },
     "tabletap": {
       "name": "TableTap",
-      "kind": "Per table, one-time",
+      "kind": "Start with Essential",
       "status": "Available",
-      "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, a review, and a repeat customer.",
+      "blurb": "Tap-or-scan table tags that turn a seat into a digital menu, a review, and a repeat customer. Start with Essential; after we meet, you choose the plan that fits.",
       "feats": [
-        "Smart tap tags per table",
-        "Instant digital menu",
-        "Rewards and offers",
-        "Restaurant dashboard"
+        "Essential: digital menu in English, your branding, QR and tap tags",
+        "Engage: English and Spanish, reviews, specials, VIP list",
+        "Pro: 8 languages, audio, rewards, campaigns and analytics",
+        "We meet first, then you choose your plan"
       ],
       "trial": 14,
       "plans": [
         {
-          "key": "basic",
-          "label": "Basic",
+          "key": "essential",
+          "label": "Essential",
           "price": "$14",
           "per": "per table, one-time",
           "amount": 14,
-          "sub": "Smart tap tag and simple menu access",
-          "note": "$14 per table, one-time. Tags and setup included, nothing monthly.",
-          "foot": "One-time purchase per table — nothing to cancel.",
-          "cta": "Get started"
-        },
-        {
-          "key": "marketing",
-          "label": "Marketing",
-          "price": "$24",
-          "per": "per table, one-time",
-          "amount": 24,
-          "sub": "Branded page with menu, specials and reviews",
-          "note": "$24 per table, one-time. Tags, branded page and setup included.",
-          "foot": "One-time purchase per table — nothing to cancel.",
-          "cta": "Get started"
-        },
-        {
-          "key": "smart",
-          "label": "Smart Table",
-          "price": "$35",
-          "per": "per table + $299/mo",
-          "amount": 35,
-          "sub": "Full digital experience with rewards and analytics",
-          "note": "$35 per table one-time, plus $299 a month for the dashboard, rewards and analytics.",
-          "foot": "The monthly service starts once your system is live. Cancel anytime.",
-          "cta": "Get started"
-        },
-        {
-          "key": "managed",
-          "label": "Managed",
-          "price": "$35",
-          "per": "per table + $499/mo",
-          "amount": 35,
-          "sub": "Everything, run for you — campaigns, support and strategy",
-          "note": "$35 per table one-time, plus $499 a month for campaigns, support and strategy.",
-          "foot": "The monthly management starts once your system is live. Cancel anytime.",
-          "cta": "Get started"
-        },
-        {
-          "key": "trial",
-          "label": "Free trial",
-          "sub": "14 days free, then $0.00/month",
-          "price": "$0.00",
-          "per": "then $0.00/mo",
-          "amount": 0
-        },
-        {
-          "key": "annual",
-          "label": "Annual",
-          "sub": "Billed once a year",
-          "price": "$249.99",
-          "per": "per year",
-          "amount": 249.99
-        },
-        {
-          "key": "onetime",
-          "label": "One-time purchase",
-          "sub": "Pay once, keep lifetime access",
-          "price": "$449.99",
-          "per": "one time",
-          "amount": 449.99
+          "sub": "Your digital menu, tags and setup. We meet, then you choose your plan",
+          "note": "Start with Essential. After we meet and walk through your restaurant, you choose Essential, Engage or Pro, and I send you the link for that plan.",
+          "foot": "Engage and Pro are arranged after our meeting, not sold here.",
+          "cta": "Start with Essential"
         }
       ],
       "links": {
