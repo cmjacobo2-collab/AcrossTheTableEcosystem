@@ -53,7 +53,18 @@
         "monthly": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint",
         "annual": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint-annual-plan",
         "onetime": "https://stan.store/AcrossTheTable/p/credithoy-business-credit-blueprint-m1h8k7u3"
-      }
+      },
+      "flyer": "flyers/credithoy-flyer-1792036175983.jpg",
+      "photos": [
+        "flyers/credithoy-photo0-1792036317039.jpg",
+        "flyers/credithoy-photo1-1792036319627.jpg",
+        "flyers/credithoy-photo2-1792036321560.jpg",
+        "flyers/credithoy-photo3-1792036323210.jpg",
+        "flyers/credithoy-photo4-1792036324832.jpg",
+        "flyers/credithoy-photo5-1792036326375.jpg",
+        "flyers/credithoy-photo6-1792036328088.jpg",
+        "flyers/credithoy-photo7-1792036329543.jpg"
+      ]
     },
     "lohare": {
       "name": "LOHARE",
