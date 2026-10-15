@@ -159,7 +159,17 @@
       ],
       "links": {
         "monthly": "https://stan.store/AcrossTheTable/p/juntoshr-subscription"
-      }
+      },
+      "photos": [
+        "flyers/juntoshr-photo0-1792042773704.jpg",
+        "flyers/juntoshr-photo1-1792042775637.jpg",
+        "flyers/juntoshr-photo2-1792042777072.jpg",
+        "flyers/juntoshr-photo3-1792042778332.jpg",
+        "flyers/juntoshr-photo4-1792042779618.jpg",
+        "flyers/juntoshr-photo5-1792042780832.jpg",
+        "flyers/juntoshr-photo6-1792042782015.jpg"
+      ],
+      "flyer": "flyers/juntoshr-flyer-1792042803238.jpg"
     },
     "ceo-mindset": {
       "name": "CEO Mindset",
