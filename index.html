@@ -2579,14 +2579,13 @@ a[data-goto]{cursor:pointer;}
   scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 2px 10px;}
 .gal-track::-webkit-scrollbar{display:none;}
 .gal.fits .gal-track{justify-content:center;}
-.gal-slide{flex:0 0 calc((100% - 36px) / 3);scroll-snap-align:start;height:460px;border-radius:14px;overflow:hidden;
+.gal-slide{flex:0 0 100%;scroll-snap-align:start;height:460px;border-radius:14px;overflow:hidden;
   background:var(--bg-card);border:1px solid color-mix(in srgb,var(--app,var(--accent)) 28%, var(--border-default));
   box-shadow:0 14px 40px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;
   transition:transform .25s ease, border-color .25s ease;}
 .gal-slide:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--app,var(--accent)) 60%, transparent);}
 .gal-slide img{width:100%;height:100%;object-fit:contain;display:block;}
-@media (max-width:980px){ .gal-slide{flex-basis:calc((100% - 18px) / 2);height:420px;} }
-@media (max-width:640px){ .gal-slide{flex-basis:84%;height:440px;} }
+@media (max-width:640px){ .gal-slide{height:400px;} }
 .gal-nav{position:absolute;top:calc(50% - 22px);transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;
   background:rgba(5,14,26,.78);color:#fff;border:1px solid rgba(255,255,255,.22);
@@ -2594,13 +2593,34 @@ a[data-goto]{cursor:pointer;}
 .gal-nav:hover{background:rgba(5,14,26,.95);}
 .gal-nav:disabled{opacity:0;pointer-events:none;}
 .gal-nav svg{width:20px;height:20px;}
-.gal-prev{left:-8px;} .gal-next{right:-8px;}
+.gal-prev{left:10px;} .gal-next{right:10px;}
 @media (max-width:640px){ .gal-prev{left:4px;} .gal-next{right:4px;} }
 .gal-dots{display:flex;justify-content:center;gap:8px;margin-top:12px;}
 .gal-dot{width:9px;height:9px;border-radius:50%;padding:0;cursor:pointer;border:0;
   background:rgba(255,255,255,.22);transition:background .2s ease, transform .2s ease;}
 .gal-dot[aria-current="true"]{background:var(--app,var(--accent));transform:scale(1.25);}
 .gal.fits .gal-nav, .gal.fits .gal-dots{display:none;}
+/* carousel on the left, YouTube video on the right; either one alone fills the row */
+.gal-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;align-items:center;margin-top:22px;}
+.gal-row > .gal{margin-top:0;}
+.gal-row > [hidden]{display:none !important;}
+.gal-row.solo{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto;}
+.lp-video{margin:0;}
+.lp-video-frame{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;
+  border:1px solid color-mix(in srgb,var(--app,var(--accent)) 28%, var(--border-default));box-shadow:0 14px 40px rgba(0,0,0,.45);}
+.lp-video.tall .lp-video-frame{aspect-ratio:9/16;height:460px;margin:0 auto;}
+.lp-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.lp-video figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:12px;text-align:center;}
+@media (max-width:900px){
+  .gal-row{grid-template-columns:minmax(0,1fr);gap:28px;}
+  .lp-video.tall .lp-video-frame{height:auto;max-height:560px;width:min(100%,315px);}
+}
+/* Hub: video link box */
+.fm-vid{display:flex;flex-direction:column;gap:8px;}
+.fm-vid input[type=url]{width:100%;font:inherit;font-size:13px;padding:9px 10px;border:1px solid var(--border-strong);border-radius:9px;background:var(--bg-card);color:var(--text-heading);}
+.fm-vid-prev{display:flex;gap:10px;align-items:center;}
+.fm-vid-prev img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.10);}
+.fm-vid-btns{display:flex;gap:8px;flex-wrap:wrap;}
 
 /* ---- Hub: App flyer + carousel uploader (Products & pricing) ---- */
 .flyer-mgr{margin-top:24px;}
@@ -6451,7 +6471,8 @@ window.SOCIAL_LINKS = {
 
     /* Two picture spots on each app page, both optional:
          - the FLYER: one picture under the description, beside the price card
-         - the CAROUSEL: a full-width row of photos under the top of the page
+         - the CAROUSEL: one photo at a time with arrows and dots, under the top of the page
+         - the VIDEO: a YouTube video to the right of the carousel
        Each shows only when it has pictures AND at least one actually loads,
        so an app with none never shows an empty frame. */
     function flyerOf(d){
@@ -6494,9 +6515,63 @@ window.SOCIAL_LINKS = {
       a.appendChild(img); fig.appendChild(a);
     }
 
+    /* YouTube link -> { id, tall } (tall = a Short, which is portrait) */
+    function ytInfo(u){
+      u = String(u || '').trim(); if(!u) return null;
+      var m = u.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      if(!m && /^[A-Za-z0-9_-]{11}$/.test(u)) m = [u, u];
+      return m ? { id:m[1], tall:/\/shorts\//.test(u) } : null;
+    }
+    window.__ytInfo = ytInfo;
+
+    /* the row that holds the carousel (left) and the video (right) */
+    function galRow(sec){
+      var host = sec.querySelector('[data-gal]'), row = host.parentNode;
+      if(!row.classList.contains('gal-row')){
+        row = document.createElement('div'); row.className = 'gal-row';
+        host.parentNode.insertBefore(row, host); row.appendChild(host);
+        var fig = document.createElement('figure'); fig.className = 'lp-video'; fig.setAttribute('data-video', ''); fig.hidden = true;
+        row.appendChild(fig);
+      }
+      return row;
+    }
+    function galShow(sec){
+      var row = galRow(sec), host = sec.querySelector('[data-gal]'), fig = sec.querySelector('[data-video]');
+      host.hidden = !sec.__hasPhotos; fig.hidden = !sec.__hasVideo;
+      row.classList.toggle('solo', !(sec.__hasPhotos && sec.__hasVideo));
+      sec.hidden = !(sec.__hasPhotos || sec.__hasVideo);
+      if(sec.__sync) requestAnimationFrame(sec.__sync);
+    }
+
+    function renderVideo(slug, d){
+      var sec = document.querySelector('[data-gallery="'+slug+'"]');
+      if(!sec) return;
+      galRow(sec);
+      var fig = sec.querySelector('[data-video]'), v = ytInfo(d && d.video), key = v ? v.id : '';
+      if(fig.__key !== key){
+        fig.__key = key;
+        while(fig.firstChild) fig.removeChild(fig.firstChild);
+        if(v){
+          var name = (d && d.name) || slug;
+          fig.classList.toggle('tall', !!v.tall);
+          var fr = document.createElement('div'); fr.className = 'lp-video-frame';
+          var ifr = document.createElement('iframe');
+          ifr.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?rel=0&modestbranding=1';
+          ifr.title = name + ' video'; ifr.loading = 'lazy'; ifr.referrerPolicy = 'strict-origin-when-cross-origin';
+          ifr.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          ifr.setAttribute('allowfullscreen', '');
+          fr.appendChild(ifr); fig.appendChild(fr);
+          var cap = document.createElement('figcaption'); cap.textContent = 'Watch ' + name + ' in action'; fig.appendChild(cap);
+        }
+      }
+      sec.__hasVideo = !!v;
+      galShow(sec);
+    }
+
     function renderGallery(slug, d){
       var sec = document.querySelector('[data-gallery="'+slug+'"]');
       if(!sec) return;
+      galRow(sec);
       var host = sec.querySelector('[data-gal]');
       var name = (d && d.name) || slug;
       var list = photosOf(d).map(function(p){ return { path:p, src:srcFor(slug, p) }; });
@@ -6504,13 +6579,13 @@ window.SOCIAL_LINKS = {
       if(host.__key === key) return;
       host.__key = key;
       while(host.firstChild) host.removeChild(host.firstChild);
-      sec.hidden = true;
+      sec.__hasPhotos = false; sec.__sync = null; galShow(sec);
       if(!list.length) return;
 
       function mk(tag, cls){ var e = document.createElement(tag); if(cls) e.className = cls; return e; }
       function arrow(dir){
         var b = mk('button', 'gal-nav ' + (dir < 0 ? 'gal-prev' : 'gal-next'));
-        b.type = 'button'; b.setAttribute('aria-label', dir < 0 ? 'Previous photos' : 'Next photos');
+        b.type = 'button'; b.setAttribute('aria-label', dir < 0 ? 'Previous photo' : 'Next photo');
         b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
           (dir < 0 ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6') + '"></path></svg>';
         return b;
@@ -6520,19 +6595,22 @@ window.SOCIAL_LINKS = {
       host.appendChild(track); host.appendChild(bPrev); host.appendChild(bNext); host.appendChild(dots);
 
       function slides(){ return Array.prototype.slice.call(track.children); }
+      /* one photo per view, so the arrows and dots depend only on how many
+         photos there are, not on measuring the page (which reads as zero
+         while the app page is still hidden) */
       function step(){ var sl = slides(); return sl.length > 1 ? (sl[1].offsetLeft - sl[0].offsetLeft) : (track.clientWidth || 1); }
-      function maxIdx(){ var st = step() || 1; return Math.max(0, Math.round((track.scrollWidth - track.clientWidth) / st)); }
-      function current(){ return Math.max(0, Math.min(maxIdx(), Math.round(track.scrollLeft / (step() || 1)))); }
+      function maxIdx(){ return Math.max(0, slides().length - 1); }
+      function current(){ var st = step(); return st > 1 ? Math.max(0, Math.min(maxIdx(), Math.round(track.scrollLeft / st))) : 0; }
       function go(i){ track.scrollTo({ left: Math.max(0, Math.min(maxIdx(), i)) * step(), behavior:'smooth' }); }
       function sync(){
-        var fits = track.scrollWidth <= track.clientWidth + 2, last = maxIdx(), i = current();
+        var last = maxIdx(), fits = last < 1, i = current();
         host.classList.toggle('fits', fits);
         bPrev.disabled = i <= 0; bNext.disabled = i >= last;
         while(dots.firstChild) dots.removeChild(dots.firstChild);
         if(fits) return;
         for(var k = 0; k <= last; k++){
           var dt = mk('button', 'gal-dot'); dt.type = 'button';
-          dt.setAttribute('aria-label', 'Go to photo ' + (k + 1));
+          dt.setAttribute('aria-label', 'Go to photo ' + (k + 1) + ' of ' + (last + 1));
           dt.setAttribute('aria-current', String(k === i));
           (function(k){ dt.addEventListener('click', function(){ go(k); }); })(k);
           dots.appendChild(dt);
@@ -6554,17 +6632,19 @@ window.SOCIAL_LINKS = {
         if(!/^data:/.test(x.src)){ a.href = x.src; a.target = '_blank'; a.rel = 'noopener'; }
         a.setAttribute('aria-label', 'Open ' + name + ' photo ' + (k + 1) + ' full size');
         var img = mk('img'); img.alt = name + ' photo ' + (k + 1); img.decoding = 'async';
-        img.onload = function(){ sec.hidden = false; requestAnimationFrame(sync); };
-        img.onerror = function(){ if(a.parentNode) a.parentNode.removeChild(a); if(!slides().length) sec.hidden = true; sync(); };
+        img.onload = function(){ if(!sec.__hasPhotos){ sec.__hasPhotos = true; galShow(sec); } sync(); };
+        img.onerror = function(){ if(a.parentNode) a.parentNode.removeChild(a); if(!slides().length){ sec.__hasPhotos = false; galShow(sec); } sync(); };
         img.src = x.src;
         a.appendChild(img); track.appendChild(a);
       });
+      sync();
     }
 
     function renderFlyer(slug){
       var d = window.PRICES && window.PRICES[slug];
       try{ renderOneFlyer(slug, d); }catch(e){}
       try{ renderGallery(slug, d); }catch(e){}
+      try{ renderVideo(slug, d); }catch(e){}
     }
     /* a carousel on a page that was hidden has no width yet; re-measure when it opens */
     window.addEventListener('hashchange', function(){
@@ -8128,7 +8208,8 @@ window.SOCIAL_LINKS = {
 
    Each app gets two picture spots, both optional:
      FLYER     one picture, under the description beside the price card
-     CAROUSEL  up to 10 photos in a swipeable row under the top of the page
+     CAROUSEL  up to 10 photos, one at a time with arrows and dots
+     VIDEO     a YouTube link, shown to the right of the carousel
    Pictures are shrunk to a sensible web size and uploaded to the website's
    GitHub repository under flyers/, then noted in the price list. Press Save
    (as for a price) and they appear on the app page.
@@ -8171,9 +8252,9 @@ window.__initFlyerMgr = function(hub, H){
   var box = el('section', 'panel flyer-mgr'); box.setAttribute('data-flyer-mgr', '');
   box.appendChild(el('div', 'panel-head', 'App flyers & photos'));
   var lead = el('p', 'fm-lead');
-  lead.innerHTML = 'Each app has two picture spots. The <b>Flyer</b> is one picture under the description, next to the price and Stan Store button. ' +
-    'The <b>Carousel</b> is a row of up to ' + MAX + ' photos visitors swipe through, just below that. Click a box (or drag pictures onto it), ' +
-    'then press <b>Save</b> above. Leave either one empty and it simply doesn’t show — visitors never see an empty space.';
+  lead.innerHTML = 'Each app page has three spots. The <b>Flyer</b> is one picture under the description, next to the price and Stan Store button. ' +
+    'The <b>Carousel</b> shows up to ' + MAX + ' photos one at a time, with arrows and dots, just below that. The <b>Video</b> is a YouTube video shown to the right of the carousel. ' +
+    'Add pictures by clicking a box (or dragging pictures onto it), paste a YouTube link for the video, then press <b>Save</b> above. Leave any spot empty and it simply doesn’t show — visitors never see an empty space.';
   box.appendChild(lead);
   var grid = el('div', 'fm-grid'); box.appendChild(grid);
   pane.appendChild(box);
@@ -8243,10 +8324,45 @@ window.__initFlyerMgr = function(hub, H){
       });
       ca.appendChild(th);
     }
+    drawVideo(t, k);
     var addB = cp.querySelector('[data-fm-add]');
     addB.hidden = !ph.length;
     addB.disabled = ph.length >= MAX;
     addB.title = ph.length >= MAX ? 'Up to ' + MAX + ' photos per app' : '';
+  }
+
+  /* video part: paste a YouTube link */
+  function drawVideo(t, k){
+    var vp = t.querySelector('[data-part="video"]'); if(!vp) return;
+    var area = vp.querySelector('.fm-area'), url = D(k).video || '', v = window.__ytInfo ? window.__ytInfo(url) : null;
+    while(area.firstChild) area.removeChild(area.firstChild);
+    vp.classList.toggle('has', !!v);
+    vp.querySelector('.fm-part-h span').textContent = v ? '1 video' : 'Empty — not shown';
+    var box = el('div', 'fm-vid');
+    if(v){
+      var pr = el('div', 'fm-vid-prev'), im = el('img'); im.alt = appName(k) + ' video'; im.src = 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+      var side = el('div', 'fm-side'), rm = el('button', 'btn-sm ghost', 'Remove video'); rm.type = 'button';
+      rm.addEventListener('click', function(){
+        delete window.PRICES[k].video; changed(k); drawTile(t);
+        setMsg(t, 'Video removed. Press Save and the page shows none.', 'ok');
+      });
+      var op = el('a', 'btn-sm ghost', 'Watch on YouTube'); op.href = 'https://www.youtube.com/watch?v=' + v.id; op.target = '_blank'; op.rel = 'noopener';
+      side.appendChild(op); side.appendChild(rm); pr.appendChild(im); pr.appendChild(side); box.appendChild(pr);
+    }
+    var inp = el('input'); inp.type = 'url'; inp.placeholder = v ? 'Paste a different YouTube link to replace it' : 'Paste a YouTube link (video or Short)';
+    inp.setAttribute('aria-label', appName(k) + ' YouTube link');
+    var go = el('button', 'btn-sm', v ? 'Replace video' : 'Use this video'); go.type = 'button';
+    function take(){
+      var val = inp.value.trim();
+      if(!val){ setMsg(t, 'Paste a YouTube link first.', 'err'); return; }
+      if(!(window.__ytInfo && window.__ytInfo(val))){ setMsg(t, 'That doesn’t look like a YouTube link. Copy it from the Share button on YouTube.', 'err'); return; }
+      window.PRICES[k].video = val; changed(k); drawTile(t);
+      setMsg(t, 'Video added. Press Save to put it on your site.', 'ok');
+    }
+    go.addEventListener('click', take);
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); take(); } });
+    var btns = el('div', 'fm-vid-btns'); btns.appendChild(go);
+    box.appendChild(inp); box.appendChild(btns); area.appendChild(box);
   }
 
   function part(kind, title){
@@ -8275,8 +8391,9 @@ window.__initFlyerMgr = function(hub, H){
         var logo = document.querySelector('article.app[data-slug="' + k + '"] .app-icon img') || document.querySelector('[data-logo="' + k + '"]');
         if(logo && logo.src){ var li = el('img'); li.src = logo.src; li.alt = ''; nm.appendChild(li); }
         nm.appendChild(el('span', null, appName(k)));
-        var fp = part('flyer', '1 · Flyer'), cp = part('photos', '2 · Carousel');
-        t.appendChild(nm); t.appendChild(fp); t.appendChild(cp); t.appendChild(el('div', 'fm-msg'));
+        var fp = part('flyer', '1 · Flyer'), cp = part('photos', '2 · Carousel'), vp = part('video', '3 · Video');
+        var vIn = vp.querySelector('input[type=file]'); if(vIn) vIn.parentNode.removeChild(vIn);
+        t.appendChild(nm); t.appendChild(fp); t.appendChild(cp); t.appendChild(vp); t.appendChild(el('div', 'fm-msg'));
 
         (function(t, k){
           [fp, cp].forEach(function(p){
