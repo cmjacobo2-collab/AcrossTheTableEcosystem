@@ -3123,7 +3123,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   <div class="wrap">
     <div class="hero-in">
       <p class="eyebrow">Across the Table ecosystem</p>
-      <h1>Twelve tools, one system, built for founders who taught themselves.</h1>
+      <h1><span data-app-count-word>Twelve</span> tools, one system, built for founders who taught themselves.</h1>
       <p class="hero-lede">Most business software assumes you already speak the language. This doesn't. Start wherever you actually are — the ecosystem covers the whole arc, from your first business plan to the day you hand the keys over.</p>
       <div class="hero-cta">
         <a href="#system" class="btn btn-primary">
@@ -5568,6 +5568,12 @@ window.SOCIAL_LINKS = {
     }else{
       count.textContent = 'Showing all ' + apps.length + ' applications';
     }
+    /* the headline's number follows the app grid: add or remove a card and it updates */
+    var WORDS = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen',
+                 'Fifteen','Sixteen','Seventeen','Eighteen','Nineteen','Twenty'];
+    Array.prototype.forEach.call(document.querySelectorAll('[data-app-count-word]'), function(w){
+      w.textContent = WORDS[apps.length] || String(apps.length);
+    });
 
     clear.hidden = !active;
     empty.style.display = shown === 0 ? 'block' : 'none';
