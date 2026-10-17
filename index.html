@@ -2659,6 +2659,85 @@ a[data-goto]{cursor:pointer;}
 .fm-msg{font-size:12px;line-height:1.45;color:var(--text-muted);min-height:1.45em;}
 .fm-msg.ok{color:var(--success);} .fm-msg.err{color:var(--danger-text);} .fm-msg.busy{color:var(--accent-bright);}
 .fm-tile input[type=file]{display:none;}
+
+/* ================= Simplified homepage (Oct 2026) ================= */
+.nav a.nav-hub{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;}
+#view-home .hero .mark,#view-home .hero .diag,#view-home .hero .hero-status{display:none;}
+#view-home .hero h1 .hero-hl{color:var(--accent);}
+.hero-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin-top:34px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--text-muted);}
+.hero-trust b{color:var(--teal);font-weight:500;}
+#system .sys-hero{display:none;}
+#system .section-head{min-height:0;margin-bottom:28px;}
+#system .stagerail{gap:10px;}
+#system .stage{padding:14px 16px;}
+#system .stage .stage-n{display:none;}
+#system .stage .stage-q{font-size:13px;}
+#system #mapcount{visibility:hidden;}
+#apps .app.is-dim,#apps .app.is-later{display:none;}
+#apps .app .app-tags,#apps .app .app-tag-line{display:none;}
+#apps .app > p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:0 0 auto;max-height:4.9em;}
+#apps .app .app-foot{justify-content:flex-start;margin-top:auto;}
+#apps .app{display:flex;flex-direction:column;}
+#apps .app > p{margin-bottom:20px;}
+@media (min-width:981px){ #apps{grid-template-columns:repeat(3,1fr);} }
+.stage-none{display:none;margin:4px 0 0;padding:18px 20px;border:1px dashed var(--border-strong);border-radius:14px;color:var(--text-muted);}
+.stage-none.on{display:block;}
+.soon-row{margin-top:30px;padding:18px 20px;border:1px dashed var(--border-strong);border-radius:14px;
+  display:flex;align-items:center;gap:14px 22px;flex-wrap:wrap;}
+.soon-row[hidden]{display:none;}
+.soon-row .soon-t{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
+.soon-row ul{display:flex;flex-wrap:wrap;gap:10px 18px;list-style:none;margin:0;padding:0;}
+.soon-row a{display:flex;align-items:center;gap:9px;color:var(--text-body);font-size:14.5px;font-weight:600;text-decoration:none;}
+.soon-row a:hover{color:var(--text-heading);}
+.soon-row img{width:28px;height:28px;border-radius:8px;object-fit:cover;}
+.hm-builds{background:var(--bg-panel);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);}
+.hm-split{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+.hm-split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;}
+.hm-lead{margin-top:12px;font-size:17px;color:var(--text-muted);max-width:520px;}
+.hm-btn{margin-top:26px;}
+.hm-mini{display:grid;gap:14px;}
+.hm-mini a{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:14px;text-decoration:none;color:inherit;transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.hm-mini a:hover{border-color:var(--warning);transform:translateY(-2px);}
+.hm-mini img{width:48px;height:48px;border-radius:11px;object-fit:cover;flex:none;}
+.hm-mini b{display:block;font-family:var(--display);font-size:17px;color:var(--text-heading);}
+.hm-mini small{display:block;font-size:14px;color:var(--text-muted);margin-top:2px;}
+.hm-mini i{margin-left:auto;font-style:normal;color:var(--warning);}
+.hm-three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.hm-three-5{grid-template-columns:repeat(5,1fr);margin-top:36px;position:relative;}
+.hm-card{display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:16px;text-decoration:none;color:inherit;transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.hm-card:hover{border-color:var(--border-strong);transform:translateY(-2px);}
+.hm-card h3{font-size:21px;color:var(--text-heading);}
+.hm-card p{font-size:15px;color:var(--text-muted);flex:1;margin:0;}
+.hm-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);}
+.hm-go{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;font-size:14.5px;margin-top:4px;}
+.hm-closesec{padding-top:40px;}
+.hm-close{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding:48px;border-radius:20px;
+  background:linear-gradient(140deg,#0F2440,#0B1A2B);border:1px solid var(--border-strong);}
+.hm-close blockquote{margin:16px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(23px,2.6vw,31px);line-height:1.22;color:var(--text-heading);}
+.hm-close .voice-attrib{margin-top:24px;}
+.hm-ways{display:grid;gap:12px;align-content:center;}
+.hm-way{display:block;padding:14px 16px;border:1px solid var(--border-default);border-radius:12px;background:rgba(7,17,31,.5);text-decoration:none;color:inherit;}
+.hm-way:hover{border-color:var(--border-strong);}
+.hm-way b{display:block;font-family:var(--display);color:var(--text-heading);}
+.hm-way span{font-size:14px;color:var(--text-muted);}
+.hm-contact{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
+.hm-more{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14.5px;color:var(--accent);margin-top:2px;}
+.hm-view .lp-hero h1{font-size:clamp(29px,4.6vw,46px);font-weight:800;line-height:1.08;}
+@media (max-width:1100px){ .hm-three-5{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:900px){
+  .hm-split,.hm-close{grid-template-columns:1fr;gap:30px;}
+  .hm-three,.hm-three-5{grid-template-columns:1fr 1fr;}
+  .hm-close{padding:28px;}
+}
+@media (max-width:640px){
+  .hm-three,.hm-three-5{grid-template-columns:1fr;}
+  .hero-trust{flex-direction:column;align-items:center;gap:8px;}
+  #system .stagerail{display:flex;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none;}
+  #system .stage{flex:0 0 auto;min-width:150px;}
+}
 </style>
 
 <style id="sosign-css">
@@ -3093,16 +3172,14 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
     </button>
 
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#system">The system</a>
-      <a href="#partnerships">Partnerships</a>
-      <a href="#mindset" data-view="mindset">Mindset</a>
-      <a href="#learn">AI Learning</a>
-      <a href="#assessment" data-view="assessment">AI Assessment</a>
+      <a href="#system">Apps</a>
+      <a href="#builds" data-view="builds">Custom builds</a>
+      <a href="#learning" data-view="learning">Learn</a>
       <a href="substack/">Newsletter</a>
-      <a href="#about" data-view="about">About Connie</a>
-      <a href="#work">Consulting</a>
-      <a href="#hub" data-view="hub" class="btn btn-secondary" style="padding:10px 16px">My Business Hub</a>
-      <a href="#contact" class="btn btn-primary">Start a conversation</a>
+      <a href="#about" data-view="about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#hub" data-view="hub" class="nav-hub">My Hub</a>
+      <a href="#contact" class="btn btn-primary">Talk to Connie</a>
     </nav>
   </div>
 </header>
@@ -3133,16 +3210,17 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
 
   <div class="wrap">
     <div class="hero-in">
-      <p class="eyebrow">Across the Table ecosystem</p>
-      <h1><span data-app-count-word>Twelve</span> tools, one system, built for founders who taught themselves.</h1>
-      <p class="hero-lede">Most business software assumes you already speak the language. This doesn't. Start wherever you actually are — the ecosystem covers the whole arc, from your first business plan to the day you hand the keys over.</p>
+      <p class="eyebrow">Across the Table &middot; Phoenix, AZ</p>
+      <h1>Simple apps and plain-language training for <span class="hero-hl">small business owners who taught themselves.</span></h1>
+      <p class="hero-lede">No business degree needed. Pick the stage you&rsquo;re in, find the tool that fits, and get help from someone who has been where you are.</p>
       <div class="hero-cta">
         <a href="#system" class="btn btn-primary">
-          See how it fits together
+          Find the right app
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
         </a>
         <a href="#contact" class="btn btn-secondary">Talk to Connie</a>
       </div>
+      <p class="hero-trust"><span><b data-ready-count>7</b> apps ready today</span><span><b>14-day</b> free trial</span><span>Built for <b>Start &middot; Build &middot; Run &middot; Grow</b></span></p>
       <div class="hero-status">
         <span class="status-pill"><span class="dot is-glow"></span>All systems operational</span>
       </div>
@@ -3183,9 +3261,9 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
       <div class="sys-orbit o2" data-sys-orbit="8"></div>
     </div>
     <div class="section-head reveal">
-      <p class="eyebrow is-accent">The system</p>
-      <h2>Four stages. Pick the one you're standing in.</h2>
-      <p>Every tool is docked to a moment in the business, not to a feature category. Select a stage to see what's built for it — or browse everything.</p>
+      <p class="eyebrow is-accent">The apps</p>
+      <h2>Where is your business right now?</h2>
+      <p>Choose a stage to see what&rsquo;s built for it.</p>
     </div>
 
     <div class="stagerail" role="group" aria-label="Filter tools by business stage">
@@ -3371,6 +3449,66 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
 </section>
 
 <!-- ===================== PARTNERSHIP BUILDS ===================== -->
+<!-- ===================== CUSTOM BUILDS (short) ===================== -->
+<section class="section hm-builds" id="custom-builds">
+  <div class="wrap hm-split">
+    <div class="reveal">
+      <p class="eyebrow">Custom builds</p>
+      <h2>Have an idea for your industry? Let&rsquo;s build it together.</h2>
+      <p class="hm-lead">You bring the industry know-how. I design and build the app, and we launch it together.</p>
+      <a class="btn btn-secondary hm-btn" href="#builds" data-view="builds">See how partnership builds work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    </div>
+    <div class="hm-mini reveal d1">
+      <a href="sos-sign-os/"><img data-hm-logo="sos-sign-os" alt="" width="48" height="48"><span><b>SOS Apps for sign companies</b><small>Design, permit, build and close out every sign job.</small></span><i aria-hidden="true">&rarr;</i></a>
+      <a href="tabletap/"><img data-hm-logo="tabletap" alt="" width="48" height="48"><span><b>TableTap for restaurants</b><small>Guests tap the table to see the menu, leave a review and join the VIP list.</small></span><i aria-hidden="true">&rarr;</i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEARN (short) ===================== -->
+<section class="section hm-learn" id="learn-teaser">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow is-teal">Learn</p>
+      <h2>Learn at your own pace.</h2>
+    </div>
+    <div class="hm-three">
+      <a class="hm-card reveal" href="#learn"><span class="hm-tag">Classes</span><h3>Build with AI</h3><p>Two step-by-step classes. The first builds your app, the second builds the system behind it. No coding background needed.</p><span class="hm-go">See the classes &amp; join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+      <a class="hm-card reveal d1" href="#mindset" data-view="mindset"><span class="hm-tag">Workbooks</span><h3>Entrepreneur Mindset</h3><p>Five stages of workbooks and roadmaps: what to focus on, when, and why it matters.</p><span class="hm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+      <a class="hm-card reveal d2" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener"><span class="hm-tag">Free</span><h3>YouTube</h3><p>Short, practical breakdowns of one business idea at a time.</p><span class="hm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLOSE: who, how, contact ===================== -->
+<section class="section hm-closesec" id="contact">
+  <div class="wrap">
+    <div class="hm-close reveal">
+      <div>
+        <p class="eyebrow">Why it exists</p>
+        <blockquote>&ldquo;Make complex business ideas easier to understand, easier to apply, and easier to act on.&rdquo;</blockquote>
+        <div class="voice-attrib">
+          <span class="voice-avatar" aria-hidden="true">CR</span>
+          <div>
+            <div class="voice-who">Connie Ramirez</div>
+            <div class="voice-role">Founder &middot; Across the Table Business Consulting</div>
+            <a href="#about" data-view="about" style="display:inline-block;margin-top:8px;font-size:13.5px">Read her story</a>
+          </div>
+        </div>
+      </div>
+      <div class="hm-ways">
+        <a class="hm-way" href="#work"><b>Consulting</b><span>Your business, your numbers, your next step.</span></a>
+        <a class="hm-way" href="#work"><b>Class building</b><span>You know your subject. I turn it into a class people finish.</span></a>
+        <div class="hm-contact"><a class="btn btn-primary" href="mailto:info@acrossthetable.biz">Email Connie</a><a class="btn btn-secondary" href="tel:+14805824716">Call 480-582-4716</a></div>
+        <a class="hm-more" href="#consulting" data-view="consulting">All the ways to work together <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<article class="lp hm-view" id="builds" style="--app:#E0A03A" hidden aria-hidden="true">
+<div class="wrap backbar"><button class="back" type="button" data-home><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>Home</button></div>
 <section class="section pbuilds" id="partnerships">
   <div class="wrap">
     <div class="section-head reveal">
@@ -3472,47 +3610,21 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
 </section>
 
 <!-- ===================== VOICE BAND ===================== -->
-<section class="section voice">
-  <div class="wrap voice-in">
-    <div class="reveal">
-      <p class="eyebrow">Why it exists</p>
-      <blockquote>“Make complex business ideas easier to understand, easier to apply, and easier to act on.”</blockquote>
-      <div class="voice-attrib">
-        <span class="voice-avatar" aria-hidden="true">CR</span>
-        <div>
-          <div class="voice-who">Connie Ramirez</div>
-          <div class="voice-role">Founder · Across the Table Business Consulting</div>
-          <a href="#about" data-view="about" style="display:inline-block;margin-top:10px;font-size:13.5px">Read her story</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="voice-notes">
-      <div class="note reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path><path d="M9 10h.01M12 10h.01M15 10h.01"></path></svg>
-        <div>
-          <h4>Plain language, always</h4>
-          <p>If a term needs a glossary, it gets explained the first time. No jargon used to sound smart.</p>
-        </div>
-      </div>
-      <div class="note reveal d1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5v8l-9 5-9-5V8z"></path><path d="M3 8l9 5 9-5M12 13v10"></path></svg>
-        <div>
-          <h4>Built by one person who uses it</h4>
-          <p>Every tool here came out of a real problem in a real business, not a feature roadmap.</p>
-        </div>
-      </div>
-      <div class="note reveal d2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.5 2.5L16 9.5"></path></svg>
-        <div>
-          <h4>Start anywhere, nothing wasted</h4>
-          <p>The pieces connect, but none of them require the others. Take the one you need this month.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+</article>
+<article class="lp hm-view" id="learning" style="--app:#27D8C2" hidden aria-hidden="true">
+<div class="wrap backbar"><button class="back" type="button" data-home><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>Home</button></div>
+<section class="lp-hero"><div class="glow" aria-hidden="true"></div><div class="wrap"><div class="lp-in">
+  <p class="eyebrow">Learn</p>
+  <h1>Learn at your own pace.</h1>
+  <p class="lp-lede">Classes, workbooks, a self-check and free videos. Start with whichever fits where you are.</p>
+</div>
+<div class="hm-three hm-three-5">
+  <a class="hm-card" href="#learn"><span class="hm-tag">Classes</span><h3>Build with AI</h3><p>Two step-by-step classes. See what each one covers and join the waiting list.</p><span class="hm-go">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="#mindset" data-view="mindset"><span class="hm-tag">Workbooks</span><h3>Entrepreneur Mindset</h3><p>Five stages of workbooks and roadmaps.</p><span class="hm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="#assessment" data-view="assessment"><span class="hm-tag">Self-check</span><h3>AI Assessment</h3><p>See where AI can help your business today.</p><span class="hm-go">Take the assessment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="substack/"><span class="hm-tag">Newsletter</span><h3>The Scaling Edge</h3><p>Plain-language ideas for growing a business, by email.</p><span class="hm-go">Read the newsletter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener"><span class="hm-tag">Free</span><h3>YouTube</h3><p>Short breakdowns of one business idea at a time.</p><span class="hm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+</div></div></section>
 <!-- ===================== LEARN ===================== -->
 <section class="section" id="learn">
   <div class="wrap">
@@ -3697,7 +3809,51 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
 </section>
 
-<hr class="rule">
+
+
+</article>
+<article class="lp hm-view" id="consulting" style="--app:#2BA8FF" hidden aria-hidden="true">
+<div class="wrap backbar"><button class="back" type="button" data-home><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>Home</button></div>
+<section class="section voice">
+  <div class="wrap voice-in">
+    <div class="reveal">
+      <p class="eyebrow">Why it exists</p>
+      <blockquote>“Make complex business ideas easier to understand, easier to apply, and easier to act on.”</blockquote>
+      <div class="voice-attrib">
+        <span class="voice-avatar" aria-hidden="true">CR</span>
+        <div>
+          <div class="voice-who">Connie Ramirez</div>
+          <div class="voice-role">Founder · Across the Table Business Consulting</div>
+          <a href="#about" data-view="about" style="display:inline-block;margin-top:10px;font-size:13.5px">Read her story</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="voice-notes">
+      <div class="note reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path><path d="M9 10h.01M12 10h.01M15 10h.01"></path></svg>
+        <div>
+          <h4>Plain language, always</h4>
+          <p>If a term needs a glossary, it gets explained the first time. No jargon used to sound smart.</p>
+        </div>
+      </div>
+      <div class="note reveal d1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5v8l-9 5-9-5V8z"></path><path d="M3 8l9 5 9-5M12 13v10"></path></svg>
+        <div>
+          <h4>Built by one person who uses it</h4>
+          <p>Every tool here came out of a real problem in a real business, not a feature roadmap.</p>
+        </div>
+      </div>
+      <div class="note reveal d2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.5 2.5L16 9.5"></path></svg>
+        <div>
+          <h4>Start anywhere, nothing wasted</h4>
+          <p>The pieces connect, but none of them require the others. Take the one you need this month.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ===================== CONSULTING ===================== -->
 <section class="section" id="work">
@@ -3746,7 +3902,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
 </section>
 
 <!-- ===================== CONTACT ===================== -->
-<section class="section" id="contact" style="padding-top:20px;">
+<section class="section" id="contact-details" style="padding-top:20px;">
   <div class="wrap">
     <div class="contact reveal">
       <div>
@@ -3772,7 +3928,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
 </section>
 
-</div>
+</article>
 <article class="lp" id="app-entrepreneur-blueprint" style="--app:#E8B44C" hidden aria-hidden="true"><div class="wrap backbar"><button class="back" type="button" data-home><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>All apps</button></div>
 <div class="lp-hero"><div class="glow" aria-hidden="true"></div><div class="wrap"><div class="lp-cols"><div class="lp-in">
   <div class="lp-id">
@@ -5436,7 +5592,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             <li><a href="#system">All applications</a></li>
             <li><a href="entrepreneur-blueprint/">Entrepreneur Blueprint</a></li>
             <li><a href="#system">By business stage</a></li>
-            <li><a href="#work">Custom builds</a></li>
+            <li><a href="#builds" data-view="builds">Custom builds</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -10492,7 +10648,7 @@ window.__initFlyerMgr = function(hub, H){
     return (location.hash || '').replace('#','');
   }
 
-  var VIEW_HASH = /^#(app-[a-z0-9-]+|about|hub|terms|mindset|assessment|support)$/;
+  var VIEW_HASH = /^#(app-[a-z0-9-]+|about|hub|terms|mindset|assessment|support|builds|learning|consulting)$/;
 
   /* Embedded viewers — including the preview frame this file may be opened in —
      treat every <a href="#..."> as an attempt to leave the page and interrupt
@@ -10527,6 +10683,10 @@ window.__initFlyerMgr = function(hub, H){
     var el = document.getElementById(id);
     if(!el) return;
 
+    /* the spot is on a page that isn't open: open it, then scroll there */
+    var onPage = el.closest && el.closest('article.lp');
+    if(onPage && onPage.hidden){ go(dest); route(false); return; }
+
     /* a link to somewhere on the home page, followed from a landing view:
        bring the home page back first, then scroll to it */
     var homeView = document.getElementById('view-home');
@@ -10541,9 +10701,19 @@ window.__initFlyerMgr = function(hub, H){
   function route(scroll){
     var h = readHash();
     var id = ((h.indexOf('app-') === 0 || h === 'about' || h === 'hub' || h === 'terms' ||
-               h === 'mindset' || h === 'assessment' || h === 'support') && document.getElementById(h)) ? h : null;
+               h === 'mindset' || h === 'assessment' || h === 'support' ||
+               h === 'builds' || h === 'learning' || h === 'consulting') && document.getElementById(h)) ? h : null;
+    /* a link to a spot that now lives on its own page (#learn, #partnerships,
+       #work): open that page, then go to the spot */
+    var deep = null;
+    if(!id && h){
+      var spot = document.getElementById(h);
+      var page = spot && spot.closest && spot.closest('article.lp');
+      if(page && page.id){ id = page.id; deep = h; }
+    }
     show(id);
-    if(scroll) window.scrollTo(0,0);
+    if(deep){ setTimeout(function(){ scrollToId(deep); }, 40); }
+    else if(scroll) window.scrollTo(0,0);
   }
 
   document.addEventListener('click', function(e){
@@ -10616,7 +10786,7 @@ window.__initFlyerMgr = function(hub, H){
    ============================================================ */
 (function(){
   "use strict";
-  var VIEW  = /^(app-[a-z0-9-]+|about|hub|terms|mindset|assessment|support)$/;
+  var VIEW  = /^(app-[a-z0-9-]+|about|hub|terms|mindset|assessment|support|builds|learning|consulting)$/;
   var home  = document.getElementById('view-home');
   var views = Array.prototype.slice.call(document.querySelectorAll('.lp'));
   if(!home || !views.length) return;
@@ -12374,6 +12544,85 @@ window.__initFlyerMgr = function(hub, H){
     if(e.target && e.target.closest && e.target.closest('[data-pane-btn="products"],[data-gh-setup]')) setTimeout(ensure, 0);
   }, true);
   if(!(window.HUB_ACCESS && window.HUB_ACCESS.encrypted)) setTimeout(ensure, 0);
+})();
+</script>
+
+<script>
+/* ============================================================
+   SIMPLIFIED HOMEPAGE
+   Apps on sale lead the page; apps not on sale yet move to one
+   "Coming soon" row. It follows the Status set in the Hub, so an app
+   moves up on its own the day it goes on sale.
+   ============================================================ */
+(function(){
+  var SELL = ['Available','Available for purchase','Beta'];
+  function live(slug){
+    var d = window.PRICES && window.PRICES[slug];
+    return !d || SELL.indexOf(d.status) >= 0;
+  }
+  function iconOf(slug){
+    var i = document.querySelector('article.app[data-slug="' + slug + '"] .app-icon img');
+    return i ? i.getAttribute('src') : '';
+  }
+  function layout(){
+    var grid = document.getElementById('apps');
+    if(!grid) return;
+    var row = document.getElementById('soon-row');
+    if(!row){
+      row = document.createElement('div');
+      row.id = 'soon-row'; row.className = 'soon-row';
+      row.innerHTML = '<span class="soon-t">Coming soon</span><ul></ul>';
+      var none = document.createElement('p');
+      none.className = 'stage-none'; none.id = 'stage-none';
+      none.textContent = 'Nothing for this stage is ready yet. It is on the way — see Coming soon below.';
+      grid.parentNode.insertBefore(none, grid.nextSibling);
+      grid.parentNode.insertBefore(row, none.nextSibling);
+    }
+    var ul = row.querySelector('ul'); ul.innerHTML = '';
+    Array.prototype.forEach.call(grid.querySelectorAll('article.app[data-slug]'), function(card){
+      var slug = card.getAttribute('data-slug');
+      var on = live(slug);
+      card.classList.toggle('is-later', !on);
+      var name = ((card.querySelector('h3') || {}).textContent || slug).trim();
+      var open = card.querySelector('.app-open');
+      if(open && open.firstChild && open.firstChild.nodeType === 3) open.firstChild.nodeValue = 'See ' + name;
+      if(!on){
+        var li = document.createElement('li'), a = document.createElement('a');
+        a.href = open ? (open.getAttribute('href') || '#') : '#';
+        var src = iconOf(slug);
+        if(src){ var im = document.createElement('img'); im.src = src; im.alt = ''; a.appendChild(im); }
+        a.appendChild(document.createTextNode(name));
+        li.appendChild(a); ul.appendChild(li);
+      }
+    });
+    row.hidden = !ul.children.length;
+    var ready = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('article.app[data-slug]'), function(c){ if(live(c.getAttribute('data-slug'))) ready++; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ready-count]'), function(b){ b.textContent = String(ready); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-hm-logo]'), function(im){
+      var src = iconOf(im.getAttribute('data-hm-logo')); if(src) im.src = src;
+    });
+    stageNote();
+  }
+  function stageNote(){
+    var grid = document.getElementById('apps'), note = document.getElementById('stage-none');
+    if(!grid || !note) return;
+    var shown = Array.prototype.filter.call(grid.querySelectorAll('article.app'), function(c){
+      return !c.classList.contains('is-dim') && !c.classList.contains('is-later');
+    }).length;
+    note.classList.toggle('on', shown === 0);
+  }
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('#system .stage, #clearfilter')) setTimeout(stageNote, 0);
+  });
+  var prev = window.applyAllStoreButtons;
+  window.applyAllStoreButtons = function(){
+    var r; try{ if(typeof prev === 'function') r = prev.apply(this, arguments); }catch(e){}
+    try{ layout(); }catch(e){}
+    return r;
+  };
+  try{ layout(); }catch(e){}
+  window.addEventListener('load', function(){ try{ layout(); }catch(e){} });
 })();
 </script>
 </body>
