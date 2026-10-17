@@ -209,7 +209,7 @@ if len(pages) < 10:
     die('found only %d app pages in index.html — stopping so nothing is broken' % len(pages))
 
 # ---------------------------------------------------------------- sitemap
-urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
+urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8'), (SITE + '/substack/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
 legal = [(SITE + '/legal/', '0.3'), (SITE + '/legal/terms.html', '0.3'), (SITE + '/legal/privacy.html', '0.3')]
 for dname in sorted(LEGAL_APPS):
     for f in sorted(os.listdir(os.path.join(ROOT, 'legal', dname))):
