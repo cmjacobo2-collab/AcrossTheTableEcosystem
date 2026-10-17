@@ -208,6 +208,25 @@ for m in re.finditer(r'<article class="lp" id="app-([a-z0-9-]+)"', SRC):
 if len(pages) < 10:
     die('found only %d app pages in index.html — stopping so nothing is broken' % len(pages))
 
+# ---------------------------------------------------------------- other pages that share the menu and footer
+# A page opts in by holding the markers  <!-- site-header ... --> <!-- /site-header -->
+# and  <!-- site-footer ... --> <!-- /site-footer -->. Everything between each pair is
+# replaced with the main site's menu and footer, so they never drift apart.
+def share_chrome(rel):
+    path = os.path.join(ROOT, rel)
+    if not os.path.exists(path):
+        return
+    page = open(path, encoding='utf-8').read()
+    for name, block in (('site-header', HEADER), ('site-footer', FOOTER + '\n' + SOCIAL_SCRIPT)):
+        m = re.search(r'(<!-- %s[^>]*-->)(.*?)(<!-- /%s -->)' % (name, name), page, re.S)
+        if not m:
+            return
+        page = page[:m.end(1)] + '\n' + block + '\n' + page[m.start(3):]
+    if write(rel, page):
+        changed.append(rel)
+
+share_chrome('substack/index.html')
+
 # ---------------------------------------------------------------- sitemap
 urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8'), (SITE + '/substack/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
 legal = [(SITE + '/legal/', '0.3'), (SITE + '/legal/terms.html', '0.3'), (SITE + '/legal/privacy.html', '0.3')]
