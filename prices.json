@@ -618,7 +618,19 @@
         "annual": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
         "onetime": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
       },
-      "flyer": "flyers/tabletap-flyer-1792255669331.jpg"
+      "flyer": "flyers/tabletap-flyer-1792255669331.jpg",
+      "photos": [
+        "flyers/tabletap-photo0-1792256556762.jpg",
+        "flyers/tabletap-photo1-1792256557991.jpg",
+        "flyers/tabletap-photo2-1792256559226.jpg",
+        "flyers/tabletap-photo3-1792256560501.jpg",
+        "flyers/tabletap-photo4-1792256561658.jpg",
+        "flyers/tabletap-photo5-1792256562883.jpg",
+        "flyers/tabletap-photo6-1792256564157.jpg",
+        "flyers/tabletap-photo7-1792256565277.jpg",
+        "flyers/tabletap-photo8-1792256566504.jpg",
+        "flyers/tabletap-photo9-1792256567735.jpg"
+      ]
     },
     "sos-sign-os": {
       "name": "SOS Sign Operating System",
