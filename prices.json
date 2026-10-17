@@ -385,7 +385,16 @@
         "onetime": "https://stan.store/AcrossTheTable/p/launchledger--startup-budget--task-manager",
         "annual": "https://stan.store/AcrossTheTable/p/sartwise-startup-budgettask-annual-subscription"
       },
-      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK"
+      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK",
+      "photos": [
+        "flyers/startwise-photo0-1792256438558.jpg",
+        "flyers/startwise-photo1-1792256440124.jpg",
+        "flyers/startwise-photo2-1792256441441.jpg",
+        "flyers/startwise-photo3-1792256442713.jpg",
+        "flyers/startwise-photo4-1792256443911.jpg",
+        "flyers/startwise-photo5-1792256445116.jpg"
+      ],
+      "flyer": "flyers/startwise-flyer-1792256474068.jpg"
     },
     "leadmatch": {
       "name": "LeadMatch",
@@ -608,7 +617,8 @@
         "monthly": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
         "annual": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
         "onetime": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
-      }
+      },
+      "flyer": "flyers/tabletap-flyer-1792255669331.jpg"
     },
     "sos-sign-os": {
       "name": "SOS Sign Operating System",
