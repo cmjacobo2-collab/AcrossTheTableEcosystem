@@ -5291,6 +5291,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   <p>Tell me where you're stuck. No forms that go nowhere — you'll get me, not a queue.</p></div>
   <div class="close-act">
     <button class="cline" type="button" data-home style="width:100%;text-align:left;font-family:var(--body);cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg><span><span class="datum">Explore</span>All 13 applications</span></button>
+    <a class="cline" href="media/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"></path><path d="M19 11a7 7 0 0 1-14 0M12 18v3"></path></svg><span><span class="datum">Media &amp; Press</span>Interviews, bio &amp; press kit</span></a>
     <a class="cline" href="mailto:info@acrossthetable.biz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 7l10 7 10-7"></path></svg><span><span class="datum">Email</span>info@acrossthetable.biz</span></a>
     <a class="cline" href="tel:+14805824716"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"></path></svg><span><span class="datum">Phone</span>480-582-4716</span></a>
   </div></div></div></section>
@@ -5439,6 +5440,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           <h4>Company</h4>
           <ul>
             <li><a href="#work">Consulting</a></li>
+            <li><a href="media/">Media &amp; Press</a></li>
             <li><a href="#support" data-view="support">Report an issue</a></li>
             <li><a href="mailto:info@acrossthetable.biz">info@acrossthetable.biz</a></li>
             <li><a href="tel:+14805824716">480-582-4716</a></li>
@@ -11403,7 +11405,7 @@ window.__initFlyerMgr = function(hub, H){
   function renderShell(){
     clear(root);
     var tabs = owner
-      ? [['tickets','Ticketing'],['payments','Payments & Stan Store'],['delivery','Orders & delivery'],['analytics','Customer analytics']]
+      ? [['tickets','Ticketing'],['payments','Payments & Stan Store'],['delivery','Orders & delivery'],['analytics','Customer analytics'],['media','Media inquiries']]
       : [['apps','My apps'],['billing','Billing & purchases'],['help','My help requests']];
     if (!tab || !tabs.some(function(t){ return t[0] === tab; })) tab = tabs[0][0];
     var top = h('div', {class:'lh-top'},
@@ -11427,6 +11429,8 @@ window.__initFlyerMgr = function(hub, H){
     drawTab(body);
     if (owner) load('tickets_open', function(){ return sb.from('tickets').select('id', {count:'exact', head:true}).eq('status','open'); })
       .then(function(r){ var b = bar.querySelector('[data-tab=tickets]'); if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); });
+    if (owner) load('media_new', function(){ return sb.from('media_inquiries').select('id', {count:'exact', head:true}).eq('status','new'); })
+      .then(function(r){ var b = bar.querySelector('[data-tab=media]'); if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); }).catch(function(){});
   }
 
   function load(key, fn){
@@ -11454,7 +11458,7 @@ window.__initFlyerMgr = function(hub, H){
 
   function drawTab(body){
     loading(body);
-    var f = { tickets:ownerTickets, payments:ownerPayments, delivery:ownerDelivery, analytics:ownerAnalytics,
+    var f = { tickets:ownerTickets, payments:ownerPayments, delivery:ownerDelivery, analytics:ownerAnalytics, media:ownerMedia,
               apps:myApps, billing:myBilling, help:myHelp }[tab];
     try { f(body); } catch(e){ fail(body, e); }
   }
@@ -11522,6 +11526,108 @@ window.__initFlyerMgr = function(hub, H){
         mail),
       msg);
     return el;
+  }
+
+  /* ===== OWNER: Media inquiries (from acrossthetable.biz/media) ===== */
+  var MSTAT = [['new','New'],['under_review','Under review'],['responded','Responded'],['scheduled','Scheduled'],['completed','Completed'],['declined','Declined'],['archived','Archived']];
+  var mf = { status:'open', type:'', q:'' };
+  function mlabel(s){ for (var i = 0; i < MSTAT.length; i++) if (MSTAT[i][0] === s) return MSTAT[i][1]; return cap(s); }
+  function ownerMedia(body){
+    Promise.all([
+      load('media_inq', function(){ return sb.from('media_inquiries').select('*').order('created_at', {ascending:false}).limit(1000); }),
+      load('media_stats', function(){
+        var since = new Date(Date.now() - 30*86400000).toISOString().slice(0,10);
+        return sb.from('media_stats').select('*').gte('day', since);
+      }).catch(function(){ return { data: [] }; })
+    ]).then(function(res){
+      clear(body);
+      var all = res[0].data || [], st = res[1].data || [];
+      function sum(re){ return st.filter(function(x){ return re.test(x.event); }).reduce(function(a, x){ return a + Number(x.n||0); }, 0); }
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('New inquiries', String(all.filter(function(x){ return x.status === 'new'; }).length)),
+        stat('All inquiries', String(all.length)),
+        stat('Page visits (30 days)', String(sum(/^view$/))),
+        stat('Press-kit downloads (30 days)', String(sum(/^dl_/))),
+        stat('Newsletter clicks (30 days)', String(sum(/^substack_click$/))),
+        stat('App clicks (30 days)', String(sum(/^app_click$/)))));
+      var types = Array.from(new Set(all.map(function(x){ return x.inquiry_type; }))).sort();
+      var ss = h('select', {'aria-label':'Status', onchange:function(){ mf.status = ss.value; draw(); }},
+        [['open','Open (not finished)'],['','All']].concat(MSTAT).map(function(o){ return h('option', {value:o[0], selected: mf.status === o[0], text:o[1]}); }));
+      var ts = h('select', {'aria-label':'Inquiry type', onchange:function(){ mf.type = ts.value; draw(); }},
+        [h('option', {value:'', text:'All types'})].concat(types.map(function(t){ return h('option', {value:t, selected: mf.type === t, text:t}); })));
+      var q = h('input', {type:'search', 'aria-label':'Search name, email or organization', placeholder:'Search name, email or organization', value: mf.q,
+        style:'flex:1;min-width:200px;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--border-strong,rgba(43,168,255,.38));border-radius:var(--radius-md,10px);background:var(--bg-entry,#0B1A2B);color:var(--text-heading,#EAF4FF);',
+        oninput:function(){ mf.q = q.value; draw(); }});
+      var exp = h('button', {class:'btn btn-secondary', type:'button', text:'Export CSV', onclick:function(){ exportCsv(rows()); }});
+      var list = h('div', {class:'lh-list'});
+      body.appendChild(h('div', {class:'lh-filters'}, ss, ts, q, exp));
+      body.appendChild(list);
+      function rows(){
+        var t = mf.q.trim().toLowerCase();
+        return all.filter(function(x){
+          if (mf.status === 'open' && /^(completed|declined|archived)$/.test(x.status)) return false;
+          if (mf.status && mf.status !== 'open' && x.status !== mf.status) return false;
+          if (mf.type && x.inquiry_type !== mf.type) return false;
+          if (t && [x.name, x.email, x.organization].join(' ').toLowerCase().indexOf(t) < 0) return false;
+          return true;
+        });
+      }
+      function draw(){
+        clear(list);
+        var r = rows();
+        if (!r.length){ list.appendChild(empty(all.length ? 'Nothing here with these filters.' : 'No media inquiries yet. When someone uses the form on acrossthetable.biz/media, it shows up here.')); return; }
+        r.forEach(function(x){ list.appendChild(mediaCard(x)); });
+      }
+      draw();
+    }).catch(function(e){
+      if (e && /media_inquiries|42P01|PGRST20[25]|does not exist|schema cache/i.test((e.message||'') + ' ' + (e.code||''))){
+        clear(body);
+        body.appendChild(empty('Media inquiries aren’t switched on yet. Run the one-time setup file (_media/supabase-media.sql) in your Hub’s Supabase SQL editor, then press Refresh.'));
+        return;
+      }
+      fail(body, e);
+    });
+  }
+  function mediaCard(x){
+    var notes = h('textarea', {'aria-label':'Private notes', placeholder:'Private notes (only owners see these)'}); notes.value = x.notes || '';
+    var sel = h('select', {'aria-label':'Status'}, MSTAT.map(function(o){ return h('option', {value:o[0], selected: x.status === o[0], text:o[1]}); }));
+    sel.style.width = 'auto';
+    var msg = h('div', {class:'msg'});
+    var subj = 'Re: your ' + x.inquiry_type.toLowerCase() + ' request — Connie Ramirez, Across the Table';
+    var bits = [
+      x.phone ? 'Phone ' + x.phone : null,
+      x.preferred_format ? 'Format: ' + x.preferred_format : null,
+      x.preferred_date ? 'Preferred date: ' + fmtDate(x.preferred_date + 'T12:00:00') : null,
+      x.deadline ? 'Respond by: ' + fmtDate(x.deadline + 'T12:00:00') : null
+    ].filter(Boolean);
+    var el = h('div', {class:'lh-card lh-tk'},
+      h('div', {class:'meta'}, h('span', {class:'lh-pill ' + (x.status === 'new' ? 'open' : /completed|scheduled|responded/.test(x.status) ? 'answered' : 'closed'), text: mlabel(x.status)}),
+        h('span', {text:x.inquiry_type}), h('span', {text:'· ' + x.ref}), h('span', {text:'· ' + fmtWhen(x.created_at)}),
+        x.deadline ? h('span', {class:'lh-pill high', text:'Deadline ' + fmtDate(x.deadline + 'T12:00:00')}) : null),
+      h('h3', {text: x.topic}),
+      h('div', {class:'meta'}, h('span', {text: x.name + ' · ' + x.organization + ' · ' + x.email}),
+        x.website && /^https?:\/\//i.test(x.website) ? h('a', {href:x.website, target:'_blank', rel:'noopener noreferrer', text:'Website'}) : null),
+      bits.length ? h('div', {class:'meta'}, h('span', {text: bits.join(' · ')})) : null,
+      h('p', {class:'body', text: x.message}),
+      notes,
+      h('div', {class:'row'}, sel,
+        h('button', {class:'btn btn-primary', type:'button', text:'Save', onclick:function(){
+          setMsg(msg, 'Saving…');
+          sb.from('media_inquiries').update({ status: sel.value, notes: notes.value.trim() || null }).eq('id', x.id).select().single().then(function(r){
+            if (r.error){ setMsg(msg, 'Didn’t save: ' + r.error.message, 'err'); return; }
+            Object.assign(x, r.data); setMsg(msg, 'Saved.', 'ok');
+          });
+        }}),
+        h('a', {class:'btn btn-secondary', href:'mailto:' + encodeURIComponent(x.email) + '?subject=' + encodeURIComponent(subj), text:'Reply by email'})),
+      msg);
+    return el;
+  }
+  function exportCsv(rows){
+    var cols = ['ref','created_at','status','inquiry_type','name','email','organization','topic','phone','website','preferred_date','preferred_format','deadline','message','notes'];
+    function q(v){ v = v == null ? '' : String(v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; }
+    var csv = cols.join(',') + '\r\n' + rows.map(function(r){ return cols.map(function(c){ return q(r[c]); }).join(','); }).join('\r\n');
+    var a = h('a', {href: URL.createObjectURL(new Blob([csv], {type:'text/csv'})), download:'media-inquiries-' + new Date().toISOString().slice(0,10) + '.csv'});
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
 
   /* ===== OWNER: Payments & Stan Store ===== */
