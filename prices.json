@@ -385,16 +385,7 @@
         "onetime": "https://stan.store/AcrossTheTable/p/launchledger--startup-budget--task-manager",
         "annual": "https://stan.store/AcrossTheTable/p/sartwise-startup-budgettask-annual-subscription"
       },
-      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK",
-      "photos": [
-        "flyers/startwise-photo0-1792256438558.jpg",
-        "flyers/startwise-photo1-1792256440124.jpg",
-        "flyers/startwise-photo2-1792256441441.jpg",
-        "flyers/startwise-photo3-1792256442713.jpg",
-        "flyers/startwise-photo4-1792256443911.jpg",
-        "flyers/startwise-photo5-1792256445116.jpg"
-      ],
-      "flyer": "flyers/startwise-flyer-1792256474068.jpg"
+      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK"
     },
     "leadmatch": {
       "name": "LeadMatch",
@@ -618,18 +609,17 @@
         "annual": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience",
         "onetime": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
       },
-      "flyer": "flyers/tabletap-flyer-1792255669331.jpg",
       "photos": [
-        "flyers/tabletap-photo0-1792256556762.jpg",
-        "flyers/tabletap-photo1-1792256557991.jpg",
-        "flyers/tabletap-photo2-1792256559226.jpg",
-        "flyers/tabletap-photo3-1792256560501.jpg",
-        "flyers/tabletap-photo4-1792256561658.jpg",
-        "flyers/tabletap-photo5-1792256562883.jpg",
-        "flyers/tabletap-photo6-1792256564157.jpg",
-        "flyers/tabletap-photo7-1792256565277.jpg",
-        "flyers/tabletap-photo8-1792256566504.jpg",
-        "flyers/tabletap-photo9-1792256567735.jpg"
+        "flyers/tabletap-photo0-1792256631721.jpg",
+        "flyers/tabletap-photo1-1792256633612.jpg",
+        "flyers/tabletap-photo2-1792256635420.jpg",
+        "flyers/tabletap-photo3-1792256636838.jpg",
+        "flyers/tabletap-photo4-1792256638321.jpg",
+        "flyers/tabletap-photo5-1792256639583.jpg",
+        "flyers/tabletap-photo6-1792256640788.jpg",
+        "flyers/tabletap-photo7-1792256642086.jpg",
+        "flyers/tabletap-photo8-1792256643452.jpg",
+        "flyers/tabletap-photo9-1792256645189.jpg"
       ]
     },
     "sos-sign-os": {
