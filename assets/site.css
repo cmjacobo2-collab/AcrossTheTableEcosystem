@@ -2640,6 +2640,85 @@ a[data-goto]{cursor:pointer;}
 .fm-msg.ok{color:var(--success);} .fm-msg.err{color:var(--danger-text);} .fm-msg.busy{color:var(--accent-bright);}
 .fm-tile input[type=file]{display:none;}
 
+/* ================= Simplified homepage (Oct 2026) ================= */
+.nav a.nav-hub{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;}
+#view-home .hero .mark,#view-home .hero .diag,#view-home .hero .hero-status{display:none;}
+#view-home .hero h1 .hero-hl{color:var(--accent);}
+.hero-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin-top:34px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--text-muted);}
+.hero-trust b{color:var(--teal);font-weight:500;}
+#system .sys-hero{display:none;}
+#system .section-head{min-height:0;margin-bottom:28px;}
+#system .stagerail{gap:10px;}
+#system .stage{padding:14px 16px;}
+#system .stage .stage-n{display:none;}
+#system .stage .stage-q{font-size:13px;}
+#system #mapcount{visibility:hidden;}
+#apps .app.is-dim,#apps .app.is-later{display:none;}
+#apps .app .app-tags,#apps .app .app-tag-line{display:none;}
+#apps .app > p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:0 0 auto;max-height:4.9em;}
+#apps .app .app-foot{justify-content:flex-start;margin-top:auto;}
+#apps .app{display:flex;flex-direction:column;}
+#apps .app > p{margin-bottom:20px;}
+@media (min-width:981px){ #apps{grid-template-columns:repeat(3,1fr);} }
+.stage-none{display:none;margin:4px 0 0;padding:18px 20px;border:1px dashed var(--border-strong);border-radius:14px;color:var(--text-muted);}
+.stage-none.on{display:block;}
+.soon-row{margin-top:30px;padding:18px 20px;border:1px dashed var(--border-strong);border-radius:14px;
+  display:flex;align-items:center;gap:14px 22px;flex-wrap:wrap;}
+.soon-row[hidden]{display:none;}
+.soon-row .soon-t{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
+.soon-row ul{display:flex;flex-wrap:wrap;gap:10px 18px;list-style:none;margin:0;padding:0;}
+.soon-row a{display:flex;align-items:center;gap:9px;color:var(--text-body);font-size:14.5px;font-weight:600;text-decoration:none;}
+.soon-row a:hover{color:var(--text-heading);}
+.soon-row img{width:28px;height:28px;border-radius:8px;object-fit:cover;}
+.hm-builds{background:var(--bg-panel);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);}
+.hm-split{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+.hm-split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;}
+.hm-lead{margin-top:12px;font-size:17px;color:var(--text-muted);max-width:520px;}
+.hm-btn{margin-top:26px;}
+.hm-mini{display:grid;gap:14px;}
+.hm-mini a{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:14px;text-decoration:none;color:inherit;transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.hm-mini a:hover{border-color:var(--warning);transform:translateY(-2px);}
+.hm-mini img{width:48px;height:48px;border-radius:11px;object-fit:cover;flex:none;}
+.hm-mini b{display:block;font-family:var(--display);font-size:17px;color:var(--text-heading);}
+.hm-mini small{display:block;font-size:14px;color:var(--text-muted);margin-top:2px;}
+.hm-mini i{margin-left:auto;font-style:normal;color:var(--warning);}
+.hm-three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.hm-three-5{grid-template-columns:repeat(5,1fr);margin-top:36px;position:relative;}
+.hm-card{display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:16px;text-decoration:none;color:inherit;transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.hm-card:hover{border-color:var(--border-strong);transform:translateY(-2px);}
+.hm-card h3{font-size:21px;color:var(--text-heading);}
+.hm-card p{font-size:15px;color:var(--text-muted);flex:1;margin:0;}
+.hm-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);}
+.hm-go{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;font-size:14.5px;margin-top:4px;}
+.hm-closesec{padding-top:40px;}
+.hm-close{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding:48px;border-radius:20px;
+  background:linear-gradient(140deg,#0F2440,#0B1A2B);border:1px solid var(--border-strong);}
+.hm-close blockquote{margin:16px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(23px,2.6vw,31px);line-height:1.22;color:var(--text-heading);}
+.hm-close .voice-attrib{margin-top:24px;}
+.hm-ways{display:grid;gap:12px;align-content:center;}
+.hm-way{display:block;padding:14px 16px;border:1px solid var(--border-default);border-radius:12px;background:rgba(7,17,31,.5);text-decoration:none;color:inherit;}
+.hm-way:hover{border-color:var(--border-strong);}
+.hm-way b{display:block;font-family:var(--display);color:var(--text-heading);}
+.hm-way span{font-size:14px;color:var(--text-muted);}
+.hm-contact{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
+.hm-more{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14.5px;color:var(--accent);margin-top:2px;}
+.hm-view .lp-hero h1{font-size:clamp(29px,4.6vw,46px);font-weight:800;line-height:1.08;}
+@media (max-width:1100px){ .hm-three-5{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:900px){
+  .hm-split,.hm-close{grid-template-columns:1fr;gap:30px;}
+  .hm-three,.hm-three-5{grid-template-columns:1fr 1fr;}
+  .hm-close{padding:28px;}
+}
+@media (max-width:640px){
+  .hm-three,.hm-three-5{grid-template-columns:1fr;}
+  .hero-trust{flex-direction:column;align-items:center;gap:8px;}
+  #system .stagerail{display:flex;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none;}
+  #system .stage{flex:0 0 auto;min-width:150px;}
+}
+
 
 /* ---- SOSIGN (sign companies) ---- */
 .sosign{border-top:1px solid var(--border-subtle)}
