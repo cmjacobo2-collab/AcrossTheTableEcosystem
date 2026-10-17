@@ -281,7 +281,9 @@
       list.forEach(function (p, k) {
         var a = el('a', 'gal-slide'); a.href = abs(p); a.target = '_blank'; a.rel = 'noopener';
         a.setAttribute('aria-label', 'Open ' + name + ' photo ' + (k + 1) + ' full size');
-        var img = el('img'); img.alt = name + ' photo ' + (k + 1); img.decoding = 'async'; img.loading = 'lazy';
+        /* No lazy loading: the photo section stays hidden until a photo loads, and a lazy photo
+           inside a hidden section never starts loading, so the carousel would never appear. */
+        var img = el('img'); img.alt = name + ' photo ' + (k + 1); img.decoding = 'async';
         img.onload = function () { if (!hasPhotos) { hasPhotos = true; show(); } sync(); };
         img.onerror = function () { if (a.parentNode) a.parentNode.removeChild(a); if (!slides().length) { hasPhotos = false; show(); } sync(); };
         img.src = abs(p); a.appendChild(img); track.appendChild(a);
