@@ -1,0 +1,56 @@
+# ============================================================
+#  Keep the app pages up to date
+#
+#  Every app has its own page, like acrossthetable.biz/startwise/.
+#  Their words and layout come from the app pages inside
+#  index.html, so whenever a new index.html (or prices.json) is
+#  uploaded, this rebuilds them by itself. Nothing to do by hand.
+#
+#  It never changes index.html, so "Restore previous website
+#  version" keeps working exactly as before.
+#
+#  To run it on demand: GitHub -> Actions -> "Rebuild app pages"
+#  -> Run workflow -> Run workflow
+# ============================================================
+
+name: Rebuild app pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - prices.json
+      - _apps/**
+      - legal/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-app-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the app pages
+        run: python3 _apps/build.py
+
+      - name: Save them if anything changed
+        run: |
+          set -euo pipefail
+          git config user.name  "Across the Table site"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A -- assets sitemap.xml $(python3 -c "import json;print(' '.join(s + '/' for s in json.load(open('assets/app-pages.json'))))")
+          if git diff --cached --quiet; then
+            echo "App pages already up to date."
+          else
+            git commit -m "Rebuild app pages"
+            git pull --rebase origin main
+            git push
+          fi
