@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_media/
+Disallow: /_legal/
+
+Sitemap: https://acrossthetable.biz/sitemap.xml

@@ -1,0 +1,102 @@
+{
+  "_howto": "Everything on acrossthetable.biz/media comes from this file. Edit the text here, save, and the page updates. Set \"show\": false to hide an item without deleting it. Only add media appearances that really happened, with a working link.",
+
+  "founder": {
+    "name": "Connie Ramirez",
+    "credentials": "MBA",
+    "title": "Founder & CEO",
+    "subtitle": "Business Strategy · Entrepreneurship · Technology",
+    "location": "Phoenix, Arizona",
+    "photo": "connie-ramirez.jpg",
+    "photo_alt": "Connie Ramirez, MBA, founder and CEO of Across the Table, standing with arms crossed against a navy background",
+    "intro": "Connie Ramirez is a Phoenix-based entrepreneur and business technology professional building an interconnected ecosystem of business applications designed to help entrepreneurs and small-business owners move from ideas to execution, leadership, and sustainable growth.",
+    "bio_short": "Connie Ramirez is the founder of Across the Table, a Phoenix-based business technology and education company focused on helping entrepreneurs and small-business owners build stronger, more sustainable businesses. She holds a B.S. in Finance from Arizona State University and an MBA from the University of Phoenix, and brings approximately 20 years of experience in information technology, systems analysis, application management, and business operations.",
+    "bio_full": [
+      "Connie Ramirez is the founder of Across the Table, a Phoenix-based business technology and education company focused on helping entrepreneurs and small-business owners build stronger, more sustainable businesses.",
+      "She holds a Bachelor of Science in Finance from Arizona State University and an MBA from the University of Phoenix. With approximately 20 years of experience in information technology, systems analysis, application management, and business operations, Connie combines financial knowledge, strategic thinking, and technology expertise.",
+      "As a solo founder, she is developing an interconnected ecosystem of business applications and educational frameworks supporting entrepreneurs from business concept through execution, leadership, marketing, operations, and growth.",
+      "Her mission is to make business strategy, practical education, and technology more accessible to entrepreneurs and small-business owners."
+    ],
+    "education": [
+      "B.S. in Finance, Arizona State University",
+      "MBA, University of Phoenix"
+    ]
+  },
+
+  "company": {
+    "name": "Across the Table",
+    "legal_name": "Bold and Beautiful Beauties d/b/a Across the Table",
+    "headquarters": "Phoenix, Arizona",
+    "website": "https://acrossthetable.biz",
+    "description": "Across the Table is a business technology and education company developing an integrated ecosystem of applications, frameworks, and resources to help entrepreneurs and small-business owners start, manage, and grow their businesses.",
+    "vision": "Its vision is to connect business planning, strategic leadership, execution, marketing, customer engagement, and business intelligence within one accessible ecosystem.",
+    "featured_apps": [
+      { "slug": "entrepreneur-blueprint", "line": "Business development and validation", "show": true },
+      { "slug": "ceo-mindset", "line": "Executive thinking and strategic leadership", "show": true },
+      { "slug": "startwise", "line": "Business execution and operational planning", "show": true },
+      { "slug": "tabletap", "line": "Enhanced restaurant menus and customer intelligence", "show": true },
+      { "slug": "refer-and-earn", "line": "Referral marketing and business growth", "show": true }
+    ]
+  },
+
+  "expertise": [
+    { "title": "Entrepreneurship and Startups", "text": "Moving from a business idea to a validated, structured business model.", "show": true },
+    { "title": "CEO Mindset and Strategic Leadership", "text": "Helping business owners think strategically, evaluate decisions, and lead with greater clarity.", "show": true },
+    { "title": "Artificial Intelligence for Small Businesses", "text": "Practical AI applications, opportunities, limitations, and responsible adoption.", "show": true },
+    { "title": "Business Technology and SaaS", "text": "Developing technology solutions that address operational challenges for entrepreneurs and businesses.", "show": true },
+    { "title": "Marketing and Business Growth", "text": "Customer acquisition, referral strategies, execution, and growth planning.", "show": true },
+    { "title": "Restaurant Technology", "text": "Digital menus, customer engagement, guest experience, and restaurant intelligence.", "show": true },
+    { "title": "Solo Entrepreneurship", "text": "Building a technology business independently while balancing multiple responsibilities.", "show": true }
+  ],
+
+  "interview_topics": [
+    { "title": "From Business Idea to Business Ecosystem: Building Across the Table", "show": true },
+    { "title": "Why Small-Business Owners Need to Think Like CEOs", "show": true },
+    { "title": "How AI Can Help Small Businesses Compete with Larger Companies", "show": true },
+    { "title": "Building SaaS Applications as a Solo Founder", "show": true },
+    { "title": "Why Business Strategy Should Come Before Technology", "show": true },
+    { "title": "The Future of AI-Powered Tools for Entrepreneurs", "show": true },
+    { "title": "How Restaurant Technology Can Improve the Customer Experience", "show": true }
+  ],
+
+  "_appearances_example": {
+    "type": "Podcast interview",
+    "outlet": "Name of the podcast or publication",
+    "title": "Title of the episode or article",
+    "date": "2026-11-05",
+    "description": "One or two sentences about what you discussed.",
+    "url": "https://link-to-the-episode-or-article",
+    "image": "",
+    "topic": "CEO Mindset",
+    "show": true
+  },
+  "appearances": [],
+
+  "resources": [
+    { "key": "kit", "name": "Founder media profile", "detail": "One page · PDF", "file": "connie-ramirez-media-profile.pdf", "show": true },
+    { "key": "headshot", "name": "Founder photo", "detail": "JPG · approved for editorial use", "file": "connie-ramirez.jpg", "show": true },
+    { "key": "logo", "name": "Across the Table logo", "detail": "Transparent PNG", "file": "across-the-table-logo.png", "show": true },
+    { "key": "factsheet", "name": "Company fact sheet", "detail": "One page · PDF", "file": "across-the-table-fact-sheet.pdf", "show": true },
+    { "key": "bio", "name": "Founder biography", "detail": "Short and full versions · text", "file": "connie-ramirez-bio.txt", "show": true }
+  ],
+  "usage_statement": "Media resources are provided for legitimate editorial coverage of Across the Table and its founder. Materials may not be altered to imply an endorsement or affiliation that does not exist.",
+
+  "newsletter": {
+    "name": "The Scaling Edge",
+    "description": "The Scaling Edge explores business strategy, leadership, technology, AI applications, and practical approaches that entrepreneurs and small-business owners can use to strengthen their businesses.",
+    "url": "https://substack.com/@acrossthetable602",
+    "featured_title": "",
+    "featured_url": "",
+    "show": true
+  },
+
+  "contact": {
+    "email": "contact@acrossthetable.biz",
+    "links": [
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/connie-jacobo-ramirez/" },
+      { "label": "YouTube", "url": "https://www.youtube.com/@AcrossTheTableConnie" },
+      { "label": "Instagram", "url": "https://www.instagram.com/acrossthetableconnie/" },
+      { "label": "Substack", "url": "https://substack.com/@acrossthetable602" }
+    ]
+  }
+}
