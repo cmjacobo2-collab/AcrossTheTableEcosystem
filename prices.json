@@ -385,7 +385,16 @@
         "onetime": "https://stan.store/AcrossTheTable/p/launchledger--startup-budget--task-manager",
         "annual": "https://stan.store/AcrossTheTable/p/sartwise-startup-budgettask-annual-subscription"
       },
-      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK"
+      "video": "https://youtube.com/playlist?list=PLeTdJS8svK777qtK5aoyHoL69U9R-bhcK",
+      "flyer": "flyers/startwise-flyer-1792256474068.jpg",
+      "photos": [
+        "flyers/startwise-photo0-1792256438558.jpg",
+        "flyers/startwise-photo1-1792256440124.jpg",
+        "flyers/startwise-photo2-1792256441441.jpg",
+        "flyers/startwise-photo3-1792256442713.jpg",
+        "flyers/startwise-photo4-1792256443911.jpg",
+        "flyers/startwise-photo5-1792256445116.jpg"
+      ]
     },
     "leadmatch": {
       "name": "LeadMatch",
@@ -620,7 +629,8 @@
         "flyers/tabletap-photo7-1792256642086.jpg",
         "flyers/tabletap-photo8-1792256643452.jpg",
         "flyers/tabletap-photo9-1792256645189.jpg"
-      ]
+      ],
+      "flyer": "flyers/tabletap-flyer-1792255669331.jpg"
     },
     "sos-sign-os": {
       "name": "SOS Sign Operating System",

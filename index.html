@@ -6815,11 +6815,29 @@ window.SOCIAL_LINKS = {
   (function(){
     if(location.protocol === 'file:') return;          /* not readable locally */
     var url = 'prices.json?v=' + Date.now();           /* never a stale copy */
+    /* Right after a Save, the public site can hand back the older file for a
+       minute or two. When this browser is connected to GitHub, read the file
+       straight from there instead, so the Hub always starts from the newest. */
+    function fromGitHub(){
+      var c = null;
+      try{ c = JSON.parse(localStorage.getItem('att.gh.connect') || 'null'); }catch(e){}
+      if(!c || !c.repo || !c.token) return Promise.reject();
+      return fetch('https://api.github.com/repos/' + c.repo + '/contents/prices.json?t=' + Date.now(), {
+        cache:'no-store',
+        headers:{ 'Authorization':'Bearer ' + c.token, 'Accept':'application/vnd.github.raw+json',
+                  'X-GitHub-Api-Version':'2022-11-28' }
+      }).then(function(r){ if(!r.ok) throw 0; return r.json(); });
+    }
     try{
-      fetch(url, { cache:'no-store' })
-        .then(function(r){ return r.ok ? r.json() : null; })
+      fromGitHub()
+        .catch(function(){
+          return fetch(url, { cache:'no-store' }).then(function(r){ return r.ok ? r.json() : null; });
+        })
         .then(function(data){
           if(!data) return;
+          /* the starting point: Save compares against it so it only writes
+             what was actually changed on this page */
+          if(!window.__PRICES_BASE) window.__PRICES_BASE = JSON.stringify(data);
           /* a draft being edited in this browser stays on top */
           var draft = null;
           try{ draft = JSON.parse(localStorage.getItem('att.prices.draft') || 'null'); }catch(e){}
@@ -7172,7 +7190,7 @@ window.SOCIAL_LINKS = {
     }
     function draftWrite(){
       try{ localStorage.setItem(PKEY, JSON.stringify({
-        saved: Date.now(), prices: window.PRICES, storeLinks: window.STORE_LINKS,
+        saved: Date.now(), base: window.__PRICES_BASE || null, prices: window.PRICES, storeLinks: window.STORE_LINKS,
         delivery: window.DELIVERY, salesLog: window.SALES_LOG,
         tickets: window.TICKETS, intake: window.TICKET_INTAKE
       })); }catch(e){}
@@ -7212,6 +7230,7 @@ window.SOCIAL_LINKS = {
       var dr = draftRead();
       if(!dr) return;
       window.PRICES = dr.prices;
+      window.__PRICES_BASE = dr.base || null;
       if(dr.storeLinks) window.STORE_LINKS = dr.storeLinks;
       if(dr.delivery)   window.DELIVERY    = dr.delivery;
       if(dr.salesLog)   window.SALES_LOG   = dr.salesLog;
@@ -7227,6 +7246,8 @@ window.SOCIAL_LINKS = {
     /* the file loader calls this after it swaps the prices in */
     window.__refreshHubPrices = function(){
       try{ tableFromPrices(); }catch(e){}
+      try{ if(window.__flyerMgrRedraw) window.__flyerMgrRedraw(); }catch(e){}
+      try{ Object.keys(window.PRICES || {}).forEach(function(k){ if(window.__renderFlyer) window.__renderFlyer(k); }); }catch(e){}
       try{ if(window.__syncHubStatuses) window.__syncHubStatuses(); }catch(e){}
       try{ if(window.__drawPlanLinks) window.__drawPlanLinks(); }catch(e){}
       try{ countProducts(); }catch(e){}
@@ -7439,6 +7460,23 @@ window.SOCIAL_LINKS = {
             return r.json();
           })
           .then(function(cur){
+            /* Merge with what is on GitHub right now, so a Save only writes
+               what changed on this page and never erases pictures or prices
+               saved a moment ago (or from another tab or computer). */
+            var theirs = null;
+            try{
+              if(cur && cur.content){
+                var bin = atob(cur.content.replace(/\s/g, ''));
+                var bytes = new Uint8Array(bin.length);
+                for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+                theirs = JSON.parse(new TextDecoder().decode(bytes));
+              }
+            }catch(e){ theirs = null; }
+            if(theirs){
+              var mg = mergeSaved(JSON.parse(body), window.__PRICES_BASE ? JSON.parse(window.__PRICES_BASE) : null, theirs);
+              body = JSON.stringify(mg.result, null, 2);
+              ghSave.__kept = mg.kept;
+            } else ghSave.__kept = 0;
             var payload = { message:'Update prices', content:b64utf8(body) };
             if(cur && cur.sha) payload.sha = cur.sha;
             return fetch(ghUrl(c.repo), {
@@ -7456,9 +7494,13 @@ window.SOCIAL_LINKS = {
               ghState('Something else changed the file just now. Click Save again.', 'err'); return;
             }
             if(!r.ok){ ghState('GitHub replied with an error (' + r.status + ').', 'err'); return; }
+            var kept = ghSave.__kept || 0;
+            window.__PRICES_BASE = body;
             draftClear();
             draftBanner(false);
-            ghState('Saved. Live on your site in about a minute.', 'ok');
+            if(kept){ try{ window.__applyPrices(JSON.parse(body)); }catch(e){} }
+            ghState('Saved. Live on your site in about a minute.' +
+              (kept ? ' Earlier saved changes were kept too.' : ''), 'ok');
             priceMsg('');
           })
           .catch(function(){
@@ -7501,6 +7543,53 @@ window.SOCIAL_LINKS = {
     /* Everything the site reads from the saved file: the price list, and the
        store link for each product. Kept in one envelope so a single upload
        carries both. */
+    /* Three-way merge: mine = this page, base = what this page started from,
+       theirs = what is on GitHub now. A field this page did not change takes
+       GitHub's value; a field this page changed takes this page's value. */
+    function mergeSaved(mine, base, theirs){
+      function env(o){ return (o && o.prices && typeof o.prices === 'object') ? o : { prices:o || {} }; }
+      mine = env(mine); theirs = env(theirs); base = base ? env(base) : null;
+      function same(a,b){ return JSON.stringify(a) === JSON.stringify(b); }
+      var kept = 0;
+      function pick(m, b, t, hasBase){
+        if(hasBase) { if(same(m,b)){ if(!same(t,m)) kept++; return t; } return m; }
+        if(m === undefined && t !== undefined){ kept++; return t; }   /* no starting point: never drop what GitHub has */
+        return m;
+      }
+      function isObj(x){ return x && typeof x === 'object' && !Array.isArray(x); }
+      function mergeMap(M, B, T){
+        M = M || {}; T = T || {}; var hasBase = !!B; B = B || {};
+        var out = {}, keys = Object.keys(T);
+        Object.keys(M).forEach(function(k){ if(keys.indexOf(k) < 0) keys.push(k); });
+        keys.forEach(function(k){
+          var m = M[k], b = B[k], t = T[k], v;
+          if(m === undefined){ v = (hasBase && b !== undefined) ? undefined : t; if(v !== undefined && hasBase) kept++; }
+          else if(t === undefined){ v = (hasBase && b !== undefined && same(m,b)) ? undefined : m; }
+          else if(isObj(m) && isObj(t)){
+            var bo = isObj(b) ? b : {}, fo = {}, fk = Object.keys(t);
+            Object.keys(m).forEach(function(f){ if(fk.indexOf(f) < 0) fk.push(f); });
+            fk.forEach(function(f){
+              var r = pick(m[f], hasBase ? bo[f] : undefined, t[f], hasBase && isObj(b));
+              if(r !== undefined) fo[f] = r;
+            });
+            v = fo;
+          }
+          else v = pick(m, b, t, hasBase);
+          if(v !== undefined) out[k] = v;
+        });
+        return out;
+      }
+      var res = {};
+      res.prices     = mergeMap(mine.prices, base && base.prices, theirs.prices);
+      res.storeLinks = mergeMap(mine.storeLinks, base && base.storeLinks, theirs.storeLinks);
+      ['delivery','salesLog','tickets','intake'].forEach(function(k){
+        var v = pick(mine[k], base ? base[k] : undefined, theirs[k], !!base);
+        if(v !== undefined) res[k] = v;
+      });
+      return { result:res, kept:kept };
+    }
+    window.__mergeSaved = mergeSaved;
+
     function savedPayload(){
       return JSON.stringify({
         prices:     window.PRICES,
@@ -8299,6 +8388,9 @@ window.__initFlyerMgr = function(hub, H){
   box.appendChild(lead);
   var grid = el('div', 'fm-grid'); box.appendChild(grid);
   pane.appendChild(box);
+  window.__flyerMgrRedraw = function(){
+    Array.prototype.forEach.call(grid.querySelectorAll('[data-fm]'), function(t){ try{ drawTile(t); }catch(e){} });
+  };
 
   function setMsg(t, k, cls){ var m = t.querySelector('.fm-msg'); m.textContent = k || ''; m.className = 'fm-msg' + (cls ? ' ' + cls : ''); }
   function thumb(k, p, alt){
