@@ -2477,27 +2477,35 @@ a[data-goto]{cursor:pointer;}
   background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 35%,transparent);}
 .lx-plan b{font-size:15px;color:var(--text-heading);}
 
-/* The Scaling Edge */
-.lx-env{position:absolute;right:6%;bottom:10px;width:46%;height:120px;border-radius:12px;transform:rotate(7deg);z-index:0;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--c) 70%,#07111F),color-mix(in srgb,var(--c) 30%,#07111F));box-shadow:0 20px 40px rgba(0,0,0,.5);}
-.lx-env::before{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(155deg,transparent 49%,rgba(0,0,0,.25) 50%,transparent 51%),linear-gradient(25deg,transparent 49%,rgba(0,0,0,.25) 50%,transparent 51%);}
-.lx-mail{position:absolute;left:4%;top:16px;width:78%;z-index:1;padding:16px 20px 18px;border-radius:14px;background:#F4F7FA;color:#1D2733;
-  box-shadow:0 24px 54px rgba(0,0,0,.55);transform:rotate(-2deg);}
-.lx-mail-h{display:flex;align-items:center;gap:5px;padding-bottom:10px;border-bottom:1px solid #D9E0E8;}
-.lx-dot{width:8px;height:8px;border-radius:50%;background:#D9E0E8;}
-.lx-mail-h em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7A8796;}
-.lx-mail-from{display:flex;align-items:center;gap:10px;margin-top:12px;}
-.lx-av{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;background:#083A66;box-shadow:0 0 0 2px var(--c);}
-.lx-mail-from b{display:block;font-size:14px;color:#083A66;}
-.lx-mail-from i{display:block;font-style:normal;font-size:11.5px;color:#5B6878;}
-.lx-mail-t{margin-top:12px;font-family:Cinzel,var(--display);font-weight:700;font-size:17px;line-height:1.25;color:#083A66;}
-.lx-lines{display:flex;flex-direction:column;gap:7px;margin-top:12px;}
-.lx-lines em{display:block;height:7px;border-radius:4px;background:#DCE3EA;}
-.lx-lines em.s{width:72%;} .lx-lines em.s2{width:48%;}
-.lx-mail-tags{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
-.lx-mail-tags span{font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;color:#7A3A1D;background:color-mix(in srgb,var(--c) 22%,#fff);}
-.lx:hover .lx-mail{transform:rotate(-1deg) translateY(-6px);}
-.lx:hover .lx-env{transform:rotate(9deg) translate(8px,4px);}
+/* The Scaling Edge — a generic issue cover in the newsletter's own look */
+.se-back{position:absolute;left:12%;top:4px;width:80%;aspect-ratio:16/9.6;border-radius:12px;transform:rotate(5deg);
+  background:linear-gradient(160deg,#2A1838,#0B1A2E);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 44px rgba(0,0,0,.5);}
+.se-cover{position:absolute;left:3%;top:22px;width:88%;aspect-ratio:16/9.6;border-radius:12px;overflow:hidden;transform:rotate(-2deg);
+  font-family:var(--display);color:#fff;
+  background:linear-gradient(180deg,#1A1F4A 0%,#5B2A5E 38%,#C2533F 66%,#F2A04B 82%,#2A1A2A 100%);
+  box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.1);}
+.se-sky{position:absolute;inset:0;width:100%;height:100%;}
+.se-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,30,.78) 0%,rgba(8,12,30,.35) 52%,transparent 75%),linear-gradient(0deg,rgba(5,8,18,.92) 0%,transparent 26%);}
+.se-top{position:absolute;left:5%;right:4%;top:6%;display:flex;justify-content:space-between;gap:10px;}
+.se-the{display:block;font-weight:800;font-size:clamp(9px,1.05vw,13px);letter-spacing:.06em;text-transform:uppercase;line-height:1;}
+.se-name{display:block;font-weight:900;font-size:clamp(18px,2.4vw,30px);letter-spacing:-.01em;line-height:1;text-transform:uppercase;}
+.se-name b{font-weight:900;color:#fff;}
+.se-name i{font-style:normal;background:linear-gradient(180deg,#FFE29A,#E0A03A 60%,#B9771C);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.se-path{display:block;margin-top:5px;font-family:var(--mono);font-size:clamp(6px,.62vw,8px);letter-spacing:.16em;text-transform:uppercase;color:#DCE4F0;}
+.se-path em{font-style:normal;color:#E0A03A;}
+.se-issue{flex:none;padding-left:8px;border-left:2px solid #E0A03A;display:flex;flex-direction:column;gap:1px;font-size:clamp(7px,.72vw,9.5px);line-height:1.25;color:#F1F4F8;}
+.se-issue b{font-size:clamp(9px,.95vw,12px);font-weight:800;text-transform:uppercase;}
+.se-issue small{margin-top:3px;font-size:inherit;color:#C9D3E0;}
+.se-head{position:absolute;left:5%;top:37%;width:56%;display:flex;flex-direction:column;}
+.se-head span{font-weight:800;font-size:clamp(10px,1.15vw,15px);line-height:1.15;}
+.se-head b{font-weight:900;font-size:clamp(13px,1.6vw,21px);line-height:1.1;background:linear-gradient(180deg,#FFE29A,#E0A03A);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.se-head i{display:block;width:44%;height:2px;margin:6px 0 5px;background:linear-gradient(90deg,#E0A03A,transparent);}
+.se-head small{font-family:var(--body);font-size:clamp(7px,.75vw,10px);line-height:1.35;color:#E3E9F2;}
+.se-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:4%;padding:2.6% 5%;background:rgba(4,7,16,.82);border-top:1px solid rgba(224,160,58,.35);}
+.se-bar span{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:clamp(6px,.62vw,8px);letter-spacing:.1em;text-transform:uppercase;color:#E8EDF4;white-space:nowrap;}
+.se-bar svg{width:clamp(10px,1.1vw,14px);height:clamp(10px,1.1vw,14px);color:#E0A03A;flex:none;}
+.lx:hover .se-cover{transform:rotate(-1deg) translateY(-6px);}
+.lx:hover .se-back{transform:rotate(7deg) translate(6px,2px);}
 
 /* YouTube */
 .lx-player{position:absolute;left:6%;top:20px;width:88%;z-index:1;border-radius:14px;overflow:hidden;background:rgba(7,17,31,.92);
@@ -2533,7 +2541,7 @@ a[data-goto]{cursor:pointer;}
   .lx-vis{height:auto;display:flex;flex-direction:column;gap:10px;}
   .lx-vis > *{position:relative !important;inset:auto !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;width:100% !important;transform:none !important;}
   .lx:hover .lx-vis > *{transform:none !important;}
-  .lx-coh{padding:14px 16px;} .lx-coh b{font-size:15.5px;} .lx-phone,.lx-env,.lx-bars{display:none;}
+  .lx-coh{padding:14px 16px;} .lx-coh b{font-size:15.5px;} .lx-phone,.se-back,.lx-bars{display:none;}
   .lx-score{grid-template-columns:1fr;padding:16px;} .lx-ring{display:none;}
   .lx-mail-t{font-size:15px;} .lx-lines em:nth-child(n+4){display:none;}
 }
