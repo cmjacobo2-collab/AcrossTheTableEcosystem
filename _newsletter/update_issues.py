@@ -26,7 +26,7 @@ PUB = 'https://acrossthetablebiz.substack.com'
 FEED = PUB + '/feed'
 JSON_PATH = os.path.join(ROOT, 'assets', 'newsletter', 'issues.json')
 PAGE_PATH = os.path.join(ROOT, 'newsletter', 'index.html')
-SHOW = 6                                   # how many issues the page shows
+SHOW = 9                                   # how many issues the page shows
 PHOENIX = datetime.timezone(datetime.timedelta(hours=-7))   # Arizona: no daylight saving
 IMG_OK = ('https://substackcdn.com/', 'https://substack-post-media.s3.amazonaws.com/')
 
@@ -115,6 +115,10 @@ def main():
             say('update-issues: the feed had no posts — nothing changed', 'warning')
             return
         old = json.load(open(JSON_PATH, encoding='utf-8')).get('issues') if os.path.exists(JSON_PATH) else None
+        kept = {i['url']: i['image'] for i in (old or []) if i.get('image')}
+        for i in issues:                              # a picture added by hand stays if the feed has none
+            if not i['image'] and i['url'] in kept:
+                i['image'] = kept[i['url']]
         if issues != old:
             os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
             json.dump({'source': FEED, 'issues': issues}, open(JSON_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
