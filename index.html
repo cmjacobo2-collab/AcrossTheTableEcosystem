@@ -2010,6 +2010,204 @@ a[data-goto]{cursor:pointer;}
   padding:3px 8px;flex:none;position:relative;top:-1px;
 }
 
+/* ============================================================
+   ENTREPRENEUR MINDSET — journey rail, "why it matters", and
+   workbook cards with real covers (and flyers set in the Hub).
+   Each stage carries its own colour in --app.
+   ============================================================ */
+
+/* ---- sticky journey rail ---- */
+.bpj .bp-rail{position:sticky;top:64px;z-index:5;margin-top:6px;
+  background:rgba(7,17,31,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);}
+.bp-rail-in{display:flex;align-items:center;gap:22px;padding-top:10px;padding-bottom:10px;}
+.bp-rail-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);flex:none;}
+.bp-rail-steps{position:relative;flex:1;display:flex;justify-content:space-between;gap:6px;}
+.bp-rail-line{position:absolute;left:18px;right:18px;top:17px;height:2px;background:var(--border-default);border-radius:2px;}
+.bp-rail-line > i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:2px;
+  background:linear-gradient(90deg,#27D8C2,#2BA8FF,#E8B44C,#FF8A5B,#5BD68A);transition:width .35s ease;}
+.bp-rail-step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:none;border:0;padding:0 2px;cursor:pointer;font-family:var(--body);min-width:0;}
+.bp-rail-dot{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text-muted);
+  background:var(--bg-entry);border:1.5px solid var(--border-default);
+  transition:color .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;}
+.bp-rail-name{font-size:12.5px;font-weight:600;color:var(--text-muted);white-space:nowrap;transition:color .2s ease;}
+.bp-rail-step:hover .bp-rail-dot,.bp-rail-step.is-done .bp-rail-dot{border-color:var(--app);color:var(--app);}
+.bp-rail-step.is-on .bp-rail-dot{background:var(--app);border-color:var(--app);color:#07111F;
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--app) 22%,transparent),0 0 18px color-mix(in srgb,var(--app) 60%,transparent);}
+.bp-rail-step.is-on .bp-rail-name,.bp-rail-step:hover .bp-rail-name{color:var(--text-heading);}
+
+/* ---- why the workbooks matter ---- */
+.bp-why{padding-top:44px;}
+.bp-why-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:34px;align-items:end;}
+.bp-why .section-head{margin-bottom:0;}
+.bp-why .section-head h2{font-size:clamp(24px,3.1vw,34px);line-height:1.18;}
+.bp-quote{margin:0;padding:22px 24px;border-radius:14px;position:relative;
+  background:linear-gradient(150deg,rgba(232,180,76,.13),rgba(18,36,59,.65) 62%);
+  border:1px solid rgba(232,180,76,.32);}
+.bp-quote blockquote{margin:0;font-size:15.5px;line-height:1.6;color:var(--text-heading);}
+.bp-quote figcaption{margin-top:14px;display:flex;flex-direction:column;gap:2px;}
+.bp-quote figcaption b{font-size:14px;color:#E8B44C;}
+.bp-quote figcaption span{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
+.bp-reasons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px;}
+.bp-reason{background:var(--bg-card);border:1px solid var(--border-default);border-radius:14px;padding:20px 18px;
+  box-shadow:var(--shadow-card);transition:border-color .2s ease,transform .2s ease;}
+.bp-reason:hover{border-color:rgba(232,180,76,.45);transform:translateY(-2px);}
+.bp-rn{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#E8B44C;
+  border:1px solid rgba(232,180,76,.4);border-radius:999px;padding:3px 9px;}
+.bp-reason h3{margin-top:12px;font-size:16.5px;font-weight:800;color:var(--text-heading);line-height:1.3;}
+.bp-reason p{margin-top:8px;font-size:13.8px;color:var(--text-muted);line-height:1.58;}
+.bp-how{margin-top:16px;padding:18px 20px;border-radius:14px;background:var(--bg-entry);border:1px solid var(--border-subtle);}
+.bp-how .datum{display:block;color:var(--text-muted);}
+.bp-how ol{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:how;}
+.bp-how li{counter-increment:how;position:relative;padding-left:40px;}
+.bp-how li::before{content:counter(how);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:#07111F;background:#E8B44C;}
+.bp-how li b{display:block;font-size:14.5px;color:var(--text-heading);}
+.bp-how li span{display:block;margin-top:3px;font-size:13px;color:var(--text-muted);line-height:1.5;}
+
+/* ---- stage card, reworked ---- */
+.bpj .bp-stage{padding:26px 26px 22px;
+  background:
+    radial-gradient(90% 70% at 100% 0%,color-mix(in srgb,var(--app) 9%,transparent),transparent 60%),
+    var(--bg-card);
+  border-color:color-mix(in srgb,var(--app) 22%,var(--border-default));}
+.bpj .bp-stage::after{content:"";position:absolute;left:0;top:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--app),transparent 70%);opacity:.9;border-radius:14px 14px 0 0;}
+.bp-shead{display:flex;align-items:center;gap:20px;}
+.bp-bignum{flex:none;font-family:var(--display);font-weight:800;font-size:64px;line-height:.9;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--app) 80%,transparent);
+  text-shadow:0 0 28px color-mix(in srgb,var(--app) 25%,transparent);}
+.bpj .bp-num{margin-bottom:6px;}
+.bp-num em{font-style:normal;color:var(--text-muted);margin-left:8px;padding-left:10px;border-left:1px solid var(--border-default);}
+.bpj .bp-stage h3{font-size:clamp(22px,2.6vw,28px);}
+.bpj .bp-say{margin-top:4px;}
+.bp-sgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;margin-top:16px;align-items:start;}
+.bpj .bp-stage p.bp-body{margin-top:0;max-width:none;}
+.bp-goal{display:flex;flex-direction:column;gap:10px;}
+.bpj .bp-focus{margin-top:0;}
+.bp-focus b,.bp-finish b{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:500;color:var(--app);margin-bottom:5px;}
+.bp-finish{padding:12px 15px;border-radius:10px;font-size:14px;color:var(--text-heading);line-height:1.5;
+  background:color-mix(in srgb,var(--app) 9%,transparent);border:1px solid color-mix(in srgb,var(--app) 30%,transparent);}
+
+/* ---- workbook cards ---- */
+.wb-grid{grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px;}
+.bpj #mindset-stages{padding-top:30px;}
+.wb-grid[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));}
+.wb-grid[data-count="2"] .wb{flex-direction:row;}
+.wb-grid[data-count="2"] .wb-cover{flex:0 0 40%;aspect-ratio:auto;padding:22px 0 0 20px;justify-content:flex-start;}
+.wb-grid[data-count="2"] .wb-cover img,.wb-grid[data-count="2"] .wb-gen{width:88%;}
+.wb-grid[data-count="2"] .wb-body{border-top:0;border-left:1px solid color-mix(in srgb,var(--app) 26%,transparent);padding:20px 18px;}
+.wb{display:flex;flex-direction:column;background:var(--bg-entry);border:1px solid var(--border-default);
+  border-radius:14px;overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;}
+.wb:hover{border-color:color-mix(in srgb,var(--app) 50%,transparent);transform:translateY(-3px);
+  box-shadow:0 14px 34px rgba(0,0,0,.35),0 0 28px color-mix(in srgb,var(--app) 14%,transparent);}
+.wb-cover{position:relative;aspect-ratio:4/3.1;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--app) 22%,#0B1A2B),#07111F 75%);
+  display:flex;align-items:flex-end;justify-content:center;padding:18px 18px 0;}
+.wb-cover img{display:block;width:68%;height:auto;border-radius:3px 3px 0 0;
+  box-shadow:0 -2px 0 rgba(255,255,255,.06),0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);
+  transform:translateY(6%) rotate(-2deg);transform-origin:50% 100%;transition:transform .35s ease;}
+.wb:hover .wb-cover img{transform:translateY(0) rotate(0deg) scale(1.03);}
+.wb-gen{width:68%;aspect-ratio:.72;display:flex;flex-direction:column;gap:10px;padding:16px 14px;border-radius:3px 3px 0 0;
+  transform:translateY(6%) rotate(-2deg);transform-origin:50% 100%;transition:transform .35s ease;
+  background:
+    linear-gradient(160deg,rgba(255,255,255,.07),transparent 40%),
+    radial-gradient(120% 80% at 20% 0%,#0E4C82,#083A66 55%,#05284A);
+  box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);}
+.wb:hover .wb-gen{transform:translateY(0) rotate(0deg) scale(1.03);}
+.wb-gen-k{font-family:var(--mono);font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:#E0A03A;}
+.wb-gen b{font-family:Cinzel,var(--display);font-size:17px;line-height:1.15;color:#fff;font-weight:700;margin-top:auto;}
+.wb-gen i{display:block;width:34px;height:2px;background:#E0A03A;}
+.wb-gen-l{font-family:var(--mono);font-size:7px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8%;}
+.wb-badge{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:#07111F;background:#FFD84D;border-radius:999px;padding:4px 9px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.35);}
+.wb-peek{position:absolute;top:12px;right:12px;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--body);font-size:12px;font-weight:600;color:#fff;cursor:pointer;
+  background:rgba(7,17,31,.72);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 11px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;transform:translateY(-4px);transition:opacity .2s ease,transform .2s ease;}
+.wb-peek svg{width:14px;height:14px;}
+.wb:hover .wb-peek,.wb-peek:focus-visible{opacity:1;transform:none;}
+.wb-body{display:flex;flex-direction:column;gap:7px;flex:1;padding:16px 16px 16px;border-top:1px solid color-mix(in srgb,var(--app) 26%,transparent);}
+.wb-kind{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--app);}
+.wb h4{font-size:16px;font-weight:800;color:var(--text-heading);line-height:1.3;}
+.wb p{flex:1;font-size:13.5px;color:var(--text-muted);line-height:1.55;}
+.wb .bp-acts{margin-top:6px;}
+.wb-minor{display:flex;flex-wrap:wrap;gap:8px;}
+.wb-minor > *{flex:1 1 118px;justify-content:center;white-space:nowrap;}
+.wb-minor > [hidden]{display:none;}
+.wb-flyer{display:inline-flex;align-items:center;gap:7px;font-family:var(--body);font-size:12.5px;font-weight:600;
+  padding:8px 10px;border-radius:9px;cursor:pointer;color:var(--text-heading);
+  background:rgba(255,255,255,.05);border:1px solid var(--border-default);transition:border-color .2s ease,background .2s ease;}
+.wb-flyer:hover{border-color:color-mix(in srgb,var(--app) 60%,transparent);background:color-mix(in srgb,var(--app) 12%,transparent);}
+.wb-flyer svg{width:15px;height:15px;flex:none;}
+.wb .bp-watch{font-size:12.5px;padding:8px 10px;}
+.wb .bp-watch[aria-disabled="true"]{border-color:transparent;background:rgba(255,255,255,.03);}
+
+/* ---- next-stage connector ---- */
+.bp-next{display:flex;align-items:center;gap:12px;width:100%;margin-top:20px;padding:13px 16px;text-align:left;
+  font-family:var(--body);cursor:pointer;color:var(--text-heading);
+  background:rgba(7,17,31,.45);border:1px dashed color-mix(in srgb,var(--app) 35%,var(--border-default));border-radius:12px;
+  transition:border-color .2s ease,background .2s ease;}
+.bp-next .datum{color:var(--text-muted);flex:none;}
+.bp-next b{font-size:15px;}
+.bp-next svg{width:18px;height:18px;margin-left:auto;color:var(--app);transition:transform .2s ease;}
+.bp-next:hover{border-style:solid;background:color-mix(in srgb,var(--app) 8%,transparent);}
+.bp-next:hover svg{transform:translateX(4px);}
+.bp-next-end{cursor:default;border-style:solid;}
+
+/* ---- flyer viewer ---- */
+.wb-lb{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:28px;
+  background:rgba(3,9,18,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.wb-lb[hidden]{display:none;}
+.wb-lb figure{margin:0;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.wb-lb img{max-width:min(92vw,620px);max-height:calc(100vh - 120px);border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);background:#fff;}
+.wb-lb figcaption{display:flex;gap:10px;align-items:center;}
+.wb-lb-x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:22px;line-height:1;}
+.wb-lb-x:hover{background:rgba(255,255,255,.16);}
+
+@media (max-width:1000px){
+  .wb-grid[data-count="2"]{grid-template-columns:1fr;}
+  .bp-why-top{grid-template-columns:1fr;gap:18px;}
+  .bp-reasons{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .bp-how ol{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .bp-sgrid{grid-template-columns:1fr;gap:14px;}
+}
+@media (max-width:700px){
+  .bpj .bp-rail{top:56px;}
+  .bp-rail-lbl{display:none;}
+  .bp-rail-name{font-size:10.5px;}
+  .bp-rail-dot{width:30px;height:30px;font-size:10px;}
+  .bp-rail-line{top:14px;}
+  .bp-bignum{font-size:46px;}
+  .bp-shead{gap:14px;}
+  .bp-num em{display:block;margin:4px 0 0;padding:0;border:0;}
+  .bpj .bp-stage{padding:20px 16px 16px;}
+  .bp-reasons{grid-template-columns:1fr;}
+  .bp-how ol{grid-template-columns:1fr;gap:12px;}
+  .wb-grid,.wb-grid[data-count="2"]{grid-template-columns:1fr;}
+  .wb{flex-direction:row;}
+  .wb-cover,.wb-grid[data-count="2"] .wb-cover{flex:0 0 112px;aspect-ratio:auto;padding:14px 10px 0;align-items:flex-start;justify-content:center;}
+  .wb-grid[data-count="2"] .wb-body{padding:14px;}
+  .wb-cover img,.wb-gen{width:100%;transform:none;}
+  .wb:hover .wb-cover img,.wb:hover .wb-gen{transform:none;}
+  .wb-gen{padding:10px 8px;gap:6px;}
+  .wb-gen b{font-size:11.5px;}
+  .wb-gen-k,.wb-gen-l{font-size:6px;}
+  .wb-badge{top:8px;left:8px;font-size:8px;padding:3px 7px;}
+  .wb-peek{display:none;}
+  .wb-body{border-top:0;border-left:1px solid color-mix(in srgb,var(--app) 26%,transparent);padding:14px;}
+  .wb .bp-acts{flex-direction:column;}
+  .bp-next .datum{display:none;}
+}
+@media (prefers-reduced-motion: reduce){
+  .wb,.wb-cover img,.wb-gen,.bp-rail-line > i,.bp-next svg{transition:none;}
+  .wb:hover,.wb:hover .wb-cover img,.wb:hover .wb-gen{transform:none;}
+}
+
 
 
 /* ============================================================
@@ -3112,6 +3310,14 @@ window.APP_BUTTON = {
      "store" is your main Stan Store front page. Any tool with an empty "buy"
      falls back to it, so nothing is ever a dead end.
    ============================================================================ */
+/* Workbook covers + flyers. Set them in Hub > Products & pricing >
+   "Workbook covers & flyers" and press Save; that copy (in prices.json)
+   replaces this one. */
+window.WORKBOOKS = {
+  "ceo-meeting-academy": { flyer:"flyers/wb-ceo-meeting-academy-flyer.jpg" },
+  "five-ceo-meetings":   { flyer:"flyers/wb-five-ceo-meetings-flyer.jpg" }
+};
+
 window.MINDSET = {
   store: "https://stan.store/AcrossTheTable",
 
@@ -3126,11 +3332,11 @@ window.MINDSET = {
     "setup-11-steps":            { buy:"https://stan.store/AcrossTheTable/p/get-my-start-a-business-in-11-steps-now", yt:"" },
     "operating-systems":         { buy:"https://stan.store/AcrossTheTable/p/get-my-idea-stage-4-operating-system-now", yt:"" },
 
-    /* Stage 03 — CEO Mindset
-       Both currently point at the same free document. Give the Module
-       Workbook its own product URL when it's listed. */
+    /* Stage 03 — CEO Mindset */
     "executive-phases":          { buy:"https://stan.store/AcrossTheTable/p/get-your-free-special-ceo-mindset-document-now", yt:"" },
     "ceo-mindset-workbook":      { buy:"https://stan.store/AcrossTheTable/p/get-my-ceo-mindset-workbook-now", yt:"" },
+    "ceo-meeting-academy":       { buy:"https://stan.store/AcrossTheTable/p/ceo-mindset-book-i-ceo-meeting-academy-branded", yt:"" },
+    "five-ceo-meetings":         { buy:"https://stan.store/AcrossTheTable/p/ceo-mindset-book-ii-the-five-ceo-meetings", yt:"" },
 
     /* Stage 04 — Build */
     "strategy-mindset-workbook": { buy:"https://stan.store/AcrossTheTable/p/4-build-stage--1-strategy-mindset", yt:"" },
@@ -5227,9 +5433,54 @@ document.addEventListener('DOMContentLoaded', async function() {
     <p class="sum-note" style="margin-top:16px">Each stage has its own workbooks. Buy the one you need, or work the series in order.</p>
   </aside></div></div></div>
 
+
+  <nav class="bp-rail" aria-label="The five stages">
+    <div class="wrap bp-rail-in">
+      <span class="bp-rail-lbl">Your journey</span>
+      <div class="bp-rail-steps">
+        <i class="bp-rail-line" aria-hidden="true"><i data-bp-rail-fill></i></i>
+        <button type="button" class="bp-rail-step" data-bp-jump="bp-idea" data-bp-rail="bp-idea" style="--app:#27D8C2"><span class="bp-rail-dot">01</span><span class="bp-rail-name">Idea</span></button>
+        <button type="button" class="bp-rail-step" data-bp-jump="bp-startup" data-bp-rail="bp-startup" style="--app:#2BA8FF"><span class="bp-rail-dot">02</span><span class="bp-rail-name">Startup</span></button>
+        <button type="button" class="bp-rail-step" data-bp-jump="bp-ceo" data-bp-rail="bp-ceo" style="--app:#E8B44C"><span class="bp-rail-dot">03</span><span class="bp-rail-name">CEO Mindset</span></button>
+        <button type="button" class="bp-rail-step" data-bp-jump="bp-build" data-bp-rail="bp-build" style="--app:#FF8A5B"><span class="bp-rail-dot">04</span><span class="bp-rail-name">Build</span></button>
+        <button type="button" class="bp-rail-step" data-bp-jump="bp-growth" data-bp-rail="bp-growth" style="--app:#5BD68A"><span class="bp-rail-dot">05</span><span class="bp-rail-name">Growth</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section bp-why" id="mindset-why"><div class="wrap">
+    <div class="bp-why-top">
+      <div class="section-head">
+        <p class="eyebrow">Why the workbooks matter</p>
+        <h2>Most businesses don&rsquo;t struggle from lack of effort. They struggle from what nobody told them in time.</h2>
+      </div>
+      <figure class="bp-quote">
+        <blockquote>&ldquo;I&rsquo;ve sat across from business owners who spent 3 to 5 years building something they believed in, only to walk into a bank ready to grow &mdash; and be told they weren&rsquo;t ready. Not because they didn&rsquo;t care or didn&rsquo;t try, but because they didn&rsquo;t have the structure or strategy in place.&rdquo;</blockquote>
+        <figcaption><b>Connie Ramirez</b><span>Business consultant for over 20 years</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="bp-reasons">
+      <div class="bp-reason"><span class="bp-rn">01</span><h3>The right work, in the right order</h3><p>Each stage builds on the one before it. You deal with each decision when it matters &mdash; not after it has become expensive to fix.</p></div>
+      <div class="bp-reason"><span class="bp-rn">02</span><h3>Your business, written down</h3><p>You answer every page about your own business. When you finish, you have something real to hand a banker, a partner or your first hire.</p></div>
+      <div class="bp-reason"><span class="bp-rn">03</span><h3>Decisions, not just ideas</h3><p>Every workbook ends in something you can act on: a go or no-go, a checklist, a tool to take into your next meeting.</p></div>
+      <div class="bp-reason"><span class="bp-rn">04</span><h3>Plain language, from real work</h3><p>Written from real businesses and real systems, in words you&rsquo;d use across the table &mdash; not a textbook, and no jargon.</p></div>
+    </div>
+
+    <div class="bp-how">
+      <p class="datum">How to use them</p>
+      <ol>
+        <li><b>Find your stage</b><span>Start where your business is today &mdash; not where you think it should be.</span></li>
+        <li><b>Get the workbook</b><span>Buy the one you need, or work the whole series in order.</span></li>
+        <li><b>Work it with your business</b><span>Fill it in with your real numbers, customers and plans.</span></li>
+        <li><b>Move to the next stage</b><span>Each one hands you the starting point for the next.</span></li>
+      </ol>
+    </div>
+  </div></section>
+
   <section class="section" id="mindset-stages"><div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">What it is</p>
+      <p class="eyebrow">The five stages</p>
       <h2>Self-paced workbooks and videos</h2>
       <p>The Entrepreneur Mindset Series is a practical, step-by-step business development system designed to help entrepreneurs move from idea to execution, execution to operation, and operation to growth.</p>
     </div>
@@ -5237,164 +5488,333 @@ document.addEventListener('DOMContentLoaded', async function() {
     <div class="bp-stages">
 
       <!-- ---------- 01 ---------- -->
-      <div class="bp-stage" id="bp-idea" tabindex="-1">
-        <span class="bp-num">Stage 01 <span>/ 05</span></span>
-        <h3>Idea Development</h3>
-        <p class="bp-say">Start with clarity before you invest.</p>
-        <p class="bp-body">This is where the journey begins. You identify a problem, explore the solutions, define who you want to serve, and decide why the business should exist at all — before a dollar goes out the door.</p>
-        <div class="bp-focus">The focus: turning &ldquo;I have an idea&rdquo; into &ldquo;I understand the problem, the customer, and the opportunity.&rdquo;</div>
+      <div class="bp-stage" id="bp-idea" tabindex="-1" style="--app:#27D8C2">
+        <div class="bp-shead">
+          <div class="bp-bignum" aria-hidden="true">01</div>
+          <div class="bp-stxt">
+            <span class="bp-num">Stage 01 <span>/ 05</span> <em>3 tools &middot; 1 free</em></span>
+            <h3>Idea Development</h3>
+            <p class="bp-say">Start with clarity before you invest.</p>
+          </div>
+        </div>
+        <div class="bp-sgrid">
+          <p class="bp-body">This is where the journey begins. You identify a problem, explore the solutions, define who you want to serve, and decide why the business should exist at all — before a dollar goes out the door.</p>
+          <div class="bp-goal">
+            <div class="bp-focus"><b>The focus</b>Turning &ldquo;I have an idea&rdquo; into &ldquo;I understand the problem, the customer, and the opportunity.&rdquo;</div>
+            <div class="bp-finish"><b>You finish with</b>A clear go or no-go on your idea.</div>
+          </div>
+        </div>
 
-        <div class="bp-toolhead">Key tools</div>
-        <div class="bp-tools">
-          <div class="bp-tool">
-            <h4>Base Roadmap <span class="bp-free">Free</span></h4>
-            <p>The order of operations. What comes first, what can wait, and what you're not ready for yet.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="base-roadmap" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="base-roadmap" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+        <div class="bp-toolhead">The workbooks &amp; tools</div>
+        <div class="bp-tools wb-grid" data-count="3">
+          <div class="wb" data-wb="base-roadmap">
+            <div class="wb-cover"><img src="assets/workbooks/base-roadmap.jpg" alt="Base Roadmap cover" loading="lazy" decoding="async" width="480" height="660"><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="base-roadmap" hidden aria-label="See the Base Roadmap flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Roadmap</span>
+              <h4>Base Roadmap</h4>
+              <p>The order of operations. What comes first, what can wait, and what you’re not ready for yet.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="base-roadmap" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="base-roadmap" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="base-roadmap" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Business Validation Workbook</h4>
-            <p>Fillable, section by section, ending in a straight go or no-go on the idea you're carrying around.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="validation-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="validation-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="validation-workbook">
+            <div class="wb-cover"><img src="assets/workbooks/validation-workbook.jpg" alt="Business Validation Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="validation-workbook" hidden aria-label="See the Business Validation Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Workbook</span>
+              <h4>Business Validation Workbook</h4>
+              <p>Fillable, section by section, ending in a straight go or no-go on the idea you’re carrying around.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="validation-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="validation-workbook" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="validation-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Founder Questions</h4>
-            <p>The questions a good advisor would ask you, written down so you can't dodge them.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="founder-questions" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="founder-questions" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="founder-questions">
+            <div class="wb-cover"><img src="assets/workbooks/founder-questions.jpg" alt="Founder Questions cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="founder-questions" hidden aria-label="See the Founder Questions flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Question list</span>
+              <h4>Founder Questions</h4>
+              <p>The questions a good advisor would ask you, written down so you can’t dodge them.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="founder-questions" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="founder-questions" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="founder-questions" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <button class="bp-next" type="button" data-bp-jump="bp-startup"><span class="datum">Up next &middot; Stage 02</span><b>Startup Stage</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
 
       <!-- ---------- 02 ---------- -->
-      <div class="bp-stage" id="bp-startup" tabindex="-1">
-        <span class="bp-num">Stage 02 <span>/ 05</span></span>
-        <h3>Startup Stage</h3>
-        <p class="bp-say">Turn the idea into a real business.</p>
-        <p class="bp-body">The foundation you need to launch legally, financially, and operationally. You move from concept to structure — defining the business, completing the setup, and putting in the systems that let you run it like a professional instead of improvising.</p>
-        <div class="bp-focus">The focus: everything that has to exist before you open the doors, in the order it has to happen.</div>
+      <div class="bp-stage" id="bp-startup" tabindex="-1" style="--app:#2BA8FF">
+        <div class="bp-shead">
+          <div class="bp-bignum" aria-hidden="true">02</div>
+          <div class="bp-stxt">
+            <span class="bp-num">Stage 02 <span>/ 05</span> <em>3 tools &middot; 1 free</em></span>
+            <h3>Startup Stage</h3>
+            <p class="bp-say">Turn the idea into a real business.</p>
+          </div>
+        </div>
+        <div class="bp-sgrid">
+          <p class="bp-body">The foundation you need to launch legally, financially, and operationally. You move from concept to structure — defining the business, completing the setup, and putting in the systems that let you run it like a professional instead of improvising.</p>
+          <div class="bp-goal">
+            <div class="bp-focus"><b>The focus</b>Everything that has to exist before you open the doors, in the order it has to happen.</div>
+            <div class="bp-finish"><b>You finish with</b>A business that is set up properly, on paper and in practice.</div>
+          </div>
+        </div>
 
-        <div class="bp-toolhead">Key tools</div>
-        <div class="bp-tools">
-          <div class="bp-tool">
-            <h4>Business Foundation</h4>
-            <p>Structure, name, entity, and the decisions that are expensive to change later.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="business-foundation" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="business-foundation" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+        <div class="bp-toolhead">The workbooks &amp; tools</div>
+        <div class="bp-tools wb-grid" data-count="3">
+          <div class="wb" data-wb="business-foundation">
+            <div class="wb-cover"><img src="assets/workbooks/business-foundation.jpg" alt="Business Foundation cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="business-foundation" hidden aria-label="See the Business Foundation flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Workbook</span>
+              <h4>Business Foundation</h4>
+              <p>Structure, name, entity, and the decisions that are expensive to change later.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="business-foundation" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="business-foundation" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="business-foundation" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Business Setup in 11 Steps <span class="bp-free">Free</span></h4>
-            <p>The full setup checklist, one step at a time, so nothing gets missed and nothing gets done twice.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="setup-11-steps" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="setup-11-steps" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="setup-11-steps">
+            <div class="wb-cover"><img src="assets/workbooks/setup-11-steps.jpg" alt="Business Setup in 11 Steps cover" loading="lazy" decoding="async" width="480" height="660"><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="setup-11-steps" hidden aria-label="See the Business Setup in 11 Steps flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Step-by-step guide</span>
+              <h4>Business Setup in 11 Steps</h4>
+              <p>The full setup checklist, one step at a time, so nothing gets missed and nothing gets done twice.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="setup-11-steps" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="setup-11-steps" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="setup-11-steps" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Operating Systems</h4>
-            <p>How the business actually runs day to day — the routines, records, and handoffs that keep it from living in your head.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="operating-systems" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="operating-systems" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="operating-systems">
+            <div class="wb-cover"><img src="assets/workbooks/operating-systems.jpg" alt="Operating Systems cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="operating-systems" hidden aria-label="See the Operating Systems flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Framework</span>
+              <h4>Operating Systems</h4>
+              <p>How the business actually runs day to day — the routines, records, and handoffs that keep it from living in your head.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="operating-systems" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="operating-systems" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="operating-systems" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <button class="bp-next" type="button" data-bp-jump="bp-ceo"><span class="datum">Up next &middot; Stage 03</span><b>CEO Mindset</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
 
       <!-- ---------- 03 ---------- -->
-      <div class="bp-stage" id="bp-ceo" tabindex="-1">
-        <span class="bp-num">Stage 03 <span>/ 05</span></span>
-        <h3>CEO Mindset</h3>
-        <p class="bp-say">Learn to think and operate like a CEO.</p>
-        <p class="bp-body">This is the shift from working in the business to thinking strategically about it. Executive thinking, decision-making, leadership, accountability, and long-term vision — how to evaluate an opportunity, solve a problem, communicate at an executive level, and build something that runs beyond your own two hands.</p>
-        <div class="bp-focus">The focus: becoming the person who runs the place, not the person doing every job in it.</div>
+      <div class="bp-stage" id="bp-ceo" tabindex="-1" style="--app:#E8B44C">
+        <div class="bp-shead">
+          <div class="bp-bignum" aria-hidden="true">03</div>
+          <div class="bp-stxt">
+            <span class="bp-num">Stage 03 <span>/ 05</span> <em>4 tools &middot; 1 free</em></span>
+            <h3>CEO Mindset</h3>
+            <p class="bp-say">Learn to think and operate like a CEO.</p>
+          </div>
+        </div>
+        <div class="bp-sgrid">
+          <p class="bp-body">This is the shift from working in the business to thinking strategically about it. Executive thinking, decision-making, leadership, accountability, and long-term vision — how to evaluate an opportunity, solve a problem, communicate at an executive level, and build something that runs beyond your own two hands.</p>
+          <div class="bp-goal">
+            <div class="bp-focus"><b>The focus</b>Becoming the person who runs the place, not the person doing every job in it.</div>
+            <div class="bp-finish"><b>You finish with</b>Meetings that end in decisions, owners and results.</div>
+          </div>
+        </div>
 
-        <div class="bp-toolhead">Key tools</div>
-        <div class="bp-tools">
-          <div class="bp-tool">
-            <h4>Executive Phases <span class="bp-free">Free</span></h4>
-            <p>The stages of executive thinking, and how to tell which one you're operating in right now.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="executive-phases" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="executive-phases" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+        <div class="bp-toolhead">The workbooks &amp; tools</div>
+        <div class="bp-tools wb-grid" data-count="4">
+          <div class="wb" data-wb="executive-phases">
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>Executive Phases</b><i></i><span class="wb-gen-l">Across the Table</span></div><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="executive-phases" hidden aria-label="See the Executive Phases flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Guide</span>
+              <h4>Executive Phases</h4>
+              <p>The stages of executive thinking, and how to tell which one you’re operating in right now.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="executive-phases" data-bp-live="Get it free" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="executive-phases" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="executive-phases" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>CEO Mindset Module Workbook</h4>
-            <p>The workbook version of the shift — worked through module by module, with your own business in the answers.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="ceo-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="ceo-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="ceo-mindset-workbook">
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>CEO Mindset Module Workbook</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="ceo-mindset-workbook" hidden aria-label="See the CEO Mindset Module Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Module workbook</span>
+              <h4>CEO Mindset Module Workbook</h4>
+              <p>The workbook version of the shift — worked through module by module, with your own business in the answers.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="ceo-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="ceo-mindset-workbook" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="ceo-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wb" data-wb="ceo-meeting-academy">
+            <div class="wb-cover"><img src="assets/workbooks/ceo-meeting-academy.jpg" alt="CEO Meeting Academy cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="ceo-meeting-academy" hidden aria-label="See the CEO Meeting Academy flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">CEO Mindset™ · Book I</span>
+              <h4>CEO Meeting Academy</h4>
+              <p>Learn how to lead the room. Fifteen chapters on preparing for and running executive meetings, each with a ready-to-use tool, so a meeting turns into decisions, owners and results.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="ceo-meeting-academy" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="ceo-meeting-academy" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="ceo-meeting-academy" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wb" data-wb="five-ceo-meetings">
+            <div class="wb-cover"><img src="assets/workbooks/five-ceo-meetings.jpg" alt="The Five CEO Meetings cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="five-ceo-meetings" hidden aria-label="See the The Five CEO Meetings flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">CEO Mindset™ · Book II</span>
+              <h4>The Five CEO Meetings</h4>
+              <p>Run the business one meeting at a time: the monthly review, quarterly strategy, annual planning, financial review and emergency decision meetings — each with its own question and final output.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="five-ceo-meetings" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="five-ceo-meetings" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="five-ceo-meetings" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <button class="bp-next" type="button" data-bp-jump="bp-build"><span class="datum">Up next &middot; Stage 04</span><b>Build Stage</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
 
       <!-- ---------- 04 ---------- -->
-      <div class="bp-stage" id="bp-build" tabindex="-1">
-        <span class="bp-num">Stage 04 <span>/ 05</span></span>
-        <h3>Build Stage</h3>
-        <p class="bp-say">Turn the business concept into something real.</p>
-        <p class="bp-body">Where planning, structuring, and creating come together. You develop the product or service, settle the business model, make the calls on pricing and branding, and decide how the business delivers value to a customer.</p>
-        <div class="bp-focus">The focus: moving from planning to something tangible you can actually put in front of the market.</div>
+      <div class="bp-stage" id="bp-build" tabindex="-1" style="--app:#FF8A5B">
+        <div class="bp-shead">
+          <div class="bp-bignum" aria-hidden="true">04</div>
+          <div class="bp-stxt">
+            <span class="bp-num">Stage 04 <span>/ 05</span> <em>2 tools</em></span>
+            <h3>Build Stage</h3>
+            <p class="bp-say">Turn the business concept into something real.</p>
+          </div>
+        </div>
+        <div class="bp-sgrid">
+          <p class="bp-body">Where planning, structuring, and creating come together. You develop the product or service, settle the business model, make the calls on pricing and branding, and decide how the business delivers value to a customer.</p>
+          <div class="bp-goal">
+            <div class="bp-focus"><b>The focus</b>Moving from planning to something tangible you can actually put in front of the market.</div>
+            <div class="bp-finish"><b>You finish with</b>A written plan you can hold yourself to.</div>
+          </div>
+        </div>
 
-        <div class="bp-toolhead">Key tools</div>
-        <div class="bp-tools">
-          <div class="bp-tool">
-            <h4>Strategy Mindset Workbook</h4>
-            <p>How to think about strategy before you write one — the trade-offs, the constraints, the honest look at what you're competing on.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="strategy-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="strategy-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+        <div class="bp-toolhead">The workbooks &amp; tools</div>
+        <div class="bp-tools wb-grid" data-count="2">
+          <div class="wb" data-wb="strategy-mindset-workbook">
+            <div class="wb-cover"><img src="assets/workbooks/strategy-mindset-workbook.jpg" alt="Strategy Mindset Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="strategy-mindset-workbook" hidden aria-label="See the Strategy Mindset Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Workbook · Book 1</span>
+              <h4>Strategy Mindset Workbook</h4>
+              <p>How to think about strategy before you write one — the trade-offs, the constraints, the honest look at what you’re competing on.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="strategy-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="strategy-mindset-workbook" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="strategy-mindset-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Strategy Workbook</h4>
-            <p>The plan itself. Model, pricing, positioning, and delivery, written down where you can hold yourself to it.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="strategy-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="strategy-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+          <div class="wb" data-wb="strategy-workbook">
+            <div class="wb-cover"><img src="assets/workbooks/strategy-workbook.jpg" alt="Strategy Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="strategy-workbook" hidden aria-label="See the Strategy Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Workbook · Book 2</span>
+              <h4>Strategy Workbook</h4>
+              <p>The plan itself. Model, pricing, positioning, and delivery, written down where you can hold yourself to it.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="strategy-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="strategy-workbook" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="strategy-workbook" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <button class="bp-next" type="button" data-bp-jump="bp-growth"><span class="datum">Up next &middot; Stage 05</span><b>Growth Stage</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
 
       <!-- ---------- 05 ---------- -->
-      <div class="bp-stage" id="bp-growth" tabindex="-1">
-        <span class="bp-num">Stage 05 <span>/ 05</span></span>
-        <h3>Growth Stage</h3>
-        <p class="bp-say">Expand what works and build for the future.</p>
-        <p class="bp-body">Increasing revenue, attracting and keeping customers, strengthening operations, improving the systems, and finding where the next opportunity is. This is where you start making real decisions about scaling, hiring, new products, new markets, and long-term sustainability.</p>
-        <div class="bp-focus">The focus: growing on purpose — more business without more of you in every part of it.</div>
+      <div class="bp-stage" id="bp-growth" tabindex="-1" style="--app:#5BD68A">
+        <div class="bp-shead">
+          <div class="bp-bignum" aria-hidden="true">05</div>
+          <div class="bp-stxt">
+            <span class="bp-num">Stage 05 <span>/ 05</span> <em>2 tools</em></span>
+            <h3>Growth Stage</h3>
+            <p class="bp-say">Expand what works and build for the future.</p>
+          </div>
+        </div>
+        <div class="bp-sgrid">
+          <p class="bp-body">Increasing revenue, attracting and keeping customers, strengthening operations, improving the systems, and finding where the next opportunity is. This is where you start making real decisions about scaling, hiring, new products, new markets, and long-term sustainability.</p>
+          <div class="bp-goal">
+            <div class="bp-focus"><b>The focus</b>Growing on purpose — more business without more of you in every part of it.</div>
+            <div class="bp-finish"><b>You finish with</b>A clear plan for where the next growth comes from.</div>
+          </div>
+        </div>
 
-        <div class="bp-toolhead">Key tools</div>
-        <div class="bp-tools">
-          <div class="bp-tool">
-            <h4>Grow &amp; Thrive</h4>
-            <p>Attracting and keeping customers, strengthening what already works, and deciding where the next opportunity actually is.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="grow-and-thrive" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="grow-and-thrive" data-bp-nofallback data-bp-live="Open the course" data-bp-dead="Course coming soon" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Course coming soon</span></a>
+        <div class="bp-toolhead">The workbooks &amp; tools</div>
+        <div class="bp-tools wb-grid" data-count="2">
+          <div class="wb" data-wb="grow-and-thrive">
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Grow &amp; Thrive</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="grow-and-thrive" hidden aria-label="See the Grow & Thrive flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Course</span>
+              <h4>Grow &amp; Thrive</h4>
+              <p>Attracting and keeping customers, strengthening what already works, and deciding where the next opportunity actually is.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="grow-and-thrive" data-bp-nofallback data-bp-live="Open the course" data-bp-dead="Course coming soon" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Course coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="grow-and-thrive" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="grow-and-thrive" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bp-tool">
-            <h4>Cash Flow vs EBITDA</h4>
-            <p>The difference between profit on paper and money in the account — and why a growing business can run out of cash.</p>
-            <div class="bp-acts">
-              <a class="bp-watch" data-bp-yt="cash-flow-vs-ebitda" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
-              <a class="bp-buy" data-bp-buy="cash-flow-vs-ebitda" data-bp-nofallback data-bp-live="Open the course" data-bp-dead="Course coming soon" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Course coming soon</span></a>
+          <div class="wb" data-wb="cash-flow-vs-ebitda">
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Cash Flow vs EBITDA</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="cash-flow-vs-ebitda" hidden aria-label="See the Cash Flow vs EBITDA flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-body">
+              <span class="wb-kind">Course</span>
+              <h4>Cash Flow vs EBITDA</h4>
+              <p>The difference between profit on paper and money in the account — and why a growing business can run out of cash.</p>
+              <div class="bp-acts">
+                <a class="bp-buy" data-bp-buy="cash-flow-vs-ebitda" data-bp-nofallback data-bp-live="Open the course" data-bp-dead="Course coming soon" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span data-bp-buy-label>Course coming soon</span></a>
+                <div class="wb-minor">
+                  <button class="wb-flyer" type="button" data-wb-flyer="cash-flow-vs-ebitda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button>
+                  <a class="bp-watch" data-bp-yt="cash-flow-vs-ebitda" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg><span data-bp-yt-label>Video coming soon</span></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="bp-next bp-next-end"><span class="datum">The whole journey</span><b>Idea &rarr; Startup &rarr; CEO Mindset &rarr; Build &rarr; Growth</b></div>
       </div>
 
     </div>
@@ -5415,6 +5835,10 @@ document.addEventListener('DOMContentLoaded', async function() {
       <a class="cline" href="tel:+14805824716"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"></path></svg><span><span class="datum">Phone</span>480-582-4716</span></a>
     </div>
   </div></div></section>
+  <div class="wb-lb" id="wb-lb" hidden role="dialog" aria-modal="true" aria-label="Workbook flyer">
+    <button class="wb-lb-x" type="button" aria-label="Close the flyer">&times;</button>
+    <figure><img alt=""><figcaption><b data-wb-lb-title style="color:var(--text-heading)"></b><a class="bp-buy" data-wb-lb-buy target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span>Get the workbook</span></a></figcaption></figure>
+  </div>
 </article>
 
 
@@ -5974,6 +6398,84 @@ window.SOCIAL_LINKS = {
     });
   };
   window.applyMindsetLinks();
+
+  /* ---------- Mindset workbooks: covers + flyers (set in Hub > Products & pricing) ----------
+     window.WORKBOOKS = { slug: { cover:"flyers/…jpg", flyer:"flyers/…jpg" } }
+     Saved with the prices (prices.json → "workbooks"). An empty cover keeps the
+     built-in one; an empty flyer simply shows no "See the flyer" button. */
+  window.__wbPreview = window.__wbPreview || {};
+  function wbSrc(p){ return (p && window.__wbPreview[p]) || p || ''; }
+  window.applyWorkbooks = function(){
+    var W = window.WORKBOOKS || {};
+    Array.prototype.forEach.call(document.querySelectorAll('[data-wb]'), function(card){
+      var k = card.getAttribute('data-wb'), o = W[k] || {}, cv = card.querySelector('.wb-cover');
+      if(cv){
+        var img = cv.querySelector('img'), gen = cv.querySelector('.wb-gen');
+        if(img && !img.hasAttribute('data-wb-default')) img.setAttribute('data-wb-default', img.getAttribute('src') || '');
+        if(o.cover){
+          if(!img){
+            img = document.createElement('img'); img.alt = (card.querySelector('h4') || {}).textContent + ' cover';
+            img.setAttribute('data-wb-default', ''); cv.insertBefore(img, cv.firstChild);
+          }
+          img.src = wbSrc(o.cover); img.hidden = false; if(gen) gen.hidden = true;
+        } else if(img){
+          var d = img.getAttribute('data-wb-default');
+          if(d){ img.src = d; img.hidden = false; if(gen) gen.hidden = true; }
+          else { img.hidden = true; if(gen) gen.hidden = false; }
+        }
+      }
+      Array.prototype.forEach.call(card.querySelectorAll('[data-wb-flyer]'), function(b){ b.hidden = !o.flyer; });
+    });
+  };
+  window.applyWorkbooks();
+
+  (function(){
+    var lb = document.getElementById('wb-lb');
+    if(!lb) return;
+    var img = lb.querySelector('img'), cap = lb.querySelector('[data-wb-lb-title]'),
+        buy = lb.querySelector('[data-wb-lb-buy]'), last = null;
+    function close(){ lb.hidden = true; img.removeAttribute('src'); if(last) try{ last.focus(); }catch(e){} }
+    document.addEventListener('click', function(e){
+      var b = e.target.closest('[data-wb-flyer]');
+      if(b){
+        var k = b.getAttribute('data-wb-flyer'), o = (window.WORKBOOKS || {})[k] || {};
+        if(!o.flyer) return;
+        var card = b.closest('[data-wb]'), name = card ? (card.querySelector('h4') || {}).textContent : '';
+        var src = card && card.querySelector('[data-bp-buy]');
+        last = b; img.src = wbSrc(o.flyer); img.alt = name + ' flyer'; cap.textContent = name;
+        if(src && src.getAttribute('href')){ buy.href = src.getAttribute('href'); buy.hidden = false; buy.querySelector('span').textContent = src.textContent.trim(); }
+        else buy.hidden = true;
+        lb.hidden = false; lb.querySelector('.wb-lb-x').focus();
+        return;
+      }
+      if(!lb.hidden && (e.target === lb || e.target.closest('.wb-lb-x'))) close();
+    });
+    document.addEventListener('keydown', function(e){ if(!lb.hidden && e.key === 'Escape') close(); });
+  })();
+
+  /* ---------- journey rail: lights up the stage you're reading ---------- */
+  (function(){
+    var steps = document.querySelectorAll('[data-bp-rail]'), fill = document.querySelector('[data-bp-rail-fill]');
+    if(!steps.length) return;
+    var ids = Array.prototype.map.call(steps, function(s){ return s.getAttribute('data-bp-rail'); });
+    function update(){
+      var view = document.getElementById('mindset');
+      if(!view || view.hidden) return;
+      var mark = window.innerHeight * 0.38, on = -1;
+      ids.forEach(function(id, i){ var el = document.getElementById(id); if(el && el.getBoundingClientRect().top < mark) on = i; });
+      Array.prototype.forEach.call(steps, function(s, i){
+        s.classList.toggle('is-on', i === on);
+        s.classList.toggle('is-done', i < on);
+        if(i === on) s.setAttribute('aria-current', 'step'); else s.removeAttribute('aria-current');
+      });
+      if(fill) fill.style.width = on < 0 ? '0%' : (on / (ids.length - 1) * 100) + '%';
+    }
+    var tick = false;
+    window.addEventListener('scroll', function(){ if(tick) return; tick = true; requestAnimationFrame(function(){ tick = false; update(); }); }, { passive:true });
+    window.addEventListener('resize', update);
+    window.addEventListener('hashchange', function(){ setTimeout(update, 60); });
+    update();
+  })();
 
 
   /* ---------- AI Assessment ----------
@@ -6958,6 +7460,7 @@ window.SOCIAL_LINKS = {
       if(obj.salesLog   && obj.salesLog.length   !== undefined) window.SALES_LOG = obj.salesLog;
       if(obj.tickets    && obj.tickets.length    !== undefined) window.TICKETS   = obj.tickets;
       if(obj.intake     && typeof obj.intake     === 'object')  window.TICKET_INTAKE = obj.intake;
+      if(obj.workbooks  && typeof obj.workbooks  === 'object'){ window.WORKBOOKS = obj.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
       if(typeof window.__tkUpdateDot === 'function'){ try{ window.__tkUpdateDot(); }catch(e){} }
       if(typeof window.__tkRefreshApps === 'function'){ try{ window.__tkRefreshApps(); }catch(e){} }
       obj = obj.prices;
@@ -7355,7 +7858,7 @@ window.SOCIAL_LINKS = {
       try{ localStorage.setItem(PKEY, JSON.stringify({
         saved: Date.now(), base: window.__PRICES_BASE || null, prices: window.PRICES, storeLinks: window.STORE_LINKS,
         delivery: window.DELIVERY, salesLog: window.SALES_LOG,
-        tickets: window.TICKETS, intake: window.TICKET_INTAKE
+        tickets: window.TICKETS, intake: window.TICKET_INTAKE, workbooks: window.WORKBOOKS
       })); }catch(e){}
     }
 
@@ -7399,6 +7902,7 @@ window.SOCIAL_LINKS = {
       if(dr.salesLog)   window.SALES_LOG   = dr.salesLog;
       if(dr.tickets)    window.TICKETS     = dr.tickets;
       if(dr.intake)     window.TICKET_INTAKE = dr.intake;
+      if(dr.workbooks)  { window.WORKBOOKS = dr.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
       if(typeof window.__tkUpdateDot === 'function'){ try{ window.__tkUpdateDot(); }catch(e){} }
       tableFromPrices();
       Object.keys(window.PRICES).forEach(function(s){ renderSubcard(s); });
@@ -7453,6 +7957,7 @@ window.SOCIAL_LINKS = {
           'window.APPLE_LINKS = '  + JSON.stringify(window.APPLE_LINKS  || {}) + ';',
           'window.APP_BUTTON = '   + JSON.stringify(window.APP_BUTTON   || {}) + ';',
           'window.MINDSET = '      + JSON.stringify(window.MINDSET      || {}) + ';',
+          'window.WORKBOOKS = '    + JSON.stringify(window.WORKBOOKS    || {}) + ';',
           'window.PRICES = '       + JSON.stringify(window.PRICES       || {}) + ';'
         ];
         var text = parts.join('\n');
@@ -7680,6 +8185,10 @@ window.SOCIAL_LINKS = {
         window.__initFlyerMgr(hub, { ghRead:ghRead, ghHeaders:ghHeaders,
           draftWrite:draftWrite, draftBanner:draftBanner, priceMsg:priceMsg });
     }catch(e){}
+    try{
+      if(typeof window.__initWorkbookMgr === 'function')
+        window.__initWorkbookMgr(hub, { ghRead:ghRead, ghHeaders:ghHeaders, draftWrite:draftWrite, draftBanner:draftBanner });
+    }catch(e){}
 
 
     /* ---- Type dropdown: saves like a price does ---- */
@@ -7745,7 +8254,7 @@ window.SOCIAL_LINKS = {
       var res = {};
       res.prices     = mergeMap(mine.prices, base && base.prices, theirs.prices);
       res.storeLinks = mergeMap(mine.storeLinks, base && base.storeLinks, theirs.storeLinks);
-      ['delivery','salesLog','tickets','intake'].forEach(function(k){
+      ['delivery','salesLog','tickets','intake','workbooks'].forEach(function(k){
         var v = pick(mine[k], base ? base[k] : undefined, theirs[k], !!base);
         if(v !== undefined) res[k] = v;
       });
@@ -7760,7 +8269,8 @@ window.SOCIAL_LINKS = {
         delivery:   window.DELIVERY  || {},
         salesLog:   window.SALES_LOG || [],
         tickets:    window.TICKETS   || [],
-        intake:     window.TICKET_INTAKE || { endpoint:'', feed:'' }
+        intake:     window.TICKET_INTAKE || { endpoint:'', feed:'' },
+        workbooks:  window.WORKBOOKS || {}
       }, null, 2);
     }
 
@@ -8809,6 +9319,163 @@ window.__initFlyerMgr = function(hub, H){
   window.__refreshHubPrices = function(){
     if(typeof before === 'function'){ try{ before.apply(this, arguments); }catch(e){} }
     try{ drawAll(); }catch(e){}
+  };
+};
+
+
+/* ============================================================================
+   WORKBOOK COVERS + FLYERS  —  Hub > Products & pricing > Workbook covers & flyers
+
+   One tile per workbook on the Entrepreneur Mindset page. Two picture spots:
+     COVER   the picture on the workbook's card (empty = the built-in cover)
+     FLYER   opens full size from a "See the flyer" button (empty = no button)
+   Pictures are shrunk and uploaded to the website's GitHub repository under
+   flyers/, noted in window.WORKBOOKS, and go live when you press Save — the
+   same Save as prices. Nothing added = nothing extra shows.
+   ============================================================================ */
+window.__initWorkbookMgr = function(hub, H){
+  H = H || (window.__flyerDefaultHelpers ? window.__flyerDefaultHelpers() : null);
+  var pane = hub && hub.querySelector('[data-pane="products"]');
+  if(!pane || !H || pane.querySelector('[data-wb-mgr]')) return;
+  window.WORKBOOKS = window.WORKBOOKS || {};
+  window.__wbPreview = window.__wbPreview || {};
+
+  function el(tag, cls, txt){ var e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; }
+  function cards(){ return Array.prototype.slice.call(document.querySelectorAll('#mindset [data-wb]')); }
+  function nameOf(k){ var c = document.querySelector('#mindset [data-wb="' + k + '"] h4'); return c ? c.textContent.trim() : k; }
+  function stageOf(k){ var s = document.querySelector('#mindset [data-wb="' + k + '"]'); s = s && s.closest('.bp-stage'); var h = s && s.querySelector('h3'); return h ? h.textContent.trim() : ''; }
+  function builtIn(k){ var i = document.querySelector('#mindset [data-wb="' + k + '"] .wb-cover img'); return i ? (i.getAttribute('data-wb-default') || '') : ''; }
+  function get(k, f){ return ((window.WORKBOOKS[k] || {})[f]) || ''; }
+  function put(k, f, v){
+    var o = window.WORKBOOKS[k] || (window.WORKBOOKS[k] = {});
+    if(v) o[f] = v; else delete o[f];
+    if(!o.cover && !o.flyer) delete window.WORKBOOKS[k];
+    try{ if(typeof window.__ppTouched === 'function') window.__ppTouched(); else if(H.draftWrite) H.draftWrite(); }catch(e){}
+    try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){}
+  }
+
+  var box = el('section', 'panel flyer-mgr wb-mgr'); box.setAttribute('data-wb-mgr', '');
+  box.appendChild(el('div', 'panel-head', 'Workbook covers & flyers'));
+  var lead = el('p', 'fm-lead');
+  lead.innerHTML = 'These are the workbooks on your <b>Entrepreneur Mindset</b> page. Each one has two spots. The <b>Cover</b> is the picture on its card — leave it empty to keep the cover that is already there. ' +
+    'The <b>Flyer</b> opens full size when a visitor clicks <b>See the flyer</b> — leave it empty and that button simply doesn’t show. ' +
+    'Click a box (or drag a picture onto it), then press <b>Save</b> above to put it on your site.';
+  box.appendChild(lead);
+  var grid = el('div', 'fm-grid'); box.appendChild(grid);
+  pane.appendChild(box);
+
+  function setMsg(t, m, cls){ var e = t.querySelector('.fm-msg'); e.textContent = m || ''; e.className = 'fm-msg' + (cls ? ' ' + cls : ''); }
+  function shrink(f, max){
+    return new Promise(function(ok, bad){
+      if(!/^image\//.test(f.type)){ bad(new Error('type')); return; }
+      var url = URL.createObjectURL(f), im = new Image();
+      im.onload = function(){
+        var r = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+        var c = document.createElement('canvas'); c.width = Math.round(im.naturalWidth * r); c.height = Math.round(im.naturalHeight * r);
+        var x = c.getContext('2d'); x.fillStyle = '#ffffff'; x.fillRect(0, 0, c.width, c.height);
+        x.imageSmoothingQuality = 'high'; x.drawImage(im, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.86));
+      };
+      im.onerror = function(){ URL.revokeObjectURL(url); bad(new Error('read')); };
+      im.src = url;
+    });
+  }
+  function why(e){
+    return e && e.message === 'type' ? 'That isn’t a picture. Use a PNG or JPG.'
+         : e && e.message === 'big'  ? 'That file is over 25 MB. Export a smaller copy.'
+         : e && e.message === 'read' ? 'Couldn’t open that picture — try saving it as PNG or JPG.'
+         : e && e.auth ? 'GitHub refused the token. It may have expired, or it needs Contents write access.'
+         : e && e.gh ? 'GitHub replied with an error (' + e.gh + '). Try again in a moment.'
+         : 'Could not reach GitHub. Check your connection and try again.';
+  }
+  function upload(t, k, f, kind){
+    var c = H.ghRead && H.ghRead();
+    if(!c){ setMsg(t, 'Set up one-click saving first (the button above) — pictures are stored with your website on GitHub.', 'err'); return; }
+    if(f.size > 25 * 1024 * 1024){ setMsg(t, why(new Error('big')), 'err'); return; }
+    setMsg(t, 'Uploading the ' + kind + '…', 'busy');
+    var path = 'flyers/wb-' + k + '-' + kind + '-' + Date.now() + '.jpg', du;
+    shrink(f, kind === 'cover' ? 1000 : 1800).then(function(d){
+      du = d;
+      return fetch('https://api.github.com/repos/' + c.repo + '/contents/' + path, { method:'PUT', headers:H.ghHeaders(c.token),
+        body:JSON.stringify({ message:'Workbook ' + kind + ' for ' + nameOf(k), content:d.split(',')[1] }) });
+    }).then(function(r){
+      if(r.status === 401 || r.status === 403) throw { gh:r.status, auth:true };
+      if(!r.ok) throw { gh:r.status };
+      window.__wbPreview[path] = du;   /* show it right away while the site catches up */
+      put(k, kind, path); draw(t);
+      setMsg(t, (kind === 'cover' ? 'Cover' : 'Flyer') + ' uploaded. Press Save to put it on your site.', 'ok');
+    }).catch(function(e){ setMsg(t, why(e), 'err'); });
+  }
+
+  function part(t, k, kind, title){
+    var p = el('div', 'fm-part'); p.setAttribute('data-part', kind);
+    var h = el('div', 'fm-part-h'); h.appendChild(el('b', null, title)); h.appendChild(el('span'));
+    var area = el('div', 'fm-area'), inp = el('input'); inp.type = 'file'; inp.accept = 'image/png,image/jpeg,image/webp,image/gif';
+    p.appendChild(h); p.appendChild(area); p.appendChild(inp);
+    function take(files){ if(files && files.length) upload(t, k, files[0], kind); }
+    inp.addEventListener('change', function(){ take(inp.files); inp.value = ''; });
+    p.addEventListener('dragover', function(e){ e.preventDefault(); p.classList.add('over'); });
+    p.addEventListener('dragleave', function(){ p.classList.remove('over'); });
+    p.addEventListener('drop', function(e){ e.preventDefault(); p.classList.remove('over'); take(e.dataTransfer && e.dataTransfer.files); });
+    return p;
+  }
+  function thumb(src, alt){
+    var c = el('div', 'fm-th'), im = el('img'); im.alt = alt; im.src = window.__wbPreview[src] || src;
+    im.onerror = function(){ im.replaceWith(el('div', 'fm-empty', 'Not on the site yet')); };
+    c.appendChild(im); return c;
+  }
+  function draw(t){
+    var k = t.getAttribute('data-wbm');
+    [['cover', 'Cover'], ['flyer', 'Flyer']].forEach(function(pair){
+      var kind = pair[0], p = t.querySelector('[data-part="' + kind + '"]'), area = p.querySelector('.fm-area'), inp = p.querySelector('input');
+      var v = get(k, kind), def = kind === 'cover' ? builtIn(k) : '';
+      while(area.firstChild) area.removeChild(area.firstChild);
+      p.classList.toggle('has', !!v);
+      p.querySelector('.fm-part-h span').textContent = v ? 'Your picture' : (kind === 'cover' ? (def ? 'Built-in cover' : 'Plain cover') : 'Empty — no button');
+      var row = el('div', 'fm-flyer-prev');
+      if(v || def) row.appendChild(thumb(v || def, nameOf(k) + ' ' + kind));
+      else {
+        var em = el('div', 'fm-empty', kind === 'cover' ? 'No cover picture. Click or drop one here.' : 'No flyer. Click or drop a picture here.');
+        em.setAttribute('role', 'button'); em.tabIndex = 0;
+        em.addEventListener('click', function(){ inp.click(); });
+        em.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); inp.click(); } });
+        area.appendChild(em); return;
+      }
+      var side = el('div', 'fm-side');
+      var rep = el('button', 'btn-sm', v ? 'Replace ' + kind : 'Use my own ' + kind); rep.type = 'button';
+      rep.addEventListener('click', function(){ inp.click(); }); side.appendChild(rep);
+      if(v){
+        var rm = el('button', 'btn-sm ghost', kind === 'cover' ? (def ? 'Back to built-in' : 'Remove cover') : 'Remove flyer'); rm.type = 'button';
+        rm.addEventListener('click', function(){
+          put(k, kind, ''); draw(t);
+          setMsg(t, (kind === 'cover' ? 'Cover reset.' : 'Flyer removed.') + ' Press Save to put it on your site.', 'ok');
+        });
+        side.appendChild(rm);
+      }
+      row.appendChild(side); area.appendChild(row);
+    });
+  }
+  function drawAll(){
+    var have = {};
+    Array.prototype.forEach.call(grid.querySelectorAll('[data-wbm]'), function(t){ have[t.getAttribute('data-wbm')] = t; });
+    cards().forEach(function(c){
+      var k = c.getAttribute('data-wb'), t = have[k];
+      if(!t){
+        t = el('div', 'fm-tile'); t.setAttribute('data-wbm', k);
+        var nm = el('div', 'fm-name'); nm.appendChild(el('span', null, nameOf(k)));
+        var st = stageOf(k); if(st){ var sm = el('small', null, ' · ' + st); sm.style.cssText = 'color:var(--text-muted);font-weight:500'; nm.appendChild(sm); }
+        t.appendChild(nm); t.appendChild(part(t, k, 'cover', '1 · Cover')); t.appendChild(part(t, k, 'flyer', '2 · Flyer')); t.appendChild(el('div', 'fm-msg'));
+        grid.appendChild(t);
+      }
+      draw(t);
+    });
+  }
+  drawAll();
+  var before = window.__refreshHubPrices;
+  window.__refreshHubPrices = function(){
+    if(typeof before === 'function'){ try{ before.apply(this, arguments); }catch(e){} }
+    try{ drawAll(); }catch(e){}
+    try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){}
   };
 };
 
@@ -12536,6 +13203,7 @@ window.__initFlyerMgr = function(hub, H){
   function ensure(){
     var hub = document.getElementById('hub'); if(!hub) return;
     try{ if(typeof window.__initFlyerMgr === 'function') window.__initFlyerMgr(hub); }catch(e){}
+    try{ if(typeof window.__initWorkbookMgr === 'function') window.__initWorkbookMgr(hub); }catch(e){}
     try{ fixGhText(hub); }catch(e){}
   }
   var orig = window.__initHubUI;
