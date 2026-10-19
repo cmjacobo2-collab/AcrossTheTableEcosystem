@@ -23,6 +23,7 @@ on:
       - prices.json
       - _apps/**
       - substack/**
+      - newsletter/**
       - legal/**
   workflow_dispatch:
 
@@ -47,7 +48,7 @@ jobs:
           set -euo pipefail
           git config user.name  "Across the Table site"
           git config user.email "actions@users.noreply.github.com"
-          git add -A -- assets sitemap.xml substack $(python3 -c "import json;print(' '.join(s + '/' for s in json.load(open('assets/app-pages.json'))))")
+          git add -A -- assets sitemap.xml substack newsletter $(python3 -c "import json;print(' '.join(s + '/' for s in json.load(open('assets/app-pages.json'))))")
           if git diff --cached --quiet; then
             echo "App pages already up to date."
           else

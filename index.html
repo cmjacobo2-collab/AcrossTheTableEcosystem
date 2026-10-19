@@ -3231,6 +3231,7 @@ a[data-goto]{cursor:pointer;}
 .pb-cta p{color:var(--text-body);margin:0}
 .pb-cta-acts{display:flex;flex-wrap:wrap;gap:12px}
 </style>
+<link rel="stylesheet" href="assets/newsletter.css">
 </head>
 
 <body>
@@ -3578,7 +3579,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
       <a href="#system">Apps</a>
       <a href="#builds" data-view="builds">Custom builds</a>
       <a href="#learning" data-view="learning">Learn</a>
-      <a href="substack/">Newsletter</a>
+      <a href="newsletter/">Newsletter</a>
       <a href="#about" data-view="about">About</a>
       <a href="#contact">Contact</a>
       <a href="#hub" data-view="hub" class="nav-hub">My Hub</a>
@@ -3883,6 +3884,16 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   </div>
 </section>
 
+<!-- ===================== NEWSLETTER: The Scaling Edge (filled in by assets/newsletter.js) ===================== -->
+<section class="se-home" id="newsletter-signup" data-newsletter="home" aria-label="The Scaling Edge newsletter">
+  <div class="wrap">
+    <p class="se-eyebrow">The Scaling Edge &middot; free newsletter</p>
+    <h2>Business insights delivered every Monday. Join <em>The Scaling Edge</em>.</h2>
+    <p class="se-home-lede">Every Monday, get practical business strategies, AI insights, technology updates, and real-world lessons to help you build, grow, and scale your business.</p>
+    <div class="se-home-noscript"><a class="btn se-gold" href="https://acrossthetablebiz.substack.com/subscribe" target="_blank" rel="noopener">Subscribe Free</a><a class="btn btn-secondary" href="newsletter/">See past issues</a></div>
+  </div>
+</section>
+
 <!-- ===================== CLOSE: who, how, contact ===================== -->
 <section class="section hm-closesec" id="contact">
   <div class="wrap">
@@ -4025,7 +4036,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   <a class="hm-card" href="#mindset" data-view="mindset"><span class="hm-tag">Workbooks</span><h3>Entrepreneur Mindset</h3><p>Five stages of workbooks and roadmaps.</p><span class="hm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="#classes" data-view="classes"><span class="hm-tag">Classes</span><h3>Build with AI</h3><p>Two step-by-step classes. See what each one covers and join the waiting list.</p><span class="hm-go">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="#assessment" data-view="assessment"><span class="hm-tag">Self-check</span><h3>AI Assessment</h3><p>See where AI can help your business today.</p><span class="hm-go">Take the assessment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
-  <a class="hm-card" href="substack/"><span class="hm-tag">Newsletter</span><h3>The Scaling Edge</h3><p>Plain-language ideas for growing a business, by email.</p><span class="hm-go">Read the newsletter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="newsletter/"><span class="hm-tag">Newsletter</span><h3>The Scaling Edge</h3><p>Plain-language ideas for growing a business, by email.</p><span class="hm-go">Read the newsletter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener"><span class="hm-tag">Free</span><h3>YouTube</h3><p>Short breakdowns of one business idea at a time.</p><span class="hm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div></div></section>
 <!-- ===================== LEARN · featured: the Entrepreneur Mindset journey ===================== -->
@@ -4077,7 +4088,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   <div class="lx-plan"><span class="lx-k">You leave with</span><b>A plan you can act on</b></div>
 </div></div>
   </a>
-  <a class="lm-card lx reveal lx-flip" href="substack/" style="--c:#FF8A5B">
+  <a class="lm-card lx reveal lx-flip" href="newsletter/" style="--c:#FF8A5B">
     <div class="lm-txt">
       <span class="lm-flag">Newsletter &middot; The Scaling Edge</span>
       <h2>The Scaling Edge</h2>
@@ -6278,7 +6289,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             <li><a href="#learn">AI Learning</a></li>
             <li><a href="#mindset" data-view="mindset">Workbooks</a></li>
             <li><a href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener">YouTube</a></li>
-            <li><a href="substack/">The Scaling Edge newsletter</a></li>
+            <li><a href="newsletter/">The Scaling Edge newsletter</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -13578,5 +13589,6 @@ window.__initWorkbookMgr = function(hub, H){
   window.addEventListener('load', function(){ try{ layout(); }catch(e){} });
 })();
 </script>
+<script src="assets/newsletter.js" defer></script>
 </body>
 </html>

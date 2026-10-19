@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Scaling Edge — Business Strategies Worth Knowing | Across the Table</title>
+<meta name="description" content="The Scaling Edge is Connie Ramirez's free weekly newsletter: practical business strategies, AI insights, technology updates and real-world lessons to help you build, grow and scale your business.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://acrossthetable.biz/newsletter/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Across the Table">
+<meta property="og:title" content="The Scaling Edge — a newsletter by Connie Ramirez">
+<meta property="og:description" content="Business strategy, AI tools, frameworks and lessons to help you start, build, grow and scale with confidence.">
+<meta property="og:url" content="https://acrossthetable.biz/newsletter/">
+<meta property="og:image" content="https://acrossthetable.biz/media/og-media.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07111F">
+<link rel="icon" href="/assets/footer-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/newsletter.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://acrossthetable.biz/newsletter/","url":"https://acrossthetable.biz/newsletter/","name":"The Scaling Edge — Newsletter by Connie Ramirez","description":"Plain-language business strategy, AI tools, frameworks and lessons for entrepreneurs.","isPartOf":{"@id":"https://acrossthetable.biz/#website"},"about":{"@id":"https://acrossthetable.biz/newsletter/#newsletter"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Across the Table","item":"https://acrossthetable.biz/"},{"@type":"ListItem","position":2,"name":"The Scaling Edge","item":"https://acrossthetable.biz/newsletter/"}]}},{"@type":"Periodical","@id":"https://acrossthetable.biz/newsletter/#newsletter","name":"The Scaling Edge","url":"https://acrossthetablebiz.substack.com/","sameAs":["https://substack.com/@acrossthetable602"],"description":"Business strategy, leadership, technology, AI applications and practical approaches entrepreneurs and small-business owners can use to strengthen their businesses.","isAccessibleForFree":true,"inLanguage":"en","author":{"@type":"Person","name":"Connie Ramirez","honorificSuffix":"MBA","url":"https://acrossthetable.biz/media/"},"publisher":{"@id":"https://acrossthetable.biz/#org"}},{"@type":"Organization","@id":"https://acrossthetable.biz/#org","name":"Across the Table","legalName":"Bold and Beautiful Beauties","url":"https://acrossthetable.biz/","logo":"https://acrossthetable.biz/media/across-the-table-logo.png"}]}</script>
+<style>
+/* The Scaling Edge: the site's shared look (colors, type, menu, footer) comes
+   from /assets/site.css. Only what is particular to this page is below, and
+   every class starts with nl- so nothing collides with the shared styles. */
+:root{--gold:#E0A03A;--gold-bright:#F2B84B;}
+html{scroll-padding-top:86px;}
+.nl-ic{width:18px;height:18px;flex:none;}
+.nl-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-bright);
+  margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+.nl-eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px;}
+.nl-head p.nl-eyebrow,.nl-two p.nl-eyebrow,.nl-close p.nl-eyebrow{font-size:12px;line-height:1.4;color:var(--gold-bright);margin:0 0 14px;}
+.nl-eyebrow.is-teal{color:var(--teal);}
+.nl-two p.nl-eyebrow.is-teal{color:var(--teal);} .nl-eyebrow.is-teal::before{background:var(--teal);}
+.nl-gold{background:linear-gradient(180deg,#F2B84B,#E0A03A);color:#1E1404;border:1px solid #E0A03A;}
+.nl-gold:hover{background:#F5C463;color:#1E1404;}
+
+/* hero */
+.nl-hero{position:relative;overflow:hidden;padding:84px 0 92px;border-bottom:1px solid var(--border-subtle);}
+.nl-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(640px 380px at 82% 12%,rgba(43,168,255,.16),transparent 62%),
+  radial-gradient(520px 320px at 6% 100%,rgba(224,160,58,.14),transparent 65%);}
+.nl-hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(43,168,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(43,168,255,.05) 1px,transparent 1px);
+  background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%);}
+.nl-hero .wrap{position:relative;z-index:1;}
+.nl-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:center;}
+.nl-hero h1{font-size:clamp(44px,6.4vw,76px);line-height:1;font-weight:800;color:var(--text-primary);margin:0 0 16px;letter-spacing:-.02em;}
+.nl-hero h1 em{font-style:normal;color:var(--gold-bright);text-shadow:0 0 34px rgba(224,160,58,.35);}
+.nl-byline{font-weight:600;font-size:17px;color:var(--text-heading);margin:0 0 22px;}
+.nl-byline span{color:var(--text-muted);font-weight:500;}
+.nl-lede{font-size:20px;line-height:1.55;color:var(--text-body);max-width:52ch;margin:0 0 30px;}
+.nl-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nl-stages{display:flex;flex-wrap:wrap;gap:8px;margin:34px 0 0;padding:0;list-style:none;}
+.nl-stages li{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-body);
+  border:1px solid var(--border-default);border-radius:999px;padding:6px 12px;display:flex;align-items:center;gap:8px;}
+.nl-stages li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(224,160,58,.7);}
+
+/* signup card */
+.nl-signup{background:var(--bg-card);border:1px solid var(--border-default);border-top:3px solid var(--gold);border-radius:20px;
+  padding:26px 24px 22px;box-shadow:var(--shadow-card),0 0 44px rgba(224,160,58,.10);}
+.nl-signup h2{font-size:24px;margin:0 0 6px;color:var(--text-heading);}
+.nl-signup > p{font-size:15.5px;color:var(--text-muted);margin:0 0 16px;}
+.nl-signup iframe{display:block;width:100%;height:150px;border:0;border-radius:12px;background:#0B1A2B;}
+.nl-alt{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:14.5px;font-weight:600;color:var(--accent);}
+.nl-alt:hover{color:var(--accent-hover);}
+.nl-fine{font-size:13px;color:var(--text-muted);margin:10px 0 0;}
+
+/* sections */
+.nl-band{padding:88px 0;border-bottom:1px solid var(--border-subtle);}
+.nl-band.alt{background:var(--bg-panel);}
+.nl-head{max-width:720px;margin-bottom:36px;}
+.nl-head h2,.nl-two h2,.nl-writer h2,.nl-close h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;line-height:1.15;color:var(--text-heading);margin:0 0 14px;}
+.nl-head p{font-size:18.5px;color:var(--text-muted);margin:0;}
+
+/* topics */
+.nl-topics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
+.nl-topic{background:var(--bg-card);border:1px solid var(--border-default);border-radius:16px;padding:24px 22px;box-shadow:var(--shadow-sm);
+  transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.nl-topic:hover{border-color:var(--border-strong);transform:translateY(-2px);}
+.nl-badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;
+  background:rgba(224,160,58,.12);color:var(--gold-bright);border:1px solid rgba(224,160,58,.3);}
+.nl-badge svg{width:22px;height:22px;}
+.nl-topic h3{font-size:19px;margin:0 0 8px;color:var(--text-heading);}
+.nl-topic p{font-size:15.5px;color:var(--text-muted);margin:0;line-height:1.55;}
+
+/* who */
+.nl-two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start;}
+.nl-two > div > p{font-size:18px;color:var(--text-muted);}
+.nl-checks{list-style:none;margin:0;padding:0;border-top:1px solid var(--border-default);}
+.nl-checks li{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:18px 0;border-bottom:1px solid var(--border-default);}
+.nl-checks svg{width:24px;height:24px;color:var(--teal);margin-top:2px;}
+.nl-checks b{display:block;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.35;color:var(--text-heading);margin-bottom:2px;}
+.nl-checks span{font-size:16px;color:var(--text-muted);}
+.nl-promise{margin:26px 0 0;padding:18px 20px;border-left:4px solid var(--gold);background:rgba(224,160,58,.08);border-radius:0 12px 12px 0;
+  font-size:17px;color:var(--text-heading);}
+
+/* writer */
+.nl-writer{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:56px;align-items:center;}
+.nl-writer figure{margin:0;}
+.nl-writer img{display:block;width:100%;max-width:380px;aspect-ratio:7/8;object-fit:cover;object-position:50% 6%;border-radius:18px;
+  border:1px solid var(--border-strong);box-shadow:0 0 0 6px rgba(43,168,255,.06),0 30px 60px -30px rgba(0,0,0,.8);background:var(--bg-card);}
+.nl-writer h2 span{color:var(--text-muted);font-weight:700;}
+.nl-role{font-size:16px;color:var(--text-muted);margin:-4px 0 20px;}
+.nl-role i{font-style:normal;color:var(--gold);margin:0 6px;}
+.nl-big{font-size:18.5px;color:var(--text-body);}
+.nl-facts{list-style:none;padding:0;margin:20px 0 26px;display:grid;gap:8px;}
+.nl-facts li{padding-left:18px;position:relative;font-size:16px;color:var(--text-muted);}
+.nl-facts li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:2px;background:var(--gold);}
+.nl-row{display:flex;flex-wrap:wrap;gap:12px;}
+
+/* closing */
+.nl-closing{padding:80px 0;}
+.nl-close{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:36px;align-items:center;
+  padding:clamp(30px,5vw,56px);border-radius:24px;background:linear-gradient(140deg,#0F2440,#0B1A2B);border:1px solid var(--border-strong);}
+.nl-close::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;border:40px solid rgba(224,160,58,.10);pointer-events:none;}
+.nl-close p{color:var(--text-body);margin:0;font-size:18px;}
+.nl-close-act{display:flex;flex-direction:column;gap:12px;align-items:flex-start;position:relative;z-index:1;}
+
+@media (max-width:980px){.nl-topics{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:900px){
+  .nl-hero-grid,.nl-two,.nl-writer,.nl-close{grid-template-columns:1fr;gap:32px;}
+  .nl-hero{padding:56px 0 64px;}
+  .nl-band{padding:64px 0;}
+  .nl-writer img{max-width:300px;}
+}
+@media (max-width:560px){
+  .nl-topics{grid-template-columns:1fr;}
+  .nl-lede{font-size:18px;}
+  .nl-cta .btn{width:100%;justify-content:center;}
+  .nl-signup{padding:22px 18px 18px;}
+}
+
+/* ---- added for /newsletter/ ---- */
+.nl-sub{font-family:var(--display);font-weight:700;font-size:clamp(20px,2.4vw,26px);color:var(--text-heading);margin:0 0 14px;}
+.nl-sched{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:28px 0 0;font-size:15px;color:var(--text-muted);}
+.nl-sched b{color:var(--text-heading);}
+.nl-sched-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(224,160,58,.8);}
+.nl-sched-sep{color:var(--gold);}
+.nl-six{grid-template-columns:repeat(3,minmax(0,1fr));}
+.nl-checks-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;border-top:0;}
+.nl-checks-2 li{border-top:1px solid var(--border-default);border-bottom:0;padding:16px 0;}
+.nl-checks-2 b{margin:0;}
+.nl-checks a{color:var(--accent);}
+.nl-head-row{max-width:none;display:flex;flex-wrap:wrap;gap:18px 32px;align-items:flex-end;justify-content:space-between;}
+.nl-head-row > div{max-width:720px;}
+.nl-issues{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+.nl-issue a{display:flex;flex-direction:column;height:100%;background:var(--bg-card);border:1px solid var(--border-default);border-radius:16px;overflow:hidden;
+  text-decoration:none;transition:border-color var(--base) var(--ease),transform var(--base) var(--ease);}
+.nl-issue a:hover{border-color:var(--gold);transform:translateY(-2px);}
+.nl-issue-pic{position:relative;aspect-ratio:3/2;background:linear-gradient(140deg,#0F2440,#0B1A2B);border-bottom:1px solid var(--border-subtle);display:grid;place-items:center;overflow:hidden;}
+.nl-issue-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.nl-issue-ph{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em;color:var(--gold-bright);text-shadow:0 0 24px rgba(224,160,58,.35);}
+.nl-issue-body{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;flex:1;}
+.nl-issue-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-bright);}
+.nl-issue time{font-size:13.5px;color:var(--text-muted);}
+.nl-issue h3{font-size:18px;line-height:1.35;margin:2px 0 6px;color:var(--text-heading);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.nl-issue-go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14.5px;color:var(--accent);}
+.nl-issue-go svg{width:15px;height:15px;}
+@media (max-width:980px){.nl-six,.nl-issues{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:560px){.nl-sched-sep{display:none;}.nl-six,.nl-issues,.nl-checks-2{grid-template-columns:1fr;}.nl-head-row .btn{width:100%;justify-content:center;}}
+</style>
+</head>
+<body data-newsletter-page>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- site-header: filled in from the main site's menu each time the site is published -->
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="13" y="21.5" width="22" height="5" rx="2.5" fill="#E0A03A"></rect>
+        <circle cx="10.5" cy="24" r="4.2" fill="#2BA8FF"></circle>
+        <circle cx="37.5" cy="24" r="4.2" fill="#2BA8FF"></circle>
+      </svg>
+      <span>
+        <span class="brand-name">Across the Table</span>
+        <span class="brand-sub">Build. Grow. Thrive.</span>
+      </span>
+    </a>
+
+    <button class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/#system">Apps</a>
+      <a href="/#builds">Custom builds</a>
+      <a href="/#learning">Learn</a>
+      <a href="/newsletter/">Newsletter</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a href="/#hub" class="nav-hub">My Hub</a>
+      <a href="/#contact" class="btn btn-primary">Talk to Connie</a>
+    </nav>
+  </div>
+</header>
+<!-- /site-header -->
+
+<main id="main">
+
+<section class="nl-hero" aria-labelledby="hero-title">
+  <div class="wrap nl-hero-grid">
+    <div>
+      <p class="nl-eyebrow">The Across the Table newsletter</p>
+      <h1 id="hero-title">The Scaling <em>Edge</em></h1>
+      <p class="nl-sub">Business Strategies Worth Knowing</p>
+      <p class="nl-byline">by Connie Ramirez, MBA <span>&middot; free, on Substack</span></p>
+      <p class="nl-lede">Every <span data-se-day>Monday</span>, get practical business strategies, AI insights, technology updates, and real-world lessons to help you build, grow, and scale your business.</p>
+      <div class="nl-cta">
+        <a class="btn nl-gold" href="https://acrossthetablebiz.substack.com/subscribe?utm_source=acrossthetable.biz&amp;utm_medium=website&amp;utm_campaign=scaling-edge&amp;utm_content=page" target="_blank" rel="noopener" data-se-click="page">
+          Subscribe Free
+          <svg class="nl-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="#issues">Read past issues</a>
+      </div>
+      <p class="nl-sched"><span class="nl-sched-dot" aria-hidden="true"></span><span>Published every <b data-se-day>Monday</b></span><span class="nl-sched-sep" aria-hidden="true">&middot;</span><span>One newsletter every <span data-se-day>Monday</span>. Unsubscribe anytime.</span></p>
+    </div>
+
+    <div id="subscribe" data-newsletter="page">
+      <div class="se-card">
+        <h3>Get every issue in your inbox</h3>
+        <p>One newsletter every <span data-se-day>Monday</span>. Unsubscribe anytime.</p>
+        <a class="btn nl-gold" href="https://acrossthetablebiz.substack.com/subscribe?utm_source=acrossthetable.biz&amp;utm_medium=website&amp;utm_campaign=scaling-edge&amp;utm_content=page" target="_blank" rel="noopener">Subscribe Free on Substack</a>
+        <p class="se-fine">By subscribing you agree to receive The Scaling Edge by email. Your subscription is managed by Substack under its <a href="https://substack.com/privacy" target="_blank" rel="noopener">privacy policy</a>; see also <a href="/legal/privacy.html">ours</a>. Unsubscribe anytime from the link in any issue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nl-band" id="inside" aria-labelledby="inside-title">
+  <div class="wrap">
+    <div class="nl-head">
+      <p class="nl-eyebrow">What subscribers receive</p>
+      <h2 id="inside-title">Practical help you can put to work this week</h2>
+      <p>Every issue is written to be used &mdash; not read once and forgotten. Here&rsquo;s what lands in your inbox.</p>
+    </div>
+    <div class="nl-topics nl-six">
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
+        <h3>Strategies from established companies</h3>
+        <p>What proven businesses do well, broken down so you can see why it works.</p>
+      </article>
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <h3>Small business implementation ideas</h3>
+        <p>How to scale those same ideas down to your size, your budget and your week.</p>
+      </article>
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 16h5"/></svg></div>
+        <h3>AI tool comparisons</h3>
+        <p>Which AI tools are worth your time, side by side, and practical ways to use them.</p>
+      </article>
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>Business technology insights</h3>
+        <p>The changes in technology that affect how customers find you and how you work.</p>
+      </article>
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <h3>Across the Table updates</h3>
+        <p>News on the apps, workbooks and classes in the Across the Table ecosystem.</p>
+      </article>
+      <article class="nl-topic">
+        <div class="nl-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg></div>
+        <h3>Actionable weekly tips</h3>
+        <p>At least one thing you can do this week &mdash; in plain language, no jargon.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="nl-band alt" aria-labelledby="who-title">
+  <div class="wrap nl-two">
+    <div>
+      <p class="nl-eyebrow is-teal">Who it&rsquo;s for</p>
+      <h2 id="who-title">For the people making the business decisions</h2>
+      <p>Whether you&rsquo;re just starting or already running a team, The Scaling Edge cuts through the noise and gets to what you can use.</p>
+      <p class="nl-promise">Think of it as advice from a trusted friend across the table &mdash; someone who&rsquo;s been through it.</p>
+    </div>
+    <div>
+      <ul class="nl-checks nl-checks-2">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Entrepreneurs</b></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Startup founders</b></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Small business owners</b></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Business executives</b></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Business decision-makers</b></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>Professionals curious about AI and business technology</b></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="nl-band" id="issues" aria-labelledby="issues-title">
+  <div class="wrap">
+    <div class="nl-head nl-head-row">
+      <div>
+        <p class="nl-eyebrow">Previous issues</p>
+        <h2 id="issues-title">Read what subscribers already got</h2>
+        <p>Straight from The Scaling Edge on Substack. Open any issue to read it in full.</p>
+      </div>
+      <a class="btn btn-secondary" href="https://acrossthetablebiz.substack.com/archive" target="_blank" rel="noopener">See every issue on Substack</a>
+    </div>
+<!-- issues -->
+<ul class="nl-issues">
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-issue-8" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span><img src="https://substackcdn.com/image/fetch/$s_!1LuM!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a7e8c02-33cd-45f5-87ef-7a4f1b0919c8_1536x1024.png" alt="" loading="lazy" decoding="async" width="600" height="400" onerror="this.remove()"></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE | ISSUE 8</span><time datetime="2026-10-19">Oct 19, 2026</time><h3>Your Business Has AI. But Is It Actually Helping You Scale?</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-issue-7" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span><img src="https://substackcdn.com/image/fetch/$s_!J7xt!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd5cd6279-e128-4057-a5d6-f1dbaa0050f3_1672x940.png" alt="" loading="lazy" decoding="async" width="600" height="400" onerror="this.remove()"></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE | ISSUE 7</span><time datetime="2026-10-12">Oct 12, 2026</time><h3>Your Next Customer May Never Visit Your Website</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-1af" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE</span><time datetime="2026-10-05">Oct 5, 2026</time><h3>AI Is Moving From Assistant to Employee</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-issue-05" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE — ISSUE 05</span><time datetime="2026-09-28">Sep 28, 2026</time><h3>AI. Technology. Strategy. What&#x27;s Next for Small Business. Presented by Across the Table — Connie Ramirez | MBA | 20+ Years in IT</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-776" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE</span><time datetime="2026-09-18">Sep 18, 2026</time><h3>AI. Technology. Strategy. What&#x27;s Next for Small Business.</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+<li class="nl-issue"><a href="https://acrossthetablebiz.substack.com/p/the-scaling-edge-c2a" target="_blank" rel="noopener"><div class="nl-issue-pic"><span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span></div><div class="nl-issue-body"><span class="nl-issue-label">THE SCALING EDGE</span><time datetime="2026-09-11">Sep 11, 2026</time><h3>AI. TECHNOLOGY. STRATEGY. WHAT&#x27;S NEXT FOR SMALL BUSINESS.</h3><span class="nl-issue-go">Read issue <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></a></li>
+</ul>
+<!-- /issues -->
+  </div>
+</section>
+
+<section class="nl-band alt" id="how-it-works" aria-labelledby="how-title">
+  <div class="wrap nl-two">
+    <div>
+      <p class="nl-eyebrow is-teal">How your subscription works</p>
+      <h2 id="how-title">Simple, and always your choice</h2>
+      <p>Signing up means you&rsquo;ll get The Scaling Edge by email. That&rsquo;s it.</p>
+    </div>
+    <ul class="nl-checks">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><div><b>Managed by Substack</b><span>Your email goes straight to Substack, which sends every issue. This website never sees or stores it.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><div><b>Unsubscribe anytime</b><span>Every issue has an unsubscribe link at the bottom. One click and you&rsquo;re off the list.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg><div><b>No account needed</b><span>You don&rsquo;t need an Across the Table account, and buying an app never signs you up.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6z"/></svg><div><b>Your privacy</b><span>Read <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack&rsquo;s privacy policy</a> and <a href="/legal/privacy.html">ours</a>.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="nl-band" aria-labelledby="writer-title">
+  <div class="wrap nl-writer">
+    <figure><img src="/media/connie-ramirez.jpg" alt="Connie Ramirez, MBA, founder of Across the Table" width="700" height="800" loading="lazy"></figure>
+    <div>
+      <p class="nl-eyebrow">Meet the writer</p>
+      <h2 id="writer-title">Connie Ramirez<span>, MBA</span></h2>
+      <p class="nl-role">Founder &amp; CEO, Across the Table<i>&middot;</i>Phoenix, Arizona</p>
+      <p class="nl-big">Connie founded Across the Table to help entrepreneurs and small-business owners build stronger, more sustainable businesses. The Scaling Edge is where she shares what she&rsquo;s learned &mdash; and what she&rsquo;s building &mdash; with you.</p>
+      <ul class="nl-facts">
+        <li>About 20 years in information technology, systems analysis and business operations</li>
+        <li>B.S. in Finance, Arizona State University &middot; MBA, University of Phoenix</li>
+        <li>Builder of the Across the Table ecosystem of business apps, workbooks and AI learning</li>
+      </ul>
+      <div class="nl-row">
+        <a class="btn btn-primary" href="#subscribe">Subscribe to The Scaling Edge</a>
+        <a class="btn btn-secondary" href="/#system">Explore the apps</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nl-closing" aria-labelledby="close-title">
+  <div class="wrap">
+    <div class="nl-close">
+      <div>
+        <p class="nl-eyebrow">Published every <span data-se-day>Monday</span></p>
+        <h2 id="close-title">Get your edge &mdash; free, in your inbox</h2>
+        <p>Business insights delivered every <span data-se-day>Monday</span>. Join The Scaling Edge.</p>
+      </div>
+      <div class="nl-close-act">
+        <a class="btn nl-gold" href="https://acrossthetablebiz.substack.com/subscribe?utm_source=acrossthetable.biz&amp;utm_medium=website&amp;utm_campaign=scaling-edge&amp;utm_content=page" target="_blank" rel="noopener" data-se-click="page">
+          Subscribe Free
+          <svg class="nl-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="https://substack.com/@acrossthetable602" target="_blank" rel="noopener">Follow Connie on Substack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<!-- site-footer: filled in from the main site's footer each time the site is published -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-logo">
+        <img src="/assets/footer-logo.png" alt="Across the Table Business Consulting" width="170">
+        <div class="foot-tag">Build. Grow. Thrive.</div>
+        <nav class="foot-social" data-foot-social aria-label="Follow Across the Table"></nav>
+      </div>
+
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Ecosystem</h4>
+          <ul>
+            <li><a href="/#system">All applications</a></li>
+            <li><a href="/entrepreneur-blueprint/">Entrepreneur Blueprint</a></li>
+            <li><a href="/#system">By business stage</a></li>
+            <li><a href="/#builds">Custom builds</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="/#learn">AI Learning</a></li>
+            <li><a href="/#mindset">Workbooks</a></li>
+            <li><a href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a href="/newsletter/">The Scaling Edge newsletter</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/#work">Consulting</a></li>
+            <li><a href="/media/">Media &amp; Press</a></li>
+            <li><a href="/#support">Report an issue</a></li>
+            <li><a href="mailto:info@acrossthetable.biz">info@acrossthetable.biz</a></li>
+            <li><a href="tel:+14805824716">480-582-4716</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/legal/terms.html">Terms of use</a></li>
+            <li><a href="/legal/privacy.html">Privacy policy</a></li>
+            <li><a href="/legal/index.html">App terms &amp; policies</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>© <span id="yr">2026</span> Bold and Beautiful Beauties d/b/a Across the Table · <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a></p>
+      <p>101 N First Ave, Suite 2325-1495, Phoenix, AZ 85003 · acrossthetable.biz</p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Footer social links. Paste a full link to turn an icon on; leave "" to hide it. */
+window.SOCIAL_LINKS = {
+  youtube:   "https://www.youtube.com/@AcrossTheTableConnie",
+  instagram: "https://www.instagram.com/acrossthetableconnie",
+  facebook:  "https://www.facebook.com/share/1XsXTRMovN/",
+  tiktok:    "https://www.tiktok.com/@across.the.table0",
+  linkedin:  "https://www.linkedin.com/in/connie-jacobo-ramirez",
+  x:         ""
+};
+(function(){
+  var ICONS = {
+    youtube:['YouTube','<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z"/>'],
+    instagram:['Instagram','<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>'],
+    facebook:['Facebook','<path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H7v3.5h2V21h3.5v-8.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/>'],
+    tiktok:['TikTok','<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/>'],
+    linkedin:['LinkedIn','<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-3.5a2 2 0 0 1 4 0V17M12 10.5V17"/>'],
+    x:['X','<path d="M4 4l16 16M20 4L4 20"/>']
+  };
+  var box = document.querySelector('[data-foot-social]');
+  if(!box) return;
+  var links = window.SOCIAL_LINKS || {}, html = '';
+  Object.keys(ICONS).forEach(function(k){
+    var url = (links[k]||'').trim();
+    if(!/^https:\/\//.test(url)) return;
+    html += '<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener" aria-label="'+ICONS[k][0]+'" title="'+ICONS[k][0]+'">'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[k][1]+'</svg></a>';
+  });
+  box.innerHTML = html;
+  box.hidden = !html;
+})();
+</script>
+<!-- /site-footer -->
+
+<script>
+/* phone menu */
+(function(){
+  var t = document.getElementById('navtoggle'), n = document.getElementById('nav');
+  if(t && n) t.addEventListener('click', function(){ var o = n.classList.toggle('is-open'); t.setAttribute('aria-expanded', String(o)); });
+})();
+</script>
+<script src="/assets/newsletter.js" defer></script>
+</body>
+</html>

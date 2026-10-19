@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/newsletter.css">
 <script type="application/ld+json">{{JSONLD}}</script>
 </head>
 <body>
@@ -26,10 +27,12 @@
 {{HEADER}}
 <main id="main">
 {{ARTICLE}}
+<section class="se-band" data-newsletter="app" aria-label="The Scaling Edge newsletter"></section>
 </main>
 {{FOOTER}}
 {{SOCIAL}}
 <script>window.ATT_APP = {{CONFIG}};</script>
 <script src="/assets/app-page.js?v=20261017" defer></script>
+<script src="/assets/newsletter.js" defer></script>
 </body>
 </html>

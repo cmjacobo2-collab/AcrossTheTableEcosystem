@@ -1,0 +1,65 @@
+/* ============================================================
+   The Scaling Edge — newsletter signup pieces
+   Used on the home page, every footer, the app pages and
+   /newsletter/. Every class starts with se- so nothing here can
+   collide with the rest of the site. Colors come from the site's
+   own tokens, so it always matches.
+   ============================================================ */
+.se-gold{background:linear-gradient(180deg,#F2B84B,#E0A03A);color:#1E1404 !important;border:1px solid #E0A03A;}
+.se-gold:hover{background:#F5C463;color:#1E1404 !important;filter:none;}
+.se-ic{width:17px;height:17px;flex:none;}
+.se-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F2B84B;
+  margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+.se-eyebrow::before{content:"";width:22px;height:2px;background:#E0A03A;border-radius:2px;}
+.se-day{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-heading);border:1px solid rgba(224,160,58,.45);background:rgba(224,160,58,.08);border-radius:999px;padding:6px 12px;}
+.se-day::before{content:"";width:7px;height:7px;border-radius:50%;background:#E0A03A;box-shadow:0 0 8px rgba(224,160,58,.7);}
+
+/* ---- the signup card (official Substack form inside our frame) ---- */
+.se-card{background:var(--bg-card);border:1px solid var(--border-default);border-top:3px solid #E0A03A;border-radius:20px;
+  padding:24px 22px 20px;box-shadow:var(--shadow-card),0 0 44px rgba(224,160,58,.10);}
+.se-card h3{font-family:var(--display);font-size:22px;line-height:1.2;margin:0 0 6px;color:var(--text-heading);}
+.se-card > p{font-size:15px;color:var(--text-muted);margin:0 0 14px;}
+.se-frame{position:relative;width:100%;max-width:480px;height:320px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #EEE;}
+.se-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
+.se-frame-wait{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;color:#56606B;text-align:center;padding:20px;}
+.se-alt{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);}
+.se-alt:hover{color:var(--accent-hover);}
+.se-fine{font-size:12.5px;line-height:1.55;color:var(--text-muted);margin:10px 0 0;}
+.se-fine a{color:var(--text-body);text-decoration:underline;text-underline-offset:2px;}
+
+/* ---- home page section ---- */
+.se-home{padding:72px 0;border-top:1px solid var(--border-subtle);}
+.se-home-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:48px;align-items:center;}
+.se-home h2{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);line-height:1.1;font-weight:800;color:var(--text-heading);margin:0 0 14px;}
+.se-home h2 em{font-style:normal;color:#F2B84B;}
+.se-home-lede{font-size:18px;line-height:1.6;color:var(--text-body);margin:0 0 18px;max-width:54ch;}
+.se-home-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:22px;}
+.se-home-noscript{display:flex;flex-wrap:wrap;gap:12px;}
+
+/* ---- slim band: app pages and articles ---- */
+.se-band{padding:8px 0 64px;}
+.se-band-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:center;
+  padding:26px 28px;border-radius:18px;border:1px solid var(--border-default);border-left:4px solid #E0A03A;
+  background:linear-gradient(140deg,rgba(15,36,64,.9),rgba(11,26,43,.9));}
+.se-band h2{font-family:var(--display);font-size:clamp(20px,2.4vw,25px);line-height:1.25;color:var(--text-heading);margin:0 0 6px;}
+.se-band p{margin:0;color:var(--text-muted);font-size:15.5px;}
+.se-band-act{display:flex;flex-wrap:wrap;gap:10px;}
+
+/* ---- compact footer strip ---- */
+.se-foot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 28px;align-items:center;
+  padding:20px 22px;margin:0 0 34px;border:1px solid var(--border-default);border-radius:16px;background:rgba(224,160,58,.05);}
+.se-foot b{display:block;font-family:var(--display);font-size:17px;color:var(--text-heading);margin-bottom:2px;}
+.se-foot span{font-size:14.5px;color:var(--text-muted);}
+.se-foot .btn{white-space:nowrap;}
+
+@media (max-width:900px){
+  .se-home-grid{grid-template-columns:1fr;gap:30px;}
+  .se-home{padding:56px 0;}
+}
+@media (max-width:640px){
+  .se-band-in,.se-foot{grid-template-columns:1fr;}
+  .se-band-act .btn,.se-foot .btn,.se-home-row .btn{width:100%;justify-content:center;}
+  .se-card{padding:20px 16px 18px;}
+  .se-frame{height:340px;}
+}

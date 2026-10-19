@@ -225,10 +225,10 @@ def share_chrome(rel):
     if write(rel, page):
         changed.append(rel)
 
-share_chrome('substack/index.html')
+share_chrome('newsletter/index.html')   # /substack/ now just forwards here
 
 # ---------------------------------------------------------------- sitemap
-urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8'), (SITE + '/substack/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
+urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8'), (SITE + '/newsletter/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
 legal = [(SITE + '/legal/', '0.3'), (SITE + '/legal/terms.html', '0.3'), (SITE + '/legal/privacy.html', '0.3')]
 for dname in sorted(LEGAL_APPS):
     for f in sorted(os.listdir(os.path.join(ROOT, 'legal', dname))):

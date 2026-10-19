@@ -1,0 +1,58 @@
+# ============================================================
+#  Keep "Previous issues" on /newsletter/ up to date
+#
+#  Every few hours this reads The Scaling Edge's official Substack
+#  feed and refreshes the list of past issues on
+#  acrossthetable.biz/newsletter/ — titles, dates and pictures
+#  exactly as they are on Substack. Nothing to do by hand.
+#
+#  If Substack can't be reached, nothing changes.
+#  It never touches index.html, so "Restore previous website
+#  version" keeps working exactly as before.
+#
+#  To run it right now (say, just after publishing an issue):
+#  GitHub -> Actions -> "Update newsletter issues"
+#  -> Run workflow -> Run workflow
+# ============================================================
+
+name: Update newsletter issues
+
+on:
+  schedule:
+    - cron: '17 */4 * * *'      # every four hours
+  push:
+    branches: [main]
+    paths:
+      - newsletter/**
+      - _newsletter/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-newsletter-issues
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the Substack feed
+        run: python3 _newsletter/update_issues.py
+
+      - name: Save if anything changed
+        run: |
+          set -euo pipefail
+          git config user.name  "Across the Table site"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A -- newsletter assets/newsletter/issues.json
+          if git diff --cached --quiet; then
+            echo "Issues already up to date."
+          else
+            git commit -m "Update newsletter issues"
+            git pull --rebase origin main
+            git push
+          fi
