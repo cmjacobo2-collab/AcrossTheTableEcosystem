@@ -20,6 +20,8 @@
     description: 'Every Monday, get practical business strategies, AI insights, technology updates, and real-world lessons to help you build, grow, and scale your business.',
     button:      'Subscribe Free',
     privacyPage: '/legal/privacy.html',
+    logo:        '/assets/newsletter/scaling-edge-logo.jpg',   // the round Scaling Edge badge
+    icon:        '/assets/newsletter/scaling-edge-icon.jpg',
     pagePath:    '/newsletter/',
     cta: {
       home: 'Business insights delivered every Monday. Join The Scaling Edge.',
@@ -122,6 +124,7 @@
     home: function () {
       return '<div class="wrap se-home-grid">' +
         '<div>' +
+          '<img class="se-badge" src="' + esc(NEWSLETTER.logo) + '" alt="' + esc(NEWSLETTER.name) + '" width="320" height="320" loading="lazy" decoding="async">' +
           '<p class="se-eyebrow">' + esc(NEWSLETTER.name) + ' &middot; free newsletter</p>' +
           '<h2>' + esc(dayed(NEWSLETTER.cta.home)).replace(esc(NEWSLETTER.name), '<em>' + esc(NEWSLETTER.name) + '</em>') + '</h2>' +
           '<p class="se-home-lede">' + esc(dayed(NEWSLETTER.description)) + '</p>' +
@@ -139,14 +142,17 @@
     blog: function () { return band('blog'); }
   };
   function band(place) {
-    return '<div class="wrap"><div class="se-band-in">' +
+    return '<div class="wrap"><div class="se-band-in">' + mini(56) +
       '<div><h2>' + esc(dayed(NEWSLETTER.cta[place])) + '</h2><p>' + esc(SUPPORT) + ' Free, on Substack.</p></div>' +
       '<div class="se-band-act">' + button(place) +
         '<a class="btn btn-secondary" href="' + esc(NEWSLETTER.pagePath) + '">What’s inside</a></div>' +
     '</div></div>';
   }
+  function mini(px) {
+    return '<img class="se-mini" src="' + esc(NEWSLETTER.icon) + '" alt="" width="' + px + '" height="' + px + '" loading="lazy" decoding="async">';
+  }
   function footerStrip() {
-    return '<div><b>' + esc(NEWSLETTER.name) + '</b><span>' + esc(dayed(NEWSLETTER.cta.home)) + ' ' + esc(SUPPORT.split('. ')[1] || '') + '</span></div>' +
+    return mini(48) + '<div><b>' + esc(NEWSLETTER.name) + '</b><span>' + esc(dayed(NEWSLETTER.cta.home)) + ' ' + esc(SUPPORT.split('. ')[1] || '') + '</span></div>' +
       button('footer');
   }
 

@@ -68,7 +68,8 @@ def card(i):
     heading = i['subtitle'] or i['title']
     label = i['title'] if i['subtitle'] else ''
     # the title card sits underneath; Substack's cover picture covers it, or is dropped if it fails to load
-    pic = '<span class="nl-issue-ph" aria-hidden="true">The Scaling Edge</span>'
+    pic = ('<span class="nl-issue-ph" aria-hidden="true"><img src="/assets/newsletter/scaling-edge-logo.jpg" alt="" '
+           'loading="lazy" decoding="async" width="320" height="320"></span>')
     if i['image']:
         pic += ('<img src="%s" alt="" loading="lazy" decoding="async" width="600" height="400" onerror="this.remove()">' % e(i['image']))
     return ('<li class="nl-issue"><a href="%s" target="_blank" rel="noopener">'

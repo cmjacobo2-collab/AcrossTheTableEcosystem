@@ -11,6 +11,8 @@
 .se-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F2B84B;
   margin:0 0 14px;display:flex;align-items:center;gap:10px;}
 .se-eyebrow::before{content:"";width:22px;height:2px;background:#E0A03A;border-radius:2px;}
+.se-badge{display:block;width:104px;height:104px;border-radius:50%;margin:0 0 18px;box-shadow:0 0 0 1px rgba(224,160,58,.35),0 0 34px rgba(224,160,58,.22);}
+.se-mini{display:block;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(224,160,58,.35);}
 .se-day{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--text-heading);border:1px solid rgba(224,160,58,.45);background:rgba(224,160,58,.08);border-radius:999px;padding:6px 12px;}
 .se-day::before{content:"";width:7px;height:7px;border-radius:50%;background:#E0A03A;box-shadow:0 0 8px rgba(224,160,58,.7);}
@@ -39,7 +41,7 @@
 
 /* ---- slim band: app pages and articles ---- */
 .se-band{padding:8px 0 64px;}
-.se-band-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:center;
+.se-band-in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px 32px;align-items:center;
   padding:26px 28px;border-radius:18px;border:1px solid var(--border-default);border-left:4px solid #E0A03A;
   background:linear-gradient(140deg,rgba(15,36,64,.9),rgba(11,26,43,.9));}
 .se-band h2{font-family:var(--display);font-size:clamp(20px,2.4vw,25px);line-height:1.25;color:var(--text-heading);margin:0 0 6px;}
@@ -47,7 +49,7 @@
 .se-band-act{display:flex;flex-wrap:wrap;gap:10px;}
 
 /* ---- compact footer strip ---- */
-.se-foot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 28px;align-items:center;
+.se-foot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px 28px;align-items:center;
   padding:20px 22px;margin:0 0 34px;border:1px solid var(--border-default);border-radius:16px;background:rgba(224,160,58,.05);}
 .se-foot b{display:block;font-family:var(--display);font-size:17px;color:var(--text-heading);margin-bottom:2px;}
 .se-foot span{font-size:14.5px;color:var(--text-muted);}
@@ -58,7 +60,9 @@
   .se-home{padding:56px 0;}
 }
 @media (max-width:640px){
-  .se-band-in,.se-foot{grid-template-columns:1fr;}
+  .se-band-in,.se-foot{grid-template-columns:auto minmax(0,1fr);}
+  .se-band-act,.se-foot > .btn{grid-column:1/-1;}
+  .se-band .se-mini{width:44px;height:44px;}
   .se-band-act .btn,.se-foot .btn,.se-home-row .btn{width:100%;justify-content:center;}
   .se-card{padding:20px 16px 18px;}
   .se-frame{height:340px;}
