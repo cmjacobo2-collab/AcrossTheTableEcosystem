@@ -2429,6 +2429,135 @@ a[data-goto]{cursor:pointer;}
 .lm-card:hover .lm-b4{transform:translate(-10%,-52%) rotate(7deg);}
 .lm-card:hover .lm-b5{transform:translate(28%,-46%) rotate(14deg);}
 .learn-row-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+
+/* ---- Learning page: the other featured cards (each has its own colour in --c) ---- */
+.lm-feat .wrap{display:flex;flex-direction:column;gap:22px;}
+.lx{background:
+    radial-gradient(80% 120% at 100% 50%,color-mix(in srgb,var(--c) 17%,transparent),transparent 60%),
+    linear-gradient(160deg,color-mix(in srgb,var(--c) 9%,transparent),rgba(18,36,59,.85) 55%);
+  border-color:color-mix(in srgb,var(--c) 38%,transparent);box-shadow:var(--shadow-card),0 0 60px color-mix(in srgb,var(--c) 7%,transparent);}
+.lx:hover{border-color:color-mix(in srgb,var(--c) 70%,transparent);box-shadow:var(--shadow-card),0 0 70px color-mix(in srgb,var(--c) 17%,transparent);}
+.lx-flip{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  background:
+    radial-gradient(80% 120% at 0% 50%,color-mix(in srgb,var(--c) 17%,transparent),transparent 60%),
+    linear-gradient(200deg,color-mix(in srgb,var(--c) 9%,transparent),rgba(18,36,59,.85) 55%);}
+.lx-flip .lx-vis{order:-1;}
+.lx .lm-flag{background:var(--c);}
+.lx .lm-stats b{color:var(--c);}
+.lx .lm-go{background:var(--c);}
+.lx:hover .lm-go{background:color-mix(in srgb,var(--c) 80%,#fff);}
+.lx-chips li{border-color:color-mix(in srgb,var(--c) 45%,transparent);}
+.lx-chips li span{background:var(--c);}
+.lx-vis{position:relative;height:330px;}
+.lx-k{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--c);}
+.lx-vis > *{transition:transform .35s ease;}
+
+/* Build with AI */
+.lx-coh{position:absolute;width:56%;padding:18px 20px;border-radius:14px;background:rgba(7,17,31,.82);
+  border:1px solid color-mix(in srgb,var(--c) 40%,transparent);box-shadow:0 20px 44px rgba(0,0,0,.5);}
+.lx-coh b{display:block;margin-top:6px;font-size:18px;color:var(--text-heading);line-height:1.25;}
+.lx-coh i{display:block;margin-top:4px;font-style:normal;font-size:12.5px;color:var(--text-muted);}
+.lx-coh1{left:2%;top:18px;transform:rotate(-3deg);}
+.lx-coh2{left:14%;top:178px;transform:rotate(2deg);}
+.lx-steps{display:flex;gap:4px;margin-top:12px;}
+.lx-steps em{flex:1;font-style:normal;font-size:10px;font-weight:700;text-align:center;padding:5px 0;border-radius:6px;
+  color:#07111F;background:color-mix(in srgb,var(--c) calc(40% + var(--n,0) * 1%),#5b7d8f);}
+.lx-steps em:nth-child(-n+3){background:var(--c);}
+.lx-bars{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+.lx-bars em{display:block;height:7px;border-radius:4px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.lx-bars em::after{content:"";position:absolute;inset:0;width:var(--w);background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 40%,#2BA8FF));border-radius:4px;}
+.lx-phone{position:absolute;right:1%;top:40px;width:128px;height:250px;border-radius:24px;padding:16px 12px;
+  background:#07111F;border:2px solid color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 24px 50px rgba(0,0,0,.55),0 0 30px color-mix(in srgb,var(--c) 18%,transparent);
+  display:flex;flex-direction:column;gap:9px;transform:rotate(6deg);}
+.lx-ph-top{height:10px;width:46%;border-radius:5px;background:rgba(255,255,255,.18);}
+.lx-ph-card{height:76px;border-radius:10px;background:linear-gradient(140deg,var(--c),#2BA8FF);opacity:.9;}
+.lx-ph-row{height:9px;border-radius:5px;background:rgba(255,255,255,.14);}
+.lx-ph-row.s{width:64%;}
+.lx-ph-btn{margin-top:auto;height:26px;border-radius:8px;background:var(--c);}
+.lx:hover .lx-coh1{transform:rotate(-4deg) translate(-6px,-4px);}
+.lx:hover .lx-coh2{transform:rotate(3deg) translate(4px,4px);}
+.lx:hover .lx-phone{transform:rotate(8deg) translateY(-6px);}
+
+/* AI Assessment */
+.lx-score{position:absolute;inset:14px 4% 14px 4%;display:grid;grid-template-columns:150px 1fr;grid-template-rows:1fr auto;gap:14px 20px;
+  padding:22px;border-radius:16px;background:rgba(7,17,31,.82);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);box-shadow:0 22px 50px rgba(0,0,0,.5);}
+.lx-ring{position:relative;align-self:center;width:150px;height:150px;}
+.lx-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.lx-ring circle{fill:none;stroke-width:11;}
+.lx-ring .t{stroke:rgba(255,255,255,.08);}
+.lx-ring .v{stroke:var(--c);stroke-linecap:round;stroke-dasharray:314;stroke-dashoffset:88;filter:drop-shadow(0 0 6px var(--c));transition:stroke-dashoffset .6s ease;}
+.lx:hover .lx-ring .v{stroke-dashoffset:60;}
+.lx-ring span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;color:var(--text-muted);}
+.lx-ring b{font-size:22px;color:var(--text-heading);}
+.lx-score-l{display:flex;flex-direction:column;gap:10px;justify-content:center;}
+.lx-meter i{display:block;font-style:normal;font-size:12.5px;color:var(--text-body);margin-bottom:4px;}
+.lx-meter em{display:block;height:7px;border-radius:4px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.lx-meter em::after{content:"";position:absolute;inset:0;width:var(--w);border-radius:4px;background:linear-gradient(90deg,var(--c),#27D8C2);transition:width .5s ease;}
+.lx-plan{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:10px;
+  background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 35%,transparent);}
+.lx-plan b{font-size:15px;color:var(--text-heading);}
+
+/* The Scaling Edge */
+.lx-env{position:absolute;right:6%;bottom:10px;width:46%;height:120px;border-radius:12px;transform:rotate(7deg);z-index:0;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--c) 70%,#07111F),color-mix(in srgb,var(--c) 30%,#07111F));box-shadow:0 20px 40px rgba(0,0,0,.5);}
+.lx-env::before{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(155deg,transparent 49%,rgba(0,0,0,.25) 50%,transparent 51%),linear-gradient(25deg,transparent 49%,rgba(0,0,0,.25) 50%,transparent 51%);}
+.lx-mail{position:absolute;left:4%;top:16px;width:78%;z-index:1;padding:16px 20px 18px;border-radius:14px;background:#F4F7FA;color:#1D2733;
+  box-shadow:0 24px 54px rgba(0,0,0,.55);transform:rotate(-2deg);}
+.lx-mail-h{display:flex;align-items:center;gap:5px;padding-bottom:10px;border-bottom:1px solid #D9E0E8;}
+.lx-dot{width:8px;height:8px;border-radius:50%;background:#D9E0E8;}
+.lx-mail-h em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7A8796;}
+.lx-mail-from{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.lx-av{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;background:#083A66;box-shadow:0 0 0 2px var(--c);}
+.lx-mail-from b{display:block;font-size:14px;color:#083A66;}
+.lx-mail-from i{display:block;font-style:normal;font-size:11.5px;color:#5B6878;}
+.lx-mail-t{margin-top:12px;font-family:Cinzel,var(--display);font-weight:700;font-size:17px;line-height:1.25;color:#083A66;}
+.lx-lines{display:flex;flex-direction:column;gap:7px;margin-top:12px;}
+.lx-lines em{display:block;height:7px;border-radius:4px;background:#DCE3EA;}
+.lx-lines em.s{width:72%;} .lx-lines em.s2{width:48%;}
+.lx-mail-tags{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+.lx-mail-tags span{font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;color:#7A3A1D;background:color-mix(in srgb,var(--c) 22%,#fff);}
+.lx:hover .lx-mail{transform:rotate(-1deg) translateY(-6px);}
+.lx:hover .lx-env{transform:rotate(9deg) translate(8px,4px);}
+
+/* YouTube */
+.lx-player{position:absolute;left:6%;top:20px;width:88%;z-index:1;border-radius:14px;overflow:hidden;background:rgba(7,17,31,.92);
+  border:1px solid color-mix(in srgb,var(--c) 38%,transparent);box-shadow:0 24px 54px rgba(0,0,0,.55);}
+.lx-screen{position:relative;aspect-ratio:16/8.4;display:grid;place-items:center;
+  background:radial-gradient(70% 90% at 30% 20%,#0E4C82,#083A66 50%,#04213F);}
+.lx-screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px);}
+.lx-play{position:relative;display:grid;place-items:center;width:70px;height:50px;border-radius:14px;background:var(--c);color:#fff;
+  box-shadow:0 10px 30px color-mix(in srgb,var(--c) 50%,transparent);transition:transform .25s ease;}
+.lx-play svg{width:26px;height:26px;}
+.lx:hover .lx-play{transform:scale(1.1);}
+.lx-dur{position:absolute;left:14px;bottom:12px;font-family:Cinzel,var(--display);font-weight:700;font-size:17px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6);}
+.lx-prog{height:4px;background:rgba(255,255,255,.12);}
+.lx-prog em{display:block;height:100%;width:38%;background:var(--c);transition:width .8s ease;}
+.lx:hover .lx-prog em{width:62%;}
+.lx-ch{display:flex;align-items:center;gap:10px;padding:12px 14px;}
+.lx-ch b{display:block;font-size:14px;color:var(--text-heading);}
+.lx-ch i{display:block;font-style:normal;font-size:11.5px;color:var(--text-muted);}
+.lx-sub{margin-left:auto;font-size:12px;font-weight:700;color:#fff;background:var(--c);border-radius:999px;padding:6px 12px;}
+.lx-thumbs{position:absolute;right:2%;bottom:6px;display:flex;gap:8px;transform:rotate(-3deg);z-index:2;}
+.lx-thumbs div{width:92px;height:54px;border-radius:8px;border:1px solid rgba(255,255,255,.14);box-shadow:0 12px 26px rgba(0,0,0,.5);
+  background:linear-gradient(140deg,#0E4C82,#083A66);position:relative;}
+.lx-thumbs div::after{content:"";position:absolute;left:50%;top:50%;width:20px;height:14px;margin:-7px 0 0 -10px;border-radius:4px;background:var(--c);}
+
+@media (max-width:900px){
+  .lx,.lx-flip{grid-template-columns:1fr;}
+  .lx-vis{height:250px;order:-1;}
+  .lx-coh{width:66%;padding:14px 16px;} .lx-coh2{top:126px;} .lx-phone{width:104px;height:200px;top:20px;}
+  .lx-score{grid-template-columns:110px 1fr;padding:16px;} .lx-ring{width:110px;height:110px;}
+  .lx-mail{width:86%;} .lx-thumbs{display:none;}
+}
+@media (max-width:620px){
+  .lx-vis{height:auto;display:flex;flex-direction:column;gap:10px;}
+  .lx-vis > *{position:relative !important;inset:auto !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;width:100% !important;transform:none !important;}
+  .lx:hover .lx-vis > *{transform:none !important;}
+  .lx-coh{padding:14px 16px;} .lx-coh b{font-size:15.5px;} .lx-phone,.lx-env,.lx-bars{display:none;}
+  .lx-score{grid-template-columns:1fr;padding:16px;} .lx-ring{display:none;}
+  .lx-mail-t{font-size:15px;} .lx-lines em:nth-child(n+4){display:none;}
+}
+@media (prefers-reduced-motion: reduce){ .lx-vis > *,.lx-ring .v,.lx-meter em::after,.lx-prog em,.lx-play{transition:none;} }
 @media (max-width:900px){
   .lm-card{grid-template-columns:1fr;padding:26px 22px;}
   .lm-books{height:240px;order:-1;}
@@ -3918,6 +4047,76 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
       <span class="lm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
     </div>
     <div class="lm-books" aria-hidden="true"><img src="assets/workbooks/base-roadmap.jpg" alt="" loading="lazy" decoding="async" class="lm-b1"><img src="assets/workbooks/business-foundation.jpg" alt="" loading="lazy" decoding="async" class="lm-b2"><img src="assets/workbooks/ceo-meeting-academy.jpg" alt="" loading="lazy" decoding="async" class="lm-b3"><img src="assets/workbooks/five-ceo-meetings.jpg" alt="" loading="lazy" decoding="async" class="lm-b4"><img src="assets/workbooks/strategy-workbook.jpg" alt="" loading="lazy" decoding="async" class="lm-b5"></div>
+  </a>
+
+  <a class="lm-card lx reveal lx-flip" href="#learn" style="--c:#27D8C2">
+    <div class="lm-txt">
+      <span class="lm-flag">Classes &middot; Build with AI</span>
+      <h2>Build with AI</h2>
+      <p>Two cohorts, taught step by step. The first builds your app. The second builds the system behind it. No coding background needed &mdash; you leave each one with work you have actually done.</p>
+      <ol class="lm-stages lx-chips"><li><span>01</span>Plan</li><li><span>02</span>Design</li><li><span>03</span>Build</li><li><span>04</span>Test</li><li><span>05</span>Launch</li></ol>
+      <div class="lm-stats"><span><b>2</b> cohorts</span><span><b>12 + 8</b> weeks</span><span><b>In person</b> or on Zoom</span></div>
+      <span class="lm-go">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+    <div class="lx-vis" aria-hidden="true"><div class="lx-coh lx-coh1"><span class="lx-k">Cohort 1</span><b>Build the App</b><i>12 weeks &middot; 2 hrs a session</i>
+  <div class="lx-steps"><em>Plan</em><em>Design</em><em>Build</em><em>Test</em><em>Launch</em></div></div>
+<div class="lx-coh lx-coh2"><span class="lx-k">Cohort 2</span><b>Backend, Admin &amp; Governance</b><i>8 weeks &middot; 2 hrs a session</i>
+  <div class="lx-bars"><em style="--w:92%"></em><em style="--w:70%"></em><em style="--w:84%"></em></div></div>
+<div class="lx-phone"><div class="lx-ph-top"></div><div class="lx-ph-card"></div><div class="lx-ph-row"></div><div class="lx-ph-row s"></div><div class="lx-ph-btn"></div></div></div>
+  </a>
+  <a class="lm-card lx reveal" href="#assessment" data-view="assessment" style="--c:#2BA8FF">
+    <div class="lm-txt">
+      <span class="lm-flag">Free self-check &middot; AI Assessment</span>
+      <h2>AI Assessment</h2>
+      <p>Find out where AI actually fits in your business before you spend a dollar on it. Answer the questions, see your stack, and leave with a plan you can act on.</p>
+      <ol class="lm-stages lx-chips"><li><span>01</span>Free check</li><li><span>02</span>Quick assessment</li><li><span>03</span>Full stack review</li></ol>
+      <div class="lm-stats"><span><b>Free</b> to start</span><span><b>See</b> your AI stack</span><span><b>A plan</b> you can act on</span></div>
+      <span class="lm-go">Take the assessment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+    <div class="lx-vis" aria-hidden="true"><div class="lx-score">
+  <div class="lx-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="t"></circle><circle cx="60" cy="60" r="50" class="v"></circle></svg><span><b>Your</b>AI fit</span></div>
+  <div class="lx-score-l"><span class="lx-k">Where AI fits</span>
+    <div class="lx-meter"><i>Marketing</i><em style="--w:82%"></em></div>
+    <div class="lx-meter"><i>Customer service</i><em style="--w:66%"></em></div>
+    <div class="lx-meter"><i>Admin &amp; paperwork</i><em style="--w:90%"></em></div>
+    <div class="lx-meter"><i>Sales follow-up</i><em style="--w:54%"></em></div>
+  </div>
+  <div class="lx-plan"><span class="lx-k">You leave with</span><b>A plan you can act on</b></div>
+</div></div>
+  </a>
+  <a class="lm-card lx reveal lx-flip" href="substack/" style="--c:#FF8A5B">
+    <div class="lm-txt">
+      <span class="lm-flag">Newsletter &middot; The Scaling Edge</span>
+      <h2>The Scaling Edge</h2>
+      <p>My free newsletter: plain-language business strategy, AI tools, frameworks and lessons to help you start, build, grow and scale with confidence &mdash; delivered by email.</p>
+      <ol class="lm-stages lx-chips"><li><span>01</span>Start</li><li><span>02</span>Build</li><li><span>03</span>Grow</li><li><span>04</span>Scale</li></ol>
+      <div class="lm-stats"><span><b>Free</b> on Substack</span><span><b>By email</b> &middot; read it anywhere</span><span><b>Plain language</b>, no jargon</span></div>
+      <span class="lm-go">Read the newsletter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+    <div class="lx-vis" aria-hidden="true"><div class="lx-mail">
+  <div class="lx-mail-h"><span class="lx-dot"></span><span class="lx-dot"></span><span class="lx-dot"></span><em>Inbox</em></div>
+  <div class="lx-mail-from"><span class="lx-av">CR</span><div><b>The Scaling Edge</b><i>Connie Ramirez &middot; Across the Table</i></div></div>
+  <div class="lx-mail-t">Plain-language ideas for growing a business</div>
+  <div class="lx-lines"><em></em><em></em><em class="s"></em><em></em><em class="s2"></em></div>
+  <div class="lx-mail-tags"><span>Strategy</span><span>AI tools</span><span>Frameworks</span></div>
+</div>
+<div class="lx-env"></div></div>
+  </a>
+  <a class="lm-card lx reveal" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener" style="--c:#FF4D5E">
+    <div class="lm-txt">
+      <span class="lm-flag">Free videos &middot; YouTube</span>
+      <h2>Watch on YouTube</h2>
+      <p>Short, practical breakdowns of one business idea at a time. Free, and the best place to see whether the way I explain things works for you.</p>
+      <ol class="lm-stages lx-chips"><li><span>01</span>Watch</li><li><span>02</span>Learn</li><li><span>03</span>Apply</li></ol>
+      <div class="lm-stats"><span><b>Free</b></span><span><b>Short</b> breakdowns</span><span><b>@AcrossTheTableConnie</b></span></div>
+      <span class="lm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+    <div class="lx-vis" aria-hidden="true"><div class="lx-player">
+  <div class="lx-screen"><span class="lx-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="lx-dur">One idea at a time</span></div>
+  <div class="lx-prog"><em></em></div>
+  <div class="lx-ch"><span class="lx-av">CR</span><div><b>Across the Table</b><i>@AcrossTheTableConnie</i></div><span class="lx-sub">Subscribe</span></div>
+</div>
+</div>
   </a>
 </div></section>
 <!-- ===================== LEARN ===================== -->
