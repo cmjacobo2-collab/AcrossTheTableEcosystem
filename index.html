@@ -6483,6 +6483,16 @@ window.SOCIAL_LINKS = {
      Saved with the prices (prices.json → "workbooks"). An empty cover keeps the
      built-in one; an empty flyer simply shows no "See the flyer" button. */
   window.__wbPreview = window.__wbPreview || {};
+  /* the flyers built into this file stay as the fallback: a saved copy (prices.json or a
+     Hub draft) only replaces the spots it actually sets — an empty "" means "show none" */
+  window.__WB_DEFAULTS = window.__WB_DEFAULTS || JSON.parse(JSON.stringify(window.WORKBOOKS || {}));
+  window.__wbMerge = function(saved){
+    var D = window.__WB_DEFAULTS || {}, out = {};
+    saved = (saved && typeof saved === 'object') ? saved : {};
+    Object.keys(D).forEach(function(k){ out[k] = Object.assign({}, D[k], saved[k] || {}); });
+    Object.keys(saved).forEach(function(k){ if(!out[k]) out[k] = Object.assign({}, saved[k]); });
+    return out;
+  };
   function wbSrc(p){ return (p && window.__wbPreview[p]) || p || ''; }
   window.applyWorkbooks = function(){
     var W = window.WORKBOOKS || {};
@@ -7562,7 +7572,7 @@ window.SOCIAL_LINKS = {
       if(obj.salesLog   && obj.salesLog.length   !== undefined) window.SALES_LOG = obj.salesLog;
       if(obj.tickets    && obj.tickets.length    !== undefined) window.TICKETS   = obj.tickets;
       if(obj.intake     && typeof obj.intake     === 'object')  window.TICKET_INTAKE = obj.intake;
-      if(obj.workbooks  && typeof obj.workbooks  === 'object'){ window.WORKBOOKS = obj.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
+      if(obj.workbooks  && typeof obj.workbooks  === 'object'){ window.WORKBOOKS = window.__wbMerge ? window.__wbMerge(obj.workbooks) : obj.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
       if(typeof window.__tkUpdateDot === 'function'){ try{ window.__tkUpdateDot(); }catch(e){} }
       if(typeof window.__tkRefreshApps === 'function'){ try{ window.__tkRefreshApps(); }catch(e){} }
       obj = obj.prices;
@@ -8004,7 +8014,7 @@ window.SOCIAL_LINKS = {
       if(dr.salesLog)   window.SALES_LOG   = dr.salesLog;
       if(dr.tickets)    window.TICKETS     = dr.tickets;
       if(dr.intake)     window.TICKET_INTAKE = dr.intake;
-      if(dr.workbooks)  { window.WORKBOOKS = dr.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
+      if(dr.workbooks)  { window.WORKBOOKS = window.__wbMerge ? window.__wbMerge(dr.workbooks) : dr.workbooks; try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){} }
       if(typeof window.__tkUpdateDot === 'function'){ try{ window.__tkUpdateDot(); }catch(e){} }
       tableFromPrices();
       Object.keys(window.PRICES).forEach(function(s){ renderSubcard(s); });
@@ -9450,8 +9460,7 @@ window.__initWorkbookMgr = function(hub, H){
   function get(k, f){ return ((window.WORKBOOKS[k] || {})[f]) || ''; }
   function put(k, f, v){
     var o = window.WORKBOOKS[k] || (window.WORKBOOKS[k] = {});
-    if(v) o[f] = v; else delete o[f];
-    if(!o.cover && !o.flyer) delete window.WORKBOOKS[k];
+    o[f] = v || '';   /* kept as "" so a removed built-in flyer stays removed */
     try{ if(typeof window.__ppTouched === 'function') window.__ppTouched(); else if(H.draftWrite) H.draftWrite(); }catch(e){}
     try{ window.applyWorkbooks && window.applyWorkbooks(); }catch(e){}
   }
