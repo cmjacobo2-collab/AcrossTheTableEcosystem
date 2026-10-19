@@ -2146,6 +2146,15 @@ a[data-goto]{cursor:pointer;}
 .wb .bp-watch{font-size:12.5px;padding:8px 10px;}
 .wb .bp-watch[aria-disabled="true"]{border-color:transparent;background:rgba(255,255,255,.03);}
 
+/* the whole cover is a button that opens it larger */
+.wb-zoom{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;
+  background:linear-gradient(180deg,transparent 55%,rgba(3,9,18,.55));border:0;cursor:zoom-in;opacity:0;transition:opacity .2s ease;}
+.wb-zoom span{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-size:12.5px;font-weight:600;color:#fff;
+  background:rgba(7,17,31,.78);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 12px;}
+.wb-zoom svg{width:14px;height:14px;}
+.wb:hover .wb-zoom,.wb-zoom:focus-visible{opacity:1;}
+.wb-badge,.wb-peek{z-index:2;}
+
 /* ---- next-stage connector ---- */
 .bp-next{display:flex;align-items:center;gap:12px;width:100%;margin-top:20px;padding:13px 16px;text-align:left;
   font-family:var(--body);cursor:pointer;color:var(--text-heading);
@@ -2164,7 +2173,11 @@ a[data-goto]{cursor:pointer;}
 .wb-lb[hidden]{display:none;}
 .wb-lb figure{margin:0;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:12px;}
 .wb-lb img{max-width:min(92vw,620px);max-height:calc(100vh - 120px);border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);background:#fff;}
-.wb-lb figcaption{display:flex;gap:10px;align-items:center;}
+.wb-lb figcaption{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;}
+.wb-lb-back{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-size:14px;font-weight:700;cursor:pointer;
+  color:#07111F;background:#E8B44C;border:0;border-radius:9px;padding:10px 16px;}
+.wb-lb-back:hover{background:#F3C76A;}
+.wb-lb .wb-flyer{flex:none;padding:9px 14px;}
 .wb-lb-x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;cursor:pointer;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:22px;line-height:1;}
 .wb-lb-x:hover{background:rgba(255,255,255,.16);}
@@ -2199,6 +2212,10 @@ a[data-goto]{cursor:pointer;}
   .wb-gen-k,.wb-gen-l{font-size:6px;}
   .wb-badge{top:8px;left:8px;font-size:8px;padding:3px 7px;}
   .wb-peek{display:none;}
+  .wb-zoom{opacity:1;background:none;padding-bottom:8px;}
+  .wb-zoom span{font-size:0;gap:0;padding:6px;}
+  .wb-lb{padding:16px;}
+  .wb-lb img{max-height:calc(100vh - 150px);}
   .wb-body{border-top:0;border-left:1px solid color-mix(in srgb,var(--app) 26%,transparent);padding:14px;}
   .wb .bp-acts{flex-direction:column;}
   .bp-next .datum{display:none;}
@@ -5508,7 +5525,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         <div class="bp-toolhead">The workbooks &amp; tools</div>
         <div class="bp-tools wb-grid" data-count="3">
           <div class="wb" data-wb="base-roadmap">
-            <div class="wb-cover"><img src="assets/workbooks/base-roadmap.jpg" alt="Base Roadmap cover" loading="lazy" decoding="async" width="480" height="660"><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="base-roadmap" hidden aria-label="See the Base Roadmap flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/base-roadmap.jpg" alt="Base Roadmap cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/base-roadmap.jpg"><button class="wb-zoom" type="button" data-wb-zoom="base-roadmap" aria-label="See the Base Roadmap cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="base-roadmap" hidden aria-label="See the Base Roadmap flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Roadmap</span>
               <h4>Base Roadmap</h4>
@@ -5523,7 +5540,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="validation-workbook">
-            <div class="wb-cover"><img src="assets/workbooks/validation-workbook.jpg" alt="Business Validation Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="validation-workbook" hidden aria-label="See the Business Validation Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/validation-workbook.jpg" alt="Business Validation Workbook cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/validation-workbook.jpg"><button class="wb-zoom" type="button" data-wb-zoom="validation-workbook" aria-label="See the Business Validation Workbook cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="validation-workbook" hidden aria-label="See the Business Validation Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Workbook</span>
               <h4>Business Validation Workbook</h4>
@@ -5538,7 +5555,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="founder-questions">
-            <div class="wb-cover"><img src="assets/workbooks/founder-questions.jpg" alt="Founder Questions cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="founder-questions" hidden aria-label="See the Founder Questions flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/founder-questions.jpg" alt="Founder Questions cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/founder-questions.jpg"><button class="wb-zoom" type="button" data-wb-zoom="founder-questions" aria-label="See the Founder Questions cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="founder-questions" hidden aria-label="See the Founder Questions flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Question list</span>
               <h4>Founder Questions</h4>
@@ -5577,7 +5594,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         <div class="bp-toolhead">The workbooks &amp; tools</div>
         <div class="bp-tools wb-grid" data-count="3">
           <div class="wb" data-wb="business-foundation">
-            <div class="wb-cover"><img src="assets/workbooks/business-foundation.jpg" alt="Business Foundation cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="business-foundation" hidden aria-label="See the Business Foundation flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/business-foundation.jpg" alt="Business Foundation cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/business-foundation.jpg"><button class="wb-zoom" type="button" data-wb-zoom="business-foundation" aria-label="See the Business Foundation cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="business-foundation" hidden aria-label="See the Business Foundation flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Workbook</span>
               <h4>Business Foundation</h4>
@@ -5592,7 +5609,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="setup-11-steps">
-            <div class="wb-cover"><img src="assets/workbooks/setup-11-steps.jpg" alt="Business Setup in 11 Steps cover" loading="lazy" decoding="async" width="480" height="660"><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="setup-11-steps" hidden aria-label="See the Business Setup in 11 Steps flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/setup-11-steps.jpg" alt="Business Setup in 11 Steps cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/setup-11-steps.jpg"><button class="wb-zoom" type="button" data-wb-zoom="setup-11-steps" aria-label="See the Business Setup in 11 Steps cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="setup-11-steps" hidden aria-label="See the Business Setup in 11 Steps flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Step-by-step guide</span>
               <h4>Business Setup in 11 Steps</h4>
@@ -5607,7 +5624,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="operating-systems">
-            <div class="wb-cover"><img src="assets/workbooks/operating-systems.jpg" alt="Operating Systems cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="operating-systems" hidden aria-label="See the Operating Systems flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/operating-systems.jpg" alt="Operating Systems cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/operating-systems.jpg"><button class="wb-zoom" type="button" data-wb-zoom="operating-systems" aria-label="See the Operating Systems cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="operating-systems" hidden aria-label="See the Operating Systems flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Framework</span>
               <h4>Operating Systems</h4>
@@ -5646,7 +5663,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         <div class="bp-toolhead">The workbooks &amp; tools</div>
         <div class="bp-tools wb-grid" data-count="4">
           <div class="wb" data-wb="executive-phases">
-            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>Executive Phases</b><i></i><span class="wb-gen-l">Across the Table</span></div><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="executive-phases" hidden aria-label="See the Executive Phases flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>Executive Phases</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-zoom" type="button" data-wb-zoom="executive-phases" aria-label="See the Executive Phases cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><span class="wb-badge">Free</span><button class="wb-peek" type="button" data-wb-flyer="executive-phases" hidden aria-label="See the Executive Phases flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Guide</span>
               <h4>Executive Phases</h4>
@@ -5661,7 +5678,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="ceo-mindset-workbook">
-            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>CEO Mindset Module Workbook</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="ceo-mindset-workbook" hidden aria-label="See the CEO Mindset Module Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 03 &middot; CEO Mindset</span><b>CEO Mindset Module Workbook</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-zoom" type="button" data-wb-zoom="ceo-mindset-workbook" aria-label="See the CEO Mindset Module Workbook cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="ceo-mindset-workbook" hidden aria-label="See the CEO Mindset Module Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Module workbook</span>
               <h4>CEO Mindset Module Workbook</h4>
@@ -5676,7 +5693,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="ceo-meeting-academy">
-            <div class="wb-cover"><img src="assets/workbooks/ceo-meeting-academy.jpg" alt="CEO Meeting Academy cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="ceo-meeting-academy" hidden aria-label="See the CEO Meeting Academy flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/ceo-meeting-academy.jpg" alt="CEO Meeting Academy cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/ceo-meeting-academy.jpg"><button class="wb-zoom" type="button" data-wb-zoom="ceo-meeting-academy" aria-label="See the CEO Meeting Academy cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="ceo-meeting-academy" hidden aria-label="See the CEO Meeting Academy flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">CEO Mindset™ · Book I</span>
               <h4>CEO Meeting Academy</h4>
@@ -5691,7 +5708,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="five-ceo-meetings">
-            <div class="wb-cover"><img src="assets/workbooks/five-ceo-meetings.jpg" alt="The Five CEO Meetings cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="five-ceo-meetings" hidden aria-label="See the The Five CEO Meetings flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/five-ceo-meetings.jpg" alt="The Five CEO Meetings cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/five-ceo-meetings.jpg"><button class="wb-zoom" type="button" data-wb-zoom="five-ceo-meetings" aria-label="See the The Five CEO Meetings cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="five-ceo-meetings" hidden aria-label="See the The Five CEO Meetings flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">CEO Mindset™ · Book II</span>
               <h4>The Five CEO Meetings</h4>
@@ -5730,7 +5747,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         <div class="bp-toolhead">The workbooks &amp; tools</div>
         <div class="bp-tools wb-grid" data-count="2">
           <div class="wb" data-wb="strategy-mindset-workbook">
-            <div class="wb-cover"><img src="assets/workbooks/strategy-mindset-workbook.jpg" alt="Strategy Mindset Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="strategy-mindset-workbook" hidden aria-label="See the Strategy Mindset Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/strategy-mindset-workbook.jpg" alt="Strategy Mindset Workbook cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/strategy-mindset-workbook.jpg"><button class="wb-zoom" type="button" data-wb-zoom="strategy-mindset-workbook" aria-label="See the Strategy Mindset Workbook cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="strategy-mindset-workbook" hidden aria-label="See the Strategy Mindset Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Workbook · Book 1</span>
               <h4>Strategy Mindset Workbook</h4>
@@ -5745,7 +5762,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="strategy-workbook">
-            <div class="wb-cover"><img src="assets/workbooks/strategy-workbook.jpg" alt="Strategy Workbook cover" loading="lazy" decoding="async" width="480" height="660"><button class="wb-peek" type="button" data-wb-flyer="strategy-workbook" hidden aria-label="See the Strategy Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><img src="assets/workbooks/strategy-workbook.jpg" alt="Strategy Workbook cover" loading="lazy" decoding="async" width="480" height="660" data-large="assets/workbooks/large/strategy-workbook.jpg"><button class="wb-zoom" type="button" data-wb-zoom="strategy-workbook" aria-label="See the Strategy Workbook cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="strategy-workbook" hidden aria-label="See the Strategy Workbook flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Workbook · Book 2</span>
               <h4>Strategy Workbook</h4>
@@ -5784,7 +5801,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         <div class="bp-toolhead">The workbooks &amp; tools</div>
         <div class="bp-tools wb-grid" data-count="2">
           <div class="wb" data-wb="grow-and-thrive">
-            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Grow &amp; Thrive</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="grow-and-thrive" hidden aria-label="See the Grow & Thrive flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Grow &amp; Thrive</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-zoom" type="button" data-wb-zoom="grow-and-thrive" aria-label="See the Grow & Thrive cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="grow-and-thrive" hidden aria-label="See the Grow & Thrive flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Course</span>
               <h4>Grow &amp; Thrive</h4>
@@ -5799,7 +5816,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             </div>
           </div>
           <div class="wb" data-wb="cash-flow-vs-ebitda">
-            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Cash Flow vs EBITDA</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-peek" type="button" data-wb-flyer="cash-flow-vs-ebitda" hidden aria-label="See the Cash Flow vs EBITDA flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
+            <div class="wb-cover"><div class="wb-gen" aria-hidden="true"><span class="wb-gen-k">Stage 05 &middot; Growth Stage</span><b>Cash Flow vs EBITDA</b><i></i><span class="wb-gen-l">Across the Table</span></div><button class="wb-zoom" type="button" data-wb-zoom="cash-flow-vs-ebitda" aria-label="See the Cash Flow vs EBITDA cover larger"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"></path></svg>See it larger</span></button><button class="wb-peek" type="button" data-wb-flyer="cash-flow-vs-ebitda" hidden aria-label="See the Cash Flow vs EBITDA flyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"></rect><path d="M8.5 7h7M8.5 10.5h7M8.5 14h4"></path></svg><span>See the flyer</span></button></div>
             <div class="wb-body">
               <span class="wb-kind">Course</span>
               <h4>Cash Flow vs EBITDA</h4>
@@ -5837,7 +5854,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   </div></div></section>
   <div class="wb-lb" id="wb-lb" hidden role="dialog" aria-modal="true" aria-label="Workbook flyer">
     <button class="wb-lb-x" type="button" aria-label="Close the flyer">&times;</button>
-    <figure><img alt=""><figcaption><b data-wb-lb-title style="color:var(--text-heading)"></b><a class="bp-buy" data-wb-lb-buy target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span>Get the workbook</span></a></figcaption></figure>
+    <figure><img alt=""><figcaption><button class="wb-lb-back" type="button">&larr; Back</button><b data-wb-lb-title style="color:var(--text-heading)"></b><button class="wb-flyer" type="button" data-wb-lb-swap hidden></button><a class="bp-buy" data-wb-lb-buy target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11l5 5v11H4z"></path><path d="M8 13h8M8 17h5"></path></svg><span>Get the workbook</span></a></figcaption></figure>
   </div>
 </article>
 
@@ -6417,14 +6434,16 @@ window.SOCIAL_LINKS = {
             img = document.createElement('img'); img.alt = (card.querySelector('h4') || {}).textContent + ' cover';
             img.setAttribute('data-wb-default', ''); cv.insertBefore(img, cv.firstChild);
           }
-          img.src = wbSrc(o.cover); img.hidden = false; if(gen) gen.hidden = true;
+          img.src = wbSrc(o.cover); img.setAttribute('data-large', wbSrc(o.cover)); img.hidden = false; if(gen) gen.hidden = true;
         } else if(img){
           var d = img.getAttribute('data-wb-default');
-          if(d){ img.src = d; img.hidden = false; if(gen) gen.hidden = true; }
+          if(d){ img.src = d; img.setAttribute('data-large', d.replace('assets/workbooks/', 'assets/workbooks/large/')); img.hidden = false; if(gen) gen.hidden = true; }
           else { img.hidden = true; if(gen) gen.hidden = false; }
         }
       }
       Array.prototype.forEach.call(card.querySelectorAll('[data-wb-flyer]'), function(b){ b.hidden = !o.flyer; });
+      var zi = card.querySelector('.wb-cover img'), zb = card.querySelector('[data-wb-zoom]');
+      if(zb) zb.hidden = !(zi && !zi.hidden);
     });
   };
   window.applyWorkbooks();
@@ -6433,24 +6452,45 @@ window.SOCIAL_LINKS = {
     var lb = document.getElementById('wb-lb');
     if(!lb) return;
     var img = lb.querySelector('img'), cap = lb.querySelector('[data-wb-lb-title]'),
-        buy = lb.querySelector('[data-wb-lb-buy]'), last = null;
-    function close(){ lb.hidden = true; img.removeAttribute('src'); if(last) try{ last.focus(); }catch(e){} }
+        buy = lb.querySelector('[data-wb-lb-buy]'), swap = lb.querySelector('[data-wb-lb-swap]'), last = null, cur = null;
+    function show(k, what){
+      var card = document.querySelector('[data-wb="' + k + '"]'); if(!card) return;
+      var o = (window.WORKBOOKS || {})[k] || {}, name = (card.querySelector('h4') || {}).textContent || '';
+      var cv = card.querySelector('.wb-cover img'), hasCover = cv && !cv.hidden;
+      if(what === 'flyer' && !o.flyer) what = 'cover';
+      if(what === 'cover' && !hasCover) return;
+      cur = { k:k, what:what };
+      img.src = what === 'flyer' ? wbSrc(o.flyer) : (cv.getAttribute('data-large') || cv.src);
+      img.alt = name + (what === 'flyer' ? ' flyer' : ' cover');
+      cap.textContent = name;
+      lb.setAttribute('aria-label', name + (what === 'flyer' ? ' flyer' : ' cover'));
+      var other = what === 'flyer' ? (hasCover ? 'cover' : '') : (o.flyer ? 'flyer' : '');
+      swap.hidden = !other; swap.textContent = other === 'flyer' ? 'See the flyer' : 'See the cover';
+      swap.setAttribute('data-to', other);
+      var src = card.querySelector('[data-bp-buy]');
+      if(src && src.getAttribute('href')){ buy.href = src.getAttribute('href'); buy.hidden = false; buy.querySelector('span').textContent = src.textContent.trim(); }
+      else buy.hidden = true;
+      if(lb.hidden){ lb.hidden = false; document.documentElement.style.overflow = 'hidden'; }
+      lb.querySelector('.wb-lb-back').focus();
+    }
+    function close(){
+      lb.hidden = true; img.removeAttribute('src'); cur = null;
+      document.documentElement.style.overflow = '';
+      if(last) try{ last.focus(); }catch(e){}
+    }
     document.addEventListener('click', function(e){
-      var b = e.target.closest('[data-wb-flyer]');
-      if(b){
-        var k = b.getAttribute('data-wb-flyer'), o = (window.WORKBOOKS || {})[k] || {};
-        if(!o.flyer) return;
-        var card = b.closest('[data-wb]'), name = card ? (card.querySelector('h4') || {}).textContent : '';
-        var src = card && card.querySelector('[data-bp-buy]');
-        last = b; img.src = wbSrc(o.flyer); img.alt = name + ' flyer'; cap.textContent = name;
-        if(src && src.getAttribute('href')){ buy.href = src.getAttribute('href'); buy.hidden = false; buy.querySelector('span').textContent = src.textContent.trim(); }
-        else buy.hidden = true;
-        lb.hidden = false; lb.querySelector('.wb-lb-x').focus();
+      var b = e.target.closest('[data-wb-flyer],[data-wb-zoom]');
+      if(b && !lb.contains(b)){
+        last = b;
+        show(b.getAttribute('data-wb-flyer') || b.getAttribute('data-wb-zoom'), b.hasAttribute('data-wb-flyer') ? 'flyer' : 'cover');
         return;
       }
-      if(!lb.hidden && (e.target === lb || e.target.closest('.wb-lb-x'))) close();
+      if(lb.hidden) return;
+      if(e.target.closest('[data-wb-lb-swap]') && cur){ show(cur.k, swap.getAttribute('data-to')); return; }
+      if(e.target === lb || e.target.closest('.wb-lb-x,.wb-lb-back')) close();
     });
     document.addEventListener('keydown', function(e){ if(!lb.hidden && e.key === 'Escape') close(); });
+    window.addEventListener('hashchange', function(){ if(!lb.hidden) close(); });
   })();
 
   /* ---------- journey rail: lights up the stage you're reading ---------- */
