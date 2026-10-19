@@ -2511,10 +2511,14 @@ a[data-goto]{cursor:pointer;}
 /* YouTube */
 .lx-player{position:absolute;left:6%;top:20px;width:88%;z-index:1;border-radius:14px;overflow:hidden;background:rgba(7,17,31,.92);
   border:1px solid color-mix(in srgb,var(--c) 38%,transparent);box-shadow:0 24px 54px rgba(0,0,0,.55);}
-.lx-screen{position:relative;aspect-ratio:16/8.4;display:grid;place-items:center;
+.lx-screen{position:relative;aspect-ratio:346/192;overflow:hidden;display:grid;place-items:center;
   background:radial-gradient(70% 90% at 30% 20%,#0E4C82,#083A66 50%,#04213F);}
-.lx-screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px);}
-.lx-play{position:relative;display:grid;place-items:center;width:70px;height:50px;border-radius:14px;background:var(--c);color:#fff;
+.lx-av{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;background:#083A66;box-shadow:0 0 0 2px var(--c);}
+.lx-screen .lx-play{position:absolute;left:12px;bottom:12px;width:46px;height:32px;border-radius:9px;}
+.lx-screen .lx-play svg{width:18px;height:18px;}
+.lx-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.lx-screen::before{content:none;position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 40px);}
+.lx-play{position:relative;z-index:1;opacity:.92;display:grid;place-items:center;width:70px;height:50px;border-radius:14px;background:var(--c);color:#fff;
   box-shadow:0 10px 30px color-mix(in srgb,var(--c) 50%,transparent);transition:transform .25s ease;}
 .lx-play svg{width:26px;height:26px;}
 .lx:hover .lx-play{transform:scale(1.1);}
@@ -4094,7 +4098,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
       <span class="lm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
     </div>
     <div class="lx-vis" aria-hidden="true"><div class="lx-player">
-  <div class="lx-screen"><span class="lx-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="lx-dur">One idea at a time</span></div>
+  <div class="lx-screen"><img class="lx-thumb" src="assets/newsletter/youtube-thumb.jpg" alt="Across the Table on YouTube: coaching-style conversations, business insights and practical startup tips" loading="lazy" decoding="async"><span class="lx-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg></span></div>
   <div class="lx-prog"><em></em></div>
   <div class="lx-ch"><span class="lx-av">CR</span><div><b>Across the Table</b><i>@AcrossTheTableConnie</i></div><span class="lx-sub">Subscribe</span></div>
 </div>
