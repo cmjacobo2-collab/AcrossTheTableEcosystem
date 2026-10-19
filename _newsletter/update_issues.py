@@ -92,6 +92,13 @@ def render(issues):
     return False
 
 
+def say(msg, level='notice'):
+    # printed normally, and shown on the run's page in GitHub Actions
+    print(msg)
+    if os.environ.get('GITHUB_ACTIONS'):
+        print('::%s::%s' % (level, msg))
+
+
 def main():
     if '--render' in sys.argv:
         issues = json.load(open(JSON_PATH, encoding='utf-8'))['issues']
@@ -99,10 +106,10 @@ def main():
         try:
             issues = fetch()
         except Exception as ex:                      # Substack down or unreachable: leave everything as it is
-            print('update-issues: could not read the Substack feed (%s) — nothing changed' % ex)
+            say('update-issues: could not read the Substack feed (%s) — nothing changed' % ex, 'warning')
             return
         if not issues:
-            print('update-issues: the feed had no posts — nothing changed')
+            say('update-issues: the feed had no posts — nothing changed', 'warning')
             return
         old = json.load(open(JSON_PATH, encoding='utf-8')).get('issues') if os.path.exists(JSON_PATH) else None
         if issues != old:
@@ -110,7 +117,7 @@ def main():
             json.dump({'source': FEED, 'issues': issues}, open(JSON_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
             open(JSON_PATH, 'a', encoding='utf-8').write('\n')
     changed = render(issues)
-    print('update-issues: %d issues, page %s' % (len(issues), 'updated' if changed else 'already up to date'))
+    say('update-issues: %d issues, page %s' % (len(issues), 'updated' if changed else 'already up to date'))
 
 
 if __name__ == '__main__':
