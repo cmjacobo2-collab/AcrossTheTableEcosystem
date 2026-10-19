@@ -37,7 +37,9 @@ def clean(s):
 
 
 def fetch():
-    req = urllib.request.Request(FEED, headers={'User-Agent': 'acrossthetable.biz issue list (+https://acrossthetable.biz/newsletter/)'})
+    req = urllib.request.Request(FEED, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; AcrossTheTableFeed/1.0; +https://acrossthetable.biz/newsletter/)',
+        'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8'})
     with urllib.request.urlopen(req, timeout=30) as r:
         root = ET.fromstring(r.read())
     out = []
