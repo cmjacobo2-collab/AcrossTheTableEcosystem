@@ -2388,6 +2388,54 @@ a[data-goto]{cursor:pointer;}
   gap:18px;margin-top:20px;align-items:stretch;
 }
 .learn-row > *{height:100%;}
+
+/* ---- Learning page: featured Mindset journey ---- */
+.lm-feat{padding-top:10px;padding-bottom:6px;}
+.lm-card{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:center;
+  overflow:hidden;border-radius:20px;padding:36px 40px;text-decoration:none;color:inherit;
+  background:
+    radial-gradient(80% 120% at 100% 50%,rgba(232,180,76,.18),transparent 60%),
+    linear-gradient(160deg,rgba(232,180,76,.10),rgba(18,36,59,.85) 55%);
+  border:1px solid rgba(232,180,76,.38);box-shadow:var(--shadow-card),0 0 60px rgba(232,180,76,.08);
+  transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease;}
+.lm-card:hover{border-color:rgba(232,180,76,.7);transform:translateY(-2px);box-shadow:var(--shadow-card),0 0 70px rgba(232,180,76,.18);}
+.lm-flag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:#07111F;background:#E8B44C;border-radius:999px;padding:5px 11px;font-weight:600;}
+.lm-txt h2{margin-top:16px;font-family:var(--display);font-size:clamp(26px,3.4vw,40px);font-weight:800;line-height:1.08;color:var(--text-heading);}
+.lm-txt p{margin-top:12px;font-size:16px;line-height:1.6;color:var(--text-body);max-width:560px;}
+.lm-stages{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+.lm-stages li{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text-heading);
+  padding:6px 12px 6px 6px;border-radius:999px;background:rgba(7,17,31,.55);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);}
+.lm-stages li span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-family:var(--mono);font-size:10px;color:#07111F;background:var(--c);}
+.lm-stats{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font-size:13.5px;color:var(--text-muted);}
+.lm-stats b{color:#E8B44C;font-weight:800;}
+.lm-go{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-size:15px;font-weight:700;color:#07111F;
+  background:#E8B44C;border-radius:10px;padding:12px 20px;transition:background .2s ease;}
+.lm-go svg{width:17px;height:17px;transition:transform .2s ease;}
+.lm-card:hover .lm-go{background:#F3C76A;}
+.lm-card:hover .lm-go svg{transform:translateX(4px);}
+.lm-books{position:relative;height:330px;}
+.lm-books img{position:absolute;top:50%;left:50%;width:40%;border-radius:4px;box-shadow:0 22px 46px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);
+  transition:transform .35s ease;}
+.lm-b1{transform:translate(-122%,-46%) rotate(-12deg);}
+.lm-b2{transform:translate(-86%,-50%) rotate(-6deg);}
+.lm-b3{transform:translate(-50%,-54%) rotate(0deg);z-index:3;}
+.lm-b4{transform:translate(-14%,-50%) rotate(6deg);z-index:2;}
+.lm-b5{transform:translate(22%,-46%) rotate(12deg);z-index:1;}
+.lm-b2{z-index:2;}
+.lm-card:hover .lm-b1{transform:translate(-128%,-46%) rotate(-14deg);}
+.lm-card:hover .lm-b2{transform:translate(-90%,-52%) rotate(-7deg);}
+.lm-card:hover .lm-b3{transform:translate(-50%,-58%) rotate(0deg);}
+.lm-card:hover .lm-b4{transform:translate(-10%,-52%) rotate(7deg);}
+.lm-card:hover .lm-b5{transform:translate(28%,-46%) rotate(14deg);}
+.learn-row-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (max-width:900px){
+  .lm-card{grid-template-columns:1fr;padding:26px 22px;}
+  .lm-books{height:240px;order:-1;}
+  .lm-books img{width:34%;}
+}
+@media (max-width:680px){ .learn-row-2{grid-template-columns:1fr;} .lm-books{height:190px;} }
+@media (prefers-reduced-motion: reduce){ .lm-books img,.lm-card,.lm-go svg{transition:none;} }
 .learn-row .yt,.learn-row .bp-entry,.learn-row .panel{display:flex;flex-direction:column;}
 .learn-row .panel .formats{margin-top:auto;}
 @media (max-width:980px){ .learn-row{grid-template-columns:repeat(2,minmax(0,1fr));} }
@@ -3850,12 +3898,26 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
   <p class="lp-lede">Classes, workbooks, a self-check and free videos. Start with whichever fits where you are.</p>
 </div>
 <div class="hm-three hm-three-5">
-  <a class="hm-card" href="#learn"><span class="hm-tag">Classes</span><h3>Build with AI</h3><p>Two step-by-step classes. See what each one covers and join the waiting list.</p><span class="hm-go">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="#mindset" data-view="mindset"><span class="hm-tag">Workbooks</span><h3>Entrepreneur Mindset</h3><p>Five stages of workbooks and roadmaps.</p><span class="hm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+  <a class="hm-card" href="#learn"><span class="hm-tag">Classes</span><h3>Build with AI</h3><p>Two step-by-step classes. See what each one covers and join the waiting list.</p><span class="hm-go">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="#assessment" data-view="assessment"><span class="hm-tag">Self-check</span><h3>AI Assessment</h3><p>See where AI can help your business today.</p><span class="hm-go">Take the assessment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="substack/"><span class="hm-tag">Newsletter</span><h3>The Scaling Edge</h3><p>Plain-language ideas for growing a business, by email.</p><span class="hm-go">Read the newsletter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   <a class="hm-card" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener"><span class="hm-tag">Free</span><h3>YouTube</h3><p>Short breakdowns of one business idea at a time.</p><span class="hm-go">Watch on YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div></div></section>
+<!-- ===================== LEARN · featured: the Entrepreneur Mindset journey ===================== -->
+<section class="section lm-feat"><div class="wrap">
+  <a class="lm-card reveal" href="#mindset" data-view="mindset">
+    <div class="lm-txt">
+      <span class="lm-flag">Featured &middot; The workbook series</span>
+      <h2>The Entrepreneur Mindset Journey</h2>
+      <p>Five stages, each with its own workbooks and roadmaps. What to focus on, when to focus on it, and why it matters &mdash; so you build the business in the right order instead of guessing.</p>
+      <ol class="lm-stages"><li style="--c:#27D8C2"><span>01</span>Idea</li><li style="--c:#2BA8FF"><span>02</span>Startup</li><li style="--c:#E8B44C"><span>03</span>CEO Mindset</li><li style="--c:#FF8A5B"><span>04</span>Build</li><li style="--c:#5BD68A"><span>05</span>Growth</li></ol>
+      <div class="lm-stats"><span><b>14</b> workbooks &amp; tools</span><span><b>3</b> free to start</span><span><b>Self-paced</b> &middot; work at your own speed</span></div>
+      <span class="lm-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+    </div>
+    <div class="lm-books" aria-hidden="true"><img src="assets/workbooks/base-roadmap.jpg" alt="" loading="lazy" decoding="async" class="lm-b1"><img src="assets/workbooks/business-foundation.jpg" alt="" loading="lazy" decoding="async" class="lm-b2"><img src="assets/workbooks/ceo-meeting-academy.jpg" alt="" loading="lazy" decoding="async" class="lm-b3"><img src="assets/workbooks/five-ceo-meetings.jpg" alt="" loading="lazy" decoding="async" class="lm-b4"><img src="assets/workbooks/strategy-workbook.jpg" alt="" loading="lazy" decoding="async" class="lm-b5"></div>
+  </a>
+</div></section>
 <!-- ===================== LEARN ===================== -->
 <section class="section" id="learn">
   <div class="wrap">
@@ -4010,15 +4072,7 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
       </div>
     </div>
 
-    <div class="learn-row">
-      <a class="bp-entry reveal" href="#mindset" data-view="mindset">
-        <span class="datum">The workbook series</span>
-        <h3>The Entrepreneur Mindset Journey</h3>
-        <p>Five stages, each with its own workbooks and roadmaps. What to focus on, when to focus on it, and why it matters — free videos for every tool.</p>
-        <div class="bp-flow">Idea <i>&rarr;</i> Startup <i>&rarr;</i> CEO Mindset <i>&rarr;</i> Build <i>&rarr;</i> Growth</div>
-        <span class="bp-go">Walk the journey <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
-      </a>
-
+    <div class="learn-row learn-row-2">
       <a class="yt reveal d1" href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener">
         <span class="yt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9.5l5 2.5-5 2.5z"></path></svg></span>
         <h3>Watch on YouTube</h3>
