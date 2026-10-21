@@ -145,7 +145,7 @@
           "price": "$239.99",
           "per": "per year",
           "amount": 239.99,
-          "was": 599.99
+          "was": 348.99
         },
         {
           "key": "onetime",
@@ -198,7 +198,8 @@
           "sub": "Billed every month, cancel anytime",
           "price": "$29.99",
           "per": "per month",
-          "amount": 29.99
+          "amount": 29.99,
+          "was": 39.99
         },
         {
           "key": "annual",
