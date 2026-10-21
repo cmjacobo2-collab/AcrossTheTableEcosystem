@@ -224,7 +224,19 @@
         "annual": "https://stan.store/AcrossTheTable/p/ceo-mindset-annual-subscription",
         "onetime": "https://stan.store/AcrossTheTable/p/get-my-templateebookcourse-now-pxwy4zvi"
       },
-      "flyer": "flyers/ceo-mindset-flyer-1792556302491.jpg"
+      "flyer": "flyers/ceo-mindset-flyer-1792556302491.jpg",
+      "photos": [
+        "flyers/ceo-mindset-photo9-1792558036163.jpg",
+        "flyers/ceo-mindset-photo8-1792558034764.jpg",
+        "flyers/ceo-mindset-photo7-1792558033221.jpg",
+        "flyers/ceo-mindset-photo6-1792558031753.jpg",
+        "flyers/ceo-mindset-photo5-1792558030335.jpg",
+        "flyers/ceo-mindset-photo4-1792558028963.jpg",
+        "flyers/ceo-mindset-photo3-1792558027565.jpg",
+        "flyers/ceo-mindset-photo2-1792558026130.jpg",
+        "flyers/ceo-mindset-photo1-1792558024576.jpg",
+        "flyers/ceo-mindset-photo0-1792558022571.jpg"
+      ]
     },
     "entrepreneur-blueprint": {
       "name": "Entrepreneur Blueprint",
