@@ -619,16 +619,16 @@
         "onetime": "https://stan.store/AcrossTheTable/p/tabletap--smart-restaurant-table-experience"
       },
       "photos": [
-        "flyers/tabletap-photo0-1792256631721.jpg",
-        "flyers/tabletap-photo1-1792256633612.jpg",
-        "flyers/tabletap-photo2-1792256635420.jpg",
-        "flyers/tabletap-photo3-1792256636838.jpg",
-        "flyers/tabletap-photo4-1792256638321.jpg",
-        "flyers/tabletap-photo5-1792256639583.jpg",
-        "flyers/tabletap-photo6-1792256640788.jpg",
+        "flyers/tabletap-photo9-1792256645189.jpg",
+        "flyers/tabletap-photo0-1792541313731.jpg",
         "flyers/tabletap-photo7-1792256642086.jpg",
-        "flyers/tabletap-photo8-1792256643452.jpg",
-        "flyers/tabletap-photo9-1792256645189.jpg"
+        "flyers/tabletap-photo6-1792256640788.jpg",
+        "flyers/tabletap-photo5-1792256639583.jpg",
+        "flyers/tabletap-photo4-1792256638321.jpg",
+        "flyers/tabletap-photo3-1792256636838.jpg",
+        "flyers/tabletap-photo0-1792256631721.jpg",
+        "flyers/tabletap-photo2-1792256635420.jpg",
+        "flyers/tabletap-photo1-1792256633612.jpg"
       ],
       "flyer": "flyers/tabletap-flyer-1792255669331.jpg"
     },
@@ -754,5 +754,43 @@
   "intake": {
     "endpoint": "",
     "feed": ""
+  },
+  "workbooks": {
+    "base-roadmap": {
+      "flyer": "flyers/wb-base-roadmap-flyer.jpg"
+    },
+    "validation-workbook": {
+      "flyer": "flyers/wb-validation-workbook-flyer.jpg"
+    },
+    "founder-questions": {
+      "flyer": "flyers/wb-founder-questions-flyer.jpg"
+    },
+    "business-foundation": {
+      "flyer": "flyers/wb-business-foundation-flyer.jpg"
+    },
+    "setup-11-steps": {
+      "flyer": "flyers/wb-setup-11-steps-flyer.jpg"
+    },
+    "operating-systems": {
+      "flyer": "flyers/wb-operating-systems-flyer.jpg"
+    },
+    "ceo-meeting-academy": {
+      "flyer": "flyers/wb-ceo-meeting-academy-flyer.jpg"
+    },
+    "five-ceo-meetings": {
+      "flyer": "flyers/wb-five-ceo-meetings-flyer.jpg"
+    },
+    "executive-phases": {
+      "flyer": "flyers/wb-executive-phases-flyer.jpg"
+    },
+    "ceo-mindset-workbook": {
+      "flyer": "flyers/wb-ceo-mindset-workbook-flyer.jpg"
+    },
+    "strategy-mindset-workbook": {
+      "flyer": "flyers/wb-strategy-mindset-workbook-flyer.jpg"
+    },
+    "strategy-workbook": {
+      "flyer": "flyers/wb-strategy-workbook-flyer.jpg"
+    }
   }
 }
