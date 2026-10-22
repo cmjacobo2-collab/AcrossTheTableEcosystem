@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex">
+  <title>StartWise Demo</title>
+
+  <!-- PWA / installable app -->
+  <meta name="theme-color" content="#1B344F" />
+  <meta name="description" content="Plan, budget, price, and grow your small business — from idea to launch and beyond. By Across the Table." />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="StartWise" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- Across the Table design system -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Page-level token override: remap near-black surfaces/text to the app's deep navy */
+    :root {
+      --ink-900: #091D30;
+      --navy-950: #091D30;
+      --navy-900: #091D30;
+      --text-strong: #091D30;
+      --bg-dark: #091D30;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--cream-50);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    #root { min-height: 100vh; }
+    button { font-family: var(--font-sans); }
+    input, select, textarea { font-family: var(--font-sans); }
+    ::selection { background: var(--gold-100); }
+    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar-thumb { background: var(--sand-300); border-radius: 999px; border: 2px solid var(--cream-50); }
+    *::-webkit-scrollbar-track { background: transparent; }
+    [data-density="compact"] table td { padding-top: 7px !important; padding-bottom: 7px !important; }
+    [data-density="compact"] table { font-size: 12.5px !important; }
+    button:hover { filter: brightness(0.97); }
+    a { color: var(--text-link); }
+    @keyframes sw-spin { to { transform: rotate(360deg); } }
+
+    html, body { max-width: 100%; overflow-x: hidden; }
+
+    /* ---- Mobile / responsive (phones & small tablets) ---- */
+    @media (max-width: 760px) {
+      #root main { padding: 16px 14px 40px !important; max-width: 100% !important; }
+      #root header { padding: 11px 14px !important; }
+      #root main [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+      #root main svg { max-width: 100%; height: auto; }
+      #root main table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+      #root [style*="max-width: 580px"],
+      #root [style*="max-width: 560px"],
+      #root [style*="max-width: 460px"] { max-width: 94vw !important; }
+    }
+
+    #__sw_boot_error {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      place-items: center; padding: 24px; text-align: center;
+      background: var(--cream-50, #FBF8F2); color: #091D30;
+      font-family: var(--font-sans, system-ui, sans-serif);
+    }
+    #__sw_boot_error .card {
+      max-width: 440px; background: #fff; border: 1px solid #E0D9CB;
+      border-radius: 14px; padding: 28px 26px;
+      box-shadow: 0 14px 30px -14px rgba(20,40,63,0.25);
+    }
+    #__sw_boot_error h1 { font: 800 22px var(--font-display, system-ui); margin: 0 0 10px; }
+    #__sw_boot_error p { font-size: 14.5px; line-height: 1.55; color: #344150; margin: 0 0 8px; }
+    #__sw_boot_error code { font-family: var(--font-mono, monospace); font-size: 12.5px; background: #F4EFE5; padding: 1px 6px; border-radius: 6px; }
+  </style>
+
+  <!-- Runtime libraries: jsDelivr primary, unpkg fallback, no SRI hashes -->
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+
+
+  <!-- Design system bundle (plain JS) + seed data modules (plain JS) -->
+  <script src="ds-bundle.js"></script>
+  <script src="data.js"></script>
+  <script src="source-data.js"></script>
+  <script src="affirmations.js"></script>
+  <script src="knowledge-data.js"></script>
+  <script src="biz-data.js"></script>
+  <script src="vendor-library.js"></script>
+  <script src="task-catalog.js"></script>
+
+  <script>window.SW_DEMO = true; window.SW = { ready: false };</script>
+  <style>
+    #sw-demo-bar{position:sticky;top:0;z-index:80;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;padding:9px 16px;background:#1B344F;color:#FBF8F2;font:500 13.5px/1.4 "Hanken Grotesk",system-ui,sans-serif;text-align:center}
+    #sw-demo-bar b{color:#E9C77D;font-weight:700;letter-spacing:.06em}
+    #sw-demo-bar a{color:#FBF8F2;font-weight:700}
+    #sw-demo-bar button{font:700 13px "Hanken Grotesk",system-ui,sans-serif;border:1.5px solid #C8962E;background:transparent;color:#FBF8F2;border-radius:8px;padding:4px 10px;cursor:pointer}
+    #sw-demo-bar button:focus-visible,#sw-demo-bar a:focus-visible{outline:3px solid #C8962E;outline-offset:2px}
+    #sw-demo-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;padding:18px 16px 26px;font:500 12.5px "Hanken Grotesk",system-ui,sans-serif;color:#5B6675;background:#FBF8F2}
+    #sw-demo-legal a{color:#1B344F}
+  </style>
+</head>
+<body>
+  <div id="sw-demo-bar" role="note"><span><b>DEMO</b> &nbsp;You're looking at a sample business, FreshNest Cleaning Co. Click anything. Nothing you change is saved.</span><button type="button" onclick="location.reload()">Start over</button><a href="https://acrossthetable.biz/startwise/">Get StartWise</a></div>
+  <div id="root"></div>
+
+  <footer id="sw-demo-legal"><a href="https://acrossthetable.biz/legal/startwise/terms.html">Terms of Service</a><a href="https://acrossthetable.biz/legal/startwise/privacy.html">Privacy Policy</a><a href="https://acrossthetable.biz/legal/startwise/delete.html">Delete your account</a><span>Educational tool, not legal, tax, or financial advice.</span></footer>
+  <div id="__sw_boot_error">
+    <div class="card">
+      <h1>StartWise couldn't finish loading</h1>
+      <p>The app needs its runtime libraries (React and Babel) and an internet connection the first time it loads.</p>
+      <p>If this keeps happening, reload the page. Questions? Email info@acrossthetable.biz.</p>
+    </div>
+  </div>
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <rect width="512" height="512" fill="#FBF8F2"/>
+      <rect x="154" y="154" width="204" height="204" rx="46" fill="#1B344F"/>
+      <text x="256" y="246" font-family="Arial, sans-serif" font-weight="800" font-size="96" fill="#FBF8F2" text-anchor="middle" dominant-baseline="middle">SW</text>
+      <rect x="218" y="300" width="76" height="12" rx="6" fill="#C8962E"/>
+    </svg>
+  </template>
+
+  <!-- App modules (JSX, transpiled in-browser by Babel) -->
+  <script src="tweaks-panel.js"></script>
+  <script src="charts.js"></script>
+  <script src="shell.js"></script>
+  <script src="ai-setup.js"></script>
+  <script src="auth.js"></script>
+  <script src="screens-core.js"></script>
+  <script src="screens-more.js"></script>
+  <script src="screens-extra.js"></script>
+  <script src="screens-finance.js"></script>
+  <script src="screens-revenue.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Boot guard: show a clear message instead of a blank page if libraries never load -->
+  <script>
+    window.addEventListener("load", function () {
+      var tries = 0;
+      var el = document.getElementById("__sw_boot_error");
+      var iv = setInterval(function () {
+        tries++;
+        var root = document.getElementById("root");
+        var mounted = root && root.childElementCount > 0;
+        if (mounted) { if (el) el.style.display = "none"; clearInterval(iv); return; }
+        if (tries >= 12) { if (el) el.style.display = "grid"; clearInterval(iv); }
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>

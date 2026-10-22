@@ -1,0 +1,96 @@
+/* Across the Table — Color tokens
+   Navy (trust/authority) + Forest (growth) + Gold (warmth/optimism) on warm neutrals. */
+:root {
+  /* --- Navy: primary brand --- */
+  --navy-950: #0B1623;
+  --navy-900: #0E1B2C;
+  --navy-800: #14283F;
+  --navy-700: #1B344F;   /* primary */
+  --navy-600: #244463;
+  --navy-500: #34597A;
+  --navy-100: #DCE4ED;
+  --navy-050: #EEF2F6;
+
+  /* --- Forest: secondary brand (growth) --- */
+  --forest-800: #143C2D;
+  --forest-700: #1C4D3A;
+  --forest-600: #246049;  /* secondary */
+  --forest-500: #2F7558;
+  --forest-100: #D7E6DE;
+  --forest-050: #EBF3EF;
+
+  /* --- Gold: accent (warmth, highlight) --- */
+  --gold-700: #946312;
+  --gold-600: #B07D1E;
+  --gold-500: #C8962E;    /* accent */
+  --gold-400: #DCB04F;
+  --gold-100: #F4E7C8;
+  --gold-050: #FAF3E1;
+
+  /* --- Warm neutrals: surfaces --- */
+  --cream-50: #FBF8F2;
+  --cream-100: #F4EFE5;
+  --sand-200: #E9E1D2;
+  --sand-300: #D9CEBA;
+
+  /* --- Ink: cool slate text/UI greys --- */
+  --ink-900: #15202E;
+  --ink-800: #233242;
+  --ink-700: #344150;
+  --ink-600: #4C5A69;
+  --ink-500: #647281;
+  --ink-400: #8593A0;
+  --ink-300: #AEB9C3;
+  --ink-200: #D2D9DF;
+  --ink-100: #E7EBEF;
+  --white: #FFFFFF;
+
+  /* --- Functional --- */
+  --red-600: #A8392B;
+  --red-100: #F3DCD7;
+  --red-050: #FBEEEB;
+
+  /* ===== Semantic aliases ===== */
+  --brand-primary: var(--navy-700);
+  --brand-primary-hover: var(--navy-800);
+  --brand-primary-active: var(--navy-900);
+  --brand-secondary: var(--forest-600);
+  --brand-secondary-hover: var(--forest-700);
+  --brand-accent: var(--gold-500);
+  --brand-accent-hover: var(--gold-600);
+
+  --bg-page: var(--cream-50);
+  --bg-page-alt: var(--cream-100);
+  --bg-dark: var(--navy-900);
+  --surface-card: var(--white);
+  --surface-sunken: var(--cream-100);
+  --surface-raised: var(--white);
+
+  --text-strong: var(--ink-900);
+  --text-body: var(--ink-700);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --text-on-dark: var(--cream-50);
+  --text-on-dark-muted: #A9B7C6;
+  --text-accent: var(--gold-700);
+  --text-link: var(--navy-600);
+
+  --border-subtle: #ECE6DA;
+  --border-default: #E0D9CB;
+  --border-strong: #CFC6B4;
+  --border-dark: rgba(255,255,255,0.14);
+  --focus-ring: var(--gold-500);
+
+  --success: var(--forest-600);
+  --success-bg: var(--forest-050);
+  --success-border: var(--forest-100);
+  --warning: var(--gold-600);
+  --warning-bg: var(--gold-050);
+  --warning-border: var(--gold-100);
+  --danger: var(--red-600);
+  --danger-bg: var(--red-050);
+  --danger-border: var(--red-100);
+  --info: var(--navy-600);
+  --info-bg: var(--navy-050);
+  --info-border: var(--navy-100);
+}

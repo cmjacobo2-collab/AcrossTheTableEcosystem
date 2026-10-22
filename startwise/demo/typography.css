@@ -1,0 +1,38 @@
+/* Across the Table — Typography tokens */
+:root {
+  --font-display: 'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Weights */
+  --fw-regular: 400;   /* @kind font */
+  --fw-medium: 500;    /* @kind font */
+  --fw-semibold: 600;  /* @kind font */
+  --fw-bold: 700;      /* @kind font */
+  --fw-extrabold: 800; /* @kind font */
+
+  /* Type scale (1.25 major-third-ish, tuned) */
+  --text-xs: 0.75rem;     /* 12 */
+  --text-sm: 0.875rem;    /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-md: 1.125rem;    /* 18 */
+  --text-lg: 1.375rem;    /* 22 */
+  --text-xl: 1.75rem;     /* 28 */
+  --text-2xl: 2.25rem;    /* 36 */
+  --text-3xl: 2.875rem;   /* 46 */
+  --text-4xl: 3.75rem;    /* 60 */
+  --text-5xl: 4.75rem;    /* 76 */
+
+  /* Line heights */
+  --leading-tight: 1.08;
+  --leading-snug: 1.22;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-caps: 0.08em;
+}

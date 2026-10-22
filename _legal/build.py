@@ -52,7 +52,7 @@ APPS = [
          ('Educational use only', 'Entrepreneur Blueprint is an educational tool. It is not legal, tax, accounting, or financial advice.'),
          ('No guarantee of results', 'Business results depend on your market, your effort, and many factors outside our control. We make no promise of any specific outcome, revenue, or success.'),
          ('Your responsibility', 'You are responsible for your business decisions. Consider talking with a qualified professional before making legal, tax, or financial commitments.')]),
-  dict(slug='startwise', name='StartWise', what='a startup roadmap with task checklists, a business plan builder, budgeting and cost tools, and guidance on licenses and permits',
+  dict(slug='startwise', delete=True, name='StartWise', what='a startup roadmap with task checklists, a business plan builder, budgeting and cost tools, and guidance on licenses and permits',
        data='your roadmap progress, tasks, business plan drafts, budgets, cost estimates, and notes',
        ip=['the StartWise roadmap', 'its phase structure', 'checklists', 'business plan templates', 'budgeting tools'],
        advice='The App provides general guidance. It is not legal, tax, accounting, or financial advice, and it does not file anything with any government agency for you.',
@@ -449,12 +449,48 @@ def page(title, desc, crumb, h1, body, depth, tabs=''):
 ''' % dict(title=e(title), desc=e(desc), fonts=FONTS, css=CSS, up=up, crumb=crumb, h1=e(h1), eff=EFFECTIVE,
            co=e(SHORT), addr=e(ADDRESS), email=EMAIL, tabs=tabs, body=body)
 
+def delete_blocks(a):
+    """How to delete an account. Only for apps with delete=True, because the
+    steps below describe how that app actually stores and removes data."""
+    n = e(a['name'])
+    subject = 'Delete my %s account' % a['name']
+    body = ('Please delete my %s account and all of its data.\n\nEmail I sign in with: \n'
+            'Name (optional): \n\nI understand this cannot be undone.' % a['name'])
+    from urllib.parse import quote
+    href = 'mailto:%s?subject=%s&body=%s' % (EMAIL, quote(subject), quote(body))
+    return [
+      '<style>.del-btn{display:inline-block;margin:10px 0 4px;padding:11px 18px;border-radius:10px;background:var(--teal);color:#06111d!important;font-weight:700;text-decoration:none}.del-btn:hover{filter:brightness(1.08)}.del-btn:focus-visible{outline:3px solid #E0A03A;outline-offset:2px}</style>',
+      P('You can ask us to delete your %s account and everything in it at any time. It\'s free, and you don\'t need to give a reason. This page explains how, what gets removed, and what we have to keep.' % a['name']),
+      H('How to ask for deletion'),
+      '<ol>'
+      '<li><strong>Cancel your membership first</strong> if you pay for %s, so you are not charged again. Just say so in the same email below and we\'ll cancel it for you before we delete anything.</li>' % n +
+      '<li><strong>Email us from the address you sign in with.</strong> Send it to %s with the subject "%s." This button writes the email for you:<br><a class="del-btn" href="%s">Email a deletion request</a></li>' % (mail(), e(subject), html.escape(href)) +
+      '<li><strong>We check it\'s really you.</strong> If you write from a different address, we\'ll send a short note to the address on the account to confirm before we delete anything.</li>'
+      '<li><strong>We delete it and tell you.</strong> We act on confirmed requests within 30 days, usually much sooner, and email you when it\'s done.</li>'
+      '</ol>',
+      '<p>Uninstalling the app or clearing your browser does <strong>not</strong> delete your account. Your data stays in your account until you ask us to remove it.</p>',
+      H('What we delete'),
+      UL(['Your account: your email address, password, and sign-in history.',
+          'Your app data: ' + a['data'] + '.',
+          'Your agreement record and any saved settings.',
+          'The copy %s keeps in your browser is removed when you sign out. You can also clear it by uninstalling the app or clearing your browser data.' % a['name']]),
+      P('Your account and data are removed from our live systems right away. Backup copies expire within 30 days.'),
+      H('What we keep, and why'),
+      ULB([('Purchase records', '(your email, plan, and payment dates) as required for billing, tax, and legal purposes. We keep these only as long as the law requires.'),
+           ('Basic security logs', 'kept by our hosting and database providers, which expire on their normal schedule.')]),
+      P('We never keep your business data after deletion, and we never sell it.'),
+      H('Want only part of your data deleted?'),
+      P('You can delete items yourself inside %s at any time. To remove other specific information, or to get a copy of your data before you delete your account, email %s. We respond within 30 days.' % (a['name'], EMAIL)),
+      LEAD('Deletion is permanent', 'Once your account is deleted we can\'t bring it back. If you want to use %s again later, you\'ll start a new account.' % a['name']),
+      LEAD('Contact', '%s · %s · %s' % (SHORT, ADDRESS, EMAIL)),
+    ]
+
 DOCS = [('terms', 'Terms of Service', terms_blocks), ('privacy', 'Privacy Policy', privacy_blocks),
         ('license', 'Software License', license_blocks), ('sms', 'SMS Terms', sms_blocks),
-        ('disclaimer', 'Disclaimer', disclaimer_blocks)]
+        ('disclaimer', 'Disclaimer', disclaimer_blocks), ('delete', 'Delete account', delete_blocks)]
 
 def docs_for(a):
-    return [d for d in DOCS if d[0] != 'sms' or a.get('sms')]
+    return [d for d in DOCS if (d[0] != 'sms' or a.get('sms')) and (d[0] != 'delete' or a.get('delete'))]
 
 def write(path, text):
     full = os.path.join(OUT, path)
