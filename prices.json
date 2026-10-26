@@ -363,7 +363,9 @@
         }
       ],
       "links": {
-        "monthly": "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder"
+        "monthly": "https://stan.store/AcrossTheTable/p/grow--thrive-monthly-subscription",
+        "annual": "https://stan.store/AcrossTheTable/p/grow--thrive-annual-subscription",
+        "onetime": "https://stan.store/AcrossTheTable/p/grow-and-thrive-onetime-purchase"
       },
       "flyer": "flyers/grow-and-thrive-flyer-1792996091046.jpg",
       "photos": [
