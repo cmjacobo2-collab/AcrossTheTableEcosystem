@@ -365,7 +365,19 @@
       "links": {
         "monthly": "https://stan.store/AcrossTheTable/p/grow--thrive-placeholder"
       },
-      "flyer": "flyers/grow-and-thrive-flyer-1792996091046.jpg"
+      "flyer": "flyers/grow-and-thrive-flyer-1792996091046.jpg",
+      "photos": [
+        "flyers/grow-and-thrive-photo0-1792998487079.jpg",
+        "flyers/grow-and-thrive-photo1-1792998489311.jpg",
+        "flyers/grow-and-thrive-photo2-1792998490813.jpg",
+        "flyers/grow-and-thrive-photo3-1792998492186.jpg",
+        "flyers/grow-and-thrive-photo4-1792998493563.jpg",
+        "flyers/grow-and-thrive-photo5-1792998495001.jpg",
+        "flyers/grow-and-thrive-photo6-1792998496573.jpg",
+        "flyers/grow-and-thrive-photo7-1792998497961.jpg",
+        "flyers/grow-and-thrive-photo8-1792998499327.jpg",
+        "flyers/grow-and-thrive-photo9-1792998500729.jpg"
+      ]
     },
     "startwise": {
       "name": "StartWise",
