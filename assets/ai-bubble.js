@@ -33,8 +33,8 @@
     var b = document.createElement('a');
     b.id = 'ai-bubble'; b.href = URL; b.target = '_blank'; b.rel = 'noopener';
     b.setAttribute('data-ai-card', '');
-    b.setAttribute('aria-label', "Ask my AI assistant (AI, not Connie live)");
-    b.title = "Ask my AI assistant — it's AI, not Connie live";
+    b.setAttribute('aria-label', "Talk to my AI voice assistant (AI, not Connie live). Opens in a new tab.");
+    b.title = "Talk to my AI voice assistant — ask anything. It's AI, not Connie live.";
     b.innerHTML = '<span class="aib-ico">' + ICON + '</span><span class="aib-txt">Ask my AI</span>';
     document.body.appendChild(b);
 
