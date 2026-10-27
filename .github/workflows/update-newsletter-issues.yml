@@ -1,10 +1,13 @@
 # ============================================================
 #  Keep "Previous issues" on /newsletter/ up to date
 #
-#  Every few hours this reads The Scaling Edge's official Substack
-#  feed and refreshes the list of past issues on
-#  acrossthetable.biz/newsletter/ — titles, dates and pictures
-#  exactly as they are on Substack. Nothing to do by hand.
+#  When a new issue of The Scaling Edge is published, Zapier (which
+#  watches the Substack feed) drops a small note about it into
+#  _newsletter/inbox/. That upload starts this, which adds the issue
+#  to the list of past issues on acrossthetable.biz/newsletter/ —
+#  title, date and picture exactly as on Substack. Nothing to do by
+#  hand. (Substack blocks GitHub's own servers from reading the feed,
+#  which is why Zapier does the watching.)
 #
 #  If Substack can't be reached, nothing changes.
 #  It never touches index.html, so "Restore previous website
@@ -18,8 +21,6 @@
 name: Update newsletter issues
 
 on:
-  schedule:
-    - cron: '17 */4 * * *'      # every four hours
   push:
     branches: [main]
     paths:

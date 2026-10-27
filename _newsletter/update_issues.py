@@ -144,19 +144,59 @@ def say(msg, level='notice'):
         print('::%s::%s' % (level, msg))
 
 
+INBOX = os.path.join(ROOT, '_newsletter', 'inbox')
+
+
+def merge_inbox(issues):
+    """Add issues that Zapier dropped into _newsletter/inbox/ (one small JSON
+    file per new Substack post). Zapier reads the feed from its own servers,
+    which Substack does not block. Only posts at the publication's address
+    are accepted; one already listed is left as it is."""
+    have = {i['url'] for i in issues}
+    if not os.path.isdir(INBOX):
+        return issues
+    for name in sorted(os.listdir(INBOX)):
+        if not name.endswith('.json'):
+            continue
+        try:
+            raw = json.load(open(os.path.join(INBOX, name), encoding='utf-8'))
+            url = (raw.get('url') or '').split('?')[0].strip()
+            if not url.startswith(PUB + '/p/') or url in have:
+                continue
+            when = email.utils.parsedate_to_datetime(raw['date']) if ',' in (raw.get('date') or '') \
+                else datetime.datetime.fromisoformat(raw['date'].replace('Z', '+00:00'))
+            if when.tzinfo is None:
+                when = when.replace(tzinfo=datetime.timezone.utc)
+            img = (raw.get('image') or '').strip()
+            issues.append({
+                'title': clean(raw.get('title')),
+                'subtitle': clean(raw.get('subtitle')),
+                'date': when.astimezone(PHOENIX).date().isoformat(),
+                'url': url,
+                'image': img if img.startswith(IMG_OK) else '',
+            })
+            have.add(url)
+            say('update-issues: added "%s" from Zapier' % clean(raw.get('title')))
+        except Exception as ex:
+            say('update-issues: skipped %s (%s)' % (name, ex), 'warning')
+    issues.sort(key=lambda x: x['date'], reverse=True)
+    return issues
+
+
 def main():
     if '--render' in sys.argv:
         issues = json.load(open(JSON_PATH, encoding='utf-8'))['issues']
     else:
+        old = json.load(open(JSON_PATH, encoding='utf-8')).get('issues') if os.path.exists(JSON_PATH) else None
         try:
             issues = fetch()
-        except Exception as ex:                      # Substack down or unreachable: leave everything as it is
-            say('update-issues: could not read the Substack feed (%s) — nothing changed' % ex, 'warning')
-            return
+        except Exception as ex:                      # Substack blocks GitHub's servers: fall back to what Zapier delivered
+            say('update-issues: could not read the Substack feed (%s) — using issues delivered by Zapier' % ex, 'warning')
+            issues = [dict(i) for i in (old or [])]
+        issues = merge_inbox(issues)
         if not issues:
-            say('update-issues: the feed had no posts — nothing changed', 'warning')
+            say('update-issues: no issues found — nothing changed', 'warning')
             return
-        old = json.load(open(JSON_PATH, encoding='utf-8')).get('issues') if os.path.exists(JSON_PATH) else None
         kept = {i['url']: i['image'] for i in (old or []) if i.get('image')}
         for i in issues:                              # a picture added by hand stays if the feed has none
             if not i['image'] and i['url'] in kept:
