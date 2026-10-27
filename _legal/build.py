@@ -37,6 +37,7 @@ SITE = 'https://acrossthetable.biz'
 #   disclaimer the full Disclaimer, as a list of (heading, text)
 #   sms        True only for apps that send text messages
 #   special    extra Privacy sections, as a list of (heading, text)
+#   terms_extra extra Terms paragraphs (under Accounts & conduct), as a list of (heading, text)
 #   never      extra "what we never collect" items
 #   paths      in-app menu paths (CreditHoy only, from Connie's documents)
 # --------------------------------------------------------------------------
@@ -142,7 +143,10 @@ APPS = [
        others=True,
        ip=['the Business Connect card designs', 'exchange and pipeline workflows'],
        advice='The App helps you exchange contact details and follow up. It is not legal or marketing-compliance advice.',
+       special=[('AI receptionist on cards (Pro)', 'Some card owners with Business Connect Pro add an optional AI receptionist, provided by HeyGen Technology Inc., a third-party service, under the card owner\'s own HeyGen account. It is an artificial intelligence, not a live person. Nothing loads and a visitor\'s microphone is not used until they read a notice and tick two boxes agreeing to it; they can skip it and use the form instead. While it is open, the visitor\'s voice and what they say go directly from their browser to HeyGen so it can understand and answer, and HeyGen may also receive technical information such as IP address and browser type. HeyGen handles this under its own privacy policy and terms (heygen.com), and the card owner may be able to see the conversation in their HeyGen account; we do not control how HeyGen or the card owner stores or uses it. We do not receive or keep the conversation. If the visitor then shares their details from the card, we save the date and time they agreed and which version of the notice they saw with their contact. Closing it ends the session and stops the microphone. Please do not share passwords, payment details, or health or other sensitive information with an AI receptionist.')],
+       terms_extra=[('AI receptionist (Pro)', 'If you add an AI receptionist link to your card, you need your own HeyGen account; you set up what it says and knows, you pay HeyGen for it, and HeyGen\'s terms apply to it. You are responsible for what it says, including that it is accurate, makes no promises you cannot keep, follows the laws that apply to you, and does not pretend to be a real person. Your card shows visitors a notice that it is an AI, that it uses their microphone, and that HeyGen processes their voice, and asks them to agree first; do not remove, hide, or work around that notice. Business Connect is not affiliated with or endorsed by HeyGen, and we are not responsible for HeyGen\'s service, availability, or answers.')],
        disclaimer=[
+         ('AI receptionist', 'The AI receptionist is an artificial intelligence provided by HeyGen under the card owner\'s own account. Its answers can be wrong, out of date, or incomplete, and they are not promises from the card owner or from Across the Table. Confirm anything important directly with the card owner.'),
          ('Your contacts, your responsibility', 'When you save or follow up with a contact, you are responsible for doing so lawfully, including the rules for marketing email and text messages, and for honoring requests to stop.'),
          ('Shared details', 'When you share your card or exchange details with someone, they receive the information on your card. Only share what you are comfortable with them having.'),
          ('No guarantee of results', 'Leads and sales depend on many factors outside our control. We make no promise of any specific outcome.')]),
@@ -240,6 +244,8 @@ def terms_blocks(a):
     b.append(P(conduct))
     if a.get('others'):
         b.append(P('If you add information about other people to the App, such as customers, contacts, employees, or guests, you confirm that you have the right to do so and that you will use it lawfully.'))
+    for head, text in a.get('terms_extra', []):
+        b.append(LEAD(head, text))
     b += [H('6. Termination'),
           P('You may delete your account at any time from within the App, or by emailing %s. We may suspend or terminate your access for violation of these Terms. Sections on intellectual property, disclaimers, and liability survive termination.' % EMAIL),
           H('7. Limitation of liability'),
