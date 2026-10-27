@@ -1532,7 +1532,7 @@ table.hub-tbl{width:100%;border-collapse:collapse;min-width:720px;}
 .bbb-seal img{display:block;max-width:100%;height:auto;}
 .bbb-wrap{margin-top:18px;}
 .bbb-wrap-c{display:flex;justify-content:center;margin-top:16px;}
-.foot-logo .bbb-seal img,.ab-body .bbb-seal img,.contact .bbb-seal img{width:250px;height:auto;filter:none;opacity:1;}
+.bbb-seal img,.foot-logo .bbb-seal img,.ab-body .bbb-seal img,.contact .bbb-seal img{width:150px;height:auto;filter:none;opacity:1;}
 .field{margin-bottom:18px;}
 .field label{display:block;font-size:13.5px;font-weight:600;color:var(--text-heading);margin-bottom:8px;}
 .field label em{font-style:normal;font-weight:400;color:var(--text-muted);}
