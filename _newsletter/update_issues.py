@@ -18,7 +18,7 @@ If Substack can't be reached, or the feed comes back empty, nothing is changed.
 GitHub runs this by itself every few hours (.github/workflows/update-newsletter-issues.yml).
 This folder starts with an underscore, so GitHub Pages does not publish it.
 """
-import datetime, email.utils, html, json, os, re, sys, urllib.request
+import datetime, email.utils, html, json, os, re, sys, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,23 +36,65 @@ def clean(s):
     return re.sub(r'\s+', ' ', html.unescape(s)).strip()
 
 
-def fetch():
-    req = urllib.request.Request(FEED, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; AcrossTheTableFeed/1.0; +https://acrossthetable.biz/newsletter/)',
-        'Accept': 'application/rss+xml, application/xml;q=0.9, */*;q=0.8'})
+UA = 'Mozilla/5.0 (compatible; AcrossTheTableFeed/1.0; +https://acrossthetable.biz/newsletter/)'
+# Substack refuses requests from GitHub's servers (403), so if the direct read
+# fails the same official feed is read through feed relays instead. Only posts
+# at the publication's own address are kept, whichever route delivers them.
+RELAYS = [
+    'https://api.rss2json.com/v1/api.json?rss_url=' + urllib.parse.quote(FEED, safe=''),
+    'https://api.allorigins.win/raw?url=' + urllib.parse.quote(FEED, safe=''),
+]
+
+
+def get(url):
+    req = urllib.request.Request(url, headers={'User-Agent': UA,
+        'Accept': 'application/rss+xml, application/xml;q=0.9, application/json;q=0.8, */*;q=0.5'})
     with urllib.request.urlopen(req, timeout=30) as r:
-        root = ET.fromstring(r.read())
-    out = []
+        return r.read()
+
+
+def items_from_xml(raw):
+    root = ET.fromstring(raw)
     for it in root.iter('item'):
-        link = (it.findtext('link') or '').strip()
+        enc = it.find('enclosure')
+        yield (it.findtext('link'), it.findtext('title'), it.findtext('description'),
+               email.utils.parsedate_to_datetime(it.findtext('pubDate')),
+               enc.get('url', '') if enc is not None else '')
+
+
+def items_from_json(raw):
+    data = json.loads(raw)
+    if data.get('status') != 'ok':
+        raise ValueError('relay said: %s' % data.get('message', data.get('status')))
+    for it in data.get('items', []):
+        when = datetime.datetime.strptime(it['pubDate'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=datetime.timezone.utc)
+        enc = it.get('enclosure') or {}
+        yield (it.get('link'), it.get('title'), it.get('description'), when,
+               enc.get('link', '') or it.get('thumbnail', ''))
+
+
+def fetch():
+    errors = []
+    for url in [FEED] + RELAYS:
+        try:
+            raw = get(url)
+            rows = list(items_from_json(raw) if raw.lstrip()[:1] == b'{' else items_from_xml(raw))
+            if url != FEED:
+                say('update-issues: read the Substack feed through a relay (%s)' % url.split('/')[2])
+            break
+        except Exception as ex:
+            errors.append('%s: %s' % (url.split('/')[2], ex))
+    else:
+        raise RuntimeError('; '.join(errors))
+    out = []
+    for link, title, desc, when, img in rows:
+        link = (link or '').strip()
         if not link.startswith(PUB + '/p/'):
             continue
-        when = email.utils.parsedate_to_datetime(it.findtext('pubDate'))
-        enc = it.find('enclosure')
-        img = enc.get('url', '') if enc is not None else ''
+        img = img or ''
         out.append({
-            'title': clean(it.findtext('title')),
-            'subtitle': clean(it.findtext('description')),
+            'title': clean(title),
+            'subtitle': clean(desc),
             'date': when.astimezone(PHOENIX).date().isoformat(),
             'url': link.split('?')[0],
             'image': img if img.startswith(IMG_OK) else '',
