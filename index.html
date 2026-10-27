@@ -1552,6 +1552,12 @@ table.hub-tbl{width:100%;border-collapse:collapse;min-width:720px;}
 .bbb-seal img{display:block;max-width:100%;height:auto;}
 .bbb-wrap{margin-top:18px;}
 .bbb-wrap-c{display:flex;justify-content:center;margin-top:16px;}
+/* Footer: BBB seal sits to the right of the logo */
+.foot-logo{display:grid;grid-template-columns:auto auto;column-gap:26px;align-items:center;justify-content:start;}
+.foot-logo>img{grid-column:1;grid-row:1;}
+.foot-logo>.bbb-wrap{grid-column:2;grid-row:1;margin-top:0;}
+.foot-logo>.foot-tag,.foot-logo>.foot-social{grid-column:1/-1;}
+@media (max-width:380px){.foot-logo{column-gap:16px;}.foot-logo>img{width:140px;}.foot-logo .bbb-seal img{width:124px;}}
 .bbb-seal img,.foot-logo .bbb-seal img,.ab-body .bbb-seal img,.contact .bbb-seal img{width:150px;height:auto;filter:none;opacity:1;}
 .field{margin-bottom:18px;}
 .field label{display:block;font-size:13.5px;font-weight:600;color:var(--text-heading);margin-bottom:8px;}
