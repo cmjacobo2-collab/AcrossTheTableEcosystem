@@ -26,7 +26,7 @@ PUB = 'https://acrossthetablebiz.substack.com'
 FEED = PUB + '/feed'
 JSON_PATH = os.path.join(ROOT, 'assets', 'newsletter', 'issues.json')
 PAGE_PATH = os.path.join(ROOT, 'newsletter', 'index.html')
-SHOW = 9                                   # how many issues the page shows
+SHOW = 12                                  # how many issues the page shows
 PHOENIX = datetime.timezone(datetime.timedelta(hours=-7))   # Arizona: no daylight saving
 IMG_OK = ('https://substackcdn.com/', 'https://substack-post-media.s3.amazonaws.com/')
 

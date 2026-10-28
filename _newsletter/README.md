@@ -31,12 +31,12 @@ newsletter page follows the `day` setting too.
 
 ## Past issues
 
-`newsletter/index.html` shows the nine newest issues, copied exactly from the
+`newsletter/index.html` shows the twelve newest issues, copied exactly from the
 official Substack feed (title, date, picture, link). GitHub refreshes them every
 four hours (**Actions → Update newsletter issues**). To refresh straight after
 publishing: **Actions → Update newsletter issues → Run workflow**.
 If Substack can't be reached, nothing changes. To show more or fewer, change
-`SHOW = 9` in `_newsletter/update_issues.py`.
+`SHOW = 12` in `_newsletter/update_issues.py`.
 
 ## What gets counted, and where to see it
 
