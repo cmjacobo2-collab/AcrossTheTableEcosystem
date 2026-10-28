@@ -3243,6 +3243,126 @@ a[data-goto]{cursor:pointer;}
 .pb-cta-acts{display:flex;flex-wrap:wrap;gap:12px}
 </style>
 <link rel="stylesheet" href="assets/newsletter.css">
+
+<!-- Person + Organization structured data. Identifies Connie Ramirez as a
+     distinct entity and links every verified profile via sameAs. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://acrossthetable.biz/#connie-ramirez",
+      "name": "Connie Ramirez",
+      "honorificSuffix": "MBA",
+      "url": "https://acrossthetable.biz/",
+      "mainEntityOfPage": "https://acrossthetable.biz/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://acrossthetable.biz/media/connie-ramirez-square.jpg",
+        "width": 1024,
+        "height": 1024,
+        "caption": "Connie Ramirez, founder of Across the Table Business Consulting in Phoenix, Arizona"
+      },
+      "jobTitle": [
+        "Founder",
+        "Chief Executive Officer"
+      ],
+      "description": "Connie Ramirez is the founder of Across the Table Business Consulting in Phoenix, Arizona. She holds a B.S. in Finance from Arizona State University and an MBA from the University of Phoenix, with twenty years in technology and business operations. She builds software and education that make business strategy practical for small-business owners.",
+      "gender": "Female",
+      "nationality": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "worksFor": {
+        "@id": "https://acrossthetable.biz/#organization"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Arizona State University",
+          "sameAs": "https://en.wikipedia.org/wiki/Arizona_State_University"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Phoenix",
+          "sameAs": "https://en.wikipedia.org/wiki/University_of_Phoenix"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Phoenix",
+        "addressRegion": "AZ",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "Small business strategy",
+        "Entrepreneurship",
+        "Business operations",
+        "Financial literacy for small business",
+        "Artificial intelligence for small business",
+        "Systems analysis",
+        "Business education"
+      ],
+      "sameAs": [
+        "https://www.youtube.com/@AcrossTheTableConnie",
+        "https://www.linkedin.com/in/connie-jacobo-ramirez",
+        "https://www.instagram.com/acrossthetableconnie",
+        "https://www.facebook.com/share/1XsXTRMovN/",
+        "https://www.tiktok.com/@across.the.table0",
+        "https://substack.com/@acrossthetable602"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://acrossthetable.biz/#organization",
+      "name": "Across the Table",
+      "alternateName": [
+        "Across the Table Business Consulting",
+        "AcrossTheTable.biz"
+      ],
+      "legalName": "Bold and Beautiful Beauties",
+      "url": "https://acrossthetable.biz/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://acrossthetable.biz/media/across-the-table-logo.png"
+      },
+      "description": "Across the Table is a Phoenix-based business technology and education company. It builds connected business applications and practical education for entrepreneurs and small-business owners.",
+      "founder": {
+        "@id": "https://acrossthetable.biz/#connie-ramirez"
+      },
+      "foundingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Phoenix",
+          "addressRegion": "AZ",
+          "addressCountry": "US"
+        }
+      },
+      "email": "info@acrossthetable.biz",
+      "telephone": "+1-480-582-4716",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "101 N First Ave, Suite 2325-1495",
+        "addressLocality": "Phoenix",
+        "addressRegion": "AZ",
+        "postalCode": "85003",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://www.bbb.org/us/az/phoenix/profile/business-consultants/across-the-table-1126-1000182897",
+        "https://www.youtube.com/@AcrossTheTableConnie",
+        "https://www.linkedin.com/in/connie-jacobo-ramirez",
+        "https://www.instagram.com/acrossthetableconnie",
+        "https://www.facebook.com/share/1XsXTRMovN/",
+        "https://www.tiktok.com/@across.the.table0",
+        "https://acrossthetablebiz.substack.com"
+      ]
+    }
+  ]
+}
+</script>
 </head>
 
 <body>
