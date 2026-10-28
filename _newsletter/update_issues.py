@@ -107,8 +107,9 @@ def card(i):
     e = lambda s: html.escape(s, quote=True)
     d = datetime.date.fromisoformat(i['date'])
     nice = d.strftime('%b ') + str(d.day) + d.strftime(', %Y')
-    heading = i['subtitle'] or i['title']
-    label = i['title'] if i['subtitle'] else ''
+    # 'headline' / 'label' are optional words added by hand when Substack's own are too generic
+    heading = i.get('headline') or i['subtitle'] or i['title']
+    label = i.get('label') or (i['title'] if i['subtitle'] else '')
     # the title card sits underneath; Substack's cover picture covers it, or is dropped if it fails to load
     pic = ('<span class="nl-issue-ph" aria-hidden="true"><img src="/assets/newsletter/scaling-edge-logo.jpg" alt="" '
            'loading="lazy" decoding="async" width="320" height="320"></span>')
@@ -201,6 +202,11 @@ def main():
         for i in issues:                              # a picture added by hand stays if the feed has none
             if not i['image'] and i['url'] in kept:
                 i['image'] = kept[i['url']]
+        hand = {i['url']: i for i in (old or [])}
+        for i in issues:                              # a headline or label added by hand always stays
+            for k in ('headline', 'label'):
+                if hand.get(i['url'], {}).get(k):
+                    i[k] = hand[i['url']][k]
         if issues != old:
             os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
             json.dump({'source': FEED, 'issues': issues}, open(JSON_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
