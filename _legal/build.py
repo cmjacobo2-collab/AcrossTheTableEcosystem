@@ -98,7 +98,7 @@ APPS = [
          ('Educational use only', 'Cash Flow vs EBITDA is an educational tool. It is not accounting, tax, investment, or financial advice.'),
          ('Results depend on your numbers', 'Calculations are only as accurate as the figures you enter. They are not audited financial statements.'),
          ('Your responsibility', 'You are responsible for your financial decisions. Consider consulting a qualified accountant or financial professional.')]),
-  dict(slug='grow-and-thrive', name='Grow & Thrive', what='a growth-planning tool for setting targets, reading ratios, and modeling what-if scenarios',
+  dict(slug='grow-and-thrive', hub=True, name='Grow & Thrive', what='a growth-planning tool for setting targets, reading ratios, and modeling what-if scenarios',
        data='your targets, figures, scenarios, plans, and notes',
        ip=['the Grow & Thrive planning models', 'ratio guides', 'written lessons'],
        advice='The App provides planning tools and business education. It is not accounting, tax, investment, or financial advice.',
