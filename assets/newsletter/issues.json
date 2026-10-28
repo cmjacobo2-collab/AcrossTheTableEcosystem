@@ -27,21 +27,26 @@
    "subtitle": "AI Is Moving From Assistant to Employee",
    "date": "2026-10-05",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-1af",
-   "image": "https://substackcdn.com/image/fetch/$s_!vY-k!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F63f81277-7716-4b91-b04a-d548c7dfe279_1254x1254.png"
+   "image": "https://substackcdn.com/image/fetch/$s_!vY-k!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F63f81277-7716-4b91-b04a-d548c7dfe279_1254x1254.png",
+   "label": "THE SCALING EDGE | ISSUE 6"
   },
   {
    "title": "THE SCALING EDGE — ISSUE 05",
    "subtitle": "AI. Technology. Strategy. What's Next for Small Business. Presented by Across the Table — Connie Ramirez | MBA | 20+ Years in IT",
    "date": "2026-09-28",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-issue-05",
-   "image": "https://substackcdn.com/image/fetch/$s_!pVlH!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F90d2fddd-6310-4c54-9161-638ea0aa5fba_1660x948.png"
+   "image": "https://substackcdn.com/image/fetch/$s_!pVlH!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F90d2fddd-6310-4c54-9161-638ea0aa5fba_1660x948.png",
+   "label": "THE SCALING EDGE | ISSUE 5",
+   "headline": "AI Is Getting More Powerful. How Much Power Should We Give It?"
   },
   {
    "title": "THE SCALING EDGE",
    "subtitle": "AI. Technology. Strategy. What's Next for Small Business.",
    "date": "2026-09-18",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-776",
-   "image": "https://substackcdn.com/image/fetch/$s_!MgMP!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60eca9a3-8022-45d6-9275-b03b613250f2_1024x1536.png"
+   "image": "https://substackcdn.com/image/fetch/$s_!MgMP!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60eca9a3-8022-45d6-9275-b03b613250f2_1024x1536.png",
+   "label": "THE SCALING EDGE | ISSUE 4",
+   "headline": "Has AI Actually Changed How Your Business Operates?"
   },
   {
    "title": "THE SCALING EDGE",
@@ -49,7 +54,7 @@
    "date": "2026-09-11",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-c2a",
    "image": "/assets/newsletter/issue-04-cover.jpg",
-   "label": "THE SCALING EDGE | ISSUE 04",
+   "label": "THE SCALING EDGE | ISSUE 3",
    "headline": "AI Isn't Replacing Your Next Hire. It May Be Helping You Afford One."
   },
   {
@@ -57,14 +62,9 @@
    "subtitle": "AI. TECHNOLOGY. STRATEGY. WHAT'S NEXT FOR SMALL BUSINESS.",
    "date": "2026-09-04",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-6f7",
-   "image": "/assets/newsletter/issue-03-cover.jpg"
-  },
-  {
-   "title": "Stop Buying AI Tools",
-   "subtitle": "This week in The Scaling Edge,",
-   "date": "2026-08-29",
-   "url": "https://acrossthetablebiz.substack.com/p/stop-buying-ai-tools",
-   "image": ""
+   "image": "/assets/newsletter/issue-03-cover.jpg",
+   "label": "THE SCALING EDGE | ISSUE 2",
+   "headline": "Your AI Can Do More. But Should It Be Allowed To?"
   },
   {
    "title": "THE SCALING EDGE",
@@ -72,7 +72,7 @@
    "date": "2026-08-28",
    "url": "https://acrossthetablebiz.substack.com/p/the-scaling-edge-b99",
    "image": "/assets/newsletter/issue-02-cover.jpg",
-   "label": "THE SCALING EDGE | ISSUE 02",
+   "label": "THE SCALING EDGE | ISSUE 1",
    "headline": "AI Isn't Saving Your Business Time? The AI May Not Be the Problem."
   },
   {

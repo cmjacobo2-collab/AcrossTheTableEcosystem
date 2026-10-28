@@ -28,6 +28,8 @@ JSON_PATH = os.path.join(ROOT, 'assets', 'newsletter', 'issues.json')
 PAGE_PATH = os.path.join(ROOT, 'newsletter', 'index.html')
 SHOW = 12                                  # how many issues the page shows
 PHOENIX = datetime.timezone(datetime.timedelta(hours=-7))   # Arizona: no daylight saving
+# posts that should never be listed on the page, even though they are on Substack
+HIDE = {PUB + '/p/stop-buying-ai-tools'}
 IMG_OK = ('https://substackcdn.com/', 'https://substack-post-media.s3.amazonaws.com/')
 
 
@@ -130,6 +132,7 @@ def render(issues):
     m = re.search(r'(<!-- issues -->)(.*?)(<!-- /issues -->)', page, re.S)
     if not m:
         sys.exit('update-issues: the <!-- issues --> markers are missing from newsletter/index.html')
+    issues = [i for i in issues if i['url'] not in HIDE]
     body = '\n<ul class="nl-issues">\n' + '\n'.join(card(i) for i in issues[:SHOW]) + '\n</ul>\n'
     new = page[:m.end(1)] + body + page[m.start(3):]
     if new != page:
@@ -207,6 +210,7 @@ def main():
             for k in ('headline', 'label'):
                 if hand.get(i['url'], {}).get(k):
                     i[k] = hand[i['url']][k]
+        issues = [i for i in issues if i['url'] not in HIDE]
         if issues != old:
             os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
             json.dump({'source': FEED, 'issues': issues}, open(JSON_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
