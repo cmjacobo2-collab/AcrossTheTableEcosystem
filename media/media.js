@@ -198,9 +198,9 @@
     var graph = [
       { '@type': 'WebPage', '@id': url, url: url, name: 'Media & Press — ' + c.name,
         description: 'Media and press information about ' + fullName(f) + ', founder of ' + c.name + '.',
-        about: { '@id': url + '#connie' }, isPartOf: { '@id': SITE + '/#org' },
+        about: { '@id': SITE + '/#connie' }, isPartOf: { '@id': SITE + '/#org' },
         primaryImageOfPage: f.photo ? SITE + '/media/' + f.photo : undefined },
-      { '@type': 'Person', '@id': url + '#connie', name: f.name, honorificSuffix: f.credentials || undefined,
+      { '@type': 'Person', '@id': SITE + '/#connie', name: f.name, honorificSuffix: f.credentials || undefined,
         jobTitle: f.title, worksFor: { '@id': SITE + '/#org' }, founder: undefined,
         image: f.photo ? SITE + '/media/' + f.photo : undefined, description: f.bio_short,
         address: { '@type': 'PostalAddress', addressLocality: 'Phoenix', addressRegion: 'AZ', addressCountry: 'US' },
@@ -209,13 +209,13 @@
         sameAs: (d.contact.links || []).map(function (l) { return safeUrl(l.url); }).filter(Boolean) },
       { '@type': 'Organization', '@id': SITE + '/#org', name: c.name, legalName: 'Bold and Beautiful Beauties',
         url: SITE, logo: SITE + '/media/across-the-table-logo.png', description: c.description,
-        founder: { '@id': url + '#connie' },
+        founder: { '@id': SITE + '/#connie' },
         address: { '@type': 'PostalAddress', streetAddress: '101 N First Ave, Suite 2325-1495', addressLocality: 'Phoenix', addressRegion: 'AZ', postalCode: '85003', addressCountry: 'US' },
         contactPoint: { '@type': 'ContactPoint', contactType: 'media relations', email: d.contact.email } }
     ];
     shown(d.appearances).filter(function (a) { return a.outlet && a.title && safeUrl(a.url); }).forEach(function (a) {
       graph.push({ '@type': 'NewsArticle', headline: a.title, url: safeUrl(a.url), datePublished: a.date || undefined,
-        publisher: { '@type': 'Organization', name: a.outlet }, about: { '@id': url + '#connie' } });
+        publisher: { '@type': 'Organization', name: a.outlet }, about: { '@id': SITE + '/#connie' } });
     });
     return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   }
