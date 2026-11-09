@@ -1,0 +1,11 @@
+/* Across the Table — light base layer for cards/specimens */
+:root { color-scheme: light; }
+.ds-reset, .ds-reset * { box-sizing: border-box; }
+body.ds-card {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
