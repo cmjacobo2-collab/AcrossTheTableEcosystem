@@ -11759,12 +11759,26 @@ window.__initWorkbookMgr = function(hub, H){
        everything except letters stripped out, so casing and punctuation in
        STACK_DATA cannot break the match. */
     var ARTICLES = {
-      'ASKANDREASON':   '/knowledge-articles/ask-and-reason/',
-      'CAPTUREMEETINGS':'/knowledge-articles/capture-meetings/',
-      'MAKETHEDECK':     '/knowledge-articles/make-the-deck/',
-      'PUTYOUONVIDEO':   '/knowledge-articles/put-you-on-video/',
-      'CONNECTTHETOOLS': '/knowledge-articles/connect-the-tools/',
-      'ANSWERCUSTOMERS': '/knowledge-articles/answer-customers/'
+      'ASKANDREASON':          '/knowledge-articles/ask-and-reason/',
+      'CAPTUREMEETINGS':       '/knowledge-articles/capture-meetings/',
+      'MAKETHEDECK':           '/knowledge-articles/make-the-deck/',
+      'PUTYOUONVIDEO':         '/knowledge-articles/put-you-on-video/',
+      'CONNECTTHETOOLS':       '/knowledge-articles/connect-the-tools/',
+      'ANSWERCUSTOMERS':       '/knowledge-articles/answer-customers/',
+      'WRITETHECOPY':          '/knowledge-articles/write-the-copy/',
+      'FILLTHEPIPELINE':       '/knowledge-articles/fill-the-pipeline/',
+      'RUNTHEWORK':            '/knowledge-articles/run-the-work/',
+      'GIVEITAVOICE':          '/knowledge-articles/give-it-a-voice/',
+      'MAKETHEPICTURE':        '/knowledge-articles/make-the-picture/',
+      'PAYANDMANAGEPEOPLE':    '/knowledge-articles/pay-and-manage-people/',
+      'MANAGETHEMONEY':        '/knowledge-articles/manage-the-money/',
+      'HIRETHEPEOPLE':         '/knowledge-articles/hire-the-people/',
+      'BUILDTHEWEBSITE':       '/knowledge-articles/build-the-website/',
+      'MARKETBYEMAIL':         '/knowledge-articles/market-by-email/',
+      'UNDERSTANDTHENUMBERS':  '/knowledge-articles/understand-the-numbers/',
+      'HANDLECONTRACTS':       '/knowledge-articles/handle-contracts/',
+      'PROTECTTHEBUSINESS':    '/knowledge-articles/protect-the-business/',
+      'LETAIDOTHEWORK':        '/knowledge-articles/let-ai-do-the-work/'
     };
     function articleKey(s){ return String(s || '').toUpperCase().replace(/[^A-Z]/g, ''); }
     function articleLink(doc, sheet, job){
