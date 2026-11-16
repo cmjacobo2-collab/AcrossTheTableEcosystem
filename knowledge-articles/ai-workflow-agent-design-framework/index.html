@@ -120,16 +120,13 @@
 .kaf-toc a span{display:block;font-weight:400;font-size:13px;color:var(--ka-muted);}
 
 /* core design sequence */
-.kaf-seq{list-style:none;padding:0!important;margin:1em 0 1.4em!important;display:grid;grid-template-columns:repeat(3,1fr);gap:26px 30px;font-family:var(--body);}
-.kaf-seq li{position:relative;margin:0!important;display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 14px;
-  background:var(--ka-navy);color:#fff;border-radius:10px;font-weight:700;font-size:15.5px;line-height:1.3;}
-.kaf-seq li b{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ka-gold);color:var(--ka-navy);font-size:14px;}
-.kaf-seq li:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--ka-gold);font-weight:800;font-size:18px;}
-.kaf-seq li:nth-child(3n)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-24px;transform:translateX(-50%);}
-.kaf-seq li:last-child::after{content:none!important;}
-.kaf-seq li:last-child{background:var(--ka-gold);color:var(--ka-navy);}
-.kaf-seq li:last-child b{background:var(--ka-navy);color:#fff;}
-
+.kaf-seqcard{background:#FAFAFA;border:1.5px solid #E2E4E8;border-radius:18px;padding:22px 22px 26px;margin:1.1em 0 1.6em;}
+.kaf-seqcard-h{font-family:var(--body);font-weight:600;font-size:15px;letter-spacing:.02em;text-transform:uppercase;color:#4A4F57;margin:0 0 16px!important;}
+.kaf-seq2{list-style:none;margin:0!important;padding:0!important;}
+.kaf-seq2 li{position:relative;margin:0!important;background:#F1F2F4;border-radius:12px;padding:16px 14px;text-align:center;
+  font-family:var(--body);font-weight:600;font-size:19px;line-height:1.3;color:#1E2228;}
+.kaf-seq2 li+li{margin-top:36px!important;}
+.kaf-seq2 li:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-31px;transform:translateX(-50%);color:#8A9099;font-size:17px;font-weight:400;}
 /* phases */
 .kaf-phase{border-top:1px solid var(--ka-line);margin-top:2.4em;padding-top:.4em;}
 .kaf-phase-tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--ka-navy);
@@ -200,8 +197,8 @@
 @media (max-width:760px){
   .kaf-toc{padding:16px 16px 8px;}
   .kaf-toc ol{columns:1;}
-  .kaf-seq{grid-template-columns:1fr;gap:22px;}
-  .kaf-seq li:not(:last-child)::after,.kaf-seq li:nth-child(3n)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-21px;transform:translateX(-50%);}
+  .kaf-seqcard{padding:18px 14px 22px;}
+  .kaf-seq2 li{font-size:17.5px;}
   .ka-body h3{font-size:18.5px;}
   .kaf-dl{grid-template-columns:1fr;gap:2px;}
   .kaf-dl dd{margin-bottom:8px;}
@@ -210,7 +207,8 @@
 }
 @media print{
   .kaf-tools,.kaf-cta-acts{display:none!important;}
-  .kaf-seq li,.kaf-phase-tag{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .kaf-seqcard,.kaf-seq2 li,.kaf-phase-tag{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .kaf-seqcard{break-inside:avoid;}
   .kaf-cta{background:#fff!important;border:2px solid #083A66;break-inside:avoid;}
   .kaf-cta h2,.kaf-cta p{color:#083A66!important;}
   .kaf-journey{color:#8A5A12!important;}
@@ -271,7 +269,7 @@
       <h1 id="ka-title">The Complete AI Workflow &amp; Agent Design Framework: <span class="kaf-h1-sub">From Business Process to Measurable ROI</span></h1>
       <p class="ka-dek">A 30-Step Guide to Designing, Securing, Validating, Monitoring, and Measuring AI-Powered Business Workflows</p>
       <p class="ka-meta">Presented by Across the Table | The Scaling Edge <span aria-hidden="true">·</span> Implementation guide <span aria-hidden="true">·</span> About 10 min read</p>
-      <p class="ka-download"><a href="/knowledge-articles/downloads/ai-workflow-agent-design-framework.pdf" download>Download Knowledge Brief (PDF)</a> <span>.pdf · 380 KB</span></p>
+      <p class="ka-download"><a href="/knowledge-articles/downloads/ai-workflow-agent-design-framework.pdf" download>Download Knowledge Brief (PDF)</a> <span>.pdf · 382 KB</span></p>
       <p class="kaf-tools"><button type="button" class="kaf-print" data-kaf-print><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg> Print this guide</button> <span>Includes five printable worksheets</span></p>
     </header>
     <div class="ka-body">
@@ -303,17 +301,19 @@
 
 <h2 id="sequence">The Core Design Sequence</h2>
 <p>The Across the Table framework follows this sequence:</p>
-<ol class="kaf-seq" aria-label="The core design sequence, in order">
-  <li><b>1</b>Business Problem</li>
-  <li><b>2</b>Business Process</li>
-  <li><b>3</b>Workflow Mapping</li>
-  <li><b>4</b>Automation Opportunities</li>
-  <li><b>5</b>AI Role &amp; Job Description</li>
-  <li><b>6</b>Permissions &amp; Controls</li>
-  <li><b>7</b>Validation &amp; Testing</li>
-  <li><b>8</b>Monitoring</li>
-  <li><b>9</b>ROI &amp; Business Performance</li>
-</ol>
+<div class="kaf-seqcard">
+  <p class="kaf-seqcard-h" id="kaf-seq-h">The Core Design Sequence</p>
+  <ol class="kaf-seq2" aria-labelledby="kaf-seq-h">
+    <li>1. Business Problem</li>
+    <li>2. Business Process</li>
+    <li>3. Workflow Mapping</li>
+    <li>4. Automation Opportunities</li>
+    <li>5. AI Role &amp; Job Description</li>
+    <li>6. Permissions &amp; Controls</li>
+    <li>7. Validation &amp; Testing</li>
+    <li>8. Monitoring &amp; Measurement</li>
+  </ol>
+</div>
 <p>This guide explains how to implement that sequence through 30 practical steps organized into seven phases.</p>
 
 <!-- ============ PHASE 1 ============ -->
