@@ -11753,6 +11753,34 @@ window.__initWorkbookMgr = function(hub, H){
     var TD    = 'padding:11px 13px;font-size:13.5px;line-height:1.5;border-bottom:1px solid rgba(43,168,255,.10);vertical-align:top;';
     var CARD  = 'background:#0B1A2B;border:1px solid rgba(43,168,255,.16);border-radius:12px;padding:16px 18px;';
 
+    /* Knowledge articles. A card shows a "read more" link only when an article
+       exists for it, so unpublished jobs link nowhere rather than to a 404.
+       Add a line here as each article goes live; the key is the job name with
+       everything except letters stripped out, so casing and punctuation in
+       STACK_DATA cannot break the match. */
+    var ARTICLES = {
+      'ASKANDREASON':   '/knowledge-articles/ask-and-reason/',
+      'CAPTUREMEETINGS':'/knowledge-articles/capture-meetings/'
+    };
+    function articleKey(s){ return String(s || '').toUpperCase().replace(/[^A-Z]/g, ''); }
+    function articleLink(doc, sheet, job){
+      var href = ARTICLES[articleKey(job)];
+      if(!href) return;
+      var box = el('div','margin-top:28px;padding-top:22px;border-top:1px solid rgba(43,168,255,.18);');
+      box.appendChild(el('div','font-size:12px;letter-spacing:.16em;text-transform:uppercase;' +
+                              'color:#93A7BD;margin-bottom:10px;','Go deeper'));
+      var a = doc.createElement('a');
+      a.href = href;
+      a.setAttribute('style','display:inline-block;background:rgba(224,160,58,.14);' +
+        'border:1px solid rgba(224,160,58,.5);color:#F0C274;border-radius:10px;' +
+        'padding:11px 18px;font-size:14px;text-decoration:none;');
+      a.textContent = 'Read the knowledge article \u2192';
+      box.appendChild(a);
+      box.appendChild(el('p','margin:10px 0 0;font-size:13px;line-height:1.6;color:#93A7BD;',
+        'Step-by-step instructions, a worked example and the numbers to check before you commit.'));
+      sheet.appendChild(box);
+    }
+
     function build(doc, win, job){
       var SD = win.STACK_DATA || {};
       var det = (SD.DETAIL || {})[job];
@@ -11832,6 +11860,8 @@ window.__initWorkbookMgr = function(hub, H){
         });
         sheet.appendChild(grid);
       }
+
+      articleLink(doc, sheet, job);
 
       wrap.appendChild(sheet);
       wrap.addEventListener('click', function(){ close(); });
