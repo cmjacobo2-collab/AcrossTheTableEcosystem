@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Workflow Design Framework: 30 Steps for Small Businesses | Across the Table</title>
+<meta name="description" content="Learn how to design AI workflows, define agent responsibilities, control system permissions, validate results, monitor performance, and calculate business ROI.">
+<meta name="keywords" content="AI workflow design, AI agent job description, AI permissions, business process automation, AI governance, AI validation, AI monitoring, AI ROI, small business AI implementation">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Across the Table">
+<meta property="og:title" content="AI Workflow Design Framework: 30 Steps for Small Businesses | Across the Table">
+<meta property="og:description" content="Learn how to design AI workflows, define agent responsibilities, control system permissions, validate results, monitor performance, and calculate business ROI.">
+<meta property="og:url" content="https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/">
+<meta property="og:image" content="https://acrossthetable.biz/media/across-the-table-logo.png">
+<meta property="article:section" content="AI &amp; Technology">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#07111F">
+<link rel="icon" href="/assets/footer-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/knowledge-articles/articles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/",
+      "url": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/",
+      "name": "The Complete AI Workflow & Agent Design Framework: From Business Process to Measurable ROI",
+      "description": "Learn how to design AI workflows, define agent responsibilities, control system permissions, validate results, monitor performance, and calculate business ROI.",
+      "isPartOf": {
+        "@id": "https://acrossthetable.biz/#website"
+      },
+      "mainEntity": {
+        "@id": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/#article"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Across the Table",
+            "item": "https://acrossthetable.biz/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Knowledge Articles",
+            "item": "https://acrossthetable.biz/knowledge-articles/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "The Complete AI Workflow & Agent Design Framework: From Business Process to Measurable ROI",
+            "item": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/#article",
+      "headline": "AI Workflow Design Framework: 30 Steps for Small Businesses",
+      "alternativeHeadline": "A 30-Step Guide to Designing, Securing, Validating, Monitoring, and Measuring AI-Powered Business Workflows",
+      "description": "Learn how to design AI workflows, define agent responsibilities, control system permissions, validate results, monitor performance, and calculate business ROI.",
+      "url": "https://acrossthetable.biz/knowledge-articles/ai-workflow-agent-design-framework/",
+      "articleSection": "AI & Technology",
+      "keywords": "AI workflow design, AI agent job description, AI permissions, business process automation, AI governance, AI validation, AI monitoring, AI ROI, small business AI implementation",
+      "wordCount": 2346,
+      "isAccessibleForFree": true,
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://acrossthetable.biz/#org"
+      },
+      "publisher": {
+        "@id": "https://acrossthetable.biz/#org"
+      },
+      "isPartOf": {
+        "@id": "https://acrossthetable.biz/knowledge-articles/#library"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://acrossthetable.biz/#org",
+      "name": "Across the Table",
+      "legalName": "Bold and Beautiful Beauties",
+      "url": "https://acrossthetable.biz/",
+      "logo": "https://acrossthetable.biz/media/across-the-table-logo.png"
+    }
+  ]
+}
+</script>
+<style>
+/* This article only (kaf- prefix): table of contents, sequence, phases, worksheets, knowledge check */
+.ka h1 .kaf-h1-sub{display:block;font-size:.62em;color:#3A4350;font-weight:700;margin-top:6px;}
+.kaf-tools{font-family:var(--body);font-size:14px;color:var(--ka-muted);margin:14px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+.kaf-print{display:inline-flex;align-items:center;gap:8px;font:700 14px var(--body);color:var(--ka-navy);background:#fff;
+  border:1.5px solid var(--ka-navy);border-radius:999px;padding:8px 16px;cursor:pointer;}
+.kaf-print:hover{background:var(--ka-navy);color:#fff;}
+.ka-body ul,.ka-body ol{margin:0 0 1.1em;padding-left:1.4em;}
+.ka-body li{margin:0 0 .35em;}
+.ka-body h3{font-family:var(--display);color:var(--ka-navy);font-size:20px;line-height:1.3;margin:1.7em 0 .5em;scroll-margin-top:90px;}
+.ka-body h2,.kaf-phase,.ka-body section,.kaf-ws{scroll-margin-top:90px;}
+.kaf-n{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#8A5A12;background:#FDF3E2;border:1px solid #F0D3A2;border-radius:6px;padding:3px 8px;margin-right:8px;vertical-align:3px;}
+
+/* table of contents */
+.kaf-toc{font-family:var(--body);background:var(--ka-soft);border:1px solid var(--ka-line);border-left:4px solid var(--ka-gold);
+  border-radius:10px;padding:18px 22px 10px;margin:0 0 2em;}
+.kaf-toc-h{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ka-navy);margin:0 0 10px!important;font-weight:500;}
+.kaf-toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:32px;font-size:15.5px;line-height:1.45;}
+.kaf-toc li{break-inside:avoid;margin:0 0 8px;}
+.kaf-toc a{font-weight:600;text-decoration:none;}
+.kaf-toc a:hover{text-decoration:underline;}
+.kaf-toc a span{display:block;font-weight:400;font-size:13px;color:var(--ka-muted);}
+
+/* core design sequence */
+.kaf-seq{list-style:none;padding:0!important;margin:1em 0 1.4em!important;display:grid;grid-template-columns:repeat(3,1fr);gap:26px 30px;font-family:var(--body);}
+.kaf-seq li{position:relative;margin:0!important;display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 14px;
+  background:var(--ka-navy);color:#fff;border-radius:10px;font-weight:700;font-size:15.5px;line-height:1.3;}
+.kaf-seq li b{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ka-gold);color:var(--ka-navy);font-size:14px;}
+.kaf-seq li:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--ka-gold);font-weight:800;font-size:18px;}
+.kaf-seq li:nth-child(3n)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-24px;transform:translateX(-50%);}
+.kaf-seq li:last-child::after{content:none!important;}
+.kaf-seq li:last-child{background:var(--ka-gold);color:var(--ka-navy);}
+.kaf-seq li:last-child b{background:var(--ka-navy);color:#fff;}
+
+/* phases */
+.kaf-phase{border-top:1px solid var(--ka-line);margin-top:2.4em;padding-top:.4em;}
+.kaf-phase-tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--ka-navy);
+  display:inline-block;border-radius:6px;padding:5px 10px;margin:1.4em 0 0!important;}
+.kaf-phase-tag span{color:var(--ka-gold);margin-left:8px;}
+.kaf-phase h2{margin-top:.5em!important;}
+
+/* callouts */
+.kaf-example{background:#FBF8F2;border:1px solid #EFE2C8;border-radius:10px;padding:16px 20px 4px;margin:1.2em 0 1.4em;}
+.kaf-example-h{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8A5A12;margin:0 0 8px!important;}
+.kaf-example .ka-table{background:#fff;}
+.kaf-key{font-family:var(--body);font-size:16.5px;line-height:1.55;background:#EEF3F8;border-left:4px solid var(--ka-navy);padding:12px 16px;border-radius:0 8px 8px 0;}
+.kaf-dl{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:8px 18px;margin:0 0 14px;font-size:16.5px;}
+.kaf-dl dt{font-family:var(--body);font-weight:700;color:var(--ka-navy);}
+.kaf-dl dd{margin:0;}
+.kaf-caption{font-family:var(--body);font-weight:700;color:var(--ka-navy);font-size:15.5px;margin:1.4em 0 -.6em!important;}
+.kaf-num{white-space:nowrap;font-weight:700;color:var(--ka-navy);}
+.ka-table tbody th{font-weight:600;color:var(--ka-ink);background:transparent;}
+
+/* permission matrix */
+.kaf-matrix td,.kaf-matrix th{text-align:center;font-weight:600;vertical-align:middle;}
+.kaf-matrix th[scope=row]{text-align:left;}
+.kaf-matrix .y{background:#E7F4EC;color:#1C6B3A;}
+.kaf-matrix .c{background:#FDF3E2;color:#8A5A12;}
+.kaf-matrix .n{background:#F7EAEA;color:#9B2C2C;}
+
+/* worksheets */
+.kaf-ws{border:2px dashed #C9D2DD;border-radius:12px;padding:6px 18px 4px;margin:1.6em 0;}
+.kaf-ws h3{margin-top:.9em;}
+.kaf-fill td{height:40px;}
+.kaf-fill thead th:first-child{width:34%;}
+.kaf-grid thead th:first-child{width:auto;}
+.kaf-wide table{min-width:820px;}
+.kaf-calc td:nth-child(2){color:var(--ka-muted);font-size:14.5px;}
+.kaf-calc td:last-child{width:22%;}
+.kaf-calc .kaf-sub th{background:var(--ka-soft);color:var(--ka-navy);font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;}
+.kaf-calc .kaf-est th,.kaf-calc .kaf-est td{background:#FDF8EE;}
+
+/* knowledge check */
+.kaf-kc{display:grid;gap:10px;margin:1em 0;}
+.kaf-kc details{border:1px solid var(--ka-line);border-radius:10px;background:#fff;}
+.kaf-kc summary{cursor:pointer;list-style:none;font-family:var(--body);font-weight:700;color:var(--ka-navy);font-size:16.5px;line-height:1.45;
+  padding:14px 44px 14px 18px;position:relative;}
+.kaf-kc summary::-webkit-details-marker{display:none;}
+.kaf-kc summary::after{content:"+";position:absolute;right:18px;top:12px;font-size:22px;color:var(--ka-gold);font-weight:800;}
+.kaf-kc details[open] summary::after{content:"−";}
+.kaf-kc details[open] summary{border-bottom:1px solid var(--ka-line);}
+.kaf-kc summary:focus-visible{outline:3px solid var(--ka-gold);outline-offset:2px;border-radius:10px;}
+.kaf-q{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#8A5A12;font-weight:500;margin-bottom:2px;}
+.kaf-kc details p{margin:0;padding:12px 18px 14px;}
+.kaf-kc details p::before{content:"Suggested answer: ";font-family:var(--body);font-weight:700;color:var(--ka-navy);}
+
+/* related + CTA */
+.kaf-related{font-family:var(--body);font-size:16.5px;}
+.kaf-related a{font-weight:600;}
+.kaf-cta{background:var(--ka-navy);color:#fff;border-radius:14px;padding:26px 28px 22px;margin:2.6em 0 0;border-top:4px solid var(--ka-gold);}
+.kaf-cta h2{color:#fff!important;margin:0 0 .6em!important;}
+.kaf-cta p{color:#E6ECF3;}
+.kaf-journey{font-family:var(--mono);letter-spacing:.14em;font-size:14px;color:var(--ka-gold)!important;font-weight:500;}
+.kaf-journey span{color:#fff;margin:0 6px;}
+.kaf-cta-acts{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0!important;}
+.kaf-btn{display:inline-block;font:700 15px var(--body);text-decoration:none;border-radius:999px;padding:11px 20px;border:1.5px solid #fff;color:#fff!important;}
+.kaf-btn:hover{background:rgba(255,255,255,.12);}
+.kaf-btn-gold{background:var(--ka-gold);border-color:var(--ka-gold);color:var(--ka-navy)!important;}
+.kaf-btn-gold:hover{background:#ECB45A;}
+.kaf-cta a:focus-visible{outline-color:#fff;}
+
+@media (max-width:760px){
+  .kaf-toc{padding:16px 16px 8px;}
+  .kaf-toc ol{columns:1;}
+  .kaf-seq{grid-template-columns:1fr;gap:22px;}
+  .kaf-seq li:not(:last-child)::after,.kaf-seq li:nth-child(3n)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-21px;transform:translateX(-50%);}
+  .ka-body h3{font-size:18.5px;}
+  .kaf-dl{grid-template-columns:1fr;gap:2px;}
+  .kaf-dl dd{margin-bottom:8px;}
+  .kaf-ws{padding:4px 12px 2px;}
+  .kaf-cta{padding:22px 18px 18px;}
+}
+@media print{
+  .kaf-tools,.kaf-cta-acts{display:none!important;}
+  .kaf-seq li,.kaf-phase-tag{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .kaf-cta{background:#fff!important;border:2px solid #083A66;break-inside:avoid;}
+  .kaf-cta h2,.kaf-cta p{color:#083A66!important;}
+  .kaf-journey{color:#8A5A12!important;}
+  .kaf-journey span{color:#083A66;}
+  .kaf-ws{break-before:page;border:0;padding:0;}
+  .kaf-wide table{min-width:0;font-size:11px;}
+  .kaf-fill td{height:44px;}
+  .kaf-kc details{break-inside:avoid;}
+  .kaf-kc summary::after{display:none;}
+  .kaf-ws .ka-table,.kaf-matrix{break-inside:avoid;}
+}
+</style>
+</head>
+<body data-knowledge-articles>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- site-header: filled in from the main site's menu each time the site is published -->
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="13" y="21.5" width="22" height="5" rx="2.5" fill="#E0A03A"></rect>
+        <circle cx="10.5" cy="24" r="4.2" fill="#2BA8FF"></circle>
+        <circle cx="37.5" cy="24" r="4.2" fill="#2BA8FF"></circle>
+      </svg>
+      <span>
+        <span class="brand-name">Across the Table</span>
+        <span class="brand-sub">Build. Grow. Thrive.</span>
+      </span>
+    </a>
+
+    <button class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/#system">Apps</a>
+      <a href="/#builds">Custom builds</a>
+      <a href="/#learning">Learn</a>
+      <a href="/newsletter/">Newsletter</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a href="/#hub" class="nav-hub">My Hub</a>
+      <a href="/#contact" class="btn btn-primary">Talk to Connie</a>
+    </nav>
+  </div>
+</header>
+<!-- /site-header -->
+
+<main id="main" class="ka">
+<div class="ka-paper">
+  <nav class="ka-crumbs" aria-label="Breadcrumb"><a href="/#learning">Learn</a> <span aria-hidden="true">/</span> <a href="/knowledge-articles/">Knowledge Articles</a></nav>
+  <article class="ka-article" aria-labelledby="ka-title">
+    <header class="ka-head">
+      <p class="ka-kicker"><span class="ka-cat">AI &amp; Technology</span> <span aria-hidden="true">·</span> The Scaling Edge <span aria-hidden="true">·</span> Free Business Insights</p>
+      <h1 id="ka-title">The Complete AI Workflow &amp; Agent Design Framework: <span class="kaf-h1-sub">From Business Process to Measurable ROI</span></h1>
+      <p class="ka-dek">A 30-Step Guide to Designing, Securing, Validating, Monitoring, and Measuring AI-Powered Business Workflows</p>
+      <p class="ka-meta">Presented by Across the Table | The Scaling Edge <span aria-hidden="true">·</span> Implementation guide <span aria-hidden="true">·</span> About 10 min read</p>
+      <p class="kaf-tools"><button type="button" class="kaf-print" data-kaf-print><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg> Print this guide</button> <span>Includes five printable worksheets</span></p>
+    </header>
+    <div class="ka-body">
+<nav class="kaf-toc" aria-labelledby="kaf-toc-h">
+  <p class="kaf-toc-h" id="kaf-toc-h">In this guide</p>
+  <ol>
+    <li><a href="#introduction">Introduction: AI needs more than a prompt</a></li>
+    <li><a href="#sequence">The core design sequence</a></li>
+    <li><a href="#phase-1">Phase 1 — Understand the business process <span>Steps 1–4</span></a></li>
+    <li><a href="#phase-2">Phase 2 — Give the AI a job description <span>Step 5</span></a></li>
+    <li><a href="#phase-3">Phase 3 — Establish permissions and authority <span>Steps 6–10</span></a></li>
+    <li><a href="#phase-4">Phase 4 — Design safeguards and exception handling <span>Steps 11–15</span></a></li>
+    <li><a href="#phase-5">Phase 5 — Validate and test <span>Steps 16–20</span></a></li>
+    <li><a href="#phase-6">Phase 6 — Monitor and govern <span>Steps 21–25</span></a></li>
+    <li><a href="#phase-7">Phase 7 — Measure ROI and business performance <span>Steps 26–30</span></a></li>
+    <li><a href="#worksheets">Learning worksheets A–E</a></li>
+    <li><a href="#challenge">The 30-day implementation challenge</a></li>
+    <li><a href="#knowledge-check">Knowledge check</a></li>
+    <li><a href="#keep-learning">Keep learning</a></li>
+  </ol>
+</nav>
+
+<h2 id="introduction">Introduction: AI Needs More Than a Prompt</h2>
+<p>Many businesses begin implementing artificial intelligence by choosing a tool.</p>
+<p>They subscribe to software, connect applications, write instructions, and expect automation to improve productivity.</p>
+<p>But successful AI implementation begins before selecting technology. It begins with understanding the business.</p>
+<p>An AI agent should not receive unrestricted access to company systems simply because it can perform a task. Like an employee, it needs a defined role, responsibilities, authority, supervision, and performance expectations.</p>
+<p>The difference is that an AI agent may execute activities across several systems in seconds. Incorrect permissions or poorly designed workflows can therefore create problems faster than employees can identify them.</p>
+
+<h2 id="sequence">The Core Design Sequence</h2>
+<p>The Across the Table framework follows this sequence:</p>
+<ol class="kaf-seq" aria-label="The core design sequence, in order">
+  <li><b>1</b>Business Problem</li>
+  <li><b>2</b>Business Process</li>
+  <li><b>3</b>Workflow Mapping</li>
+  <li><b>4</b>Automation Opportunities</li>
+  <li><b>5</b>AI Role &amp; Job Description</li>
+  <li><b>6</b>Permissions &amp; Controls</li>
+  <li><b>7</b>Validation &amp; Testing</li>
+  <li><b>8</b>Monitoring</li>
+  <li><b>9</b>ROI &amp; Business Performance</li>
+</ol>
+<p>This guide explains how to implement that sequence through 30 practical steps organized into seven phases.</p>
+
+<!-- ============ PHASE 1 ============ -->
+<section class="kaf-phase" id="phase-1" aria-labelledby="phase-1-h">
+<p class="kaf-phase-tag">Phase 1 <span>Steps 1–4</span></p>
+<h2 id="phase-1-h">Understand the Business Process</h2>
+
+<h3 id="step-1"><span class="kaf-n">Step 1</span> Define the Business Problem</h3>
+<p>Identify the specific operational or financial problem requiring improvement. Document:</p>
+<ul>
+  <li>What is happening?</li>
+  <li>Why is it a problem?</li>
+  <li>Which departments or customers are affected?</li>
+  <li>What does the problem cost?</li>
+  <li>Who owns the process?</li>
+  <li>What measurable improvement is expected?</li>
+</ul>
+<div class="kaf-example">
+  <p class="kaf-example-h">Example</p>
+  <p>A service company takes an average of 48 hours to follow up on customer estimates. The owner believes automated follow-up could reduce the delay and increase bookings.</p>
+  <p>Before selecting AI, the company must understand <em>why</em> follow-up takes 48 hours.</p>
+</div>
+
+<h3 id="step-2"><span class="kaf-n">Step 2</span> Understand the Existing Process</h3>
+<p>Observe how work is currently completed. Identify inputs, outputs, employees, applications, business rules, approvals, and exceptions.</p>
+<p>Distinguish documented procedures from what employees actually do.</p>
+
+<h3 id="step-3"><span class="kaf-n">Step 3</span> Map the Complete Workflow</h3>
+<p>Use this structure:</p>
+<p class="ka-formula">Trigger → Activities → Decisions → Systems → People → Exceptions → Outcome</p>
+<div class="kaf-example">
+  <p class="kaf-example-h">Example</p>
+  <p>Customer requests estimate → Sales representative prepares estimate → Estimate enters CRM → Follow-up becomes due → Customer receives reminder → Customer responds → Representative handles questions → Booking is recorded.</p>
+</div>
+<p>Document system handoffs and dependencies.</p>
+
+<h3 id="step-4"><span class="kaf-n">Step 4</span> Identify Automation Opportunities</h3>
+<p>Classify activities as:</p>
+<ol>
+  <li>Human-only activities</li>
+  <li>Activities that can be simplified or eliminated</li>
+  <li>Traditional rules-based automation</li>
+  <li>AI-assisted activities</li>
+  <li>Controlled autonomous AI activities</li>
+</ol>
+<p class="kaf-key"><strong>Key lesson:</strong> Not every process requires AI. Fix inefficient business processes before automating them.</p>
+</section>
+
+<!-- ============ PHASE 2 ============ -->
+<section class="kaf-phase" id="phase-2" aria-labelledby="phase-2-h">
+<p class="kaf-phase-tag">Phase 2 <span>Step 5</span></p>
+<h2 id="phase-2-h">Give the AI a Job Description</h2>
+
+<h3 id="step-5"><span class="kaf-n">Step 5</span> Create the AI Agent Job Description</h3>
+<p>Treat an AI agent as a defined digital business role. Its job description must include:</p>
+<div class="ka-table" role="region" aria-label="AI agent job description fields" tabindex="0">
+<table>
+  <thead><tr><th scope="col">Field</th><th scope="col">Required information</th></tr></thead>
+  <tbody>
+    <tr><td>Agent name</td><td>Unique identifier</td></tr>
+    <tr><td>Job title</td><td>Functional role</td></tr>
+    <tr><td>Department</td><td>Business function</td></tr>
+    <tr><td>Business purpose</td><td>Why the agent exists</td></tr>
+    <tr><td>Responsibilities</td><td>Specific assigned activities</td></tr>
+    <tr><td>Inputs</td><td>Authorized information sources</td></tr>
+    <tr><td>Outputs</td><td>Expected work products</td></tr>
+    <tr><td>Connected systems</td><td>Applications required</td></tr>
+    <tr><td>Data access</td><td>Information it may retrieve</td></tr>
+    <tr><td>Decision authority</td><td>Decisions it may make</td></tr>
+    <tr><td>Restrictions</td><td>Prohibited activities</td></tr>
+    <tr><td>Human supervisor</td><td>Accountable employee</td></tr>
+    <tr><td>Approval requirements</td><td>Actions requiring authorization</td></tr>
+    <tr><td>Escalation procedures</td><td>When to transfer work</td></tr>
+    <tr><td>Performance metrics</td><td>How effectiveness is measured</td></tr>
+    <tr><td>Audit requirements</td><td>Activities requiring records</td></tr>
+    <tr><td>Shutdown procedure</td><td>How access is revoked</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="kaf-example">
+  <p class="kaf-example-h">Example: AI Customer Follow-Up Assistant</p>
+  <dl class="kaf-dl">
+    <dt>Job title</dt><dd>Customer Estimate Follow-Up Assistant</dd>
+    <dt>Department</dt><dd>Sales Operations</dd>
+    <dt>Business purpose</dt><dd>Improve timely follow-up on outstanding customer estimates.</dd>
+    <dt>Responsibilities</dt><dd>Identify estimates awaiting follow-up, draft approved reminders, update authorized CRM follow-up records, and flag customer responses requiring employee attention.</dd>
+    <dt>Supervisor</dt><dd>Sales Manager</dd>
+    <dt>Authority</dt><dd>Read approved estimate statuses and create draft communications.</dd>
+    <dt>Restrictions</dt><dd>Cannot modify estimate prices, approve discounts, issue refunds, or delete customer records.</dd>
+    <dt>Escalation</dt><dd>Route pricing disputes, complaints, and unusual requests to the sales manager.</dd>
+    <dt>Performance measures</dt><dd>Follow-up completion, response time, error rate, and estimate-to-booking conversion.</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ============ PHASE 3 ============ -->
+<section class="kaf-phase" id="phase-3" aria-labelledby="phase-3-h">
+<p class="kaf-phase-tag">Phase 3 <span>Steps 6–10</span></p>
+<h2 id="phase-3-h">Establish Permissions and Authority</h2>
+
+<h3 id="step-6"><span class="kaf-n">Step 6</span> Create the AI Permission Map</h3>
+<p>Document each system the agent accesses and its permitted actions. Use six permission categories:</p>
+<div class="ka-table" role="region" aria-label="The six permission categories" tabindex="0">
+<table>
+  <thead><tr><th scope="col">Permission</th><th scope="col">Definition</th></tr></thead>
+  <tbody>
+    <tr><td><strong>READ</strong></td><td>Retrieve or view information</td></tr>
+    <tr><td><strong>CREATE</strong></td><td>Add records or prepare documents</td></tr>
+    <tr><td><strong>CHANGE</strong></td><td>Modify existing records</td></tr>
+    <tr><td><strong>SEND</strong></td><td>Transmit messages or information</td></tr>
+    <tr><td><strong>APPROVE</strong></td><td>Authorize transactions or decisions</td></tr>
+    <tr><td><strong>DELETE</strong></td><td>Remove records or information</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Each permission must be explicitly allowed, denied, or conditioned on approval.</p>
+<p class="kaf-caption" id="kaf-matrix-cap">Example permission matrix — AI Customer Follow-Up Assistant</p>
+<div class="ka-table kaf-matrix" role="region" aria-labelledby="kaf-matrix-cap" tabindex="0">
+<table>
+  <thead><tr><th scope="col">System</th><th scope="col">Read</th><th scope="col">Create</th><th scope="col">Change</th><th scope="col">Send</th><th scope="col">Approve</th><th scope="col">Delete</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">CRM</th><td class="y">Yes</td><td class="c">Limited</td><td class="c">Limited</td><td class="n">No</td><td class="n">No</td><td class="n">No</td></tr>
+    <tr><th scope="row">Email</th><td class="c">Limited</td><td class="c">Drafts</td><td class="n">No</td><td class="c">With approval</td><td class="n">No</td><td class="n">No</td></tr>
+    <tr><th scope="row">Accounting</th><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td></tr>
+    <tr><th scope="row">Customer FAQ</th><td class="y">Yes</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="kaf-key"><strong>Important:</strong> Actual permissions must be enforced through system configuration, not merely written in an AI prompt.</p>
+
+<h3 id="step-7"><span class="kaf-n">Step 7</span> Apply Least-Privilege Access</h3>
+<p>Give the agent only the access required for its approved responsibilities. Do not provide administrator privileges simply because a connector requests them.</p>
+
+<h3 id="step-8"><span class="kaf-n">Step 8</span> Define Decision Authority</h3>
+<p>Separate activities into:</p>
+<ul>
+  <li><strong>Autonomous:</strong> Approved actions the AI can complete independently.</li>
+  <li><strong>Human approval required:</strong> Actions the AI may prepare but cannot execute without authorization.</li>
+  <li><strong>Prohibited:</strong> Activities the AI must never execute.</li>
+</ul>
+
+<h3 id="step-9"><span class="kaf-n">Step 9</span> Establish Human Approval Checkpoints</h3>
+<p>Require appropriate human authorization for sensitive financial, legal, employment, security, safety, and customer-dispute decisions.</p>
+
+<h3 id="step-10"><span class="kaf-n">Step 10</span> Establish Security and Data Boundaries</h3>
+<p>Document authorized information, credential management, confidentiality, privacy requirements, data retention, and third-party information sharing.</p>
+</section>
+
+<!-- ============ PHASE 4 ============ -->
+<section class="kaf-phase" id="phase-4" aria-labelledby="phase-4-h">
+<p class="kaf-phase-tag">Phase 4 <span>Steps 11–15</span></p>
+<h2 id="phase-4-h">Design Safeguards and Exception Handling</h2>
+
+<h3 id="step-11"><span class="kaf-n">Step 11</span> Define Business Rules</h3>
+<p>Specify transaction limits, required fields, operating restrictions, communication standards, and stop conditions.</p>
+
+<h3 id="step-12"><span class="kaf-n">Step 12</span> Create Exception and Escalation Paths</h3>
+<p>Define what happens when information is missing, records conflict, integrations fail, or requests exceed the agent’s authority.</p>
+
+<h3 id="step-13"><span class="kaf-n">Step 13</span> Establish Human Takeover</h3>
+<p>Document who receives escalated tasks, what context must be provided, and how employees complete or correct the activity.</p>
+
+<h3 id="step-14"><span class="kaf-n">Step 14</span> Create Audit Trails</h3>
+<p>Record significant actions, timestamps, approvals, changes, exceptions, and responsible parties.</p>
+
+<h3 id="step-15"><span class="kaf-n">Step 15</span> Establish Emergency Shutdown</h3>
+<p>Document how to disable the agent, revoke credentials, stop integrations, preserve evidence, and recover affected processes.</p>
+<p class="kaf-key"><strong>Key lesson:</strong> Every AI workflow needs a safe exit ramp.</p>
+</section>
+
+<!-- ============ PHASE 5 ============ -->
+<section class="kaf-phase" id="phase-5" aria-labelledby="phase-5-h">
+<p class="kaf-phase-tag">Phase 5 <span>Steps 16–20</span></p>
+<h2 id="phase-5-h">Validate and Test</h2>
+
+<h3 id="step-16"><span class="kaf-n">Step 16</span> Establish Validation Requirements</h3>
+<p>Determine how accuracy, completeness, compliance, and adherence to business rules will be verified.</p>
+
+<h3 id="step-17"><span class="kaf-n">Step 17</span> Create Test Scenarios</h3>
+<p>Include normal transactions, missing data, duplicates, incorrect information, unauthorized actions, and system failures.</p>
+
+<h3 id="step-18"><span class="kaf-n">Step 18</span> Conduct a Controlled Pilot</h3>
+<p>Run the AI workflow alongside the existing process where practical. Compare results and retain human oversight.</p>
+
+<h3 id="step-19"><span class="kaf-n">Step 19</span> Establish Acceptance Criteria</h3>
+<p>Define measurable standards before deployment, including accuracy, completion rates, processing time, exception handling, and security.</p>
+
+<h3 id="step-20"><span class="kaf-n">Step 20</span> Approve or Reject Deployment</h3>
+<p>The accountable business owner reviews evidence and authorizes deployment, revision, retesting, or cancellation.</p>
+</section>
+
+<!-- ============ PHASE 6 ============ -->
+<section class="kaf-phase" id="phase-6" aria-labelledby="phase-6-h">
+<p class="kaf-phase-tag">Phase 6 <span>Steps 21–25</span></p>
+<h2 id="phase-6-h">Monitor and Govern</h2>
+
+<h3 id="step-21"><span class="kaf-n">Step 21</span> Establish Continuous Monitoring</h3>
+<p>Monitor performance, completion rates, errors, unexpected behavior, and compliance with permissions.</p>
+
+<h3 id="step-22"><span class="kaf-n">Step 22</span> Configure Alerts</h3>
+<p>Create alerts for failed transactions, missing approvals, integration problems, unusual activity, and security incidents.</p>
+
+<h3 id="step-23"><span class="kaf-n">Step 23</span> Review Audit Logs</h3>
+<p>Verify what the agent did, which information it accessed, and whether its actions remained authorized.</p>
+
+<h3 id="step-24"><span class="kaf-n">Step 24</span> Revalidate After Changes</h3>
+<p>Retest when AI models, system integrations, data sources, permissions, or business rules change.</p>
+
+<h3 id="step-25"><span class="kaf-n">Step 25</span> Assign Ongoing Ownership</h3>
+<p>Designate an accountable employee to monitor performance, approve changes, review access, and respond to incidents.</p>
+</section>
+
+<!-- ============ PHASE 7 ============ -->
+<section class="kaf-phase" id="phase-7" aria-labelledby="phase-7-h">
+<p class="kaf-phase-tag">Phase 7 <span>Steps 26–30</span></p>
+<h2 id="phase-7-h">Measure ROI and Business Performance</h2>
+
+<h3 id="step-26"><span class="kaf-n">Step 26</span> Establish Baseline Metrics</h3>
+<p>Measure the existing process before implementation. Examples include processing time, labor hours, error rates, customer satisfaction, throughput, and cost per completed task.</p>
+
+<h3 id="step-27"><span class="kaf-n">Step 27</span> Calculate Total AI Costs</h3>
+<p>Include subscriptions, development, integration, training, supervision, maintenance, security, and correction costs.</p>
+
+<h3 id="step-28"><span class="kaf-n">Step 28</span> Measure Operational Improvements</h3>
+<p>Compare baseline performance with actual post-implementation results. Track time saved, errors prevented, throughput improvements, and customer outcomes.</p>
+
+<h3 id="step-29"><span class="kaf-n">Step 29</span> Calculate Financial ROI</h3>
+<p class="ka-formula"><strong>ROI (%)</strong> = ((Financial Benefits − Total Costs) ÷ Total Costs) × 100</p>
+<div class="kaf-example">
+  <p class="kaf-example-h">Example (illustrative teaching figures)</p>
+  <p>A company processes 300 customer inquiries monthly. The AI workflow reduces handling time by five minutes per inquiry.</p>
+  <div class="ka-table" role="region" aria-label="Worked ROI example" tabindex="0">
+  <table>
+    <tbody>
+      <tr><th scope="row">Monthly hours recovered</th><td>300 × 5 ÷ 60</td><td class="kaf-num">25 hours</td></tr>
+      <tr><th scope="row">Monthly capacity value at $30 per hour</th><td>25 × $30</td><td class="kaf-num">$750</td></tr>
+      <tr><th scope="row">Monthly AI costs, including supervision</th><td>Assumed</td><td class="kaf-num">$200</td></tr>
+      <tr><th scope="row">Potential net capacity value</th><td>$750 − $200</td><td class="kaf-num">$550 per month</td></tr>
+      <tr><th scope="row">Potential ROI, <em>if</em> the full capacity value were realized</th><td>($750 − $200) ÷ $200 × 100</td><td class="kaf-num">275%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kaf-key"><strong>Capacity is not cash.</strong> This is not automatically $550 in realized profit or cash savings, and the 275% is a potential figure, not a result. The business must demonstrate how recovered capacity reduces actual costs or creates measurable additional contribution margin before counting it as financial return.</p>
+</div>
+
+<h3 id="step-30"><span class="kaf-n">Step 30</span> Review, Improve, Scale, or Retire</h3>
+<p>Evaluate whether the workflow meets business objectives. Continue, expand, redesign, restrict, or discontinue based on measured results.</p>
+</section>
+
+<!-- ============ WORKSHEETS ============ -->
+<section id="worksheets" aria-labelledby="worksheets-h">
+<h2 id="worksheets-h">Learning Worksheets</h2>
+<p>Use these five worksheets to apply the framework to one real workflow in your business. They are designed to be printed and filled in by hand — use the <strong>Print this guide</strong> button at the top of the page. Nothing you write here is saved by the website.</p>
+
+<div class="kaf-ws" id="worksheet-a">
+<h3><span class="kaf-n">Worksheet A</span> Business Problem &amp; Process Map</h3>
+<div class="ka-table" role="region" aria-label="Worksheet A: Business Problem and Process Map" tabindex="0">
+<table class="kaf-fill">
+  <thead><tr><th scope="col">Field</th><th scope="col">Your answer</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Business or department</th><td></td></tr>
+    <tr><th scope="row">Process name</th><td></td></tr>
+    <tr><th scope="row">Business problem</th><td></td></tr>
+    <tr><th scope="row">Process owner</th><td></td></tr>
+    <tr><th scope="row">Current performance</th><td></td></tr>
+    <tr><th scope="row">Target performance</th><td></td></tr>
+    <tr><th scope="row">Trigger</th><td></td></tr>
+    <tr><th scope="row">Workflow activities</th><td></td></tr>
+    <tr><th scope="row">Decision points</th><td></td></tr>
+    <tr><th scope="row">Systems involved</th><td></td></tr>
+    <tr><th scope="row">Human responsibilities</th><td></td></tr>
+    <tr><th scope="row">Exceptions</th><td></td></tr>
+    <tr><th scope="row">Downstream effects</th><td></td></tr>
+    <tr><th scope="row">Proposed improvement</th><td></td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="kaf-ws" id="worksheet-b">
+<h3><span class="kaf-n">Worksheet B</span> AI Job Description</h3>
+<div class="ka-table" role="region" aria-label="Worksheet B: AI Job Description" tabindex="0">
+<table class="kaf-fill">
+  <thead><tr><th scope="col">Field</th><th scope="col">Your answer</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">AI agent name</th><td></td></tr>
+    <tr><th scope="row">Department</th><td></td></tr>
+    <tr><th scope="row">Job title</th><td></td></tr>
+    <tr><th scope="row">Business purpose</th><td></td></tr>
+    <tr><th scope="row">Responsibilities</th><td></td></tr>
+    <tr><th scope="row">Authorized inputs</th><td></td></tr>
+    <tr><th scope="row">Expected outputs</th><td></td></tr>
+    <tr><th scope="row">Connected applications</th><td></td></tr>
+    <tr><th scope="row">Human supervisor</th><td></td></tr>
+    <tr><th scope="row">Autonomous actions</th><td></td></tr>
+    <tr><th scope="row">Actions requiring approval</th><td></td></tr>
+    <tr><th scope="row">Prohibited actions</th><td></td></tr>
+    <tr><th scope="row">Escalation rules</th><td></td></tr>
+    <tr><th scope="row">Performance measures</th><td></td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="kaf-ws" id="worksheet-c">
+<h3><span class="kaf-n">Worksheet C</span> AI Permission Register</h3>
+<p>For each permission, write <strong>Allow</strong>, <strong>Deny</strong>, or <strong>Approval</strong> (allowed only with human authorization).</p>
+<div class="ka-table kaf-wide" role="region" aria-label="Worksheet C: AI Permission Register" tabindex="0">
+<table class="kaf-fill kaf-grid">
+  <thead><tr><th scope="col">System / application</th><th scope="col">Read</th><th scope="col">Create</th><th scope="col">Change</th><th scope="col">Send</th><th scope="col">Approve</th><th scope="col">Delete</th><th scope="col">Permission justification</th><th scope="col">Approval authority</th><th scope="col">Access review date</th></tr></thead>
+  <tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="kaf-ws" id="worksheet-d">
+<h3><span class="kaf-n">Worksheet D</span> Validation &amp; Monitoring Plan</h3>
+<div class="ka-table kaf-wide" role="region" aria-label="Worksheet D: Validation test log" tabindex="0">
+<table class="kaf-fill kaf-grid">
+  <thead><tr><th scope="col">Test scenario</th><th scope="col">Expected result</th><th scope="col">Actual result</th><th scope="col">Pass / fail</th><th scope="col">Error category</th><th scope="col">Responsible reviewer</th><th scope="col">Corrective action</th><th scope="col">Retest result</th></tr></thead>
+  <tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<div class="ka-table" role="region" aria-label="Worksheet D: Monitoring plan" tabindex="0">
+<table class="kaf-fill">
+  <thead><tr><th scope="col">Monitoring</th><th scope="col">Your answer</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Monitoring frequency</th><td></td></tr>
+    <tr><th scope="row">Alert recipient</th><td></td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="kaf-ws" id="worksheet-e">
+<h3><span class="kaf-n">Worksheet E</span> AI ROI Calculator</h3>
+<p>Work down the list in order. All amounts are monthly.</p>
+<div class="ka-table" role="region" aria-label="Worksheet E: AI ROI Calculator" tabindex="0">
+<table class="kaf-fill kaf-calc">
+  <thead><tr><th scope="col">Line</th><th scope="col">How to work it out</th><th scope="col">Your figure</th></tr></thead>
+  <tbody>
+    <tr class="kaf-sub"><th scope="rowgroup" colspan="3">Time and capacity</th></tr>
+    <tr><th scope="row">A. Monthly task volume</th><td>Count of tasks per month</td><td></td></tr>
+    <tr><th scope="row">B. Current processing minutes</th><td>Minutes per task today (your baseline)</td><td></td></tr>
+    <tr><th scope="row">C. AI-assisted processing minutes</th><td>Minutes per task in the pilot</td><td></td></tr>
+    <tr><th scope="row">D. Time recovered (hours)</th><td>A × (B − C) ÷ 60</td><td></td></tr>
+    <tr><th scope="row">E. Labor value per hour</th><td>Loaded hourly cost of the people doing the work</td><td></td></tr>
+    <tr class="kaf-est"><th scope="row">F. Estimated labor capacity value</th><td>D × E — <strong>an estimate, not savings</strong></td><td></td></tr>
+    <tr class="kaf-sub"><th scope="rowgroup" colspan="3">Costs</th></tr>
+    <tr><th scope="row">G. Software costs</th><td>Subscriptions and usage</td><td></td></tr>
+    <tr><th scope="row">H. Integration costs</th><td>Monthly share of setup and connection work</td><td></td></tr>
+    <tr><th scope="row">I. Supervision costs</th><td>Staff time reviewing and approving</td><td></td></tr>
+    <tr><th scope="row">J. Training costs</th><td>Monthly share of training time</td><td></td></tr>
+    <tr><th scope="row">K. Error correction costs</th><td>Time and money spent fixing AI mistakes</td><td></td></tr>
+    <tr><th scope="row">L. Total costs</th><td>G + H + I + J + K</td><td></td></tr>
+    <tr class="kaf-sub"><th scope="rowgroup" colspan="3">Proven financial benefit</th></tr>
+    <tr><th scope="row">M. Actual cost savings</th><td>Costs that actually went down (for example, overtime or contractor spend no longer paid)</td><td></td></tr>
+    <tr><th scope="row">N. Additional contribution margin</th><td>Measurable extra margin from work the recovered time made possible</td><td></td></tr>
+    <tr><th scope="row">O. Net financial benefit</th><td>M + N − L</td><td></td></tr>
+    <tr><th scope="row">P. ROI percentage</th><td>O ÷ L × 100</td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="kaf-key"><strong>Keep the two numbers apart.</strong> Line F is estimated labor capacity value — hours your team got back, priced at their hourly rate. Lines M and N are actual financial savings and new margin you can point to on your books. Only M and N go into the ROI calculation.</p>
+</div>
+</section>
+
+<!-- ============ CHALLENGE ============ -->
+<section id="challenge" aria-labelledby="challenge-h">
+<h2 id="challenge-h">The 30-Day Implementation Challenge</h2>
+<p>Put the framework to work on one workflow over four weeks. Each week ends with a deliverable.</p>
+<div class="ka-table" role="region" aria-label="30-day implementation challenge" tabindex="0">
+<table>
+  <thead><tr><th scope="col">Week</th><th scope="col">Focus</th><th scope="col">Required deliverable</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Week 1</th><td>Diagnose the business process</td><td>Business case and process map</td></tr>
+    <tr><th scope="row">Week 2</th><td>Design the AI role and safeguards</td><td>Job description and permission register</td></tr>
+    <tr><th scope="row">Week 3</th><td>Validate the workflow</td><td>Test results and exception procedures</td></tr>
+    <tr><th scope="row">Week 4</th><td>Evaluate business results</td><td>ROI analysis and deployment decision</td></tr>
+  </tbody>
+</table>
+</div>
+<p>At the end of the challenge, you should have a five-document implementation packet:</p>
+<ol>
+  <li>Business Case</li>
+  <li>Process Map</li>
+  <li>AI Job Description &amp; Permission Register</li>
+  <li>Pilot &amp; Validation Plan</li>
+  <li>ROI &amp; Performance Review</li>
+</ol>
+</section>
+
+<!-- ============ KNOWLEDGE CHECK ============ -->
+<section id="knowledge-check" aria-labelledby="kc-h">
+<h2 id="kc-h">Knowledge Check</h2>
+<p>Answer each question in your own words, then open the suggested answer to compare.</p>
+<div class="kaf-kc">
+  <details>
+    <summary><span class="kaf-q">Question 1</span> Why should business process mapping happen before software selection?</summary>
+    <p>Process mapping identifies the actual business problem, dependencies, and inefficiencies. Some problems can be solved without additional technology.</p>
+  </details>
+  <details>
+    <summary><span class="kaf-q">Question 2</span> What is the difference between an AI job description and a permission map?</summary>
+    <p>The job description defines responsibilities and expectations. The permission map defines and restricts technical authority.</p>
+  </details>
+  <details>
+    <summary><span class="kaf-q">Question 3</span> Why should an AI agent have a human supervisor?</summary>
+    <p>A person must remain accountable for oversight, approvals, exceptions, security, and business outcomes.</p>
+  </details>
+  <details>
+    <summary><span class="kaf-q">Question 4</span> Why is time saved not automatically a financial return?</summary>
+    <p>Recovered hours create capacity. Financial return requires demonstrated cost reductions or additional economic value.</p>
+  </details>
+  <details>
+    <summary><span class="kaf-q">Question 5</span> What should happen when an AI agent encounters an unexpected condition?</summary>
+    <p>It should follow predefined exception procedures, stop unauthorized activity, and escalate to the designated human owner.</p>
+  </details>
+</div>
+</section>
+
+<!-- ============ KEEP LEARNING ============ -->
+<section id="keep-learning" aria-labelledby="kl-h">
+<h2 id="kl-h">Keep Learning</h2>
+<p>Related Knowledge Articles:</p>
+<ul class="kaf-related">
+  <li><a href="/knowledge-articles/map-your-business-process-before-you-automate-it/">Map Your Business Process Before You Automate It</a></li>
+  <li><a href="/knowledge-articles/what-should-an-ai-agent-be-allowed-to-do-in-your-business/">What Should an AI Agent Be Allowed to Do in Your Business?</a></li>
+  <li><a href="/knowledge-articles/ai-saved-20-hours-did-it-actually-improve-ebitda/">AI Saved 20 Hours. Did It Actually Improve EBITDA?</a></li>
+  <li><a href="/knowledge-articles/how-to-choose-an-ai-assistant-without-paying-for-three-tools-that-do-the-same-job/">How to Choose an AI Assistant Without Paying for Three Tools That Do the Same Job</a></li>
+</ul>
+<p>More from Across the Table: take the <a href="/#assessment">AI Assessment</a> self-check to see where AI can help your business today, build leadership habits with <a href="/ceo-mindset/">CEO Mindset</a>, read <a href="/newsletter/">The Scaling Edge newsletter</a>, or browse everything in <a href="/#learning">Learn</a>.</p>
+</section>
+
+<!-- ============ CTA ============ -->
+<aside class="kaf-cta" aria-labelledby="kaf-cta-h">
+  <h2 id="kaf-cta-h">Build AI Around Your Business — Not the Other Way Around</h2>
+  <p>Artificial intelligence can improve productivity, strengthen operations, and support business growth. But successful implementation requires more than selecting software.</p>
+  <p>It requires understanding your processes, assigning responsibilities, controlling permissions, validating results, monitoring performance, and measuring financial value.</p>
+  <p>Across the Table helps entrepreneurs move from understanding their businesses to building systems that support sustainable growth.</p>
+  <p class="kaf-journey" aria-label="Idea, Building, Scaling, Exiting">IDEA <span aria-hidden="true">→</span> BUILDING <span aria-hidden="true">→</span> SCALING <span aria-hidden="true">→</span> EXITING</p>
+  <p class="kaf-cta-acts"><a class="kaf-btn kaf-btn-gold" href="/#assessment">Take the AI Assessment</a> <a class="kaf-btn" href="/#contact">Talk to Connie</a></p>
+</aside>
+    </div>
+  </article>
+  <p class="ka-back"><a class="ka-backlink" href="/knowledge-articles/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg> All Knowledge Articles</a></p>
+</div>
+</main>
+
+<!-- site-footer: filled in from the main site's footer each time the site is published -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-logo">
+        <img src="/assets/footer-logo.png" alt="Across the Table Business Consulting" width="170">
+        <div class="foot-tag">Build. Grow. Thrive.</div>
+        <nav class="foot-social" data-foot-social aria-label="Follow Across the Table"></nav>
+        <div class="bbb-wrap"><a class="bbb-seal" href="https://www.bbb.org/us/az/phoenix/profile/business-consultants/across-the-table-1126-1000182897/#sealclick" target="_blank" rel="nofollow noopener"><img class="bbb-img" width="150" height="58" style="border: 0;" alt="BBB Accredited Business — Across The Table BBB Business Review" /></a></div>
+      </div>
+
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Ecosystem</h4>
+          <ul>
+            <li><a href="/#system">All applications</a></li>
+            <li><a href="/entrepreneur-blueprint/">Entrepreneur Blueprint</a></li>
+            <li><a href="/#system">By business stage</a></li>
+            <li><a href="/#builds">Custom builds</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="/#learn">AI Learning</a></li>
+            <li><a href="/#mindset">Workbooks</a></li>
+            <li><a href="https://www.youtube.com/@AcrossTheTableConnie" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a href="/newsletter/">The Scaling Edge newsletter</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/#work">Consulting</a></li>
+            <li><a href="/media/">Media &amp; Press</a></li>
+            <li><a href="/#support">Report an issue</a></li>
+            <li><a href="mailto:info@acrossthetable.biz">info@acrossthetable.biz</a></li>
+            <li><a href="tel:+14805824716">480-582-4716</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/legal/terms.html">Terms of use</a></li>
+            <li><a href="/legal/privacy.html">Privacy policy</a></li>
+            <li><a href="/legal/index.html">App terms &amp; policies</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>© <span id="yr">2026</span> Bold and Beautiful Beauties d/b/a Across the Table · <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a></p>
+      <p>101 N First Ave, Suite 2325-1495, Phoenix, AZ 85003 · acrossthetable.biz</p>
+    </div>
+  </div>
+</footer>
+<script>
+/* Footer social links. Paste a full link to turn an icon on; leave "" to hide it. */
+window.SOCIAL_LINKS = {
+  youtube:   "https://www.youtube.com/@AcrossTheTableConnie",
+  instagram: "https://www.instagram.com/acrossthetableconnie",
+  facebook:  "https://www.facebook.com/AcrossthetableConnie",
+  tiktok:    "https://www.tiktok.com/@across.the.table0",
+  linkedin:  "https://www.linkedin.com/in/connie-jacobo-ramirez",
+  x:         ""
+};
+(function(){
+  var ICONS = {
+    youtube:['YouTube','<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z"/>'],
+    instagram:['Instagram','<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>'],
+    facebook:['Facebook','<path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H7v3.5h2V21h3.5v-8.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/>'],
+    tiktok:['TikTok','<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/>'],
+    linkedin:['LinkedIn','<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-3.5a2 2 0 0 1 4 0V17M12 10.5V17"/>'],
+    x:['X','<path d="M4 4l16 16M20 4L4 20"/>']
+  };
+  var box = document.querySelector('[data-foot-social]');
+  if(!box) return;
+  var links = window.SOCIAL_LINKS || {}, html = '';
+  Object.keys(ICONS).forEach(function(k){
+    var url = (links[k]||'').trim();
+    if(!/^https:\/\//.test(url)) return;
+    html += '<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener" aria-label="'+ICONS[k][0]+'" title="'+ICONS[k][0]+'">'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[k][1]+'</svg></a>';
+  });
+  box.innerHTML = html;
+  box.hidden = !html;
+})();
+</script>
+<!-- /site-footer -->
+
+<script>
+/* phone menu */
+(function(){
+  var t = document.getElementById('navtoggle'), n = document.getElementById('nav');
+  if(t && n) t.addEventListener('click', function(){ var o = n.classList.toggle('is-open'); t.setAttribute('aria-expanded', String(o)); });
+})();
+</script>
+<script src="/assets/ai-bubble.js" defer></script>
+<script>document.querySelectorAll("img.bbb-img:not([src])").forEach(function(i){i.src="/assets/bbb-seal.png";});</script>
+<script>
+/* Print: open every suggested answer so it appears on paper, then restore. */
+(function(){
+  var opened=[];
+  function openAll(){opened=[].slice.call(document.querySelectorAll('.kaf-kc details:not([open])'));opened.forEach(function(d){d.open=true;});}
+  function restore(){opened.forEach(function(d){d.open=false;});opened=[];}
+  window.addEventListener('beforeprint',openAll); window.addEventListener('afterprint',restore);
+  var b=document.querySelector('[data-kaf-print]'); if(b) b.addEventListener('click',function(){window.print();});
+})();
+</script>
+</body>
+</html>
