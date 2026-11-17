@@ -11780,7 +11780,40 @@ window.__initWorkbookMgr = function(hub, H){
       'PROTECTTHEBUSINESS':    '/knowledge-articles/protect-the-business/',
       'LETAIDOTHEWORK':        '/knowledge-articles/let-ai-do-the-work/'
     };
+    var INDUSTRY_ARTICLES = {
+      'RESTAURANT':                '/knowledge-articles/restaurant-ai-stack/',
+      'CONTRACTORHOMESERVICES':    '/knowledge-articles/contractor-ai-stack/',
+      'CONSULTANT':                '/knowledge-articles/consultant-ai-stack/',
+      'REALESTATECOMPANY':         '/knowledge-articles/real-estate-ai-stack/',
+      'RETAILSTORE':               '/knowledge-articles/retail-ai-stack/',
+      'LAWOFFICE':                 '/knowledge-articles/law-office-ai-stack/',
+      'ACCOUNTINGFIRM':            '/knowledge-articles/accounting-firm-ai-stack/',
+      'NONPROFIT':                 '/knowledge-articles/nonprofit-ai-stack/',
+      'HEALTHCAREPRACTICE':        '/knowledge-articles/healthcare-practice-ai-stack/',
+      'LANDSCAPINGCOMPANY':        '/knowledge-articles/landscaping-ai-stack/',
+      'CLEANINGCOMPANY':           '/knowledge-articles/cleaning-company-ai-stack/',
+      'HVACCOMPANY':               '/knowledge-articles/hvac-ai-stack/',
+      'CONSTRUCTIONCOMPANY':       '/knowledge-articles/construction-ai-stack/',
+      'MARKETINGAGENCY':           '/knowledge-articles/marketing-agency-ai-stack/',
+      'ECOMMERCECOMPANY':          '/knowledge-articles/ecommerce-ai-stack/',
+      'SALONSPA':                  '/knowledge-articles/salon-spa-ai-stack/',
+      'PROPERTYMANAGEMENT':        '/knowledge-articles/property-management-ai-stack/',
+      'AUTOREPAIRSHOP':            '/knowledge-articles/auto-repair-ai-stack/',
+      'TRAININGEDUCATION':         '/knowledge-articles/training-education-ai-stack/',
+      'PROFESSIONALSERVICEFIRM':   '/knowledge-articles/professional-services-ai-stack/'
+    };
     function articleKey(s){ return String(s || '').toUpperCase().replace(/[^A-Z]/g, ''); }
+    function industryLink(doc, card, name){
+      var href = INDUSTRY_ARTICLES[articleKey(name)];
+      if(!href) return;
+      var a = doc.createElement('a');
+      a.href = href;
+      a.setAttribute('style','display:inline-block;margin-top:10px;background:rgba(224,160,58,.14);' +
+        'border:1px solid rgba(224,160,58,.5);color:#F0C274;border-radius:9px;' +
+        'padding:8px 14px;font-size:13px;text-decoration:none;');
+      a.textContent = 'Read the ' + name + ' guide →';
+      card.appendChild(a);
+    }
     function articleLink(doc, sheet, job){
       var href = ARTICLES[articleKey(job)];
       if(!href) return;
@@ -11971,6 +12004,8 @@ window.__initWorkbookMgr = function(hub, H){
             line.appendChild(doc.createTextNode(esc(pair[1])));
             c.appendChild(line);
           });
+
+          industryLink(doc, c, row.name);
 
           grid.appendChild(c);
         });
