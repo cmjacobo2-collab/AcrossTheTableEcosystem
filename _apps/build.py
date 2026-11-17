@@ -15,7 +15,7 @@ index.html itself.
 
 This folder starts with an underscore, so GitHub Pages does not publish it.
 """
-import base64, html, json, os, re, sys
+import base64, html, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://acrossthetable.biz'
@@ -228,14 +228,49 @@ def share_chrome(rel):
 share_chrome('newsletter/index.html')   # /substack/ now just forwards here
 
 # ---------------------------------------------------------------- sitemap
-urls = [(SITE + '/', '1.0'), (SITE + '/media/', '0.8'), (SITE + '/newsletter/', '0.8')] + [('%s/%s/' % (SITE, s), '0.9') for s in pages]
-legal = [(SITE + '/legal/', '0.3'), (SITE + '/legal/terms.html', '0.3'), (SITE + '/legal/privacy.html', '0.3')]
+# Every public page belongs here, including the knowledge articles. Google
+# discounts a sitemap where every page claims the same date, so lastmod comes
+# from the real commit date of the file. A file that is not committed yet has
+# no date, and is listed without one rather than with a made-up one.
+def last_commit_date(relpath):
+    try:
+        out = subprocess.run(['git', 'log', '-1', '--format=%cs', '--', relpath],
+                             cwd=ROOT, capture_output=True, text=True, timeout=20)
+        return out.stdout.strip() or None
+    except Exception:
+        return None
+
+urls = [(SITE + '/', '1.0', 'index.html'),
+        (SITE + '/media/', '0.8', 'media/index.html'),
+        (SITE + '/newsletter/', '0.8', 'newsletter/index.html')]
+urls += [('%s/%s/' % (SITE, s), '0.9', '%s/index.html' % s) for s in pages]
+
+# knowledge articles: the library index plus every article folder
+ka_dir = os.path.join(ROOT, 'knowledge-articles')
+if os.path.isdir(ka_dir):
+    urls.append((SITE + '/knowledge-articles/', '0.8', 'knowledge-articles/index.html'))
+    for dname in sorted(os.listdir(ka_dir)):
+        d = os.path.join(ka_dir, dname)
+        if dname == 'downloads' or not os.path.isdir(d):
+            continue
+        if os.path.exists(os.path.join(d, 'index.html')):
+            urls.append(('%s/knowledge-articles/%s/' % (SITE, dname), '0.7',
+                         'knowledge-articles/%s/index.html' % dname))
+
+legal = [(SITE + '/legal/', '0.3', 'legal/index.html'),
+         (SITE + '/legal/terms.html', '0.3', 'legal/terms.html'),
+         (SITE + '/legal/privacy.html', '0.3', 'legal/privacy.html')]
 for dname in sorted(LEGAL_APPS):
     for f in sorted(os.listdir(os.path.join(ROOT, 'legal', dname))):
         if f.endswith('.html'):
-            legal.append(('%s/legal/%s/%s' % (SITE, dname, f.replace('index.html', '')), '0.3'))
+            legal.append(('%s/legal/%s/%s' % (SITE, dname, f.replace('index.html', '')), '0.3',
+                          'legal/%s/%s' % (dname, f)))
+
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-sm += ''.join('  <url><loc>%s</loc><priority>%s</priority></url>\n' % u for u in urls + legal)
+for loc, prio, src in urls + legal:
+    when = last_commit_date(src)
+    sm += '  <url><loc>%s</loc>%s<priority>%s</priority></url>\n' % (
+        loc, ('<lastmod>%s</lastmod>' % when) if when else '', prio)
 sm += '</urlset>\n'
 if write('sitemap.xml', sm):
     changed.append('sitemap.xml')

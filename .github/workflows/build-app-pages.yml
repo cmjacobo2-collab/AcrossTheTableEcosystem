@@ -25,6 +25,7 @@ on:
       - substack/**
       - newsletter/**
       - legal/**
+      - knowledge-articles/**
   workflow_dispatch:
 
 permissions:
@@ -38,7 +39,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 pulls the full history. The sitemap takes each page's
+      # "last changed" date from its real commit date, and a shallow checkout
+      # would make every page claim the same date, which search engines ignore.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Build the app pages
         run: python3 _apps/build.py
