@@ -3241,6 +3241,69 @@ a[data-goto]{cursor:pointer;}
 .pb-cta h3{font-family:var(--display);font-size:22px;color:var(--text-heading);margin:0 0 6px}
 .pb-cta p{color:var(--text-body);margin:0}
 .pb-cta-acts{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ---------- AI Readiness assessment ---------- */
+.air-sec{padding:34px 0 10px;}
+.air{max-width:820px;margin:0 auto;}
+.air-card{background:rgba(255,255,255,.035);border:1px solid rgba(43,168,255,.22);
+  border-radius:18px;padding:30px 30px 26px;}
+.air-h{font:700 clamp(21px,2.6vw,28px)/1.25 var(--display,inherit);color:#fff;margin:.35em 0 .5em;}
+.air-h3{font:700 15px/1.3 var(--display,inherit);color:#27D8C2;letter-spacing:.04em;
+  text-transform:uppercase;margin:0 0 10px;}
+.air-p{color:#C7D6E6;font-size:16px;line-height:1.6;margin:0 0 14px;}
+.air-muted{color:#93A7BC;font-size:14.5px;}
+.air-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:700 15px/1 inherit;border-radius:999px;padding:13px 22px;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  text-decoration:none;transition:background .15s,border-color .15s;}
+.air-btn:hover{background:rgba(255,255,255,.1);}
+.air-btn-go{background:#2BA8FF;border-color:#2BA8FF;color:#06243B;}
+.air-btn-go:hover{background:#4FB9FF;}
+.air-btn-go[disabled]{opacity:.55;cursor:default;}
+.air-top{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.air-count{color:#93A7BC;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0;}
+.air-bar{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;}
+.air-bar span{display:block;height:100%;width:0;background:#27D8C2;transition:width .25s ease;}
+.air-opts{display:grid;gap:10px;margin:18px 0 6px;}
+.air-opt{display:block;width:100%;text-align:left;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.16);
+  border-radius:12px;padding:14px 16px;color:#E6EEF7;font-size:15.5px;line-height:1.45;
+  transition:border-color .15s,background .15s;}
+.air-opt:hover,.air-opt:focus-visible{border-color:#2BA8FF;background:rgba(43,168,255,.1);}
+.air-opt[aria-checked="true"]{border-color:#27D8C2;background:rgba(39,216,194,.12);}
+.air-nav{margin-top:14px;}
+.air-score{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin:4px 0 22px;}
+.air-dial{flex:0 0 auto;width:132px;height:132px;border-radius:50%;display:grid;
+  place-content:center;text-align:center;color:#fff;
+  background:conic-gradient(#27D8C2 calc(var(--pct,0)*1%),rgba(255,255,255,.1) 0);
+  position:relative;}
+.air-dial::after{content:"";position:absolute;inset:11px;border-radius:50%;background:#0E1C2D;}
+.air-dial span,.air-dial small{position:relative;z-index:1;}
+.air-dial span{font:700 38px/1 var(--display,inherit);}
+.air-dial small{display:block;color:#93A7BC;font-size:12px;margin-top:4px;}
+.air-cols{display:grid;gap:22px;grid-template-columns:1fr 1fr;margin:0 0 22px;}
+.air-list{margin:0;padding-left:1.1em;color:#C7D6E6;font-size:15px;line-height:1.55;}
+.air-list li{margin:0 0 7px;}
+.air-list-gold li::marker{color:#E0A03A;}
+.air-list a{color:#7FD0FF;}
+.air-send{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;margin-top:4px;}
+.air-fields{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:0 0 16px;}
+.air-fields label{display:block;color:#93A7BC;font-size:13px;letter-spacing:.04em;}
+.air-fields input{display:block;width:100%;margin-top:6px;padding:11px 13px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);
+  color:#fff;font-size:15px;}
+.air-fields input:focus{outline:none;border-color:#2BA8FF;}
+.air-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.air-msg{margin:12px 0 0;font-size:14.5px;color:#27D8C2;min-height:1.2em;}
+.air-msg[data-bad]{color:#FFB4A8;}
+.air-after{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.air-explore{max-width:820px;margin:26px auto 0;color:#93A7BC;font-size:14.5px;text-align:center;}
+@media (max-width:720px){
+  .air-card{padding:24px 20px 22px;}
+  .air-cols,.air-fields{grid-template-columns:1fr;}
+  .air-score{gap:16px;}
+}
+
 </style>
 <link rel="stylesheet" href="assets/newsletter.css">
 
@@ -5558,7 +5621,81 @@ window.CODES = {"FOUNDER20": {"label": "20% off", "pct": 0.2}, "ATT10": {"label"
     <div class="lp-tag">Free check &rarr; Quick assessment &rarr; Full stack review</div>
   </div></div></div>
 
-  <section class="section" style="padding:0">
+  <section class="section air-sec" id="ai-readiness">
+  <div class="wrap">
+    <div class="air" data-air>
+
+      <!-- intro -->
+      <div class="air-card" data-air-step="intro">
+        <p class="eyebrow">Ten questions &middot; about three minutes</p>
+        <h2 class="air-h">Where does AI actually fit in your business?</h2>
+        <p class="air-p">This is not a quiz about technology. Every question is about how your business runs today. At the end you get a readiness score, the stage you are standing in, and the two or three jobs worth fixing first &mdash; with a guide for each one.</p>
+        <p class="air-p air-muted">Nothing is saved unless you choose to send it at the end. There are no right answers, so answer the way things really are rather than the way you wish they were.</p>
+        <button class="air-btn air-btn-go" type="button" data-air-start>Start the assessment</button>
+      </div>
+
+      <!-- questions -->
+      <div class="air-card" data-air-step="quiz" hidden>
+        <div class="air-top">
+          <p class="air-count"><span data-air-n>1</span> of <span data-air-total>10</span></p>
+          <div class="air-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-air-bar><span></span></div>
+        </div>
+        <h2 class="air-h" data-air-q>&nbsp;</h2>
+        <p class="air-p air-muted" data-air-sub>&nbsp;</p>
+        <div class="air-opts" role="radiogroup" aria-labelledby="air-q" data-air-opts></div>
+        <div class="air-nav">
+          <button class="air-btn air-btn-ghost" type="button" data-air-back>Back</button>
+        </div>
+      </div>
+
+      <!-- result -->
+      <div class="air-card" data-air-step="result" hidden>
+        <p class="eyebrow">Your result</p>
+        <div class="air-score">
+          <div class="air-dial" data-air-dial><span data-air-score>0</span><small>out of 100</small></div>
+          <div>
+            <h2 class="air-h" data-air-stage>&nbsp;</h2>
+            <p class="air-p" data-air-stage-say>&nbsp;</p>
+          </div>
+        </div>
+
+        <div class="air-cols">
+          <div>
+            <h3 class="air-h3">Where you are strong</h3>
+            <ul class="air-list" data-air-strong></ul>
+          </div>
+          <div>
+            <h3 class="air-h3">Fix these first</h3>
+            <ul class="air-list air-list-gold" data-air-focus></ul>
+          </div>
+        </div>
+
+        <form class="air-send" data-air-form novalidate>
+          <h3 class="air-h3">Send this to Connie</h3>
+          <p class="air-p air-muted">Optional. Send it and she can look at your result before you talk, instead of starting from a blank page. Your answers are only saved if you press send.</p>
+          <div class="air-fields">
+            <label>Your name<input type="text" name="name" autocomplete="name" maxlength="120"></label>
+            <label>Business name<input type="text" name="business" autocomplete="organization" maxlength="160"></label>
+            <label>Email<input type="email" name="email" autocomplete="email" maxlength="200"></label>
+            <label class="air-trap" aria-hidden="true">Leave this empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <button class="air-btn air-btn-go" type="submit" data-air-send>Send my result</button>
+          <p class="air-msg" data-air-msg role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="air-after">
+          <button class="air-btn air-btn-ghost" type="button" data-air-again>Take it again</button>
+          <a class="air-btn air-btn-ghost" href="#contact">Talk to Connie</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="air-explore">Below is the full stack explorer &mdash; every business job and every industry, whether or not you take the assessment.</p>
+  </div>
+</section>
+
+    <section class="section" style="padding:0">
     <div class="aframe-wrap">
       <iframe class="aframe" title="AI Stack Explorer" scrolling="no" data-assessment-frame></iframe>
       <div class="aframe-note" data-assessment-note hidden>
@@ -13200,7 +13337,7 @@ window.__initWorkbookMgr = function(hub, H){
   function renderShell(){
     clear(root);
     var tabs = owner
-      ? [['tickets','Ticketing'],['payments','Payments & Stan Store'],['delivery','Orders & delivery'],['analytics','Customer analytics'],['media','Media inquiries']]
+      ? [['tickets','Ticketing'],['payments','Payments & Stan Store'],['delivery','Orders & delivery'],['analytics','Customer analytics'],['media','Media inquiries'],['assess','AI Assessment']]
       : [['apps','My apps'],['billing','Billing & purchases'],['help','My help requests']];
     if (!tab || !tabs.some(function(t){ return t[0] === tab; })) tab = tabs[0][0];
     var top = h('div', {class:'lh-top'},
@@ -13226,6 +13363,11 @@ window.__initWorkbookMgr = function(hub, H){
       .then(function(r){ var b = bar.querySelector('[data-tab=tickets]'); if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); });
     if (owner) load('media_new', function(){ return sb.from('media_inquiries').select('id', {count:'exact', head:true}).eq('status','new'); })
       .then(function(r){ var b = bar.querySelector('[data-tab=media]'); if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); }).catch(function(){});
+    if (owner) load('assess_new', function(){
+      return sb.from('assessments').select('id', {count:'exact', head:true}).eq('status','new');
+    })
+    .then(function(r){ var b = bar.querySelector('[data-tab=assess]');
+      if (b && r.count) b.appendChild(h('span', {class:'count', text:String(r.count)})); }).catch(function(){});
   }
 
   function load(key, fn){
@@ -13253,7 +13395,7 @@ window.__initWorkbookMgr = function(hub, H){
 
   function drawTab(body){
     loading(body);
-    var f = { tickets:ownerTickets, payments:ownerPayments, delivery:ownerDelivery, analytics:ownerAnalytics, media:ownerMedia,
+    var f = { tickets:ownerTickets, payments:ownerPayments, delivery:ownerDelivery, analytics:ownerAnalytics, media:ownerMedia, assess:ownerAssess,
               apps:myApps, billing:myBilling, help:myHelp }[tab];
     try { f(body); } catch(e){ fail(body, e); }
   }
@@ -13321,6 +13463,140 @@ window.__initWorkbookMgr = function(hub, H){
         mail),
       msg);
     return el;
+  }
+
+  /* ===== OWNER: AI Assessment results ===== */
+  var ASTAT = [['new','New'],['reviewed','Reviewed'],['contacted','Contacted'],['archived','Archived']];
+  var af = { status:'new', q:'' };
+  function alabel(v){ var f = ASTAT.filter(function(o){ return o[0] === v; })[0]; return f ? f[1] : v; }
+
+  function assessCard(x){
+    var notes = h('textarea', {'aria-label':'Private notes', placeholder:'Private notes (only you see these)'});
+    notes.value = x.notes || '';
+    var sel = h('select', {'aria-label':'Status'}, ASTAT.map(function(o){
+      return h('option', {value:o[0], selected: x.status === o[0], text:o[1]});
+    }));
+    sel.style.width = 'auto';
+    var msg = h('div', {class:'msg'});
+    var focus = (x.focus || []).join(', ');
+    var ans = x.answers && typeof x.answers === 'object' ? x.answers : {};
+    var lines = Object.keys(ans).map(function(k){
+      return h('div', {style:'margin:0 0 4px'},
+        h('span', {style:'color:var(--text-muted,#93A7BC)', text: k + ': '}),
+        h('span', {text: String(ans[k])}));
+    });
+    var who = [x.name, x.business].filter(Boolean).join(' · ') || 'Anonymous';
+
+    var el = h('div', {class:'lh-card lh-tk'},
+      h('div', {class:'meta'},
+        h('span', {class:'lh-pill ' + (x.status === 'new' ? 'open' : x.status === 'archived' ? 'closed' : 'answered'),
+                   text: alabel(x.status)}),
+        h('span', {text: 'Score ' + x.score + '/100'}),
+        h('span', {text: '· ' + x.stage}),
+        h('span', {text: '· ' + x.ref}),
+        h('span', {text: '· ' + fmtWhen(x.created_at)})),
+      h('h4', {text: who}),
+      x.email ? h('div', {class:'who'}, h('a', {href:'mailto:' + x.email, text:x.email})) : null,
+      focus ? h('p', {style:'margin:8px 0 2px'},
+        h('strong', {text:'Wants help with: '}), h('span', {text:focus})) : null,
+      lines.length ? h('details', {style:'margin:8px 0 0'},
+        h('summary', {text:'Their answers'}),
+        h('div', {style:'margin-top:8px;font-size:14px'}, lines)) : null,
+      notes,
+      h('div', {class:'row', style:'margin-top:8px'},
+        sel,
+        h('button', {class:'btn btn-secondary', type:'button', text:'Save', onclick:function(){
+          msg.textContent = 'Saving…';
+          sb.from('assessments').update({status: sel.value, notes: notes.value})
+            .eq('id', x.id).then(function(r){
+              if (r.error) { msg.textContent = 'Could not save: ' + r.error.message; return; }
+              x.status = sel.value; x.notes = notes.value;
+              msg.textContent = 'Saved.';
+            });
+        }}),
+        x.email ? h('a', {class:'btn btn-secondary',
+          href:'mailto:' + x.email + '?subject=' + encodeURIComponent('Your AI readiness result (' + x.ref + ')'),
+          text:'Reply'}) : null),
+      msg);
+    return el;
+  }
+
+  function exportAssessCsv(rows){
+    var cols = ['ref','created_at','status','score','stage','name','business','email','focus','notes'];
+    function q(v){
+      if (Array.isArray(v)) v = v.join('; ');
+      v = v == null ? '' : String(v);
+      if (/^[=+\-@]/.test(v)) v = "'" + v;      // keep spreadsheets from running it as a formula
+      return '"' + v.replace(/"/g, '""') + '"';
+    }
+    var csv = cols.join(',') + '\r\n' + rows.map(function(r){
+      return cols.map(function(c){ return q(r[c]); }).join(',');
+    }).join('\r\n');
+    var a = h('a', {href: URL.createObjectURL(new Blob([csv], {type:'text/csv'})),
+      download: 'ai-assessments-' + new Date().toISOString().slice(0,10) + '.csv'});
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  function ownerAssess(body){
+    load('assessments', function(){
+      return sb.from('assessments').select('*').order('created_at', {ascending:false}).limit(1000);
+    }).then(function(r){
+      clear(body);
+      var all = r.data || [];
+      var scored = all.filter(function(x){ return typeof x.score === 'number'; });
+      var avg = scored.length
+        ? Math.round(scored.reduce(function(a, x){ return a + x.score; }, 0) / scored.length) : 0;
+      var since = Date.now() - 30*86400000;
+      var recent = all.filter(function(x){ return new Date(x.created_at).getTime() >= since; });
+      body.appendChild(h('div', {class:'lh-stats'},
+        stat('New results', String(all.filter(function(x){ return x.status === 'new'; }).length)),
+        stat('All results', String(all.length)),
+        stat('Last 30 days', String(recent.length)),
+        stat('Average score', scored.length ? String(avg) + '/100' : '—'),
+        stat('Left an email', String(all.filter(function(x){ return !!x.email; }).length))));
+
+      var ss = h('select', {'aria-label':'Status', onchange:function(){ af.status = ss.value; draw(); }},
+        [h('option', {value:'', selected: af.status === '', text:'All results'})].concat(
+          ASTAT.map(function(o){ return h('option', {value:o[0], selected: af.status === o[0], text:o[1]}); })));
+      var q = h('input', {type:'search', 'aria-label':'Search name, business or email',
+        placeholder:'Search name, business or email', value: af.q,
+        style:'flex:1;min-width:200px;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--border-strong,rgba(43,168,255,.38));border-radius:var(--radius-md,10px);background:var(--bg-entry,#0B1A2B);color:var(--text-heading,#EAF4FF);',
+        oninput:function(){ af.q = q.value; draw(); }});
+      var exp = h('button', {class:'btn btn-secondary', type:'button', text:'Export CSV',
+        onclick:function(){ exportAssessCsv(rows()); }});
+      var list = h('div', {class:'lh-list'});
+      body.appendChild(h('div', {class:'lh-filters'}, ss, q, exp));
+      body.appendChild(list);
+
+      function rows(){
+        var t = af.q.trim().toLowerCase();
+        return all.filter(function(x){
+          if (af.status && x.status !== af.status) return false;
+          if (t && [x.name, x.business, x.email, x.ref].join(' ').toLowerCase().indexOf(t) < 0) return false;
+          return true;
+        });
+      }
+      function draw(){
+        clear(list);
+        var r = rows();
+        if (!r.length){
+          list.appendChild(empty(all.length
+            ? 'Nothing here with these filters.'
+            : 'No assessment results yet. When somebody finishes the AI Assessment on acrossthetable.biz and presses send, it shows up here.'));
+          return;
+        }
+        r.forEach(function(x){ list.appendChild(assessCard(x)); });
+      }
+      draw();
+    }).catch(function(e){
+      var t = (e && (e.message || '') + ' ' + (e && e.code || ''));
+      if (/assessments|42P01|PGRST20[25]|does not exist|schema cache/i.test(t)){
+        clear(body);
+        body.appendChild(empty('The assessment table is not set up on this Hub yet.'));
+        return;
+      }
+      fail(body, e);
+    });
   }
 
   /* ===== OWNER: Media inquiries (from acrossthetable.biz/media) ===== */
@@ -14158,5 +14434,259 @@ window.__initWorkbookMgr = function(hub, H){
 .ai-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 @media (max-width:720px){.ai-card{flex-direction:column;align-items:flex-start;padding:22px 18px}.ai-btn{width:100%;justify-content:center;white-space:normal}}
 @media (max-width:600px){</style>
+<script data-air-init>
+/* ---------- AI Readiness assessment ----------
+   Ten questions about how the business runs. Each answer scores 0-10, so the
+   total is a score out of 100. The lowest-scoring answers decide which jobs to
+   recommend, and each job links to the knowledge article that covers it.
+   Results are only sent if the visitor presses send; the Hub function validates
+   and rate limits on its way in.                                            */
+(function () {
+  var root = document.querySelector('[data-air]');
+  if (!root) return;
+
+  var HUB_URL = 'https://myisncufxcpeqyuohroq.supabase.co';
+  var HUB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15aXNuY3VmeGNwZXF5dW9ocm9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwNzA4NTksImV4cCI6MjEwNjY0Njg1OX0.XrQ4SX3K4Cyxc80s9PECENqJ5R-x7jTxP-2HYPD4bjY';
+  var KA = '/knowledge-articles/';
+
+  var Q = [
+    { id: 'time', job: 'Run the work', slug: 'run-the-work',
+      q: 'Where does your week actually go?',
+      sub: 'Not where you want it to go. Where it goes.',
+      a: [['Almost all of it on admin and chasing things', 0],
+          ['More on admin than on the work customers pay for', 3],
+          ['Roughly even', 7],
+          ['Mostly on the work customers pay for', 10]] },
+    { id: 'process', job: 'Run the work', slug: 'run-the-work',
+      q: 'Is the way you do the work written down?',
+      sub: 'If someone new started Monday, what would they learn from?',
+      a: [['Nothing is written down. It is in my head', 0],
+          ['A few notes, scattered around', 3],
+          ['The main jobs are written down', 7],
+          ['Written down, followed, and kept up to date', 10]] },
+    { id: 'answers', job: 'Answer customers', slug: 'answer-customers',
+      q: 'How do customer questions get answered?',
+      sub: 'The same twelve questions most businesses get every week.',
+      a: [['I answer every one myself, from scratch', 0],
+          ['I copy and paste from old replies', 4],
+          ['We have saved replies or a help page', 7],
+          ['Common questions are handled without me', 10]] },
+    { id: 'meetings', job: 'Capture meetings', slug: 'capture-meetings',
+      q: 'What happens to what gets agreed in a call?',
+      sub: 'The decisions, the promises, the next steps.',
+      a: [['Nothing. I try to remember it', 0],
+          ['I scribble notes I rarely reread', 3],
+          ['I write it up afterwards when there is time', 7],
+          ['It is captured and shared automatically', 10]] },
+    { id: 'content', job: 'Write the copy', slug: 'write-the-copy',
+      q: 'How does your marketing content get made?',
+      sub: 'Posts, emails, descriptions, the website.',
+      a: [['It mostly does not get made', 0],
+          ['In bursts, when I can face it', 3],
+          ['On a loose schedule', 7],
+          ['On a schedule, and it goes out whether I am busy or not', 10]] },
+    { id: 'tools', job: 'Connect the tools', slug: 'connect-the-tools',
+      q: 'Do your tools pass information to each other?',
+      sub: 'Or do you retype the same thing in three places?',
+      a: [['I retype everything', 0],
+          ['One or two things connect', 4],
+          ['Most of the important ones connect', 7],
+          ['Information moves on its own', 10]] },
+    { id: 'numbers', job: 'Understand the numbers', slug: 'understand-the-numbers',
+      q: 'Do you know which numbers drive your business?',
+      sub: 'The two or three that actually decide the month.',
+      a: [['I look at the bank balance and hope', 0],
+          ['I know roughly what came in and went out', 4],
+          ['I know my numbers but have to dig for them', 7],
+          ['I can see them whenever I want', 10]] },
+    { id: 'money', job: 'Manage the money', slug: 'manage-the-money',
+      q: 'How are the books kept?',
+      sub: 'Invoices, receipts, who owes you what.',
+      a: [['A shoebox and good intentions', 0],
+          ['A spreadsheet I update when I remember', 4],
+          ['Proper software, a bit behind', 7],
+          ['Proper software, current, reconciled', 10]] },
+    { id: 'people', job: 'Let AI do the work', slug: 'let-ai-do-the-work',
+      q: 'If you brought in a tool tomorrow, who would use it?',
+      sub: 'Adoption is where most of this fails.',
+      a: [['Only me, and I would forget', 0],
+          ['Only me, but I would stick with it', 4],
+          ['Me and one other person', 7],
+          ['The team, because we change how we work together', 10]] },
+    { id: 'rules', job: 'Protect the business', slug: 'protect-the-business',
+      q: 'What is your rule about customer information and AI?',
+      sub: 'The question that decides whether any of this is safe.',
+      a: [['I have not thought about it', 0],
+          ['I worry about it but have no rule', 3],
+          ['I avoid putting customer details into anything', 7],
+          ['We have a written rule everyone knows', 10]] }
+  ];
+
+  var STAGES = [
+    { max: 30,  name: 'Just starting',
+      say: 'The business runs on you, and that is the constraint. Do not buy AI yet. Write down how one job is done, then make that one job easier. Everything else follows from there.' },
+    { max: 55,  name: 'Getting organised',
+      say: 'You have the makings of a system but it is uneven. Pick the two jobs below and finish them properly before adding anything new. This is the stage where buying more tools usually makes things worse.' },
+    { max: 78,  name: 'Ready to automate',
+      say: 'Your work is defined enough that AI has something to hold on to. Start with the lowest-scoring job below. One job, working properly, beats five half-configured tools.' },
+    { max: 100, name: 'Running on systems',
+      say: 'You are past the stage where tools are the problem. The gains now come from connecting what you already run and from being deliberate about rules and oversight.' }
+  ];
+
+  var el = function (s) { return root.querySelector(s); };
+  var steps = {
+    intro:  el('[data-air-step="intro"]'),
+    quiz:   el('[data-air-step="quiz"]'),
+    result: el('[data-air-step="result"]')
+  };
+  var i = 0, answers = {}, started = 0;
+
+  function show(name) {
+    Object.keys(steps).forEach(function (k) { steps[k].hidden = (k !== name); });
+  }
+
+  function render() {
+    var q = Q[i];
+    el('[data-air-n]').textContent = String(i + 1);
+    el('[data-air-total]').textContent = String(Q.length);
+    var pct = Math.round((i / Q.length) * 100);
+    var bar = el('[data-air-bar]');
+    bar.setAttribute('aria-valuenow', String(pct));
+    bar.firstElementChild.style.width = pct + '%';
+    el('[data-air-q]').textContent = q.q;
+    el('[data-air-sub]').textContent = q.sub;
+    var box = el('[data-air-opts]');
+    box.textContent = '';
+    q.a.forEach(function (opt, k) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'air-opt';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', answers[q.id] && answers[q.id].k === k ? 'true' : 'false');
+      b.textContent = opt[0];
+      b.addEventListener('click', function () {
+        answers[q.id] = { k: k, score: opt[1], label: opt[0], job: q.job, slug: q.slug };
+        if (i < Q.length - 1) { i++; render(); } else { finish(); }
+      });
+      box.appendChild(b);
+    });
+    el('[data-air-back]').disabled = (i === 0);
+    var first = box.querySelector('.air-opt');
+    if (first) first.focus();
+  }
+
+  function finish() {
+    var total = 0;
+    Q.forEach(function (q) { total += (answers[q.id] ? answers[q.id].score : 0); });
+    var score = Math.max(0, Math.min(100, Math.round(total)));
+    var stage = STAGES.filter(function (s) { return score <= s.max; })[0] || STAGES[STAGES.length - 1];
+
+    el('[data-air-score]').textContent = String(score);
+    el('[data-air-dial]').style.setProperty('--pct', String(score));
+    el('[data-air-stage]').textContent = stage.name;
+    el('[data-air-stage-say]').textContent = stage.say;
+
+    var scored = Q.map(function (q) { return answers[q.id]; }).filter(Boolean);
+    var weak = scored.slice().sort(function (a, b) { return a.score - b.score; })
+                     .filter(function (x) { return x.score <= 4; }).slice(0, 3);
+    if (!weak.length) weak = scored.slice().sort(function (a, b) { return a.score - b.score; }).slice(0, 2);
+    var strong = scored.filter(function (x) { return x.score >= 7; }).slice(0, 3);
+
+    var sBox = el('[data-air-strong]'); sBox.textContent = '';
+    if (!strong.length) {
+      var li0 = document.createElement('li');
+      li0.textContent = 'Nothing stands out yet, and that is a normal place to start.';
+      sBox.appendChild(li0);
+    } else {
+      strong.forEach(function (x) {
+        var li = document.createElement('li');
+        li.textContent = x.job + ' — ' + x.label.toLowerCase();
+        sBox.appendChild(li);
+      });
+    }
+
+    var fBox = el('[data-air-focus]'); fBox.textContent = '';
+    var seen = {};
+    weak.forEach(function (x) {
+      if (seen[x.slug]) return; seen[x.slug] = 1;
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = KA + x.slug + '/';
+      a.textContent = x.job;
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(' — read the guide for the three tools that do this job'));
+      fBox.appendChild(li);
+    });
+
+    root.__air = { score: score, stage: stage.name, focus: Object.keys(seen).length
+      ? weak.filter(function (x, k, arr) { return arr.findIndex(function (y) { return y.slug === x.slug; }) === k; }).map(function (x) { return x.job; })
+      : [] };
+    show('result');
+    steps.result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  el('[data-air-start]').addEventListener('click', function () {
+    i = 0; answers = {}; started = Date.now(); show('quiz'); render();
+  });
+  el('[data-air-back]').addEventListener('click', function () {
+    if (i > 0) { i--; render(); }
+  });
+  el('[data-air-again]').addEventListener('click', function () {
+    i = 0; answers = {}; started = Date.now();
+    var m = el('[data-air-msg]'); m.textContent = ''; m.removeAttribute('data-bad');
+    el('[data-air-send]').disabled = false;
+    show('quiz'); render();
+    steps.quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  el('[data-air-form]').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var form = ev.currentTarget;
+    var msg = el('[data-air-msg]');
+    var btn = el('[data-air-send]');
+    var got = root.__air;
+    if (!got) return;
+    msg.removeAttribute('data-bad');
+    msg.textContent = 'Sending…';
+    btn.disabled = true;
+
+    var body = {
+      p_answers: Object.keys(answers).reduce(function (o, k) { o[k] = answers[k].label; return o; }, {}),
+      p_score: got.score,
+      p_stage: got.stage,
+      p_focus: got.focus,
+      p_name: form.name.value || null,
+      p_email: form.email.value || null,
+      p_business: form.business.value || null,
+      p_industry: null,
+      p_trap: form.company_website.value || null,
+      p_elapsed_ms: started ? (Date.now() - started) : 0
+    };
+
+    fetch(HUB_URL + '/rest/v1/rpc/submit_assessment', {
+      method: 'POST',
+      headers: { 'apikey': HUB_KEY, 'Authorization': 'Bearer ' + HUB_KEY,
+                 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      return r.json().then(function (d) { return { ok: r.ok, d: d }; });
+    }).then(function (res) {
+      if (res.ok && res.d && res.d.ok) {
+        msg.textContent = 'Sent. Your reference is ' + res.d.ref + '. Connie will see it in her Hub.';
+        form.querySelectorAll('input').forEach(function (x) { x.disabled = true; });
+      } else {
+        btn.disabled = false;
+        msg.setAttribute('data-bad', '');
+        msg.textContent = (res.d && (res.d.message || res.d.error)) ||
+          'That did not send. Please try again, or email info@acrossthetable.biz.';
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      msg.setAttribute('data-bad', '');
+      msg.textContent = 'That did not send. Please check your connection, or email info@acrossthetable.biz.';
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -3221,6 +3221,69 @@ a[data-goto]{cursor:pointer;}
 .pb-cta p{color:var(--text-body);margin:0}
 .pb-cta-acts{display:flex;flex-wrap:wrap;gap:12px}
 
+/* ---------- AI Readiness assessment ---------- */
+.air-sec{padding:34px 0 10px;}
+.air{max-width:820px;margin:0 auto;}
+.air-card{background:rgba(255,255,255,.035);border:1px solid rgba(43,168,255,.22);
+  border-radius:18px;padding:30px 30px 26px;}
+.air-h{font:700 clamp(21px,2.6vw,28px)/1.25 var(--display,inherit);color:#fff;margin:.35em 0 .5em;}
+.air-h3{font:700 15px/1.3 var(--display,inherit);color:#27D8C2;letter-spacing:.04em;
+  text-transform:uppercase;margin:0 0 10px;}
+.air-p{color:#C7D6E6;font-size:16px;line-height:1.6;margin:0 0 14px;}
+.air-muted{color:#93A7BC;font-size:14.5px;}
+.air-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:700 15px/1 inherit;border-radius:999px;padding:13px 22px;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  text-decoration:none;transition:background .15s,border-color .15s;}
+.air-btn:hover{background:rgba(255,255,255,.1);}
+.air-btn-go{background:#2BA8FF;border-color:#2BA8FF;color:#06243B;}
+.air-btn-go:hover{background:#4FB9FF;}
+.air-btn-go[disabled]{opacity:.55;cursor:default;}
+.air-top{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.air-count{color:#93A7BC;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0;}
+.air-bar{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;}
+.air-bar span{display:block;height:100%;width:0;background:#27D8C2;transition:width .25s ease;}
+.air-opts{display:grid;gap:10px;margin:18px 0 6px;}
+.air-opt{display:block;width:100%;text-align:left;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.16);
+  border-radius:12px;padding:14px 16px;color:#E6EEF7;font-size:15.5px;line-height:1.45;
+  transition:border-color .15s,background .15s;}
+.air-opt:hover,.air-opt:focus-visible{border-color:#2BA8FF;background:rgba(43,168,255,.1);}
+.air-opt[aria-checked="true"]{border-color:#27D8C2;background:rgba(39,216,194,.12);}
+.air-nav{margin-top:14px;}
+.air-score{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin:4px 0 22px;}
+.air-dial{flex:0 0 auto;width:132px;height:132px;border-radius:50%;display:grid;
+  place-content:center;text-align:center;color:#fff;
+  background:conic-gradient(#27D8C2 calc(var(--pct,0)*1%),rgba(255,255,255,.1) 0);
+  position:relative;}
+.air-dial::after{content:"";position:absolute;inset:11px;border-radius:50%;background:#0E1C2D;}
+.air-dial span,.air-dial small{position:relative;z-index:1;}
+.air-dial span{font:700 38px/1 var(--display,inherit);}
+.air-dial small{display:block;color:#93A7BC;font-size:12px;margin-top:4px;}
+.air-cols{display:grid;gap:22px;grid-template-columns:1fr 1fr;margin:0 0 22px;}
+.air-list{margin:0;padding-left:1.1em;color:#C7D6E6;font-size:15px;line-height:1.55;}
+.air-list li{margin:0 0 7px;}
+.air-list-gold li::marker{color:#E0A03A;}
+.air-list a{color:#7FD0FF;}
+.air-send{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;margin-top:4px;}
+.air-fields{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:0 0 16px;}
+.air-fields label{display:block;color:#93A7BC;font-size:13px;letter-spacing:.04em;}
+.air-fields input{display:block;width:100%;margin-top:6px;padding:11px 13px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);
+  color:#fff;font-size:15px;}
+.air-fields input:focus{outline:none;border-color:#2BA8FF;}
+.air-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.air-msg{margin:12px 0 0;font-size:14.5px;color:#27D8C2;min-height:1.2em;}
+.air-msg[data-bad]{color:#FFB4A8;}
+.air-after{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.air-explore{max-width:820px;margin:26px auto 0;color:#93A7BC;font-size:14.5px;text-align:center;}
+@media (max-width:720px){
+  .air-card{padding:24px 20px 22px;}
+  .air-cols,.air-fields{grid-template-columns:1fr;}
+  .air-score{gap:16px;}
+}
+
+
 #__bundler_loading { display: none; }
 /* ---- TableTap package breakdown ---- */
 .pkgs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch;}
