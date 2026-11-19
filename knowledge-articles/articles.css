@@ -79,6 +79,21 @@
 .ka-card-go{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-weight:700;font-size:15px;color:var(--ka-navy);}
 .ka-empty{font-family:var(--body);color:var(--ka-muted);margin:12px 0 0;}
 
+
+/* On-page contents, mirroring the contents page in the downloadable brief. */
+.ka-contents{background:var(--ka-soft);border:1px solid var(--ka-line);
+  border-left:4px solid var(--ka-gold);border-radius:8px;
+  padding:18px 22px 14px;margin:0 0 30px;}
+.ka-contents-h{font-family:var(--display);color:var(--ka-navy);font-size:15px;
+  letter-spacing:.09em;text-transform:uppercase;margin:0 0 10px;font-weight:700;}
+.ka-contents ol{margin:0;padding-left:1.15em;}
+.ka-contents li{margin:0 0 6px;font-size:15.5px;line-height:1.45;}
+.ka-contents a{color:var(--ka-navy);text-decoration:none;
+  border-bottom:1px solid transparent;}
+.ka-contents a:hover,.ka-contents a:focus{border-bottom-color:var(--ka-gold);}
+.ka-body h2{scroll-margin-top:84px;}
+@media print{.ka-contents{break-inside:avoid;}}
+
 @media (max-width:760px){
   .ka{padding:14px 10px 56px;}
   .ka-paper{padding:24px 20px 32px;border-radius:10px;}

@@ -227,6 +227,87 @@ def share_chrome(rel):
 
 share_chrome('newsletter/index.html')   # /substack/ now just forwards here
 
+# ------------------------------------------------- knowledge article furniture
+# Every article page gets the same three things, kept in step with the files on
+# disk: an id on each section heading, a Contents box that links to them, and
+# download links whose sizes match the actual PDF and Word files. Doing it here
+# means a new article picks all of this up on the next build instead of needing
+# it added by hand.
+import unicodedata
+
+def _slug(text, used):
+    t = unicodedata.normalize('NFKD', html.unescape(re.sub(r'<[^>]+>', '', text)))
+    t = t.encode('ascii', 'ignore').decode()
+    s = re.sub(r'[^a-z0-9]+', '-', t.lower()).strip('-')[:60] or 'section'
+    if s[0].isdigit():            # ids used as #selectors cannot start with a digit
+        s = 's-' + s
+    base, n = s, 2
+    while s in used:
+        s = '%s-%d' % (base, n); n += 1
+    used.add(s)
+    return s
+
+def _size_kb(path):
+    full = os.path.join(ROOT, path)
+    return round(os.path.getsize(full) / 1024) if os.path.exists(full) else None
+
+ka_root = os.path.join(ROOT, 'knowledge-articles')
+ka_done = 0
+if os.path.isdir(ka_root):
+    for slug in sorted(os.listdir(ka_root)):
+        page_rel = 'knowledge-articles/%s/index.html' % slug
+        if slug == 'downloads' or not os.path.exists(os.path.join(ROOT, page_rel)):
+            continue
+        s = open(os.path.join(ROOT, page_rel), encoding='utf-8').read()
+        i = s.find('<div class="ka-body">')
+        if i < 0:
+            continue
+        j = s.find('</article>', i)
+        j = j if j > 0 else len(s)
+        body, used, entries = s[i:j], set(), []
+
+        def _mark(m):
+            attrs, inner = m.group(1), m.group(2)
+            got = re.search(r'id="([^"]+)"', attrs)
+            sid = got.group(1) if got else _slug(inner, used)
+            if got:
+                used.add(sid)
+            else:
+                attrs = ' id="%s"%s' % (sid, attrs)
+            entries.append((sid, html.unescape(re.sub(r'<[^>]+>', '', inner)).strip()))
+            return '<h2%s>%s</h2>' % (attrs, inner)
+
+        body = re.sub(r'<h2([^>]*)>(.*?)</h2>', _mark, body, flags=re.S)
+        body = re.sub(r'\n?\s*<nav class="ka-contents".*?</nav>\s*', '', body, flags=re.S)
+        if entries:
+            nav = ('<nav class="ka-contents" aria-label="Contents">\n'
+                   '      <p class="ka-contents-h">Contents</p>\n      <ol>\n'
+                   + ''.join('        <li><a href="#%s">%s</a></li>\n' % (sid, html.escape(t))
+                             for sid, t in entries)
+                   + '      </ol>\n    </nav>\n    ')
+            body = body.replace('<div class="ka-body">', '<div class="ka-body">\n    ' + nav, 1)
+        s = s[:i] + body + s[j:]
+
+        pdf_kb = _size_kb('knowledge-articles/downloads/%s.pdf' % slug)
+        doc_kb = _size_kb('knowledge-articles/downloads/%s.docx' % slug)
+        links = []
+        if pdf_kb is not None:
+            links.append('<a href="/knowledge-articles/downloads/%s.pdf" download>'
+                         'Download Knowledge Brief (PDF)</a> <span>.pdf &middot; %d KB</span>'
+                         % (slug, pdf_kb))
+        if doc_kb is not None:
+            links.append('<a href="/knowledge-articles/downloads/%s.docx" download>'
+                         'Word (.docx)</a> <span>&middot; %d KB</span>' % (slug, doc_kb))
+        if links:
+            s = re.sub(r'<p class="ka-download">.*?</p>',
+                       '<p class="ka-download">' + ' '.join(links) + '</p>',
+                       s, count=1, flags=re.S)
+        if write(page_rel, s):
+            ka_done += 1
+if ka_done:
+    changed.append('%d knowledge article pages' % ka_done)
+print('knowledge articles refreshed:', ka_done)
+
 # ---------------------------------------------------------------- sitemap
 # Every public page belongs here, including the knowledge articles. Google
 # discounts a sitemap where every page claims the same date, so lastmod comes
