@@ -288,19 +288,15 @@ if os.path.isdir(ka_root):
             body = body.replace('<div class="ka-body">', '<div class="ka-body">\n    ' + nav, 1)
         s = s[:i] + body + s[j:]
 
+        # PDF is the only download offered. Word files are built for editing but
+        # are deliberately not linked from the site.
         pdf_kb = _size_kb('knowledge-articles/downloads/%s.pdf' % slug)
-        doc_kb = _size_kb('knowledge-articles/downloads/%s.docx' % slug)
-        links = []
         if pdf_kb is not None:
-            links.append('<a href="/knowledge-articles/downloads/%s.pdf" download>'
-                         'Download Knowledge Brief (PDF)</a> <span>.pdf &middot; %d KB</span>'
-                         % (slug, pdf_kb))
-        if doc_kb is not None:
-            links.append('<a href="/knowledge-articles/downloads/%s.docx" download>'
-                         'Word (.docx)</a> <span>&middot; %d KB</span>' % (slug, doc_kb))
-        if links:
             s = re.sub(r'<p class="ka-download">.*?</p>',
-                       '<p class="ka-download">' + ' '.join(links) + '</p>',
+                       '<p class="ka-download">'
+                       '<a href="/knowledge-articles/downloads/%s.pdf" download>'
+                       'Download Knowledge Brief (PDF)</a> <span>.pdf &middot; %d KB</span></p>'
+                       % (slug, pdf_kb),
                        s, count=1, flags=re.S)
         if write(page_rel, s):
             ka_done += 1
