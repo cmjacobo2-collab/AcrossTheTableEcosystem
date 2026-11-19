@@ -290,8 +290,14 @@ if os.path.isdir(ka_root):
         # starts wiring up an AI tool without having read how to scope, control
         # and measure one. The framework guide itself is skipped.
         FRAMEWORK = 'ai-workflow-agent-design-framework'
+        # Two articles sit outside the AI & Technology category but are squarely
+        # about not rushing an AI rollout, so they carry the warning as well.
+        ALSO_WARN = {
+            'map-your-business-process-before-you-automate-it',
+            'what-should-an-ai-agent-be-allowed-to-do-in-your-business',
+        }
         is_ai = 'AI &amp; Technology' in s or 'AI & Technology' in s
-        if is_ai and slug != FRAMEWORK:
+        if (is_ai or slug in ALSO_WARN) and slug != FRAMEWORK:
             first = (
 '<aside class="ka-first">\n'
 '      <svg class="ka-first-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
