@@ -302,9 +302,14 @@ if os.path.isdir(ka_root):
 '        <p><strong>Read this before you put any of it to work.</strong> Picking the tool is '
 'the easy part. What goes wrong is everything around it: what the tool is allowed to touch, '
 'who checks what it produces, and whether it actually made the business any money.</p>\n'
-'        <p><a href="/knowledge-articles/' + FRAMEWORK + '/">The Complete AI Workflow &amp; '
-'Agent Design Framework</a> walks through it in thirty steps, from mapping the process to '
-'measuring the return. Start there and this guide will make more sense.</p>\n'
+'        <p><em>The Complete AI Workflow &amp; Agent Design Framework</em> walks through it in '
+'thirty steps, from mapping the process to measuring the return. Start there and this guide '
+'will make more sense.</p>\n'
+'        <p class="ka-first-act"><a class="ka-first-cta" href="/knowledge-articles/'
++ FRAMEWORK + '/">Read the framework first'
+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+'<path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>\n'
 '      </div>\n'
 '    </aside>\n    ')
         else:

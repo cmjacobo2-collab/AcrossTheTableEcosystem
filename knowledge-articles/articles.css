@@ -130,12 +130,24 @@
   border-radius:10px;padding:16px 18px;margin:0 0 30px;}
 .ka-first-ico{flex:0 0 auto;width:24px;height:24px;color:#8A5E10;margin-top:1px;}
 .ka-first p{margin:0 0 7px;font-size:15.5px;line-height:1.55;color:#4A3A17;}
+.ka-first p.ka-first-act{margin-top:12px;}
 .ka-first p:last-child{margin-bottom:0;}
 .ka-first strong{color:#6B4E12;}
-.ka-first a{color:#0B4E7D;font-weight:700;}
+.ka-first-cta{display:inline-flex;align-items:center;gap:9px;margin-top:4px;
+  background:var(--ka-navy);color:#fff!important;text-decoration:none;
+  font-family:var(--body);font-weight:700;font-style:normal;font-size:15px;line-height:1.2;
+  padding:12px 20px;border-radius:999px;border:2px solid var(--ka-navy);
+  transition:background .15s,color .15s;}
+.ka-first-cta:hover,.ka-first-cta:focus-visible{background:#0B4E7D;border-color:#0B4E7D;color:#fff!important;}
+.ka-first-cta svg{width:17px;height:17px;flex:0 0 auto;}
+.ka-first a:not(.ka-first-cta){color:#0B4E7D;font-weight:700;text-decoration:underline;}
 @media print{
   .ka-first{background:#fff!important;border:1px solid #8A5E10;break-inside:avoid;}
   .ka-first p{color:#1C2633!important;}
+  /* on paper a pill button is meaningless: print it as a plain labelled line */
+  .ka-first-cta{display:inline!important;background:none!important;border:0!important;
+    padding:0!important;color:#083A66!important;font-weight:700;text-decoration:underline;}
+  .ka-first-cta svg{display:none!important;}
 }
 
 @media print{
@@ -193,4 +205,15 @@
   .ka{padding:0;}
   .ka-paper{box-shadow:none;padding:0;max-width:none;}
   .ka-table{overflow:visible;}
+}
+
+@media print{
+  /* A printed link cannot be clicked, so printed links carry their address.
+     Jump links inside the Contents are skipped: the target is on the page. */
+  .ka-body a[href^="/"]::after{content:" (https://acrossthetable.biz" attr(href) ")";}
+  .ka-body a[href^="http"]::after{content:" (" attr(href) ")";}
+  .ka-body a[href^="/"]::after,.ka-body a[href^="http"]::after{
+    font-size:.85em;font-style:normal;font-weight:400;color:#3C4654;word-break:break-all;}
+  .ka-contents a::after{content:none!important;}
+  .ka-first-cta::after{display:inline;color:#1C2633!important;text-decoration:none;}
 }
