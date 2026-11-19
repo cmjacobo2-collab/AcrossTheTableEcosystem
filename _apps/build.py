@@ -261,6 +261,9 @@ if os.path.isdir(ka_root):
         if slug == 'downloads' or not os.path.exists(os.path.join(ROOT, page_rel)):
             continue
         s = open(os.path.join(ROOT, page_rel), encoding='utf-8').read()
+        # the call to action sits just inside </article>, which is where the body
+        # range ends; drop it first so it is never mistaken for article content
+        s = re.sub(r'\n?\s*<aside class="ka-cta".*?</aside>\s*', '\n  ', s, flags=re.S)
         i = s.find('<div class="ka-body">')
         if i < 0:
             continue
@@ -359,6 +362,28 @@ if os.path.isdir(ka_root):
                        'Download Knowledge Brief (PDF)</a> <span>.pdf &middot; %d KB</span></p>'
                        % (slug, pdf_kb),
                        s, count=1, flags=re.S)
+
+        # Closing call to action. The framework guide already carries its own,
+        # so it is left alone rather than given a second one.
+        if 'class="kaf-cta"' not in s:
+            cta = ('\n    <aside class="ka-cta" aria-labelledby="ka-cta-h">\n'
+'      <h2 id="ka-cta-h">Build AI Around Your Business &mdash; Not the Other Way Around</h2>\n'
+'      <p>Artificial intelligence can improve productivity, strengthen operations, and '
+'support business growth. But successful implementation requires more than selecting '
+'software.</p>\n'
+'      <p>It requires understanding your processes, assigning responsibilities, '
+'controlling permissions, validating results, monitoring performance, and measuring '
+'financial value.</p>\n'
+'      <p>Across the Table helps entrepreneurs move from understanding their businesses '
+'to building systems that support sustainable growth.</p>\n'
+'      <p class="ka-cta-journey" aria-label="Idea, Building, Scaling, Exiting">IDEA '
+'<span aria-hidden="true">&rarr;</span> BUILDING <span aria-hidden="true">&rarr;</span> '
+'SCALING <span aria-hidden="true">&rarr;</span> EXITING</p>\n'
+'      <p class="ka-cta-acts">'
+'<a class="ka-cta-btn ka-cta-btn-gold" href="/#assessment">Take the AI Assessment</a> '
+'<a class="ka-cta-btn" href="/#contact">Talk to Connie</a></p>\n'
+'    </aside>\n  ')
+            s = re.sub(r'(\s*</article>)', lambda m: cta + m.group(1), s, count=1)
 
         # "Print this guide". The framework guide already has its own version of
         # this control, so it is left alone rather than given a second one.
