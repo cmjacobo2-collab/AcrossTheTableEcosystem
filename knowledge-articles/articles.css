@@ -92,6 +92,40 @@
   border-bottom:1px solid transparent;}
 .ka-contents a:hover,.ka-contents a:focus{border-bottom-color:var(--ka-gold);}
 .ka-body h2{scroll-margin-top:84px;}
+
+/* Print front matter. Hidden on screen; when the article is printed it puts a
+   branded title page and the legal and copyright page in front of the text, so
+   a printed guide matches the downloadable PDF. */
+.ka-printmatter{display:none;}
+@media print{
+  .ka-printmatter{display:block;}
+  .ka-head{display:none!important;}
+  .ka-printmatter .ka-pm-cover{text-align:center;padding-top:26vh;break-after:page;}
+  .ka-printmatter .ka-pm-brand{font-family:var(--display);color:var(--ka-gold)!important;font-weight:700;
+    letter-spacing:.34em;font-size:15px;margin:0;}
+  .ka-printmatter .ka-pm-sub{font-family:var(--display);color:var(--ka-muted)!important;
+    letter-spacing:.22em;font-size:10px;margin:4px 0 22px;}
+  .ka-printmatter .ka-pm-kicker{border-top:2px solid var(--ka-gold);padding-top:12px;
+    color:#137B8A!important;letter-spacing:.18em;font-size:10px;font-weight:700;
+    text-transform:uppercase;margin:0 0 10px;}
+  .ka-printmatter .ka-pm-title{font-family:var(--display);color:var(--ka-navy);font-weight:700;
+    font-size:27px;line-height:1.2;margin:0 0 10px;}
+  .ka-printmatter .ka-pm-dek{border-bottom:2px solid var(--ka-gold);padding-bottom:16px;
+    color:var(--ka-muted);font-style:italic;font-size:13px;margin:0;}
+  .ka-printmatter .ka-pm-foot{color:var(--ka-muted);font-size:11px;margin-top:22px;}
+  .ka-printmatter .ka-pm-legal{break-after:page;}
+  .ka-printmatter .ka-pm-legal h2{font-family:var(--display);color:var(--ka-navy);font-size:17px;
+    text-transform:uppercase;letter-spacing:.04em;
+    border-bottom:1px solid var(--ka-gold);padding-bottom:5px;margin:0 0 12px;}
+  .ka-printmatter .ka-pm-legal h3{font-family:var(--display);color:var(--ka-navy);font-size:12.5px;
+    margin:14px 0 4px;}
+  .ka-printmatter .ka-pm-legal p{font-size:11.5px;line-height:1.5;margin:0 0 8px;color:var(--ka-ink);}
+  .ka-printmatter .ka-pm-stamp{text-align:center;border-top:1px solid var(--ka-gold);
+    margin-top:26px;padding-top:12px;}
+  .ka-printmatter .ka-pm-stamp strong{font-family:var(--display);color:var(--ka-navy);
+    font-size:12px;letter-spacing:.06em;}
+}
+
 @media print{.ka-contents{break-inside:avoid;}}
 
 @media (max-width:760px){

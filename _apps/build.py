@@ -234,6 +234,8 @@ share_chrome('newsletter/index.html')   # /substack/ now just forwards here
 # means a new article picks all of this up on the next build instead of needing
 # it added by hand.
 import unicodedata
+from datetime import date
+YEAR = date.today().year
 
 def _slug(text, used):
     t = unicodedata.normalize('NFKD', html.unescape(re.sub(r'<[^>]+>', '', text)))
@@ -287,6 +289,65 @@ if os.path.isdir(ka_root):
                    + '      </ol>\n    </nav>\n    ')
             body = body.replace('<div class="ka-body">', '<div class="ka-body">\n    ' + nav, 1)
         s = s[:i] + body + s[j:]
+
+        # Print front matter: a title page and the legal and copyright page,
+        # hidden on screen and shown when the article is printed, so "print this
+        # guide" produces the same thing as the downloadable PDF.
+        def _grab(pat):
+            m = re.search(pat, s, re.S)
+            return m.group(1).strip() if m else ''
+        art_title = _grab(r'<h1 id="ka-title">(.*?)</h1>')
+        art_dek = _grab(r'<p class="ka-dek">(.*?)</p>')
+        art_kick = re.sub(r'<[^>]+>', ' ', _grab(r'<p class="ka-kicker">(.*?)</p>'))
+        art_kick = re.sub(r'\s+', ' ', art_kick).strip()
+        s = re.sub(r'\n?\s*<div class="ka-printmatter".*?</div><!--/ka-printmatter-->\s*',
+                   '\n', s, flags=re.S)
+        if art_title:
+            pm = (
+'<div class="ka-printmatter" aria-hidden="true">\n'
+'      <section class="ka-pm-cover">\n'
+'        <p class="ka-pm-brand">ACROSS THE TABLE</p>\n'
+'        <p class="ka-pm-sub">BUSINESS CONSULTING</p>\n'
+'        <p class="ka-pm-kicker">%s</p>\n'
+'        <h2 class="ka-pm-title">%s</h2>\n'
+'        <p class="ka-pm-dek">%s</p>\n'
+'        <p class="ka-pm-foot">AI Stack Series &middot; acrossthetable.biz</p>\n'
+'      </section>\n'
+'      <section class="ka-pm-legal">\n'
+'        <h2>Legal Notice and Copyright</h2>\n'
+'        <p><strong>Copyright &copy; %d Across the Table Business Consulting. '
+'All Rights Reserved.</strong></p>\n'
+'        <p>Across the Table Business Consulting is a trade name of Bold and '
+'Beautiful Beauties, Phoenix, Arizona.</p>\n'
+'        <h3>Trademarks</h3>\n'
+'        <p>The CEO Shift&trade;, JuntosHR&trade;, the Across the Table brand name, '
+'and the methodologies described in this document are trademarks of Across the '
+'Table Business Consulting and may not be used without written permission. All '
+'other product and company names are the trademarks of their respective owners '
+'and are referred to here for identification only. No endorsement, affiliation '
+'or sponsorship is implied.</p>\n'
+'        <h3>Permitted use</h3>\n'
+'        <p>This article is provided to the reader for their own business '
+'education and for use inside their own company.</p>\n'
+'        <h3>Prohibited use</h3>\n'
+'        <p>No part of this document may be copied, resold, taught as the work '
+'of another, uploaded publicly, stripped of attribution, or used to build a '
+'derivative product. Coaching or group use requires a written licence obtained '
+'from info@acrossthetable.biz.</p>\n'
+'        <h3>Disclaimer</h3>\n'
+'        <p>This article is provided for educational purposes only. It is not '
+'legal, tax, accounting or financial advice, and no specific business outcome '
+'is guaranteed or implied. Prices, features and plan names for any software '
+'mentioned change without notice; confirm current pricing with the provider '
+'before committing. Always consult a qualified professional before making a '
+'financial decision for your business.</p>\n'
+'        <p class="ka-pm-stamp"><strong>ACROSS THE TABLE BUSINESS CONSULTING</strong><br>\n'
+'          101 N First Ave, Suite 2325-1495, Phoenix, AZ 85003<br>\n'
+'          info@acrossthetable.biz &middot; 480-582-4716 &middot; acrossthetable.biz</p>\n'
+'      </section>\n'
+'    </div><!--/ka-printmatter-->\n    ') % (art_kick, art_title, art_dek, YEAR)
+            s = re.sub(r'(<article class="ka-article"[^>]*>\s*)', r'\1' + pm.replace('\\', '\\\\'),
+                       s, count=1)
 
         # PDF is the only download offered. Word files are built for editing but
         # are deliberately not linked from the site.
