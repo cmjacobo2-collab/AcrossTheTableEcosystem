@@ -284,6 +284,32 @@ if os.path.isdir(ka_root):
 
         body = re.sub(r'<h2([^>]*)>(.*?)</h2>', _mark, body, flags=re.S)
         body = re.sub(r'\n?\s*<nav class="ka-contents".*?</nav>\s*', '', body, flags=re.S)
+        body = re.sub(r'\n?\s*<aside class="ka-first".*?</aside>\s*', '', body, flags=re.S)
+
+        # Every AI article points back to the framework guide first, so nobody
+        # starts wiring up an AI tool without having read how to scope, control
+        # and measure one. The framework guide itself is skipped.
+        FRAMEWORK = 'ai-workflow-agent-design-framework'
+        is_ai = 'AI &amp; Technology' in s or 'AI & Technology' in s
+        if is_ai and slug != FRAMEWORK:
+            first = (
+'<aside class="ka-first">\n'
+'      <svg class="ka-first-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+'<path d="M12 2 3 7v6c0 5 3.8 8.4 9 9 5.2-.6 9-4 9-9V7l-9-5Z"/>'
+'<path d="M12 8v5M12 16h.01"/></svg>\n'
+'      <div>\n'
+'        <p><strong>Read this before you put any of it to work.</strong> Picking the tool is '
+'the easy part. What goes wrong is everything around it: what the tool is allowed to touch, '
+'who checks what it produces, and whether it actually made the business any money.</p>\n'
+'        <p><a href="/knowledge-articles/' + FRAMEWORK + '/">The Complete AI Workflow &amp; '
+'Agent Design Framework</a> walks through it in thirty steps, from mapping the process to '
+'measuring the return. Start there and this guide will make more sense.</p>\n'
+'      </div>\n'
+'    </aside>\n    ')
+        else:
+            first = ''
+
         if entries:
             nav = ('<nav class="ka-contents" aria-label="Contents">\n'
                    '      <p class="ka-contents-h">Contents</p>\n      <ol>\n'
@@ -291,6 +317,10 @@ if os.path.isdir(ka_root):
                              for sid, t in entries)
                    + '      </ol>\n    </nav>\n    ')
             body = body.replace('<div class="ka-body">', '<div class="ka-body">\n    ' + nav, 1)
+        # the warning goes in last so it ends up above the Contents, where it is
+        # read before anyone starts rather than after a long list of headings
+        if first:
+            body = body.replace('<div class="ka-body">', '<div class="ka-body">\n    ' + first, 1)
         s = s[:i] + body + s[j:]
 
         # Print front matter: a title page and the legal and copyright page,

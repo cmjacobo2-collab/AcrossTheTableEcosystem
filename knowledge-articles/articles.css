@@ -123,6 +123,21 @@
   color:var(--ka-navy)!important;}
 .ka-cta-btn-gold:hover{background:#ECB45A;}
 .ka-cta a:focus-visible{outline-color:#fff;}
+
+/* "Read the framework first" note on the AI articles. */
+.ka-first{display:flex;gap:14px;align-items:flex-start;
+  background:#FDF6E8;border:1px solid #EBD3A2;border-left:4px solid var(--ka-gold);
+  border-radius:10px;padding:16px 18px;margin:0 0 30px;}
+.ka-first-ico{flex:0 0 auto;width:24px;height:24px;color:#8A5E10;margin-top:1px;}
+.ka-first p{margin:0 0 7px;font-size:15.5px;line-height:1.55;color:#4A3A17;}
+.ka-first p:last-child{margin-bottom:0;}
+.ka-first strong{color:#6B4E12;}
+.ka-first a{color:#0B4E7D;font-weight:700;}
+@media print{
+  .ka-first{background:#fff!important;border:1px solid #8A5E10;break-inside:avoid;}
+  .ka-first p{color:#1C2633!important;}
+}
+
 @media print{
   .ka-cta-acts{display:none!important;}
   .ka-cta{background:#fff!important;border:2px solid #083A66;break-inside:avoid;}
