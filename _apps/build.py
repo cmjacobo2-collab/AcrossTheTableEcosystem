@@ -359,6 +359,26 @@ if os.path.isdir(ka_root):
                        'Download Knowledge Brief (PDF)</a> <span>.pdf &middot; %d KB</span></p>'
                        % (slug, pdf_kb),
                        s, count=1, flags=re.S)
+
+        # "Print this guide". The framework guide already has its own version of
+        # this control, so it is left alone rather than given a second one.
+        s = re.sub(r'\n?\s*<p class="ka-tools">.*?</p>', '', s, flags=re.S)
+        if 'data-kaf-print' not in s:
+            btn = ('\n      <p class="ka-tools"><button type="button" class="ka-print" data-ka-print>'
+                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+                   'stroke-linecap="round" stroke-linejoin="round" width="16" height="16" '
+                   'aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 '
+                   '2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg> '
+                   'Print this guide</button> '
+                   '<span>Prints with the title page and copyright notice</span></p>')
+            s = re.sub(r'(<p class="ka-download">.*?</p>)', lambda m: m.group(1) + btn,
+                       s, count=1, flags=re.S)
+            if 'data-ka-print' in s and 'ka-print-init' not in s:
+                s = s.replace('</body>',
+                    '<script data-ka-print-init>\n'
+                    '(function(){var b=document.querySelector("[data-ka-print]");\n'
+                    'if(b)b.addEventListener("click",function(){window.print();});})();\n'
+                    '</script>\n</body>', 1)
         if write(page_rel, s):
             ka_done += 1
 if ka_done:
