@@ -15,6 +15,13 @@ publication's own address, and writes:
 Titles, dates and pictures are copied from Substack exactly. Nothing is made up.
 If Substack can't be reached, or the feed comes back empty, nothing is changed.
 
+The one exception is the cover picture. Substack sometimes hands back the
+publication's square logo instead of the issue's own cover. To fix one, save
+the real cover in assets/newsletter/covers/ named after the end of the issue's
+address — the-scaling-edge-issue-11.jpg for .../p/the-scaling-edge-issue-11 —
+and it is used from then on, every run, instead of Substack's picture. That is
+all: no code to change, and the next run cannot undo it.
+
 GitHub runs this by itself every few hours (.github/workflows/update-newsletter-issues.yml).
 This folder starts with an underscore, so GitHub Pages does not publish it.
 """
@@ -31,6 +38,37 @@ PHOENIX = datetime.timezone(datetime.timedelta(hours=-7))   # Arizona: no daylig
 # posts that should never be listed on the page, even though they are on Substack
 HIDE = {PUB + '/p/stop-buying-ai-tools'}
 IMG_OK = ('https://substackcdn.com/', 'https://substack-post-media.s3.amazonaws.com/')
+
+# Substack sometimes hands out the publication's square logo instead of the
+# issue's own cover. Drop the real cover into assets/newsletter/covers/ named
+# after the end of the issue's address — the-scaling-edge-issue-11.jpg for
+# .../p/the-scaling-edge-issue-11 — and it is used in place of Substack's
+# picture from then on. No code change is needed to add another one.
+COVERS_DIR = os.path.join(ROOT, 'assets', 'newsletter', 'covers')
+COVER_EXT = ('.jpg', '.jpeg', '.png', '.webp')
+
+
+def local_covers():
+    """{slug: /assets/newsletter/covers/<file>} for the covers saved by hand."""
+    out = {}
+    if not os.path.isdir(COVERS_DIR):
+        return out
+    for name in sorted(os.listdir(COVERS_DIR)):
+        stem, ext = os.path.splitext(name)
+        if ext.lower() in COVER_EXT:
+            out[stem] = '/assets/newsletter/covers/' + name
+    return out
+
+
+def apply_local_covers(issues):
+    """A cover saved by hand always wins over the picture Substack gives."""
+    mine = local_covers()
+    for i in issues:
+        slug = i['url'].rstrip('/').rsplit('/', 1)[-1]
+        if slug in mine and i.get('image') != mine[slug]:
+            i['image'] = mine[slug]
+            say('update-issues: using the saved cover for %s' % slug)
+    return issues
 
 
 def clean(s):
@@ -189,7 +227,7 @@ def merge_inbox(issues):
 
 def main():
     if '--render' in sys.argv:
-        issues = json.load(open(JSON_PATH, encoding='utf-8'))['issues']
+        issues = apply_local_covers(json.load(open(JSON_PATH, encoding='utf-8'))['issues'])
     else:
         old = json.load(open(JSON_PATH, encoding='utf-8')).get('issues') if os.path.exists(JSON_PATH) else None
         try:
@@ -210,7 +248,7 @@ def main():
             for k in ('headline', 'label'):
                 if hand.get(i['url'], {}).get(k):
                     i[k] = hand[i['url']][k]
-        issues = [i for i in issues if i['url'] not in HIDE]
+        issues = apply_local_covers([i for i in issues if i['url'] not in HIDE])
         if issues != old:
             os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
             json.dump({'source': FEED, 'issues': issues}, open(JSON_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
