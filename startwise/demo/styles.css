@@ -1,0 +1,9 @@
+/* Across the Table Small Business Consulting — Design System
+   Root entry point. Consumers link this one file.
+   Contains @import lines only. */
+@import url('fonts.css');
+@import url('colors.css');
+@import url('typography.css');
+@import url('spacing.css');
+@import url('elevation.css');
+@import url('base.css');

@@ -1,0 +1,5 @@
+/* Across the Table — Webfonts
+   NOTE: Brand has no proprietary typeface. These are Google Fonts chosen to
+   express a trustworthy, modern, neutral sans voice. Swap for licensed brand
+   fonts if/when they exist. Loaded via Google Fonts CDN. */
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
